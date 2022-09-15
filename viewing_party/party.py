@@ -11,6 +11,12 @@ def create_movie(title, genre, rating):
         return None
 
 def add_to_watched(user_data, movie):
+    user_data = {
+        "watched": [movie]
+        }
+    return user_data
+
+def add_to_watchlist(user_data, movie):
     pass
 
 # -----------------------------------------
