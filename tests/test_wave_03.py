@@ -2,6 +2,7 @@ import pytest
 from viewing_party.party import *
 from tests.test_constants import *
 
+
 def test_my_unique_movies():
     # Arrange
     amandas_data = clean_wave_3_data()
@@ -15,6 +16,7 @@ def test_my_unique_movies():
     assert INTRIGUE_2 in amandas_unique_movies
     assert amandas_data == clean_wave_3_data()
 
+
 def test_my_not_unique_movies():
     # Arrange
     amandas_data = clean_wave_3_data()
@@ -25,6 +27,7 @@ def test_my_not_unique_movies():
 
     # Assert
     assert len(amandas_unique_movies) == 0
+
 
 def test_friends_unique_movies():
     # Arrange
@@ -39,6 +42,7 @@ def test_friends_unique_movies():
     assert HORROR_1 in friends_unique_movies
     assert FANTASY_4 in friends_unique_movies
     assert amandas_data == clean_wave_3_data()
+
 
 def test_friends_unique_movies_not_duplicated():
     # Arrange
@@ -55,14 +59,11 @@ def test_friends_unique_movies_not_duplicated():
     assert friends_unique_movies[0]["title"] != friends_unique_movies[2]["title"]
     assert friends_unique_movies[1]["title"] != friends_unique_movies[2]["title"]
 
+
 def test_friends_not_unique_movies():
     # Arrange
     amandas_data = {
-        "watched": [
-            HORROR_1,
-            FANTASY_1,
-            INTRIGUE_1
-        ],
+        "watched": [HORROR_1, FANTASY_1, INTRIGUE_1],
         "friends": [
             {
                 "watched": [
@@ -70,10 +71,8 @@ def test_friends_not_unique_movies():
                     FANTASY_1,
                 ]
             },
-            {
-                "watched": []
-            }
-        ]
+            {"watched": []},
+        ],
     }
 
     # Act
