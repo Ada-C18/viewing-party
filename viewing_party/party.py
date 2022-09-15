@@ -15,11 +15,16 @@ def valid_genre(genre):
         return False 
 
 def valid_rating(rating):
-    # is there a range? 
-    if isinstance(rating, float):
-        return True
-    else:
+    # since I'm calculating the average later, also check to make sure that 
+    # 0 <= rating <= 5 (assumed)
+    # for example, if someone enters a tomatometer rating (1-100), return 
+    # None 
+    if not isinstance(rating, float):
+        return False
+    elif rating < 0.0 or rating > 5.0:
         return False 
+    else:
+        return True
 
 
 

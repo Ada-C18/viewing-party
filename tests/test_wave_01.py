@@ -59,6 +59,20 @@ def test_create_no_rating_movie():
     # Assert
     assert new_movie is None
 
+def test_create_no_out_of_range_rating_movie():
+    # since I'm calculating the average later, also check to make sure that 
+    # 0 <= rating <= 5 (assumed)
+    # for example, if someone enters a tomatometer rating 
+    movie_title = "Title A"
+    genre = "Horror"
+    rating = 5.01
+
+    new_movie = create_movie(movie_title, genre, rating)
+
+    assert new_movie is None
+
+
+
 @pytest.mark.skip()
 def test_adds_movie_to_user_watched():
     # Arrange
