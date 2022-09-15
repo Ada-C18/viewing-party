@@ -2,7 +2,7 @@
 # 1
 def create_movie(title, genre, rating):
     """ 
-    input: a str title, str genre, and str rating
+    input: a str title, str genre, and float rating
     output: a dict of the given arguments if the inputs are valid OR None if the input is invalid
     """
     if title and genre and rating:
@@ -19,17 +19,16 @@ def create_movie(title, genre, rating):
 def add_to_watched(user_data, movie):
     """
     user_data: a dictionary with a key "watched" and a value list of dictionaries representing the movies the user watched
-    an empty list represents that the user has no movies in their watched list
-    movie: a dictionary in this format:
+    movie: a dictionary in this format -
         {
             title": "Title A",
             "genre": "Horror",
             "rating": 3.5
         }
-    the function will add movie to the watched list inside of user_data
-    then return user_data
     """
-    pass
+    access_watched = user_data["watched"]
+    access_watched.append(movie)
+    return
 
 # part 3
 def add_to_watchlist(user_data, movie):
