@@ -1,7 +1,7 @@
 # ------------- WAVE 1 --------------------
 
 def create_movie(title, genre, rating):
-    pass
+    #added test comment
 
 # -----------------------------------------
 # ------------- WAVE 2 --------------------
