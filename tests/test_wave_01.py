@@ -4,7 +4,7 @@ import pytest
 from viewing_party.party import *
 from tests.test_constants import *
 
-@pytest.mark.skip()
+@pytest.mark.skip() # <- comment this line out when ready to run tests
 def test_create_successful_movie():
     # Arrange
     movie_title = MOVIE_TITLE_1
