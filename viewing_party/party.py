@@ -2,6 +2,8 @@
 
 def create_movie(title, genre, rating):
     movies = {}
+    if None in [title, genre, rating]: 
+        return None
     movies["title"] = title
     movies["genre"] = genre
     movies["rating"] = rating
