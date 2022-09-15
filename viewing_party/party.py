@@ -4,6 +4,8 @@ def create_movie(title, genre, rating):
     pass
 # this is my minimal change code aaaa
 
+def watch_movie(janes_dict, title)
+
 # -----------------------------------------
 # ------------- WAVE 2 --------------------
 # -----------------------------------------
