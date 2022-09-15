@@ -1,4 +1,4 @@
-# Viewing Party
+# Viewing Party - Dainiz A. (Snow Leopards)
 
 ## Skills Assessed
 
