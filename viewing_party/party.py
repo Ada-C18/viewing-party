@@ -1,7 +1,12 @@
 # ------------- WAVE 1 --------------------
 
 def create_movie(title, genre, rating):
-    pass
+    #make a dict with these keys title genre rating
+    # values == input title genre rating
+    movie_dict = {}
+    for key in movie_dict:
+        movie_dict["title"]= "title"
+        print(movie_dict)
 
 # -----------------------------------------
 # ------------- WAVE 2 --------------------
