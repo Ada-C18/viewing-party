@@ -97,3 +97,19 @@ def get_available_recs(user_data):
 # -----------------------------------------
 # ------------- WAVE 5 --------------------
 # -----------------------------------------
+
+
+def get_new_rec_by_genre(user_data):
+    return [
+        movie
+        for movie in get_friends_unique_watched(user_data)
+        if movie["genre"] is get_most_watched_genre(user_data)
+    ]
+
+
+def get_rec_from_favorites(user_data):
+    return [
+        movie
+        for movie in get_unique_watched(user_data)
+        if movie["title"] in [movie["title"] for movie in user_data["favorites"]]
+    ]
