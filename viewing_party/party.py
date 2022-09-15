@@ -1,8 +1,19 @@
 # ------------- WAVE 1 --------------------
 
 def create_movie(title, genre, rating):
-    pass
+    movies_dict ={}
+    if not title or not genre or not rating:
+        return None
+    else:
+        movies_dict["title"] = title
+        movies_dict["genre"] = genre
+        movies_dict["rating"] = rating
+        
+        return movies_dict
+                
 
+# def add_to_watched():
+    
 # -----------------------------------------
 # ------------- WAVE 2 --------------------
 # -----------------------------------------
