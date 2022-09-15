@@ -1,4 +1,5 @@
 # ------------- WAVE 1 --------------------
+# I want to finish wave 1 by tomorrow
 
 def create_movie(title, genre, rating):
     pass
