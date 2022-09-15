@@ -1,3 +1,4 @@
+# If we want to see the data
 # import source code
 from viewing_party.party import *
 
