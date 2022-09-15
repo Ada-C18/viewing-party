@@ -1,8 +1,9 @@
 # ------------- WAVE 1 --------------------
 
 def create_movie(title, genre, rating):
-    pass
-
+    # make a dictionary with these keys (parameters of the function)
+    # {"title" : "title" , "genre" : "genre", "rating" : "rating"}
+    movies = {}
 # -----------------------------------------
 # ------------- WAVE 2 --------------------
 # -----------------------------------------
