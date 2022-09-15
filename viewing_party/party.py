@@ -2,8 +2,16 @@
 # test comment
 
 def create_movie(title, genre, rating):
-    title = "gone_with_the_wind"
-    return title
+    
+    movie = {}
+    if not title or not genre or not rating:
+        return None
+    else:
+        movie["title"] = title
+        movie["genre"] = genre
+        movie["rating"] = rating
+
+        return movie
 
 # -----------------------------------------
 # ------------- WAVE 2 --------------------
