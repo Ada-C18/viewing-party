@@ -1,7 +1,11 @@
 # ------------- WAVE 1 --------------------
 
 def create_movie(title, genre, rating):
-    pass
+    if title == True and genre == True and rating == True:
+        movie_dict = {"title" : title, "genre": genre, "rating": rating}
+        return movie_dict
+    else:
+        return None
 
 # -----------------------------------------
 # ------------- WAVE 2 --------------------
