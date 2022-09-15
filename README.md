@@ -1,4 +1,4 @@
-# Viewing Party
+# Viewing Party - Let's Get it Started in Here!
 
 ## Skills Assessed
 
