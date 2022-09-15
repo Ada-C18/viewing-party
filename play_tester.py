@@ -1,4 +1,5 @@
 # import source code
+from ssl import cert_time_to_seconds
 from viewing_party.party import *
 
 # import test data
@@ -13,6 +14,9 @@ print("\n-----Wave 01 test data-----")
 pp.pprint(HORROR_1)
 pp.pprint(FANTASY_1)
 pp.pprint(FANTASY_2)
+
+print(create_movie("title", "genre", "rating"))
+
 
 # print("\n-----Wave 02 user_data-----")
 # pp.pprint(clean_wave_2_data())
