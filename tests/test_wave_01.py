@@ -74,7 +74,6 @@ def test_adds_movie_to_user_watched():
     assert updated_data["watched"][0]["genre"] == GENRE_1
     assert updated_data["watched"][0]["rating"] == RATING_1
 
-@pytest.mark.skip()
 def test_adds_movie_to_user_watchlist():
     # Arrange
     movie = {
