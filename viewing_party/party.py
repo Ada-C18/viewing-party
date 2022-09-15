@@ -1,12 +1,20 @@
 # ------------- WAVE 1 --------------------
 
 def create_movie(title, genre, rating):
+
+    # make a dictionary with keys: 'title': title, 'genre': genre, 'rating': rating)
+    
     pass
 
 # -----------------------------------------
 # ------------- WAVE 2 --------------------
 # -----------------------------------------
 
+def get_watched_avg_rating(user_data):
+    pass
+
+def get_most_watched_genre(user_data):
+    pass
 
 # -----------------------------------------
 # ------------- WAVE 3 --------------------
