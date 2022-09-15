@@ -19,7 +19,6 @@ def add_to_watchlist(user_data,movie):
 def watch_movie(user_data,title):
     if title not in user_data["watchlist"].values():
         return user_data
-        pass
     else:
         user_data["watched"] = user_data["watchlist"].pop(title)
 
