@@ -1,7 +1,7 @@
 # ------------- WAVE 1 --------------------
-
+# this is my first commit 
 def create_movie(title, genre, rating):
-    pass
+    
 
 # -----------------------------------------
 # ------------- WAVE 2 --------------------
