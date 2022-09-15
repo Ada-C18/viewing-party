@@ -1,7 +1,9 @@
 # ------------- WAVE 1 --------------------
 # test comment
+
 def create_movie(title, genre, rating):
-    pass
+    title = "gone_with_the_wind"
+    return title
 
 # -----------------------------------------
 # ------------- WAVE 2 --------------------
