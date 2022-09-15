@@ -1,6 +1,13 @@
 # ------------- WAVE 1 --------------------
 
 def create_movie(title, genre, rating):
+
+#     if title and genre and rating is True:
+#         return {'title':'Harry Potter','genre':'fantasy','rating':'8'}
+#     else:
+#         return None 
+
+
     pass
 
 # -----------------------------------------
