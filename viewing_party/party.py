@@ -28,23 +28,22 @@ def add_to_watched(user_data, movie):
     """
     access_watched = user_data["watched"]
     access_watched.append(movie)
-    return
+    return user_data
 
 # part 3
 def add_to_watchlist(user_data, movie):
     """
     user_data: a dict with the key "watchlist" and value list of dictionaries representing the movies the user wants to watch
-    an empty list represents the user has no movies in their watchlist
     movie: a dicitonary in this format:
         {
             title": "Title A",
             "genre": "Horror",
             "rating": 3.5
         }
-    this function will add movie to the "watchlist" list inside of user_data
-    return user_data
     """
-    pass
+    access_watchlist = user_data["watchlist"]
+    access_watchlist.append(movie)
+    return user_data
 
 #part 4
 def watch_movie(user_data, title):
