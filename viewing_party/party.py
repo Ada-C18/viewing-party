@@ -1,7 +1,13 @@
 # ------------- WAVE 1 --------------------
 
 def create_movie(title, genre, rating):
-    pass
+    movie_dictionary = {}
+    if title and genre and rating is True:
+        movie_dictionary["title"] = "The Best Movie"
+        movie_dictionary["genre"] = "Comedy"
+        movie_dictionary["rating"] = "10"
+    else:
+        return None
 
 # -----------------------------------------
 # ------------- WAVE 2 --------------------
