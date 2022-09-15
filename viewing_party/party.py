@@ -1,5 +1,5 @@
 # ------------- WAVE 1 --------------------
-# testing change
+# changing my test - my name is Lynn
 
 def create_movie(title, genre, rating):
     pass
