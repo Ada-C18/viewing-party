@@ -1,8 +1,18 @@
 # ------------- WAVE 1 --------------------
-# changing my test - my name is Lynn
 
 def create_movie(title, genre, rating):
-    pass
+    new_movie = {}
+    
+    if title and genre and rating:
+        new_movie["title"] = title
+        new_movie["genre"] = genre
+        new_movie["rating"] = rating
+    else:
+        return None
+
+    return new_movie
+
+
 
 # -----------------------------------------
 # ------------- WAVE 2 --------------------
