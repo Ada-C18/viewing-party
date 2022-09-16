@@ -54,6 +54,9 @@ def get_watched_avg_rating(user_data):
     return average_rating
 
 def get_most_watched_genre(user_data):
+    # return none for an empty watched list
+    if not user_data["watched"]:
+        return None
     # set empty dict
     genre_counts = {
         "Horror" : 0,
