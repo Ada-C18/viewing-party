@@ -3,7 +3,7 @@
 
 def create_movie(title, genre, rating):
     # return None for incorrect inputs
-    if title == None or genre == None or rating == None:
+    if not title or not genre or not rating:
         return None
     # create a dictionary with the given input
     new_movie = {
@@ -40,7 +40,7 @@ def watch_movie(user_data, movie_title):
 def get_watched_avg_rating(user_data):
     # return 0 for an empty list
     if len(user_data["watched"]) == 0:
-        return 0
+        return 0.0
     # set variables
     movie_count = 0
     sum_ratings = 0
