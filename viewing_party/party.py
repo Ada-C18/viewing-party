@@ -50,14 +50,17 @@ def watch_movie(user_data, title):
     """
     user_data: a dict with keys "watchlist" and "watched"
     title: a str representing the title of the movie the user has watched
-    if title in user_data["watchlist"]:
-        remove movie from "watchlist"
-        add movie to "watched"
-        return user_data
-    elif title not in user_data["watchlist"]:
-        return user_data
     """
-    pass
+    for movie in user_data["watchlist"]:
+        if title == movie["title"]:
+            # remove movie from "watchlist"
+            movie_watched = user_data["watchlist"].pop(movie)
+            # add movie to "watched"
+            user_data["watched"].append(movie_watched)
+            return user_data
+    else:
+        return user_data
+
 # -----------------------------------------
 # ------------- WAVE 2 --------------------
 # -----------------------------------------
