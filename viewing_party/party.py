@@ -17,6 +17,13 @@ def add_to_watched(user_data, movie):
     user_data['watched'].append(movie)
     return user_data
 
+def add_to_watchlist(user_data, movie):
+    #this function will add a movie (which is a dict, remember) into the list stored as a value to the key 'watchlist' in the user_data dict.
+    #user_data is a dictionary with 'watchlist' as one of the keys.
+    user_data['watchlist'].append(movie)
+    return user_data
+
+
 # -----------------------------------------
 # ------------- WAVE 2 --------------------
 # -----------------------------------------
