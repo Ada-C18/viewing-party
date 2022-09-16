@@ -26,15 +26,27 @@ def watch_movie(user_data, movie):
                     user_data["watched"].append(watched_movie)
     return user_data
 
-
-
-
-
-
-
 # -----------------------------------------
 # ------------- WAVE 2 --------------------
 # -----------------------------------------
+def get_watched_avg_rating(user_watched):
+    #putting ratings in a list
+    ratings = []
+    if len(user_watched["watched"]) > 0:
+        for movies in user_watched["watched"]:
+            for label,info in movies.items():
+                if label == "rating":
+                    ratings.append(info)
+    else:
+        return 0
+    #calculating average rating
+    total = 0
+    for rating in ratings:
+        total += rating
+    average_rating = total / len(ratings)
+
+    return average_rating
+
 
 
 # -----------------------------------------
