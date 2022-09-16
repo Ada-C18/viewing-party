@@ -47,17 +47,17 @@ def test_create_no_genre_movie():
     assert new_movie is None
 
 # @pytest.mark.skip()
-# def test_create_no_rating_movie():
-#     # Arrange
-#     movie_title = "Title A"
-#     genre = "Horror"
-#     rating = None
+def test_create_no_rating_movie():
+    # Arrange
+    movie_title = "Title A"
+    genre = "Horror"
+    rating = None
 
-#     # Act
-#     new_movie = create_movie(movie_title, genre, rating)
+    # Act
+    new_movie = create_movie(movie_title, genre, rating)
 
-#     # Assert
-#     assert new_movie is None
+    # Assert
+    assert new_movie is None
 
 # @pytest.mark.skip()
 # def test_adds_movie_to_user_watched():
