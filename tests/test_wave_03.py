@@ -2,6 +2,7 @@ import pytest
 from viewing_party.party import *
 from tests.test_constants import *
 
+# test 1
 #@pytest.mark.skip()
 def test_my_unique_movies():
     # Arrange
@@ -16,7 +17,8 @@ def test_my_unique_movies():
     assert INTRIGUE_2 in amandas_unique_movies
     assert amandas_data == clean_wave_3_data()
 
-@pytest.mark.skip()
+# test 2
+#@pytest.mark.skip()
 def test_my_not_unique_movies():
     # Arrange
     amandas_data = clean_wave_3_data()
@@ -28,7 +30,8 @@ def test_my_not_unique_movies():
     # Assert
     assert len(amandas_unique_movies) == 0
 
-@pytest.mark.skip()
+# test 3
+#@pytest.mark.skip()
 def test_friends_unique_movies():
     # Arrange
     amandas_data = clean_wave_3_data()
@@ -43,6 +46,7 @@ def test_friends_unique_movies():
     assert FANTASY_4 in friends_unique_movies
     assert amandas_data == clean_wave_3_data()
 
+# test 4
 @pytest.mark.skip()
 def test_friends_unique_movies_not_duplicated():
     # Arrange
@@ -60,6 +64,7 @@ def test_friends_unique_movies_not_duplicated():
     # ****** Add assertions here to test that the correct movies are in friends_unique_movies **********
     # **************************************************************************************************
 
+# test 5
 @pytest.mark.skip()
 def test_friends_not_unique_movies():
     # Arrange
