@@ -52,19 +52,33 @@ def get_most_watched_genre(user_data):
 # ------------- WAVE 3 --------------------
 # -----------------------------------------
 def get_unique_watched(user_data):
-    user_watched={entry["title"] for entry in user_data["watched"]}
-    friends_watched=[]
-    for entry in user_data["friends"][0]:
-        friends_watched.append(entry["title"])
-    print(friends_watched)
-    #friends_watched={entry["title"] for entry in user_data["friends"]}
-    """titles = user_watched.difference(friends_watched)
-    print(user_watched, friends_watched, titles)
-    return_list_of_dicts=[]
+    title_dict={}
     for entry in user_data["watched"]:
-        if entry["title"] in titles:
-            return_list_of_dicts.append(entry)
-    return return_list_of_dicts"""
+        title_dict[entry["title"]]=entry
+    user_watched=set(key for key in title_dict.keys())
+    friends_title_dict={}
+    for count in user_data["friends"]:
+        for entry in count["watched"]:
+            friends_title_dict[entry["title"]]=entry
+    friends_watched=set(key for key in friends_title_dict.keys())
+    title_list=list(user_watched.difference(friends_watched))
+    movie_list=[title_dict[title] for title in title_list]
+    return movie_list
+    #friends_watched={entry["title"] for entry in user_data["friends"]}
+def get_friends_unique_watched(user_data):
+    title_dict={}
+    for entry in user_data["watched"]:
+        title_dict[entry["title"]]=entry
+    user_watched=set(key for key in title_dict.keys())
+    friends_title_dict={}
+    for count in user_data["friends"]:
+        for entry in count["watched"]:
+            friends_title_dict[entry["title"]]=entry
+    friends_watched=set(key for key in friends_title_dict.keys())
+    title_list=list(friends_watched.difference(user_watched))
+    movie_list=[friends_title_dict[title] for title in title_list]
+    return movie_list
+
 
         
 # -----------------------------------------
