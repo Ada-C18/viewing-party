@@ -48,6 +48,7 @@ def get_watched_avg_rating(user_watched):
     return average_rating
 
 def get_most_watched_genre(user_watched):
+    #creating a dictionary to link genre to frequency it appears in watched
     genre_popularity = {}
     if user_watched["watched"]:
         for movies in user_watched["watched"]:
@@ -57,9 +58,9 @@ def get_most_watched_genre(user_watched):
                             genre_popularity[info] = genre_popularity[info] + 1
                         else:
                             genre_popularity[info] = 1
+        #calculating the max of the values and returning the genre
         most_popular = max(genre_popularity, key=genre_popularity.get)
         return most_popular
-
 
 
 
