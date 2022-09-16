@@ -68,17 +68,37 @@ def get_most_watched_genre(user_watched):
 # ------------- WAVE 3 --------------------
 # -----------------------------------------
 def get_unique_watched(user_watched_data):
+    #comparing friends movies to user movies and creating a list of duplicates
     user_duplicate_movies = []
     for movies_watched in user_watched_data["watched"]:
         for friends_info in user_watched_data["friends"]:
             for friend,friend_movies in friends_info.items():
                 if movies_watched in friend_movies:
                     user_duplicate_movies.append(movies_watched)
+    #comparing user movies to duplicates and creating a list of unique movies
     user_unique_movies = []
     for movies_watched in user_watched_data["watched"]:
         if movies_watched not in user_duplicate_movies:
             user_unique_movies.append(movies_watched)
     return user_unique_movies
+
+def get_friends_unique_watched(user_watched_data):
+    #comparing friends movies to user movies and adding 
+    #unique entries to list
+    friend_unique_movies = []
+    for friends in user_watched_data["friends"]:
+        for friend, friends_movies in friends.items():
+            for movies in friends_movies:
+                if movies not in user_watched_data["watched"]:
+                    friend_unique_movies.append(movies)
+    friend_unique_movies_no_duplicates=[]
+    #removing the duplicate entry
+    for i in range(len(friend_unique_movies)): 
+        if friend_unique_movies[i] not in friend_unique_movies[i + 1:]: 
+            friend_unique_movies_no_duplicates.append(friend_unique_movies[i])
+    return friend_unique_movies_no_duplicates
+
+                    
 
         
 # -----------------------------------------
