@@ -110,6 +110,7 @@ def test_moves_movie_from_watchlist_to_empty_watched():
         "rating": RATING_1,
     }
 
+
 def test_moves_movie_from_watchlist_to_watched():
     # Arrange
     movie_to_watch = HORROR_1
