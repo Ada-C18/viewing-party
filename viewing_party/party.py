@@ -1,10 +1,10 @@
 # ------------- WAVE 1 --------------------
-
+from ast import AnnAssign
 from curses import use_default_colors
 from operator import ne
 import re
+import copy
 # from tkinter import N
-
 def create_movie(title, genre, rating):
     dic = {}
     dic["title"] = title
@@ -65,17 +65,23 @@ def get_most_watched_genre(janes_data):
 # -----------------------------------------
 # ------------- WAVE 3 --------------------
 # -----------------------------------------
-
-   
+def get_unique_watched(amandas_data):
+    total_movie_list = amandas_data["watched"]
+    result = copy.deepcopy(total_movie_list)
     
-
-   
+    for i in amandas_data["friends"]:
+        for movie in i["watched"]:
+            if movie in result:
+                result.remove(movie)
+    return result
     
-    
-    
-
     
         
+            
+       
+
+        
+    
 # -----------------------------------------
 # ------------- WAVE 4 --------------------
 # -----------------------------------------
