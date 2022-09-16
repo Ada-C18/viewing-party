@@ -54,10 +54,7 @@ def test_friends_unique_movies_not_duplicated():
 
     # Assert
     assert len(friends_unique_movies) == 3
-
-    assert friends_unique_movies[0]["title"] != friends_unique_movies[1]["title"]
-    assert friends_unique_movies[0]["title"] != friends_unique_movies[2]["title"]
-    assert friends_unique_movies[1]["title"] != friends_unique_movies[2]["title"]
+    assert len(set(movie["title"] for movie in friends_unique_movies)) == 3
 
 
 def test_friends_not_unique_movies():
