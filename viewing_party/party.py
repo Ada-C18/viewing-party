@@ -17,17 +17,16 @@ def add_to_watched(user_data, movie):
     return user_data
 
 def add_to_watchlist(user_data, movie):
-    to_watch_list = []
-    to_watch_list.append(movie)
-    user_data["watchlist"] = to_watch_list
+    watchlist = []
+    watchlist.append(movie)
+    user_data["watchlist"] = watchlist
     return user_data
 
 def watch_movie(user_data, title):
     for movie in user_data["watchlist"]:
         if title == movie["title"]:
-            watch = movie
-            user_data["watchlist"].remove(watch)
-            user_data["watched"].append(watch)
+            user_data["watchlist"].remove(movie)
+            user_data["watched"].append(movie)
     return user_data
 
 # -----------------------------------------
@@ -88,7 +87,6 @@ def get_friends_unique_watched(user_data):
             if movie not in user_data["watched"] and movie not in unique:
                 unique.append(movie)
     return unique
-
 
 
 # -----------------------------------------
