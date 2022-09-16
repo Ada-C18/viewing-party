@@ -23,6 +23,25 @@ def add_to_watchlist(user_data, movie):
     user_data['watchlist'].append(movie)
     return user_data
 
+def watch_movie(user_data, movie_title):
+    #This function takes in user_data (dict of watched and watched list 
+    #find the movie in watchlist that has the movie_title.
+    #iterate through the list, checking each dictionary. 
+    watched_movie = search(user_data["watchlist"], movie_title)
+    #once you find this movie, we're going to take it off of watchlist and append it to watched.
+    print(user_data['watchlist'])
+    print(watched_movie)
+    user_data['watchlist'].remove(watched_movie)
+    user_data['watched'].append(watched_movie)
+    return user_data
+
+def search(a_list, movie_title):
+    #this helper function helps us search through a list and return the dictionary entry for the movie with the title of movie_hour
+    for elem in a_list:
+        if elem["title"] == movie_title:
+            return elem
+        else: 
+            return None
 
 # -----------------------------------------
 # ------------- WAVE 2 --------------------
