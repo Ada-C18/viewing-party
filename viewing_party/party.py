@@ -59,6 +59,10 @@ def add_to_watched(user_data, movie):
 # - add the `movie` to the `"watchlist"` list inside of `user_data`
 # - return the `user_data`
 
+def add_to_watchlist(user_data, movie):
+    user_data["watchlist"].append(movie)
+    return user_data
+
 # 4. Create a function named `watch_movie`. This function should...
 
 # - take two parameters: `user_data`, `title`
