@@ -1,5 +1,4 @@
 # ------------- WAVE 1 --------------------
-# test comment
 
 def create_movie(title, genre, rating):   
     movie = {}
@@ -11,12 +10,13 @@ def create_movie(title, genre, rating):
         movie["rating"] = rating
         return movie
 
-# user_data {watch : [list of movie], each movie is a dict}
-
 def add_to_watched(user_data, movie):  
     user_data["watched"].append(movie)
     return user_data
-    
+
+def add_to_watchlist(user_data, movie):
+    user_data["watchlist"].append(movie)
+    return user_data
 # -----------------------------------------
 # ------------- WAVE 2 --------------------
 # -----------------------------------------
