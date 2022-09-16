@@ -1,12 +1,4 @@
 # ------------- WAVE 1 --------------------
-# 1. Create a function named  `create_movie`. This function and all subsequent functions should be in `party.py`. `create_movie` should...
-
-# - take three parameters: `title`, `genre`, `rating`
-# - If those three attributes are truthy, then return a dictionary. This dictionary should...
-#   - Have three key-value pairs, with specific keys
-#   - The three keys should be `"title"`, `"genre"`, and `"rating"`
-#   - The values of these key-value pairs should be appropriate values
-# - If `title` is falsy, `genre` is falsy, or `rating` is falsy, this function should return `None`
 
 def create_movie(title, genre, rating):
     '''Add new movie if title, genre and rating are truthy'''
@@ -22,44 +14,14 @@ def create_movie(title, genre, rating):
     return new_movie
 
 
-# 2. Create a function named `add_to_watched`. This function should...
-
-# - take two parameters: `user_data`, `movie`
-#   - the value of `user_data` will be a dictionary with a key `"watched"`, and a value which is a list of dictionaries representing the movies the user has watched
-#     - An empty list represents that the user has no movies in their watched list
-#   - the value of `movie` will be a dictionary in this format:
-#     - ```python
-#       {
-#         "title": "Title A",
-#         "genre": "Horror",
-#         "rating": 3.5
-#       }
-#       ```
-# - add the `movie` to the `"watched"` list inside of `user_data`
-# - return the `user_data`
-
 def add_to_watched(user_data, movie):
+    '''Add movie to watched movies list in user data dict'''
     user_data["watched"].append(movie)
     return user_data
 
 
-# 3. Create a function named `add_to_watchlist`. This function should...
-
-# - take two parameters: `user_data`, `movie`
-#   - the value of `user_data` will be a dictionary with a key `"watchlist"`, and a value which is a list of dictionaries representing the movies the user wants to watch
-#     - An empty list represents that the user has no movies in their watchlist
-#   - the value of `movie` will be a dictionary in this format:
-#     - ```python
-#       {
-#         "title": "Title A",
-#         "genre": "Horror",
-#         "rating": 3.5
-#       }
-#       ```
-# - add the `movie` to the `"watchlist"` list inside of `user_data`
-# - return the `user_data`
-
 def add_to_watchlist(user_data, movie):
+    '''Add movies to watchlist in user data dict'''
     user_data["watchlist"].append(movie)
     return user_data
 
@@ -76,6 +38,15 @@ def add_to_watchlist(user_data, movie):
 #   - return the `user_data`
 # - If the title is not a movie in the user's watchlist:
 #   - return the `user_data`
+
+def watch_movie(user_data, title):    
+    user_data["watched"] += user_data["watchlist"]
+
+    for i in range(len(user_data["watchlist"])):
+        if user_data["watchlist"][i]['title'] == title:
+            user_data["watchlist"].remove(user_data["watchlist"][i])
+
+    return user_data
 
 # Note: For Waves 2, 3, 4, and 5, your implementation of each of the functions should not modify `user_data`.
 
