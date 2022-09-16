@@ -16,7 +16,7 @@ def test_calculates_watched_average_rating():
     assert janes_data == clean_wave_2_data()
 
 # test 2
-@pytest.mark.skip()
+#@pytest.mark.skip()
 def test_empty_watched_average_rating_is_zero():
     # Arrange
     janes_data = {
