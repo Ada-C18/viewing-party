@@ -25,25 +25,12 @@ def add_to_watchlist(user_data, movie):
     user_data["watchlist"].append(movie)
     return user_data
 
-# 4. Create a function named `watch_movie`. This function should...
 
-# - take two parameters: `user_data`, `title`
-#   - the value of `user_data` will be a dictionary with a `"watchlist"` and a `"watched"`
-#     - This represents that the user has a watchlist and a list of watched movies
-#   - the value of `title` will be a string
-#     - This represents the title of the movie the user has watched
-# - If the title is in a movie in the user's watchlist:
-#   - remove that movie from the watchlist
-#   - add that movie to watched
-#   - return the `user_data`
-# - If the title is not a movie in the user's watchlist:
-#   - return the `user_data`
-
-def watch_movie(user_data, title):    
-    user_data["watched"] += user_data["watchlist"]
-
+def watch_movie(user_data, title):
+    '''Move watched movies from watchlist to watched in user_data'''
     for i in range(len(user_data["watchlist"])):
         if user_data["watchlist"][i]['title'] == title:
+            user_data['watched'].append(user_data['watchlist'][i])
             user_data["watchlist"].remove(user_data["watchlist"][i])
 
     return user_data
