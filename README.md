@@ -1,4 +1,4 @@
-# Viewing Party
+# Viewing Party - Erika Torres (Snow Leopards)
 
 ## Skills Assessed
 
