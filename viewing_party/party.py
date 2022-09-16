@@ -66,6 +66,16 @@ def get_unique_watched(user_data):
             user_watched.pop(title)
     return list(user_watched.values())
 
+def get_friends_unique_watched(user_data):
+    friends_watched = {}
+    for friend in user_data["friends"]:
+        for movie in friend["watched"]:
+            friends_watched[movie["title"]] = movie
+    user_watched = {movie["title"] for movie in user_data["watched"]}
+    for title in user_watched:
+        if title in friends_watched:
+            friends_watched.pop(title)
+    return list(friends_watched.values())
 
 # -----------------------------------------
 # ------------- WAVE 4 --------------------
