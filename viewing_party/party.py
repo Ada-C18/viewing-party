@@ -11,6 +11,11 @@ def create_movie(title, genre, rating):
         movie_dict['rating'] = rating
         return movie_dict
 
+def add_to_watched(user_data, movie):
+    #user_data is a dictionary with watched as one of the keys.
+    #this function adds the movie_dict (listed here as movie) into a list stored as a value connected to watched.
+    user_data['watched'].append(movie)
+    return user_data
 
 # -----------------------------------------
 # ------------- WAVE 2 --------------------
