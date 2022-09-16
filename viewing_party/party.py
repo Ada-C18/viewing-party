@@ -3,7 +3,7 @@
 from curses import use_default_colors
 from operator import ne
 import re
-
+# from tkinter import N
 
 def create_movie(title, genre, rating):
     dic = {}
@@ -36,14 +36,38 @@ def watch_movie(janes_data, MOVIE_TITLE_1):
     else:
         return janes_data
 
-
-
-        
-
 # -----------------------------------------
 # ------------- WAVE 2 --------------------
 # -----------------------------------------
-
+def get_watched_avg_rating(janes_data):
+    global average
+    if janes_data["watched"] == []:
+        average = len(janes_data["watched"])
+    sum = 0
+    count = 0
+    for i in janes_data["watched"]:
+        sum += i['rating']
+        count += 1
+    if count != 0:
+        average = sum / count
+    return average
+def get_most_watched_genre(janes_data):
+    if janes_data["watched"] == []:
+        return None
+    dic = {}
+    for i in janes_data["watched"]:
+        if i["genre"] in dic:
+            dic[i["genre"]] += 1
+        else:
+            dic[i["genre"]] = 1
+    favorite = max(dic, key=dic.get)
+    return favorite
+            
+        
+    
+    
+    
+    
 
 # -----------------------------------------
 # ------------- WAVE 3 --------------------
