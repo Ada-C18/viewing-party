@@ -85,6 +85,23 @@ def get_friends_unique_watched(user_data):
 # ------------- WAVE 4 --------------------
 # -----------------------------------------
 
+def get_available_recs(user_data):
+    title_dict={}
+    for entry in user_data["watched"]:
+        title_dict[entry["title"]]=entry
+    user_watched={entry["title"] for entry in user_data["watched"]}
+    user_subscriptions={entry for entry in user_data["subscriptions"]}
+    friends_title_dict={}
+    for count in user_data["friends"]:
+        for entry in count["watched"]:
+            friends_title_dict[entry["title"]]=entry
+    friends_watched=set(key for key in friends_title_dict.keys())
+    title_list=list(friends_watched.difference(user_watched))
+    movie_list=[]
+    for title in title_list:
+        if friends_title_dict[title]["host"] in user_subscriptions:
+            movie_list.append(friends_title_dict[title])
+    return movie_list
 # -----------------------------------------
 # ------------- WAVE 5 --------------------
 # -----------------------------------------
