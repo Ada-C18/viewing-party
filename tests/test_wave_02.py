@@ -2,7 +2,8 @@ import pytest
 from viewing_party.party import *
 from tests.test_constants import *
 
-@pytest.mark.skip()
+# test 1
+#@pytest.mark.skip()
 def test_calculates_watched_average_rating():
     # Arrange
     janes_data = clean_wave_2_data()
@@ -14,6 +15,7 @@ def test_calculates_watched_average_rating():
     assert average == pytest.approx(3.58333)
     assert janes_data == clean_wave_2_data()
 
+# test 2
 @pytest.mark.skip()
 def test_empty_watched_average_rating_is_zero():
     # Arrange
@@ -27,6 +29,7 @@ def test_empty_watched_average_rating_is_zero():
     # Assert
     assert average == pytest.approx(0.0)
 
+# test 3
 @pytest.mark.skip()
 def test_most_watched_genre():
     # Arrange
@@ -39,6 +42,7 @@ def test_most_watched_genre():
     assert popular_genre == "Fantasy"
     assert janes_data == clean_wave_2_data()
 
+# test 4
 @pytest.mark.skip()
 def test_genre_is_None_if_empty_watched():
     # Arrange
