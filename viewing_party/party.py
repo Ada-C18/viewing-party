@@ -23,15 +23,11 @@ def add_to_watchlist(user_data, movie):
     return user_data
 
 def watch_movie(user_data, title):
-    index = 0
-    for i in user_data["watchlist"]:
-        if title == i["title"]:
-            movie = i
-            user_data["watchlist"].remove(movie)
-            user_data["watched"].append(movie)
-            return user_data
-        else:
-            index += 1
+    for movie in user_data["watchlist"]:
+        if title == movie["title"]:
+            watch = movie
+            user_data["watchlist"].remove(watch)
+            user_data["watched"].append(watch)
     return user_data
 
 # -----------------------------------------
@@ -41,11 +37,9 @@ def watch_movie(user_data, title):
 def get_watched_avg_rating(user_data):
     total = 0.0
     movies = 0
-    index = 0
-    for i in user_data["watched"]:
-        total += i["rating"]
+    for movie in user_data["watched"]:
+        total += movie["rating"]
         movies += 1
-        index += 1
     if movies == 0:
         avg = 0.0
     else:
@@ -56,10 +50,10 @@ def get_most_watched_genre(user_data):
     count = 0
     max_count = 0
     max_genre = ""
-    for i in user_data["watched"]:
-        genre = i["genre"]
-        for i in user_data["watched"]:
-            if genre in i["genre"]:
+    for movie in user_data["watched"]:
+        genre = movie["genre"]
+        for movie in user_data["watched"]:
+            if genre in movie["genre"]:
                 count += 1
         if count > max_count:
             max_genre = genre
@@ -78,21 +72,19 @@ def get_most_watched_genre(user_data):
 def get_unique_watched(user_data):
     unique = []
     shared = False
-    for i in user_data["watched"]:
-        movie = i
-        for j in user_data["friends"]:
-            if i in j["watched"]:
+    for watched in user_data["watched"]:
+        for friend in user_data["friends"]:
+            if watched in friend["watched"]:
                 shared = True
         if not shared:
-            unique.append(movie)
+            unique.append(watched)
         shared = False
     return unique
 
 def get_friends_unique_watched(user_data):
     unique = []
-    for i in user_data["friends"]:
-        for j in i["watched"]:
-            movie = j
+    for friend in user_data["friends"]:
+        for movie in friend["watched"]:
             if movie not in user_data["watched"] and movie not in unique:
                 unique.append(movie)
     return unique
@@ -107,10 +99,10 @@ def get_available_recs(user_data):
     recs = []
     unique = get_friends_unique_watched(user_data)
     service = ""
-    for i in unique:
-        service = i["host"] 
+    for movie in unique:
+        service = movie["host"] 
         if service in user_data["subscriptions"]:
-            recs.append(i)
+            recs.append(movie)
     return recs
 
 # -----------------------------------------
@@ -121,15 +113,15 @@ def get_new_rec_by_genre(user_data):
     recs = get_friends_unique_watched(user_data)
     genre_recs = []
     genre = get_most_watched_genre(user_data)
-    for i in recs:
-        if i["genre"] == genre:
-            genre_recs.append(i)
+    for movie in recs:
+        if movie["genre"] == genre:
+            genre_recs.append(movie)
     return genre_recs
 
 def get_rec_from_favorites(user_data):
     user_recs = get_unique_watched(user_data)
     faves = []
-    for i in user_data["favorites"]:
-        if i in user_recs:
-            faves.append(i)
+    for movie in user_data["favorites"]:
+        if movie in user_recs:
+            faves.append(movie)
     return faves
