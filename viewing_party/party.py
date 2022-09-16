@@ -1,52 +1,9 @@
-
+from statistics import mode 
 
 
 # Note: For Waves 2, 3, 4, and 5, your implementation of each of the functions should not modify `user_data`.
 
-# ### Wave 2
 
-# 1. Create a function named `get_watched_avg_rating`. This function should...
-
-# - take one parameter: `user_data`
-#   - the value of `user_data` will be a dictionary with a `"watched"` list of movie dictionaries
-#     - This represents that the user has a list of watched movies
-# - Calculate the average rating of all movies in the watched list
-#   - The average rating of an empty watched list is `0.0`
-# - return the average rating
-
-# 2. Create a function named `get_most_watched_genre`. This function should...
-
-# - take one parameter: `user_data`
-#   - the value of `user_data` will be a dictionary with a `"watched"` list of movie dictionaries. Each movie dictionary has a key `"genre"`.
-#     - This represents that the user has a list of watched movies. Each watched movie has a genre.
-#     - The values of `"genre"` is a string.
-# - Determine which genre is most frequently occurring in the watched list
-# - return the genre that is the most frequently watched
-# - If the value of "watched" is an empty list, `get_most_watched_genre` should return `None`.
-
-# ### Wave 3
-
-# 1. Create a function named `get_unique_watched`. This function should...
-
-# - take one parameter: `user_data`
-#   - the value of `user_data` will be a dictionary with a `"watched"` list of movie dictionaries, and a `"friends"`
-#     - This represents that the user has a list of watched movies and a list of friends
-#     - The value of `"friends"` is a list
-#     - Each item in `"friends"` is a dictionary. This dictionary has a key `"watched"`, which has a list of movie dictionaries.
-#     - Each movie dictionary has a `"title"`.
-# - Consider the movies that the user has watched, and consider the movies that their friends have watched. Determine which movies the user has watched, but none of their friends have watched.
-# - Return a list of dictionaries, that represents a list of movies
-
-# 2. Create a function named `get_friends_unique_watched`. This function should...
-
-# - take one parameter: `user_data`
-#   - the value of `user_data` will be a dictionary with a `"watched"` list of movie dictionaries, and a `"friends"`
-#     - This represents that the user has a list of watched movies and a list of friends
-#     - The value of `"friends"` is a list
-#     - Each item in `"friends"` is a dictionary. This dictionary has a key `"watched"`, which has a list of movie dictionaries.
-#     - Each movie dictionary has a `"title"`.
-# - Consider the movies that the user has watched, and consider the movies that their friends have watched. Determine which movies at least one of the user's friends have watched, but the user has not watched.
-# - Return a list of dictionaries, that represents a list of movies
 
 # ### Wave 4
 
@@ -87,6 +44,9 @@
 
 # ------------- WAVE 1 --------------------
 
+from itertools import count
+
+
 def create_movie(title, genre, rating):
     movie_dict={}
     if not title or not genre or not rating:
@@ -108,19 +68,25 @@ def add_to_watchlist(user_data,movie):
     user_data["watchlist"].append(movie)
     return user_data
 
-# 4. Create a function named `watch_movie`. This function should...
 
-# - take two parameters: `user_data`, `title`
-#   - the value of `user_data` will be a dictionary with a `"watchlist"` and a `"watched"`
-#     - This represents that the user has a watchlist and a list of watched movies
-#   - the value of `title` will be a string
-#     - This represents the title of the movie the user has watched
-# - If the title is in a movie in the user's watchlist:
-#   - remove that movie from the watchlist
-#   - add that movie to watched
-#   - return the `user_data`
-# - If the title is not a movie in the user's watchlist:
-#   - return the `user_data`
+def watch_movie(user_data,title):
+    
+    for val in user_data["watchlist"]:
+        for i in val.values():
+            if i==title:
+                user_data["watchlist"].remove(val)
+                user_data["watched"]=[val]
+            
+    return user_data
+
+watch_movie({
+        "watchlist": [{
+            "title": "It Came from the Stack Trace",
+            "genre": "Horror",
+            "rating": 3.5
+        }],
+        "watched": []
+    },"It Came from the Stack Trace")
 
 
 
@@ -129,10 +95,85 @@ def add_to_watchlist(user_data,movie):
 # ------------- WAVE 2 --------------------
 # -----------------------------------------
 
+def get_watched_avg_rating(user_data):
+    count_of_ratings=0
+    sum_of_ratings=0
+    for list in user_data["watched"]:
+        for rate,score in list.items():
+            if rate=="rating":
+                count_of_ratings+=1
+                sum_of_ratings+=score
+    if count_of_ratings==0:
+        average=0
+    else:
+        average=sum_of_ratings/count_of_ratings
+    return average
+
+
+
+def get_most_watched_genre(user_data):
+    genre_data=[]
+   
+    for list in user_data.values():
+        for movie in list:
+            if "genre" in movie:
+                genre_data.append(movie["genre"])
+    if len(genre_data)==0:
+        most_often=None
+    else: 
+        most_often=mode(genre_data)
+    return(most_often)
+
+get_most_watched_genre({"watched":[{
+    "title": "The Lord of the Functions: The Fellowship of the Function",
+    "genre": "Fantasy",
+    "rating": 4.8
+},{
+    "title": "The Lord of the Functions: The Two Parameters",
+    "genre": "Fantasy",
+    "rating": 4.0
+}, {
+    "title": "The Programmer: An Unexpected Stack Trace",
+    "genre": "Fantasy",
+    "rating": 4.0
+},{
+    "title": "The JavaScript and the React",
+    "genre": "Action",
+    "rating": 2.2
+}]})
+
+
 
 # -----------------------------------------
 # ------------- WAVE 3 --------------------
 # -----------------------------------------
+
+# 1. Create a function named `get_unique_watched`. This function should...
+
+# - take one parameter: `user_data`
+#   - the value of `user_data` will be a dictionary with a `"watched"` list of movie dictionaries, and a `"friends"`
+#     - This represents that the user has a list of watched movies and a list of friends
+#     - The value of `"friends"` is a list
+#     - Each item in `"friends"` is a dictionary. This dictionary has a key `"watched"`, which has a list of movie dictionaries.
+#     - Each movie dictionary has a `"title"`.
+# - Consider the movies that the user has watched, and consider the movies that their friends have watched. Determine which movies the user has watched, but none of their friends have watched.
+# - Return a list of dictionaries, that represents a list of movies
+
+def get_unique_watched(user_data):
+    
+
+
+# 2. Create a function named `get_friends_unique_watched`. This function should...
+
+# - take one parameter: `user_data`
+#   - the value of `user_data` will be a dictionary with a `"watched"` list of movie dictionaries, and a `"friends"`
+#     - This represents that the user has a list of watched movies and a list of friends
+#     - The value of `"friends"` is a list
+#     - Each item in `"friends"` is a dictionary. This dictionary has a key `"watched"`, which has a list of movie dictionaries.
+#     - Each movie dictionary has a `"title"`.
+# - Consider the movies that the user has watched, and consider the movies that their friends have watched. Determine which movies at least one of the user's friends have watched, but the user has not watched.
+# - Return a list of dictionaries, that represents a list of movies
+
 
         
 # -----------------------------------------
