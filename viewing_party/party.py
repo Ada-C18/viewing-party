@@ -1,7 +1,17 @@
 # ------------- WAVE 1 --------------------
 
 def create_movie(title, genre, rating):
-    #added test comment
+    # wave part 1
+    
+    if title or genre or rating:
+        dict={}
+        dict["title"]=title
+        dict["genre"]=genre
+        dict["rating"]=rating
+        return dict
+    
+
+
 
 # -----------------------------------------
 # ------------- WAVE 2 --------------------
