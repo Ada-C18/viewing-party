@@ -62,7 +62,8 @@ def test_create_no_rating_movie():
 def test_create_no_out_of_range_rating_movie():
     # since I'm calculating the average later, also check to make sure that 
     # 0 <= rating <= 5 (assumed)
-    # for example, if someone enters a tomatometer rating 
+    # for example, if someone enters a tomatometer rating (1-100), return 
+    # None 
     movie_title = "Title A"
     genre = "Horror"
     rating = 5.01
