@@ -17,10 +17,12 @@ def create_movie(title, genre, rating):
         movie["rating"] = rating
         return movie
 
-# def add_to_watched(user_data, movie):
-#     user_data["watched"] = movie
+def add_to_watched(user_data, movie):
+    watched_list =[]
+    watched_list.append(movie)
+    user_data["watched"] = watched_list
 
-#     return user_data
+    return user_data
 
 
 # -----------------------------------------
