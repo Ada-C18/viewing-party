@@ -1,7 +1,13 @@
 # ------------- WAVE 1 --------------------
 
 def create_movie(title, genre, rating):
-    pass
+    if title and genre and rating:
+        new_movie = {
+            "title": title,
+            "genre": genre,
+            "rating": rating
+        }
+        return new_movie
 
 # -----------------------------------------
 # ------------- WAVE 2 --------------------
