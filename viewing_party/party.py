@@ -106,3 +106,40 @@ def get_available_recs(user_data):
 # ------------- WAVE 5 --------------------
 # -----------------------------------------
 
+def get_new_rec_by_genre(user_data):
+    title_dict={}
+    user_genre_list=[]
+    if not user_data["watched"]:
+        return []
+    for entry in user_data["watched"]:
+        title_dict[entry["title"]]=entry
+        user_genre_list.append(entry["genre"])
+    user_watched={entry["title"] for entry in user_data["watched"]}
+    user_preferred_genre=collections.Counter(user_genre_list).most_common()[0][0]
+    friends_title_dict={}
+    for count in user_data["friends"]:
+        for entry in count["watched"]:
+            friends_title_dict[entry["title"]]=entry
+    friends_watched=set(key for key in friends_title_dict.keys())
+    title_list=list(friends_watched.difference(user_watched))
+    movie_list=[]
+    for title in title_list:
+        if friends_title_dict[title]["genre"] == user_preferred_genre:
+            movie_list.append(friends_title_dict[title])
+    return movie_list
+
+def get_rec_from_favorites(user_data):
+    title_dict={}
+    for entry in user_data["favorites"]:
+        title_dict[entry["title"]]=entry
+    user_favourites={entry["title"] for entry in user_data["favorites"]}
+    friends_title_dict={}
+    for count in user_data["friends"]:
+        for entry in count["watched"]:
+            friends_title_dict[entry["title"]]=entry
+    friends_watched=set(key for key in friends_title_dict.keys())
+    title_list=list(user_favourites.difference(friends_watched))
+    movie_list=[]
+    for title in title_list:
+        movie_list.append(title_dict[title])
+    return movie_list
