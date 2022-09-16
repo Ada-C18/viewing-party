@@ -81,12 +81,27 @@ def get_most_watched_genre(user_data):
         if genre_counts[genre] == highest_genre_count:
             return genre
 
-
 # -----------------------------------------
 # ------------- WAVE 3 --------------------
 # -----------------------------------------
 
-        
+# create a list of movies only the user has watched
+def get_unique_watched(user_data):
+    user_unique_movies = []
+    # create a list of movies the user has watched
+    user_movies = user_data["watched"]
+    # create a list of movies all friends have watched
+    friends_movies = []
+    for friend in user_data["friends"]:
+        for movie in friend["watched"]:
+            friends_movies.append(movie)
+    # if user's movie has not been watched by a friend, add to list
+    for movie in user_movies:
+        if movie not in friends_movies:
+            user_unique_movies.append(movie)
+    return user_unique_movies
+
+
 # -----------------------------------------
 # ------------- WAVE 4 --------------------
 # -----------------------------------------
