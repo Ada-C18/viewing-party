@@ -53,7 +53,30 @@ def get_watched_avg_rating(user_data):
     average_rating = sum_ratings / movie_count
     return average_rating
 
-    
+def get_most_watched_genre(user_data):
+    # set empty dict
+    genre_counts = {
+        "Horror" : 0,
+        "Fantasy" : 0,
+        "Action" : 0,
+        "Intrigue" : 0
+    }
+    # fill dict with genre counts
+    for movie in user_data["watched"]:
+        if movie["genre"] == "Horror":
+            genre_counts["Horror"] += 1
+        elif movie["genre"] == "Fantasy":
+            genre_counts["Fantasy"] += 1
+        elif movie["genre"] == "Action":
+            genre_counts["Action"] += 1
+        elif movie["genre"] == "Intrigue":
+            genre_counts["Intrigue"] += 1
+    # find most-watched genre
+    # it will miss ties!
+    highest_genre_count = max(genre_counts.values())
+    for genre in genre_counts:
+        if genre_counts[genre] == highest_genre_count:
+            return genre
 
 
 # -----------------------------------------
