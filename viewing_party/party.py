@@ -105,19 +105,31 @@ def get_friends_unique_watched(user_data):
 
 def get_available_recs(user_data):
     recs = []
-    unique = []
+    unique = get_friends_unique_watched(user_data)
     service = ""
-    for i in user_data["friends"]:
-        for j in i["watched"]:
-            movie = j
-            if movie not in user_data["watched"] and movie not in unique:
-                unique.append(movie)
-                service = movie["host"]
-                if service in user_data["subscriptions"]:
-                    recs.append(movie)
+    for i in unique:
+        service = i["host"] 
+        if service in user_data["subscriptions"]:
+            recs.append(i)
     return recs
 
 # -----------------------------------------
 # ------------- WAVE 5 --------------------
 # -----------------------------------------
 
+def get_new_rec_by_genre(user_data):
+    recs = get_friends_unique_watched(user_data)
+    genre_recs = []
+    genre = get_most_watched_genre(user_data)
+    for i in recs:
+        if i["genre"] == genre:
+            genre_recs.append(i)
+    return genre_recs
+
+def get_rec_from_favorites(user_data):
+    user_recs = get_unique_watched(user_data)
+    faves = []
+    for i in user_data["favorites"]:
+        if i in user_recs:
+            faves.append(i)
+    return faves
