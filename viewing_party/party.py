@@ -1,6 +1,7 @@
-#I'm testing to see if I can pass my changes in!
-#trying again!
+
+# -----------------------------------------
 # ------------- WAVE 1 --------------------
+# -----------------------------------------
 
 def create_movie(title, genre, rating):
     #create a dictionary with the keys 'title', 'genre', 'rating', and the values the values passed in
@@ -60,6 +61,9 @@ def search(a_list, movie_title):
 # -----------------------------------------
 # ------------- WAVE 2 --------------------
 # -----------------------------------------
+
+def get_watched_avg_rating(user_data):
+    #this takes in the user's 
 
 
 # -----------------------------------------
