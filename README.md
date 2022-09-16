@@ -1,4 +1,3 @@
-#smol change
 # Viewing Party
 
 ## Skills Assessed
