@@ -2,7 +2,7 @@ import pytest
 from viewing_party.party import *
 from tests.test_constants import *
 
-@pytest.mark.skip()
+#@pytest.mark.skip()
 def test_new_genre_rec():
     # Arrange
     sonyas_data = clean_wave_5_data()
@@ -17,9 +17,9 @@ def test_new_genre_rec():
     assert FANTASY_4b in recommendations
     assert sonyas_data == clean_wave_5_data()
 
-@pytest.mark.skip()
+#@pytest.mark.skip()
 def test_new_genre_rec_from_empty_watched():
-    # Arrange
+    # Arrange , also does not have subscriptions
     sonyas_data = {
         "watched": [],
         "friends": [
@@ -38,7 +38,7 @@ def test_new_genre_rec_from_empty_watched():
     # Assert
     assert len(recommendations) == 0
 
-@pytest.mark.skip()
+#@pytest.mark.skip()
 def test_new_genre_rec_from_empty_friends():
     # Arrange
     sonyas_data = {
@@ -52,8 +52,11 @@ def test_new_genre_rec_from_empty_friends():
             }
         ]
     }
+    #act
+    recommendations = get_new_rec_by_genre(sonyas_data)
 
-    raise Exception("Test needs to be completed.")
+    # raise Exception("Test needs to be completed.")
+    assert len(recommendations) == 0
     # *********************************************************************
     # ****** Complete the Act and Assert Portions of theis tests **********
     # *********************************************************************

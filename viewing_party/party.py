@@ -124,3 +124,22 @@ def get_available_recs(user_watched_data):
 # ------------- WAVE 5 --------------------
 # -----------------------------------------
 
+def get_new_rec_by_genre(user_watched_data):
+    #retrieve unique movies that friends have watched
+    friend_unique_movies = get_friends_unique_watched(user_watched_data)
+    #create list of recs that only comes from subscriptions availible to user
+    recomendations = []
+    for key in user_watched_data:
+        # no subscriptions then we can't watch any recs
+        if key == "subscriptions":
+            for friends in user_watched_data["friends"]:
+                for friend, friends_movies in friends.items():
+                    for movies in friends_movies:
+                        if movies in friend_unique_movies and movies["host"] in user_watched_data["subscriptions"]:
+                            recomendations.append(movies)
+    # get genre fantasy recomendations
+    fantasy_recomendations = []
+    for rec in recomendations:
+        if rec["genre"] == "Fantasy":
+            fantasy_recomendations.append(rec)
+    return fantasy_recomendations
