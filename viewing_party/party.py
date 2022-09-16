@@ -1,5 +1,8 @@
 # ------------- WAVE 1 --------------------
 
+from operator import length_hint
+
+
 def create_movie(title, genre, rating):
     movie = {}
     # check if the parameters are truthy
@@ -41,6 +44,16 @@ def watch_movie(user_data, title):
 # -----------------------------------------
 # ------------- WAVE 2 --------------------
 # -----------------------------------------
+def get_watched_avg_rating(user_data):
+    sum = 0
+    average = 0
+    length = len(user_data["watched"])
+    for i in range(length):
+        sum += user_data["watched"][i]["rating"]
+        average = sum / length
+
+    return average    
+
 
 
 # -----------------------------------------
