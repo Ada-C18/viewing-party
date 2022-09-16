@@ -19,6 +19,16 @@ def add_to_watchlist(user_data, movie):
     user_data["watchlist"].append(movie)
     return user_data
 
+def watch_movie(user_data, title):
+    i = 0
+    for movie in user_data["watchlist"]:
+        if title == movie["title"]:
+            popped_movie = user_data["watchlist"].pop(i)
+            print(popped_movie)
+            user_data["watched"].append(popped_movie)
+        i += 1
+    return user_data
+
 # -----------------------------------------
 # ------------- WAVE 2 --------------------
 # -----------------------------------------
@@ -28,7 +38,7 @@ def add_to_watchlist(user_data, movie):
 # ------------- WAVE 3 --------------------
 # -----------------------------------------
 
-        
+
 # -----------------------------------------
 # ------------- WAVE 4 --------------------
 # -----------------------------------------
