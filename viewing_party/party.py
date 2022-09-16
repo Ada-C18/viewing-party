@@ -29,10 +29,9 @@ def watch_movie(janes_data, MOVIE_TITLE_1):
         janes_data["watched"].append(temp_list)
         return janes_data
     elif len(janes_data["watchlist"]) > 1:
-        temp_list = janes_data["watchlist"][0]
+        temp_list = janes_data["watchlist"].pop()
         janes_data["watched"].append(temp_list)
-        del janes_data["watchlist"][0]
-        return janes_data
+        return janes_data 
     else:
         return janes_data
 
@@ -62,17 +61,20 @@ def get_most_watched_genre(janes_data):
             dic[i["genre"]] = 1
     favorite = max(dic, key=dic.get)
     return favorite
-            
-        
-    
-    
-    
-    
 
 # -----------------------------------------
 # ------------- WAVE 3 --------------------
 # -----------------------------------------
 
+   
+    
+
+   
+    
+    
+    
+
+    
         
 # -----------------------------------------
 # ------------- WAVE 4 --------------------
