@@ -25,20 +25,46 @@ def watch_movie(user_data, title):
             user_data["watchlist"].remove(movie)
     return user_data
 
-
- 
-
-
 # -----------------------------------------
 # ------------- WAVE 2 --------------------
 # -----------------------------------------
+
+def get_watched_avg_rating(user_data):
+    avg_rating = 0
+    for i in range(len(user_data["watched"])):
+        avg_rating += user_data["watched"][i]["rating"]
+    if len(user_data["watched"]) == 0:
+        return avg_rating
+    avg_rating /= len(user_data["watched"])
+    return avg_rating
+
+def get_most_watched_genre(user_data):
+    fav_genre = ""
+    genre_dict = {}
+    i = 0
+    if len(user_data["watched"]) == 0:
+        return None
+    for key, value in user_data["watched"][i].items():
+        if key == "genre":
+            if value in genre_dict:
+                genre_dict[value] += 1
+            else:
+                genre_dict[value] = 1
+        i += 1
+    for key, value in genre_dict.items():
+        if value > 0:
+            fav_genre = key
+    return fav_genre
+
+
+
 
 
 # -----------------------------------------
 # ------------- WAVE 3 --------------------
 # -----------------------------------------
 
-        
+
 # -----------------------------------------
 # ------------- WAVE 4 --------------------
 # -----------------------------------------
