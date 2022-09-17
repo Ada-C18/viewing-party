@@ -33,14 +33,6 @@ def watch_movie(user_data, movie):
             user_data["watched"].append(movie_dict)
     return user_data
 
-    # for movie in user_data["watchlist"]:
-    #     if movie["title"] == title:
-    #         user_data["watchlist"].remove(movie)
-    #         user_data["watched"].append(movie)
-
-    #         return user_data
-    # return user_data
-
 # -----------------------------------------
 # ------------- WAVE 2 --------------------
 # -----------------------------------------
