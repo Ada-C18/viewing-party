@@ -1,5 +1,6 @@
 # ------------- WAVE 1 --------------------
 
+from collections import Counter
 from tests.test_constants import GENRE_1, MOVIE_TITLE_1, RATING_1
 
 
@@ -41,13 +42,37 @@ def watch_movie(janes_data, title):
     updated_data = janes_data
     return updated_data
 
-# move movie to watch (title) to watched
 
 # -----------------------------------------
 # ------------- WAVE 2 --------------------
 # -----------------------------------------
 
+def get_watched_avg_rating(janes_data):
+# input: users data dict with list {[watched]}
+# janes_data = {
+#   "watched" : [{movie: blah, rating: blah}]
+# }
+# calculate average of movies in watched list
+    sum_of_ratings = 0
+    for watched_list in janes_data.values():
+        if not watched_list:
+            return 0
+        else:
+            for i in range(len(watched_list)):
+                sum_of_ratings += watched_list[i]['rating']
+    return sum_of_ratings/len(watched_list)    
 
+def get_most_watched_genre(janes_data):
+    watched_genres = []
+    for watched_list in janes_data.values():
+        if not watched_list:
+            return None
+        else:
+            for i in range(len(watched_list)):
+                watched_genres.append(watched_list[i]['genre'])
+    popular_genre = Counter(watched_genres).most_common(1)[0][0]
+    return popular_genre
+    
 # -----------------------------------------
 # ------------- WAVE 3 --------------------
 # -----------------------------------------
