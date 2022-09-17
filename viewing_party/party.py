@@ -12,7 +12,7 @@ def create_movie(title, genre, rating):
         return movies
     return None
 
-def add_to_watch(user_data, movie):
+def add_to_watched(user_data, movie):
     user_data["watched"].append(movie)
     return user_data
 
@@ -32,8 +32,6 @@ def watch_movie(user_data, title):
 # ------------- WAVE 2 --------------------
 # -----------------------------------------
 
-#user_data = {
-# }
 def get_watched_avg_rating(user_data):
     ratings = []
     ave_ratings = 0
@@ -50,15 +48,42 @@ def get_most_watched_genre(user_data):
     
     if len(genre_list) > 0:
         return mode(genre_list)
-    return None   
+    return None
+
 # -----------------------------------------
 # ------------- WAVE 3 --------------------
 # -----------------------------------------
 
-        
+def get_unique_watched(user_data):
+    unique_watched = []
+    unique_watched += user_data["watched"]
+    for list in user_data["friends"]:
+        for movie in list["watched"]:
+            if movie in unique_watched:
+                unique_watched.remove(movie)
+    return unique_watched
+
+
+def get_friends_unique_watched(user_data):
+    friends_watched = []
+    for watch in user_data["friends"]:
+        for movie in watch["watched"]:
+            if movie not in friends_watched and movie not in user_data["watched"]:
+                friends_watched.append(movie)
+    return friends_watched
+
 # -----------------------------------------
 # ------------- WAVE 4 --------------------
 # -----------------------------------------
+
+def get_available_recs(user_data):
+    recommended_movies = []
+    
+
+
+    return recommended_movies
+
+
 
 # -----------------------------------------
 # ------------- WAVE 5 --------------------
