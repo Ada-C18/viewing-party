@@ -1,7 +1,7 @@
 # ------------- WAVE 1 --------------------
 
 from enum import unique
-from types import NoneType
+# from types import NoneType
 
 
 def create_movie(title, genre, rating):
