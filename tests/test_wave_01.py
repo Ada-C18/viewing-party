@@ -89,7 +89,7 @@ def test_adds_movie_to_user_watched():
     assert updated_data["watched"][0]["rating"] == RATING_1
 
 
-@pytest.mark.skip()
+# @pytest.mark.skip()
 def test_adds_movie_to_user_watchlist():
     # Arrange
     movie = {
@@ -111,7 +111,7 @@ def test_adds_movie_to_user_watchlist():
     assert updated_data["watchlist"][0]["rating"] == RATING_1
 
 
-@pytest.mark.skip()
+# @pytest.mark.skip()
 def test_moves_movie_from_watchlist_to_empty_watched():
     # Arrange
     janes_data = {
