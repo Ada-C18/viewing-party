@@ -46,8 +46,6 @@ def watch_movie(user_data, title):
             for i in value:
                 for key, value in i.items():
                     if value == title:
-                        #watched_list.append(title)
-                        #user_data["watched"] = watched_list
                         user_data["watched"].append(title)
                         user_data["watchlist"].remove(i)
         else:
@@ -58,12 +56,35 @@ def watch_movie(user_data, title):
 # -----------------------------------------
 # ------------- WAVE 2 --------------------
 # -----------------------------------------
+def get_watched_avg_rating(user_data):
+    rating_total = []
+    for value in user_data.values():
+        for i in value:
+            for key, value in i.items():
+                if key == "rating":
+                    rating_total.append(value)
+    if len(rating_total) != 0:
+        return sum(rating_total)/len(rating_total)
+    else: 
+        return 0.0
 
-
+def get_most_watched_genre(user_data):
+    popular_genre = []
+    for value in user_data.values():
+        for i in value:
+            for key, value in i.items():
+                if key == "genre":
+                    popular_genre.append(value)
+    if len(popular_genre) != 0:
+        return max(set(popular_genre), key = popular_genre.count)
+    else: 
+        return None
 # -----------------------------------------
 # ------------- WAVE 3 --------------------
 # -----------------------------------------
 
+def get_unique_watched(user_data):
+    
         
 # -----------------------------------------
 # ------------- WAVE 4 --------------------
