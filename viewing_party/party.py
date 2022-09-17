@@ -40,8 +40,8 @@ def watch_movie(user_data, title):
         if movie["title"] is title:
             user_data["watchlist"].remove(movie)
             user_data["watched"].append(movie)
-            print(user_data)
     return user_data
+
 
 # -----------------------------------------
 # ------------- WAVE 2 --------------------
@@ -107,6 +107,18 @@ def get_friends_unique_watched(user_data):
 # -----------------------------------------
 # ------------- WAVE 4 --------------------
 # -----------------------------------------
+
+def get_available_recs(user_data):
+    
+    rec = []
+
+    friend_unique = get_friends_unique_watched(user_data)
+
+    for movies in friend_unique:
+        if movies["host"] in user_data["subscriptions"]:
+            rec.append(movies)
+    return rec
+
 
 # -----------------------------------------
 # ------------- WAVE 5 --------------------
