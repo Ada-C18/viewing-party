@@ -107,8 +107,6 @@ def get_unique_watched(user_data):
         if user_watched_list[movie_dict] not in friends_watched_list:
             user_unique_list.append(user_watched_list[movie_dict])
     return user_unique_list
-# get_unique_watched(amandas_data)
-
 
 
 def get_friends_unique_watched(user_data):
