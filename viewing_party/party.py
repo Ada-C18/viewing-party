@@ -5,11 +5,9 @@ from types import NoneType
 
 
 def create_movie(title, genre, rating):
-    # step 1
 
     new_movie = {}
     
-
     if bool(title) != True or bool(genre) != True or bool(rating) != True:
         return None
     else:
@@ -17,31 +15,26 @@ def create_movie(title, genre, rating):
         new_movie["genre"] = genre
         new_movie["rating"] = rating
     return new_movie
-# step 2
+
 def add_to_watched(user_data, movie):
 
     if len(user_data) == 1:
         user_data["watched"].append(movie)
-
     return user_data
-# step 3
+
 def add_to_watchlist(user_data, movie):
 
     if not user_data["watchlist"]:
         user_data["watchlist"].append(movie)
     return user_data
 
-# step 4
-
 def watch_movie(user_data, title):
 
-    
     for movie in user_data["watchlist"]:
         if movie["title"] is title:
             user_data["watchlist"].remove(movie)
             user_data["watched"].append(movie)
     return user_data
-
 
 # -----------------------------------------
 # ------------- WAVE 2 --------------------
@@ -119,8 +112,20 @@ def get_available_recs(user_data):
             rec.append(movies)
     return rec
 
-
 # -----------------------------------------
 # ------------- WAVE 5 --------------------
 # -----------------------------------------
+
+def get_new_rec_by_genre(user_data):
+
+    rec_by_genre = []
+
+    freq = get_most_watched_genre(user_data)
+
+    friend_unique = get_friends_unique_watched(user_data)
+
+    for movies in friend_unique:
+        if freq == movies["genre"]:
+            rec_by_genre.append(movies)
+    return rec_by_genre
 
