@@ -20,7 +20,7 @@ watch_movie({
             "genre": GENRE_1,
             "rating": RATING_1
         }],
-        "watched": []
+        "watched": [HORROR_1]
     }, MOVIE_TITLE_1)
 
 # print("\n-----Wave 02 user_data-----")

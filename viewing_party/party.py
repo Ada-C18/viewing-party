@@ -26,7 +26,7 @@ def watch_movie(user_data, movie):
             watched_movie = item
             user_data["watched"].append(watched_movie)
             user_data["watchlist"].remove(watched_movie)
-            updated_data = user_data
+    updated_data = user_data
     return updated_data
 
 
