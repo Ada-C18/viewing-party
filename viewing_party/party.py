@@ -143,3 +143,15 @@ def get_new_rec_by_genre(user_watched_data):
         if rec["genre"] == "Fantasy":
             fantasy_recomendations.append(rec)
     return fantasy_recomendations
+
+def get_rec_from_favorites(user_watched_data):
+    #retrieving movies that friends have not watched but user has
+    unique_movies = get_unique_watched(user_watched_data)
+    #creating recomendations if unique movies are in favorites
+    recomendations = []
+    for movies in unique_movies:
+        if movies in user_watched_data["favorites"]:
+            recomendations.append(movies)
+    return recomendations
+
+
