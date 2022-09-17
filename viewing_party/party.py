@@ -12,6 +12,13 @@ def create_movie(title, genre, rating):
         return movie_dict
     
     return None
+def add_to_watched(user_data, movie):
+    # user data is a dictionary with a key watched that has the value of an empty list which will be later a list of dictionaries with the movies the user has watched
+    # the value of movie is a dictionary like the one from the first function
+    # add the value of movie to the list in watched
+    # return user_data
+    user_data['watched'].append(movie)
+    return user_data
     
 
 # -----------------------------------------
