@@ -77,9 +77,9 @@ def get_most_watched_genre(user_data):
             genre_dict[genre] = 0
         
         for movie in watched:
-                for genre in genre_names:
-                    if movie['genre'] == genre:
-                        genre_dict[genre] += 1
+            for genre in genre_names:
+                if movie['genre'] == genre:
+                    genre_dict[genre] += 1
         return max(genre_dict, key = genre_dict.get)
 
     else:
@@ -89,7 +89,42 @@ def get_most_watched_genre(user_data):
 # ------------- WAVE 3 --------------------
 # -----------------------------------------
 
-        
+# this function is doing what I expected it to do, which is NOT \
+# what the test wants. What does the test want?
+# the test expects two movies in the list, one fantasy and one intrigue, \
+# but I watched all the movies given in and they're all unique
+
+def get_unique_watched(user_data):
+    watched = user_data['watched']
+    title_genre = tuple()
+    movie_titles_genres = set()
+    initial_set_length = 0
+    new_set_length = 0
+    i = 0
+    index_list = []
+    unique_movies = []
+
+# sometimes movies that are different have the same title, \
+# so to ensure uniqueness, we don't want to use only titles 
+
+    if len(watched):
+        for movie in watched:
+            initial_set_length = len(movie_titles_genres)
+            title_genre = movie['title'], movie['genre']
+            movie_titles_genres.add(title_genre)
+            new_set_length = len(movie_titles_genres)
+
+            if new_set_length > initial_set_length:
+                index_list.append(i)
+
+            i += 1
+
+        for number in index_list:
+            unique_movies.append(watched[number])
+
+    return unique_movies
+
+
 # -----------------------------------------
 # ------------- WAVE 4 --------------------
 # -----------------------------------------
