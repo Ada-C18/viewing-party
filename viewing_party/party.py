@@ -69,6 +69,26 @@ def sum_rating(rating_list):
         sum += rating
     return sum
 
+def get_most_watched_genre(user_data):
+    genre_list = []
+    counter = 0
+    popular_genre = None
+    if len(user_data["watched"]) == 0:
+        # print("None")
+        return None
+    else:
+        for index in range(len(user_data["watched"])):
+            genre_list.append(user_data["watched"][index]["genre"])
+        # print(genre_list)
+        
+        for item in genre_list:
+            frequency = genre_list.count(item)
+            # print(freq_genre)
+            if frequency > counter :
+                counter = frequency
+                popular_genre = item
+        # print(popular_genre)
+        return popular_genre
 # -----------------------------------------
 # ------------- WAVE 3 --------------------
 # -----------------------------------------
