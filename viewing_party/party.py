@@ -82,7 +82,6 @@ def get_unique_watched(user_data):
     
 def get_friends_unique_watched(user_data):
 
-    # friend_unique = [name for film in user_data["friends"] for name in film["watched"] if name not in user_data["watched"]]
     friend_unique = []
 
     for film in user_data["friends"]:
