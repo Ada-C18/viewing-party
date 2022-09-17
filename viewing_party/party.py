@@ -40,23 +40,21 @@ def watch_movie(user_data, title):
 # -----------------------------------------
 # ------------- WAVE 2 --------------------
 # -----------------------------------------
-# 1. Create a function named `get_watched_avg_rating`. This function should...
-
-# - take one parameter: `user_data`
-#   - the value of `user_data` will be a dictionary with a `"watched"` list of movie dictionaries
-#     - This represents that the user has a list of watched movies
-# - Calculate the average rating of all movies in the watched list
-#   - The average rating of an empty watched list is `0.0`
-# - return the average rating
 
 def get_watched_avg_rating(user_data):
-    # print(user_data)
+    '''Calculate avg rating of watched movies in user data'''
+    print(user_data)
     average = 0.0
     rating_total = 0.0
     for i in range(len(user_data["watched"])):
         print(user_data["watched"][i]["rating"])
         rating_total += user_data["watched"][i]["rating"]
-    average = rating_total / len(user_data["watched"])
+    
+    if len(user_data['watched']) == 0:
+        average == 0.0
+    else:
+        average = rating_total / len(user_data["watched"])
+    
     return average
 
 # 2. Create a function named `get_most_watched_genre`. This function should...
@@ -68,6 +66,34 @@ def get_watched_avg_rating(user_data):
 # - Determine which genre is most frequently occurring in the watched list
 # - return the genre that is the most frequently watched
 # - If the value of "watched" is an empty list, `get_most_watched_genre` should return `None`.
+
+def get_most_watched_genre(user_data):
+    genres = []
+    genre_count = {}
+    for i in range(len(user_data["watched"])):
+        genres.append(user_data['watched'][i]['genre'])
+        genres.sort()
+    print(f"genres: {genres}")
+
+    for item in genres:
+        if item not in genre_count:
+            genre_count[item] = 0
+        genre_count[item] += 1
+
+    if len(genre_count) > 0:
+        max_genre = max(genre_count, key=genre_count.get)       
+        return max_genre
+    else:
+        return None
+
+# max(stats, key=stats.get)
+        
+
+    
+
+
+
+
 
 
 # -----------------------------------------
