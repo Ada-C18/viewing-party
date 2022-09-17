@@ -56,16 +56,18 @@ def add_to_watchlist(user_data, movie):
 def add_to_watched(user_data, movie):
     # append `movie` to the `user_data['watched']` field
 
-    # get a reference to watchlist safely 
-    watchlist = user_data.get('watched', [])
-    watchlist.append(movie)
+    # get a reference to watched safely 
+    watched = user_data.get('watched', [])
+    watched.append(movie)
     return user_data # includes updates to watchlist
 
 def watch_movie(user_data, movie_title):
     # move a movie from watchlist to watched
 
     # all of this is happening in-place and 
-    # might be safe done functionally
+    # might be safer done functionally
+
+    # TODO: refactor to use safe dictionary references
     for movie in user_data['watchlist']:
         if movie_title == movie['title']:
             user_data['watched'].append(movie)
