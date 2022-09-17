@@ -57,17 +57,9 @@ def get_watched_avg_rating(user_data):
     
     return average
 
-# 2. Create a function named `get_most_watched_genre`. This function should...
-
-# - take one parameter: `user_data`
-#   - the value of `user_data` will be a dictionary with a `"watched"` list of movie dictionaries. Each movie dictionary has a key `"genre"`.
-#     - This represents that the user has a list of watched movies. Each watched movie has a genre.
-#     - The values of `"genre"` is a string.
-# - Determine which genre is most frequently occurring in the watched list
-# - return the genre that is the most frequently watched
-# - If the value of "watched" is an empty list, `get_most_watched_genre` should return `None`.
 
 def get_most_watched_genre(user_data):
+    '''Returning the genre watched the most times'''
     genres = []
     genre_count = {}
     for i in range(len(user_data["watched"])):
@@ -89,16 +81,11 @@ def get_most_watched_genre(user_data):
 # max(stats, key=stats.get)
         
 
-    
-
-
-
-
-
-
 # -----------------------------------------
 # ------------- WAVE 3 --------------------
 # -----------------------------------------
+
+
 
         
 # -----------------------------------------
