@@ -54,8 +54,7 @@ def test_friends_unique_movies_not_duplicated():
 
     # Assert
     assert len(friends_unique_movies) == 3
-
-    raise Exception("Test needs to be completed.")
+    assert amandas_data["watched"] not in friends_unique_movies
     # *************************************************************************************************
     # ****** Add assertions here to test that the correct movies are in friends_unique_movies **********
     # **************************************************************************************************
