@@ -11,15 +11,22 @@ def create_movie(title, genre, rating):
     return None
 
 # 2. Create a function named `add_to_watched`. This function should...
-
+# test: test_adds_movie_to_user_watched
 def add_to_watched(user_data, movie):
     user_data["watched"].append(movie)
     return user_data
 
+# 3. Create a function named add_to_watchlist.def 
+# test: test_adds_movie_to_user_watchlist()
+def add_to_watchlist(user_data, movie):
+    user_data["watchlist"].append(movie)
+    return user_data
 
 # -----------------------------------------
 # ------------- WAVE 2 --------------------
 # -----------------------------------------
+# Note: For Waves 2, 3, 4, and 5, your implementation of each of the functions should not modify user_data.
+
 
 
 # -----------------------------------------
