@@ -22,6 +22,23 @@ def add_to_watchlist(user_data, movie):
     user_data["watchlist"].append(movie)
     return user_data
 
+# 4. Create a function named watch_movie.
+# TODO: move dict from watchlist to watched list -- if movie in user's watchlist
+# OUTPUT: user_data (modified user_data if title in watchlist)
+# test_moves_movie_from_watchlist_to_watched
+def watch_movie(user_data, title):
+    watchlist = user_data["watchlist"]
+    for i in range(len(watchlist)):
+        movie = watchlist[i]
+        if title == movie["title"]:
+            # will remove it from same list in location in memory
+            watchlist.remove(movie)
+            user_data["watched"].append(movie)
+            break
+    # return outside for loop to ensure we iterate entire list
+    return user_data
+# TODO: Add assertions here to test that the correct movie was added to "watched"
+
 # -----------------------------------------
 # ------------- WAVE 2 --------------------
 # -----------------------------------------
