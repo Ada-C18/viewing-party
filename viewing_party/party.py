@@ -101,6 +101,7 @@ def get_unique_watched(user_data):
             user_unique_movies.append(movie)
     return user_unique_movies
 
+# create a list of movies seen by friends that user hasn't watched
 def get_friends_unique_watched(user_data):
     friends_unique_movies = []
     # create a list of movie the user has watched
@@ -116,7 +117,6 @@ def get_friends_unique_watched(user_data):
         if movie not in user_movies:
             friends_unique_movies.append(movie)
     return friends_unique_movies
-
 
 # -----------------------------------------
 # ------------- WAVE 4 --------------------
