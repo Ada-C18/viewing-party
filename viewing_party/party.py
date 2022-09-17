@@ -8,7 +8,7 @@ def create_movie(title, genre, rating):
 
     new_movie = {}
     
-    if bool(title) != True or bool(genre) != True or bool(rating) != True:
+    if not bool(title) or not bool(genre) or not bool(rating):
         return None
     else:
         new_movie["title"] = title
@@ -59,7 +59,6 @@ def get_most_watched_genre(user_data):
     if not user_data["watched"]:
         return None
 
-    
     for style in user_data["watched"]:
         if style["genre"] in freq:
             freq[style["genre"]] += 1
@@ -67,14 +66,12 @@ def get_most_watched_genre(user_data):
             freq[style["genre"]] = 1
     return max(freq, key = freq.get)
 
-
 # -----------------------------------------
 # ------------- WAVE 3 --------------------
 # -----------------------------------------
 
 def get_unique_watched(user_data):
     
-
     unique = [users for users in user_data["watched"]]
     
     for film in user_data["friends"]:
@@ -85,16 +82,13 @@ def get_unique_watched(user_data):
     
 def get_friends_unique_watched(user_data):
 
+    # friend_unique = [name for film in user_data["friends"] for name in film["watched"] if name not in user_data["watched"]]
     friend_unique = []
-    
+
     for film in user_data["friends"]:
-        for movie in film["watched"]:
-            if movie not in friend_unique:
-                friend_unique.append(movie)
-    
-    for users in user_data["watched"]:
-        if users in friend_unique:
-            friend_unique.remove(users)
+        for name in film["watched"]:
+            if name not in user_data["watched"] and name not in friend_unique:
+                friend_unique.append(name)
     return friend_unique
 
 # -----------------------------------------
@@ -128,4 +122,18 @@ def get_new_rec_by_genre(user_data):
         if freq == movies["genre"]:
             rec_by_genre.append(movies)
     return rec_by_genre
+
+def get_rec_from_favorites(user_data):
+
+    fav_rec = []
+    
+    user_only = get_unique_watched(user_data)
+
+    for user in user_data["favorites"]:
+        if user in user_only:
+            fav_rec.append(user)
+    return fav_rec
+
+
+
 
