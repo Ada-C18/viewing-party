@@ -14,6 +14,13 @@ pp.pprint(HORROR_1)
 pp.pprint(FANTASY_1)
 pp.pprint(FANTASY_2)
 
+user_data = {
+    'watched': []
+}
+
+movie = create_movie("check","horror",5)
+add_to_watched(user_data,movie)
+
 # print("\n-----Wave 02 user_data-----")
 # pp.pprint(clean_wave_2_data())
 
