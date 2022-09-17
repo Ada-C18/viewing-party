@@ -38,6 +38,7 @@ def watch_movie(janes_data, MOVIE_TITLE_1):
 # -----------------------------------------
 # ------------- WAVE 2 --------------------
 # -----------------------------------------
+
 def get_watched_avg_rating(janes_data):
     global average
     if janes_data["watched"] == []:
@@ -50,6 +51,7 @@ def get_watched_avg_rating(janes_data):
     if count != 0:
         average = sum / count
     return average
+
 def get_most_watched_genre(janes_data):
     if janes_data["watched"] == []:
         return None
@@ -66,6 +68,9 @@ def get_most_watched_genre(janes_data):
 # ------------- WAVE 3 --------------------
 # -----------------------------------------
 def get_unique_watched(amandas_data):
+    if amandas_data["watched"] == []:
+        return []
+
     total_movie_list = amandas_data["watched"]
     result = copy.deepcopy(total_movie_list)
     
@@ -74,6 +79,31 @@ def get_unique_watched(amandas_data):
             if movie in result:
                 result.remove(movie)
     return result
+
+def get_friends_unique_watched(amandas_data):
+    amandas_data_watched_list = amandas_data["watched"]
+    friends_movies = amandas_data["friends"][0]["watched"]
+    answer = copy.deepcopy(friends_movies)
+    if len(amandas_data["watched"]) > 3:
+        result = [ ]
+        for i in amandas_data["friends"]:
+            for movie in i["watched"]:
+                if movie not in amandas_data_watched_list and movie not in result:
+                    result.append(movie)
+        return result
+    
+    else:
+        for movie_a in amandas_data["watched"]:
+            for movie in amandas_data["friends"][0]["watched"]:
+                if movie_a == movie:
+                    answer.remove(movie)
+        return answer
+           
+ 
+
+    
+    
+
     
     
         
