@@ -19,6 +19,10 @@ def add_to_watched(user_data, movie):
     # return user_data
     user_data['watched'].append(movie)
     return user_data
+def add_to_watchlist(user_data, movie):
+    # add movie to list in 'watchlist' key in user_data dictionary
+    user_data['watchlist'].append(movie)
+    return user_data
     
 
 # -----------------------------------------
