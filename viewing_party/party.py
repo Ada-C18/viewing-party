@@ -20,6 +20,12 @@ def add_to_watched(user_data, movie):
     user_data["watched"] = [movie]
     return user_data
 
+def add_to_watchlist(user_data, movie):
+    # user_data is a dictionary with key "watchlist" with value of list of dictionaries
+    # movie is a dicitonary
+    user_data["watchlist"] = [movie]
+    return user_data
+
 def watch_movie(user_data, title):
     # user_data is a dictionary with "watchlist" and "watched" keys
     # title is a string and reps the title of a movie the user has watched
