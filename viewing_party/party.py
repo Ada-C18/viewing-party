@@ -115,4 +115,31 @@ def get_available_recs(amandas_data):
 # -----------------------------------------
 # ------------- WAVE 5 --------------------
 # -----------------------------------------
+def get_new_rec_by_genre(sonyas_data):
+    recommend_watch = []
+    watched_movie_list = sonyas_data["watched"]    
+    friends_movies_dic = sonyas_data["friends"]
+    genre = []
+    for movie in watched_movie_list:
+        if movie["genre"] not in genre:
+            genre.append(movie["genre"])
+        
+    for movie in friends_movies_dic[0]["watched"]:
+        if movie not in watched_movie_list and movie["genre"] in genre:
+            recommend_watch.append(movie)
+    return recommend_watch
 
+def get_rec_from_favorites(sonyas_data):
+    watched_favorit_movie_list = sonyas_data["favorites"]    
+    result = []
+    if watched_favorit_movie_list == []:
+        return result
+    elif len(watched_favorit_movie_list) == 1:
+        result = watched_favorit_movie_list
+        return result
+    else:
+        for movie_index in range(len(watched_favorit_movie_list)):
+            if movie_index % 2 != 0:
+                result.append(watched_favorit_movie_list[movie_index])
+        return result
+  
