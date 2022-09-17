@@ -21,7 +21,8 @@ def add_to_watchlist(user_data, movie):
     '''
     user data is dictionary containing value "watchlist with value []
     '''
-    pass
+    user_data["watchlist"].append(movie)
+    return user_data
 
 def watch_movie(user_data, MOVIE_TITLE_1):
     '''
