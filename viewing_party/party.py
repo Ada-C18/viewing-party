@@ -2,20 +2,18 @@
 
 def create_movie(title, genre, rating):
     new_movie = {}
-    if title == None or genre == None or rating == None:
-        return None
-    
-    new_movie["title"] = title
-    new_movie["genre"] = genre
-    new_movie["rating"] = rating
+    if title and genre and rating:
+        new_movie["title"] = title
+        new_movie["genre"] = genre
+        new_movie["rating"] = rating
 
-    return new_movie
+        return new_movie
 
 def add_to_watched(user_data, movie):
     '''
     user data is a dictionary containing a key "watched" with value []
     '''
-    pass
+    user_data["watched"].append(movie)
 
 def add_to_watchlist(user_data, movie):
     '''
