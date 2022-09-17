@@ -11,11 +11,19 @@ def create_movie(title, genre, rating):
         return None
 
 #user data is a dictionary with a key "watched" and value is list of dictionaries 
-#movie is a dictionary with title, genre,rating as keys
+#movie is a dictionary with title, genre,rating as keys (like create movie)
 #add movie to user_data & return user_data 
 def add_to_watched(user_data, movie):
     user_data["watched"].append(movie)
     return user_data
+
+#user_data is same as above exept key is "watchlist"
+#movie follows create_movie format
+#add movie to user_data & return user_data 
+def add_to_watchlist(user_data, movie):
+    user_data["watchlist"].append(movie)
+    return user_data
+
 
 
 # -----------------------------------------
