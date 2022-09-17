@@ -99,17 +99,17 @@ def test_unique_from_empty_favorites():
     assert len(recommendations) == 0
 
 # @pytest.mark.skip()
-# def test_new_rec_from_empty_friends():
-#     # Arrange
-#     sonyas_data = {
-#         "watched": [INTRIGUE_1b],
-#         "favorites": [INTRIGUE_1b],
-#         "friends": []
-#     }
+def test_new_rec_from_empty_friends():
+    # Arrange
+    sonyas_data = {
+        "watched": [INTRIGUE_1b],
+        "favorites": [INTRIGUE_1b],
+        "friends": []
+    }
 
-#     # Act
-#     recommendations = get_rec_from_favorites(sonyas_data)
+    # Act
+    recommendations = get_rec_from_favorites(sonyas_data)
 
-#     # Assert
-#     assert len(recommendations) == 1
-#     assert INTRIGUE_1b in recommendations
+    # Assert
+    assert len(recommendations) == 1
+    assert INTRIGUE_1b in recommendations
