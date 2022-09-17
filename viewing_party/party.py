@@ -89,40 +89,75 @@ def get_most_watched_genre(user_data):
 # ------------- WAVE 3 --------------------
 # -----------------------------------------
 
-# this function is doing what I expected it to do, which is NOT \
-# what the test wants. What does the test want?
-# the test expects two movies in the list, one fantasy and one intrigue, \
-# but I watched all the movies given in and they're all unique
-
 def get_unique_watched(user_data):
     watched = user_data['watched']
+    friends = user_data['friends']
     title_genre = tuple()
-    movie_titles_genres = set()
-    initial_set_length = 0
-    new_set_length = 0
-    i = 0
-    index_list = []
+    user_watched = set()
+    friend_watched = set()
+    user_friend_unique = set()
     unique_movies = []
 
-# sometimes movies that are different have the same title, \
-# so to ensure uniqueness, we don't want to use only titles 
+    # we want to ensure uniqueness by grabbing/comparing both title and genre
+    # we want to have a clean comparison by not grabbing rating
 
     if len(watched):
+        
         for movie in watched:
-            initial_set_length = len(movie_titles_genres)
             title_genre = movie['title'], movie['genre']
-            movie_titles_genres.add(title_genre)
-            new_set_length = len(movie_titles_genres)
+            user_watched.add(title_genre)
+        
+        user_unique_set = user_watched
 
-            if new_set_length > initial_set_length:
-                index_list.append(i)
+        if len(friends):
+            for friend in friends:
+                for movie in friend['watched']:
+                    title_genre = movie['title'], movie['genre']
+                    friend_watched.add(title_genre)
+                user_friend_unique = user_watched - friend_watched
+                user_unique_set = user_unique_set & user_friend_unique
 
-            i += 1
-
-        for number in index_list:
-            unique_movies.append(watched[number])
+        for movie in watched:
+            for entry in user_unique_set:
+                if entry == (movie['title'], movie['genre']):
+                    unique_movies.append(movie)
 
     return unique_movies
+
+
+# # the function below creates a list of all movies watched by the user, \
+# # where each movie appears only once, even if the movie was watched more than once \
+# # by the user, but this was not what the test wanted.
+
+# def get_unique_watched(user_data):
+#     watched = user_data['watched']
+#     title_genre = tuple()
+#     movie_titles_genres = set()
+#     initial_set_length = 0
+#     new_set_length = 0
+#     i = 0
+#     index_list = []
+#     unique_movies = []
+
+# # sometimes movies that are different have the same title, \
+# # so to ensure uniqueness, we don't want to use only titles 
+
+#     if len(watched):
+#         for movie in watched:
+#             initial_set_length = len(movie_titles_genres)
+#             title_genre = movie['title'], movie['genre']
+#             movie_titles_genres.add(title_genre)
+#             new_set_length = len(movie_titles_genres)
+
+#             if new_set_length > initial_set_length:
+#                 index_list.append(i)
+
+#             i += 1
+
+#         for number in index_list:
+#             unique_movies.append(watched[number])
+
+#     return unique_movies
 
 
 # -----------------------------------------
