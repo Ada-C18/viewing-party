@@ -93,6 +93,55 @@ def get_most_watched_genre(user_data):
 # ------------- WAVE 3 --------------------
 # -----------------------------------------
 
+#  user_data ={ "watched":[{movie_dict1},{movie_dict2}],
+#             "friends":["watched":[{movie1},{movie2}]],
+#             }
+
+def get_unique_watched(user_data):
+    user_watched_list = []
+    if len(user_data["friends"]) ==0:
+        user_watched_list = []
+    else:
+        for movie in range(len(user_data["watched"])):
+            user_watched_list.append(user_data["watched"][movie])
+        # print(user_watched_list)    
+    # return user_watched_list
+
+    
+# get_unique_watched(amandas_data)
+
+def get_friends_unique_watched(user_data):
+    friends_watched_list = []
+    if len(user_data["friends"]) == 0:
+        friends_watched_list = []
+    else:
+        
+        for index1 in range(len(user_data["friends"])): #first loop to give us the movie list (of dictionaries) of "friends"
+            for index2 in range(len(user_data["friends"][index1]["watched"])): #second loop give us each element (list of dictionaries of "friends' watched list")
+                for index3 in range(len(user_data["friends"][index1]["watched"][index2])): #third loop give us access to each element within the list of friends watched list to compare title
+                    if user_data["friends"][index1]["watched"][index2] not in friends_watched_list:
+                        friends_watched_list.append(user_data["friends"][index1]["watched"][index2])
+        # print("user movie list ",user_data)
+        # print("--------------------------------------------")
+        # print("friends'watched list is ",friends_watched_list)
+        return friends_watched_list
+
+# user_watched_list = [HORROR_1,FANTASY_1,INTRIGUE_1]
+# friends_watched_list = [HORROR_1,FANTASY_1,]
+def comparing_list(user_data):
+    user_watched_list = get_unique_watched(user_data)
+    friends_watched_list = get_friends_unique_watched(user_data)
+    
+    unique_list = []
+    for movie_dict in range(len(user_watched_list)):
+        if user_watched_list[movie_dict] not in friends_watched_list:
+            unique_list.append(user_watched_list[movie_dict])
+    print("user unique list is ",unique_list)
+        
+# comparing_list(amandas_data)
+        
+
+
         
 # -----------------------------------------
 # ------------- WAVE 4 --------------------
