@@ -98,20 +98,7 @@ def get_friends_unique_watched(amandas_data):
                 if movie_a == movie:
                     answer.remove(movie)
         return answer
-           
- 
 
-    
-    
-
-    
-    
-        
-            
-       
-
-        
-    
 # -----------------------------------------
 # ------------- WAVE 4 --------------------
 # -----------------------------------------
