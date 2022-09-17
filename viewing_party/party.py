@@ -39,30 +39,16 @@ def add_to_watchlist(user_data, movie):
     return user_data
 
 def watch_movie(user_data, title):
-    
-    # user_data = {
-    #     "watchlist": [{
-    #     "title": MOVIE_TITLE_1,
-    #     "genre": GENRE_1,
-    #     "rating": RATING_1
-    #     }],
-    #     "watched": []
-    #     }
 
-    user_data = {
-        "watchlist": [{"title": MOVIE_TITLE_1}],
-        "watched": []
-        }
-
-    watched_list = []
     
     for key, value in user_data.items():
         if key == "watchlist":
             for i in value:
                 for key, value in i.items():
                     if value == title:
-                        watched_list.append(title)
-                        user_data["watched"] = watched_list
+                        #watched_list.append(title)
+                        #user_data["watched"] = watched_list
+                        user_data["watched"].append(title)
                         user_data["watchlist"].remove(i)
         else:
             return user_data
