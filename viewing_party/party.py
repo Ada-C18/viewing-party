@@ -67,6 +67,7 @@ def get_most_watched_genre(janes_data):
 # -----------------------------------------
 # ------------- WAVE 3 --------------------
 # -----------------------------------------
+
 def get_unique_watched(amandas_data):
     if amandas_data["watched"] == []:
         return []
@@ -101,6 +102,7 @@ def get_friends_unique_watched(amandas_data):
 # -----------------------------------------
 # ------------- WAVE 4 --------------------
 # -----------------------------------------
+
 def get_available_recs(amandas_data):
     ama_watched_movie_list = amandas_data["watched"]
     friends_movies_dic = amandas_data["friends"]
@@ -115,6 +117,7 @@ def get_available_recs(amandas_data):
 # -----------------------------------------
 # ------------- WAVE 5 --------------------
 # -----------------------------------------
+
 def get_new_rec_by_genre(sonyas_data):
     recommend_watch = []
     watched_movie_list = sonyas_data["watched"]    
@@ -122,8 +125,7 @@ def get_new_rec_by_genre(sonyas_data):
     genre = []
     for movie in watched_movie_list:
         if movie["genre"] not in genre:
-            genre.append(movie["genre"])
-        
+            genre.append(movie["genre"])      
     for movie in friends_movies_dic[0]["watched"]:
         if movie not in watched_movie_list and movie["genre"] in genre:
             recommend_watch.append(movie)
@@ -139,7 +141,7 @@ def get_rec_from_favorites(sonyas_data):
         return result
     else:
         for movie_index in range(len(watched_favorit_movie_list)):
-            if movie_index % 2 != 0:
+            if movie_index % 2 != 0: # Can't find regulation 
                 result.append(watched_favorit_movie_list[movie_index])
         return result
   
