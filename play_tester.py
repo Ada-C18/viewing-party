@@ -14,6 +14,9 @@ pp.pprint(HORROR_1)
 pp.pprint(FANTASY_1)
 pp.pprint(FANTASY_2)
 
+# putting in own test inputs to run program to observe outputs
+print(create_movie("mybad", "horror", "4.8"))
+
 # print("\n-----Wave 02 user_data-----")
 # pp.pprint(clean_wave_2_data())
 
