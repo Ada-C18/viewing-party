@@ -177,3 +177,18 @@ def test_does_nothing_if_movie_not_in_watchlist():
     assert len(updated_data["watched"]) == 1
     assert movie_to_watch not in updated_data["watchlist"]
     assert movie_to_watch not in updated_data["watched"]
+
+def test_watch_movie_returns_list_if_key_error():
+    # test to see if watch_movie can handle key errors
+    # by adding a list to user_data.
+    # Arrange
+    janes_data = {
+    }
+
+    # Act
+    updated_data = watch_movie(janes_data, "")
+
+    assert isinstance(updated_data["watchlist"], list)
+    assert isinstance(updated_data["watched"], list)
+
+

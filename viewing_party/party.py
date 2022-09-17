@@ -67,15 +67,19 @@ def watch_movie(user_data, movie_title):
     # all of this is happening in-place and 
     # might be safer done functionally
 
-    # TODO: refactor to use safe dictionary references
-    for movie in user_data['watchlist']:
+    watchlist = user_data.get('watchlist', [])
+    watched = user_data.get('watched', [])
+
+    for movie in watchlist:
         if movie_title == movie['title']:
-            user_data['watched'].append(movie)
-            user_data['watchlist'].remove(movie)
-            return user_data 
+            watched.append(movie)
+            watchlist.remove(movie)
+            break 
     
-    # return unmodified user_data  
-    return user_data 
+    # return updated user_data  
+    user_data["watchlist"] = watchlist
+    user_data["watched"] = watched
+    return user_data
 
 
 
