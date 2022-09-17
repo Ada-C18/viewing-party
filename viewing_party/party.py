@@ -1,46 +1,6 @@
 from statistics import mode 
 
 
-# Note: For Waves 2, 3, 4, and 5, your implementation of each of the functions should not modify `user_data`.
-
-
-
-# ### Wave 4
-
-# 1. Create a function named `get_available_recs`. This function should...
-
-# - take one parameter: `user_data`
-#   - `user_data` will have a field `"subscriptions"`. The value of `"subscriptions"` is a list of strings
-#     - This represents the names of streaming services that the user has access to
-#     - Each friend in `"friends"` has a watched list. Each movie in the watched list has a `"host"`, which is a string that says what streaming service it's hosted on
-# - Determine a list of recommended movies. A movie should be added to this list if and only if:
-#   - The user has not watched it
-#   - At least one of the user's friends has watched
-#   - The `"host"` of the movie is a service that is in the user's `"subscriptions"`
-# - Return the list of recommended movies
-
-# ### Wave 5
-
-# 1. Create a function named  `get_new_rec_by_genre`. This function should...
-
-# - take one parameter: `user_data`
-# - Consider the user's most frequently watched genre. Then, determine a list of recommended movies. A movie should be added to this list if and only if:
-#   - The user has not watched it
-#   - At least one of the user's friends has watched
-#   - The `"genre"` of the movie is the same as the user's most frequent genre
-# - Return the list of recommended movies
-
-# 2. Create a function named  `get_rec_from_favorites`. This function should...
-
-# - take one parameter: `user_data`
-#   - `user_data` will have a field `"favorites"`. The value of `"favorites"` is a list of movie dictionaries
-#     - This represents the user's favorite movies
-# - Determine a list of recommended movies. A movie should be added to this list if and only if:
-#   - The movie is in the user's `"favorites"`
-#   - None of the user's friends have watched it
-# - Return the list of recommended movies
-
-
 
 # ------------- WAVE 1 --------------------
 
@@ -124,25 +84,6 @@ def get_most_watched_genre(user_data):
         most_often=mode(genre_data)
     return(most_often)
 
-get_most_watched_genre({"watched":[{
-    "title": "The Lord of the Functions: The Fellowship of the Function",
-    "genre": "Fantasy",
-    "rating": 4.8
-},{
-    "title": "The Lord of the Functions: The Two Parameters",
-    "genre": "Fantasy",
-    "rating": 4.0
-}, {
-    "title": "The Programmer: An Unexpected Stack Trace",
-    "genre": "Fantasy",
-    "rating": 4.0
-},{
-    "title": "The JavaScript and the React",
-    "genre": "Action",
-    "rating": 2.2
-}]})
-
-
 
 # -----------------------------------------
 # ------------- WAVE 3 --------------------
@@ -160,7 +101,71 @@ get_most_watched_genre({"watched":[{
 # - Return a list of dictionaries, that represents a list of movies
 
 def get_unique_watched(user_data):
+    user_watched=[]
+    friends_watched=[]
+
+    for watch in user_data["watched"]:
+        user_watched.append(watch)
+    for friend in user_data["friends"]:
+        for movie in friend.values():
+            for i in movie:
+                friends_watched.append(i)
     
+    newlist=[]
+
+    for u in user_watched:
+        if u not in friends_watched:
+            newlist.append(u)
+    
+    return(newlist)
+
+                
+
+    
+get_unique_watched({"watched":[{
+    "title": "The Lord of the Functions: The Fellowship of the Function",
+    "genre": "Fantasy",
+    "rating": 4.8
+},{
+    "title": "The Lord of the Functions: The Two Parameters",
+    "genre": "Fantasy",
+    "rating": 4.0
+}, {
+    "title": "The Programmer: An Unexpected Stack Trace",
+    "genre": "Fantasy",
+    "rating": 4.0
+},{
+    "title": "The JavaScript and the React",
+    "genre": "Action",
+    "rating": 2.2
+},{
+    "title": "Recursion",
+    "genre": "Intrigue",
+    "rating": 2.0
+},{
+    "title": "Instructor Student TA Manager",
+    "genre": "Intrigue",
+    "rating": 4.5
+}], "friends":[
+    {
+    "watched":[
+    {"title": "The Lord of the Functions: The Fellowship of the Function",
+    "genre": "Fantasy",
+    "rating": 4.8},
+    {
+    "title": "The Lord of the Functions: The Two Parameters",
+    "genre": "Fantasy",
+    "rating": 4.0
+}]
+    },
+{"watched":[
+     {
+    "title": "The Programmer: An Unexpected Stack Trace",
+    "genre": "Fantasy",
+    "rating": 4.0}]
+    }
+]})
+
 
 
 # 2. Create a function named `get_friends_unique_watched`. This function should...
@@ -174,12 +179,307 @@ def get_unique_watched(user_data):
 # - Consider the movies that the user has watched, and consider the movies that their friends have watched. Determine which movies at least one of the user's friends have watched, but the user has not watched.
 # - Return a list of dictionaries, that represents a list of movies
 
+def get_friends_unique_watched(user_data):
+    user_watched=[]
+    friends_watched=[]
+
+    for watch in user_data["watched"]:
+        user_watched.append(watch)
+    for friend in user_data["friends"]:
+        for movie in friend.values():
+            for i in movie:
+                friends_watched.append(i)
+    
+    user_not_watched=[]
+    final_list=[]
+
+    for f in friends_watched:
+        if f not in user_watched:
+            user_not_watched.append(f)
+    for item in user_not_watched:
+        if item not in final_list:
+            final_list.append(item)
+    
+    return(final_list)
+
+
+get_friends_unique_watched({"watched":[{
+    "title": "The Lord of the Functions: The Fellowship of the Function",
+    "genre": "Fantasy",
+    "rating": 4.8
+},{
+    "title": "The Lord of the Functions: The Two Parameters",
+    "genre": "Fantasy",
+    "rating": 4.0
+}, {
+    "title": "The Programmer: An Unexpected Stack Trace",
+    "genre": "Fantasy",
+    "rating": 4.0
+},{
+    "title": "The JavaScript and the React",
+    "genre": "Action",
+    "rating": 2.2
+},{
+    "title": "Recursion",
+    "genre": "Intrigue",
+    "rating": 2.0
+},{
+    "title": "Instructor Student TA Manager",
+    "genre": "Intrigue",
+    "rating": 4.5
+}], "friends":[
+    {
+    "watched":[
+    {"title": "The Lord of the Functions: The Fellowship of the Function",
+    "genre": "Fantasy",
+    "rating": 4.8},
+    {
+    "title": "Zero Dark Python",
+    "genre": "Intrigue",
+    "rating": 3.0
+},
+{
+    "title": "Zero Dark Python",
+    "genre": "Intrigue",
+    "rating": 3.0
+}, {
+    "title": "JavaScript 3: VS Code Lint",
+    "genre": "Action",
+    "rating": 3.5
+},
+    {
+    "title": "The Lord of the Functions: The Two Parameters",
+    "genre": "Fantasy",
+    "rating": 4.0
+}]
+    },
+{"watched":[
+     {
+    "title": "The Programmer: An Unexpected Stack Trace",
+    "genre": "Fantasy",
+    "rating": 4.0}]
+    }, 
+]})
 
         
 # -----------------------------------------
 # ------------- WAVE 4 --------------------
 # -----------------------------------------
 
+# 1. Create a function named `get_available_recs`. This function should...
+
+# - take one parameter: `user_data`
+#   - `user_data` will have a field `"subscriptions"`. The value of `"subscriptions"` is a list of strings
+#     - This represents the names of streaming services that the user has access to
+#     - Each friend in `"friends"` has a watched list. Each movie in the watched list has a `"host"`, which is a string that says what streaming service it's hosted on
+# - Determine a list of recommended movies. A movie should be added to this list if and only if:
+#   - The user has not watched it
+#   - At least one of the user's friends has watched
+#   - The `"host"` of the movie is a service that is in the user's `"subscriptions"`
+# - Return the list of recommended movies
+
+def get_available_recs(user_data):
+    user_watched=[]
+    friends_watched=[]
+
+    for watch in user_data["watched"]:
+        user_watched.append(watch)
+    for friend in user_data["friends"]:
+        for movie in friend.values():
+            for i in movie:
+                friends_watched.append(i)
+    
+    user_not_watched=[]
+    no_duplicates=[]
+    final_list=[]
+
+    for f in friends_watched:
+        if f not in user_watched:
+            user_not_watched.append(f)
+    for item in user_not_watched:
+        if item not in no_duplicates:
+            no_duplicates.append(item)
+    
+    #compare the host with the subscriptions and only return movies that match the values in subscriptions
+    for i in no_duplicates:
+        for sub in user_data["subscriptions"]:
+            if i["host"] ==sub:
+                final_list.append(i)
+                
+    
+
+    return(final_list)
+
+
+get_available_recs({
+    "subscriptions":["netflix","hulu"],
+    "watched":[{
+    "title": "The Lord of the Functions: The Fellowship of the Function",
+    "genre": "Fantasy",
+    "rating": 4.8
+},{
+    "title": "The Lord of the Functions: The Two Parameters",
+    "genre": "Fantasy",
+    "rating": 4.0
+}, {
+    "title": "The Programmer: An Unexpected Stack Trace",
+    "genre": "Fantasy",
+    "rating": 4.0
+},{
+    "title": "The JavaScript and the React",
+    "genre": "Action",
+    "rating": 2.2
+},{
+    "title": "Recursion",
+    "genre": "Intrigue",
+    "rating": 2.0
+},{
+    "title": "Instructor Student TA Manager",
+    "genre": "Intrigue",
+    "rating": 4.5
+}], "friends":[
+    {
+    "watched":[
+    {"title": "The Lord of the Functions: The Fellowship of the Function",
+    "genre": "Fantasy",
+    "rating": 4.8,
+    "host":"netflix"
+    },
+    {
+    "title": "Zero Dark Python",
+    "genre": "Intrigue",
+    "rating": 3.0,
+    "host":"netflix"
+},
+{
+    "title": "Zero Dark Python",
+    "genre": "Intrigue",
+    "rating": 3.0,
+    "host":"netflix"
+}, {
+    "title": "JavaScript 3: VS Code Lint",
+    "genre": "Action",
+    "rating": 3.5,
+    "host":"hulu"
+},
+    {
+    "title": "The Lord of the Functions: The Two Parameters",
+    "genre": "Fantasy",
+    "rating": 4.0,
+    "host":"netflix"
+}]
+    },
+{"watched":[
+     {
+    "title": "The Programmer: An Unexpected Stack Trace",
+    "genre": "Fantasy",
+    "rating": 4.0,
+    "host":"disney"}]
+    }, 
+]})
 # -----------------------------------------
 # ------------- WAVE 5 --------------------
 # -----------------------------------------
+
+# 1. Create a function named  `get_new_rec_by_genre`. This function should...
+
+# - take one parameter: `user_data`
+# - Consider the user's most frequently watched genre. Then, determine a list of recommended movies. A movie should be added to this list if and only if:
+#   - The user has not watched it
+#   - At least one of the user's friends has watched
+#   - The `"genre"` of the movie is the same as the user's most frequent genre
+# - Return the list of recommended movies
+
+def get_new_rec_by_genre(user_data):
+
+    # step 1. find the most frequent genre of user
+    genre_data=[]
+    for list in user_data["watched"]:
+        genre_data.append(list["genre"])
+
+    most_often=mode(genre_data)
+    
+    #step 2: find movies the user has not watched but a friend has 
+
+
+
+#step 3: only have movies with the genre that the user watches most 
+
+
+get_new_rec_by_genre({
+    "subscriptions":["netflix","hulu"],
+    "watched":[{
+    "title": "The Lord of the Functions: The Fellowship of the Function",
+    "genre": "Fantasy",
+    "rating": 4.8
+},{
+    "title": "The Lord of the Functions: The Two Parameters",
+    "genre": "Fantasy",
+    "rating": 4.0
+}, {
+    "title": "The Programmer: An Unexpected Stack Trace",
+    "genre": "Fantasy",
+    "rating": 4.0
+},{
+    "title": "The JavaScript and the React",
+    "genre": "Action",
+    "rating": 2.2
+},{
+    "title": "Recursion",
+    "genre": "Intrigue",
+    "rating": 2.0
+},{
+    "title": "Instructor Student TA Manager",
+    "genre": "Intrigue",
+    "rating": 4.5
+}], "friends":[
+    {
+    "watched":[
+    {"title": "The Lord of the Functions: The Fellowship of the Function",
+    "genre": "Fantasy",
+    "rating": 4.8,
+    "host":"netflix"
+    },
+    {
+    "title": "Zero Dark Python",
+    "genre": "Intrigue",
+    "rating": 3.0,
+    "host":"netflix"
+},
+{
+    "title": "Zero Dark Python",
+    "genre": "Intrigue",
+    "rating": 3.0,
+    "host":"netflix"
+}, {
+    "title": "JavaScript 3: VS Code Lint",
+    "genre": "Action",
+    "rating": 3.5,
+    "host":"hulu"
+},
+    {
+    "title": "The Lord of the Functions: The Two Parameters",
+    "genre": "Fantasy",
+    "rating": 4.0,
+    "host":"netflix"
+}]
+    },
+{"watched":[
+     {
+    "title": "The Programmer: An Unexpected Stack Trace",
+    "genre": "Fantasy",
+    "rating": 4.0,
+    "host":"disney"}]
+    }, 
+]})
+
+# 2. Create a function named  `get_rec_from_favorites`. This function should...
+
+# - take one parameter: `user_data`
+#   - `user_data` will have a field `"favorites"`. The value of `"favorites"` is a list of movie dictionaries
+#     - This represents the user's favorite movies
+# - Determine a list of recommended movies. A movie should be added to this list if and only if:
+#   - The movie is in the user's `"favorites"`
+#   - None of the user's friends have watched it
+# - Return the list of recommended movies
+
