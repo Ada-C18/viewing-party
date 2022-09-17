@@ -89,6 +89,7 @@ def get_most_watched_genre(user_data):
                 popular_genre = item
         # print(popular_genre)
         return popular_genre
+    
 # -----------------------------------------
 # ------------- WAVE 3 --------------------
 # -----------------------------------------
@@ -98,23 +99,15 @@ def get_most_watched_genre(user_data):
 #             }
 
 def get_unique_watched(user_data):
-    user_watched_list = []
+    friends_watched_list = get_friends_watched_list(user_data)
+    user_watched_list = get_user_watched_list(user_data)
     user_unique_list =[]
-    if len(user_data["friends"]) ==0:
-        user_watched_list = []
-    else:
-        for movie in range(len(user_data["watched"])):
-            user_watched_list.append(user_data["watched"][movie])
-        # print(user_watched_list)    
-    # return user_watched_list
-        friends_watched_list = get_friends_watched_list(user_data)
-        for movie_dict in range(len(user_watched_list)):
-            if user_watched_list[movie_dict] not in friends_watched_list:
-                user_unique_list.append(user_watched_list[movie_dict])
-        return user_unique_list
+
+    for movie_dict in range(len(user_watched_list)):
+        if user_watched_list[movie_dict] not in friends_watched_list:
+            user_unique_list.append(user_watched_list[movie_dict])
+    return user_unique_list
 # get_unique_watched(amandas_data)
-
-
 
 
 
@@ -128,7 +121,7 @@ def get_friends_unique_watched(user_data):
             friends_unique_list.append(friends_watched_list[friends_dict])
     return friends_unique_list
 
-
+#HELPER FUNCTION TO CREATE FRIENDS' WATCHED LIST
 def get_friends_watched_list(user_data):
     friends_watched_list = []
 
@@ -144,6 +137,7 @@ def get_friends_watched_list(user_data):
 
         return friends_watched_list
 
+#HELPER FUNCTION TO CREATE USER'S WATCH LIST
 def get_user_watched_list(user_data):
     user_watched_list = []
 
