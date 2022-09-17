@@ -1,25 +1,45 @@
 # ------------- WAVE 1 --------------------
 
-import re
-from shutil import move
-from tests.test_constants import GENRE_1, MOVIE_TITLE_1, RATING_1
+# I feel like there's a better way to test if title, genre, & rating are truthy 
+# but not sure how
+
+from multiprocessing.sharedctypes import Value
 
 
 def create_movie(title, genre, rating):
-    new_movie = {"title": [], "genre": [], "rating": []}
-    new_movie["title"] = MOVIE_TITLE_1
-    new_movie["genre"] = GENRE_1
-    new_movie["rating"] = RATING_1
+    new_movie = {"title": title, "genre": genre, "rating": rating}
     if title and genre and rating:
         return new_movie
     else:
         return None
+
+
+def add_to_watched(user_data, movie):
+    has_watched = [movie] 
+    user_data = {"watched" : has_watched }
+    return user_data
+
+
+def add_to_watchlist(user_data, movie):
+    wants_to_watch = [] 
+    user_data = {"watchlist" : wants_to_watch }
+    wants_to_watch.append(movie)
+
+    return user_data
+
+def watch_movie(user_data, title):
+    for key in user_data:
+        if key == "watchlist":
+            if user_data["watchlist"] == title:
+                user_data["watchlist"].remove(title)
+                user_data["watched"].append(title)
+                return user_data
+            else:
+                return user_data
 # -----------------------------------------
 # ------------- WAVE 2 --------------------
 # -----------------------------------------
 
-# def add_to_watched(user_data, movie):
-    # user_data = {"watched" : }
 # -----------------------------------------
 # ------------- WAVE 3 --------------------
 # -----------------------------------------
