@@ -45,6 +45,38 @@ def create_movie(title, genre, rating):
     else:
         return None 
 
+def add_to_watchlist(user_data, movie):
+    # append `movie` to the `user_data['watchlist']` field
+
+    # get a reference to watchlist safely 
+    watchlist = user_data.get('watchlist', [])
+    watchlist.append(movie)
+    return user_data # includes updates to watchlist
+
+def add_to_watched(user_data, movie):
+    # append `movie` to the `user_data['watched']` field
+
+    # get a reference to watchlist safely 
+    watchlist = user_data.get('watched', [])
+    watchlist.append(movie)
+    return user_data # includes updates to watchlist
+
+def watch_movie(user_data, movie_title):
+    # move a movie from watchlist to watched
+
+    # all of this is happening in-place and 
+    # might be safe done functionally
+    for movie in user_data['watchlist']:
+        if movie_title == movie['title']:
+            user_data['watched'].append(movie)
+            user_data['watchlist'].remove(movie)
+            return user_data 
+    
+    # return unmodified user_data  
+    return user_data 
+
+
+
 # -----------------------------------------
 # ------------- WAVE 2 --------------------
 # -----------------------------------------
