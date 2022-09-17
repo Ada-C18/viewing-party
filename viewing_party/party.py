@@ -29,7 +29,11 @@ def watch_movie(user_data, MOVIE_TITLE_1):
     moves movie from user data dictionary w/ watchlist list using movie title -->
     watched list key in same dictionary (an empty list) 
     '''
-    pass
+    for i in range(len(user_data["watchlist"])):
+        if user_data["watchlist"][i]["title"] == MOVIE_TITLE_1:
+            user_data["watched"].append(user_data["watchlist"].pop(i))
+
+            return user_data
 # -----------------------------------------
 # ------------- WAVE 2 --------------------
 # -----------------------------------------
