@@ -14,6 +14,15 @@ pp.pprint(HORROR_1)
 pp.pprint(FANTASY_1)
 pp.pprint(FANTASY_2)
 
+watch_movie({
+        "watchlist": [{
+            "title": MOVIE_TITLE_1,
+            "genre": GENRE_1,
+            "rating": RATING_1
+        }],
+        "watched": []
+    }, MOVIE_TITLE_1)
+
 # print("\n-----Wave 02 user_data-----")
 # pp.pprint(clean_wave_2_data())
 
