@@ -10,10 +10,10 @@ def create_movie(title, genre, rating):
     new_movie["title"] = MOVIE_TITLE_1
     new_movie["genre"] = GENRE_1
     new_movie["rating"] = RATING_1
-    if not title or not genre or not rating:
-        return None
-    else:
+    if title and genre and rating:
         return new_movie
+    else:
+        return None
 # -----------------------------------------
 # ------------- WAVE 2 --------------------
 # -----------------------------------------
