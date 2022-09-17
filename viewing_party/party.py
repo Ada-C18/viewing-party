@@ -98,11 +98,20 @@ def get_friends_unique_watched(amandas_data):
                 if movie_a == movie:
                     answer.remove(movie)
         return answer
-
 # -----------------------------------------
 # ------------- WAVE 4 --------------------
 # -----------------------------------------
-
+def get_available_recs(amandas_data):
+    ama_watched_movie_list = amandas_data["watched"]
+    friends_movies_dic = amandas_data["friends"]
+    result = []
+    if ama_watched_movie_list != []:
+        for movie in friends_movies_dic[0]["watched"]:
+            if movie not in ama_watched_movie_list:
+                result.append(movie)
+        return result
+    return result
+                
 # -----------------------------------------
 # ------------- WAVE 5 --------------------
 # -----------------------------------------
