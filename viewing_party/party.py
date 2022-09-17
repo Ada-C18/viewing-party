@@ -94,9 +94,6 @@ def get_most_watched_genre(user_data):
 # ------------- WAVE 3 --------------------
 # -----------------------------------------
 
-#  user_data ={ "watched":[{movie_dict1},{movie_dict2}],
-#             "friends":["watched":[{movie1},{movie2}]],
-#             }
 
 def get_unique_watched(user_data):
     friends_watched_list = get_friends_watched_list(user_data)
