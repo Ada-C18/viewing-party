@@ -19,7 +19,7 @@ def test_new_genre_rec():
     assert sonyas_data == clean_wave_5_data()
 
 # test 2
-@pytest.mark.skip()
+#@pytest.mark.skip()
 def test_new_genre_rec_from_empty_watched():
     # Arrange
     sonyas_data = {
@@ -42,7 +42,7 @@ def test_new_genre_rec_from_empty_watched():
 
 # test 3
 #@pytest.mark.skip()
-#def test_new_genre_rec_from_empty_friends():
+def test_new_genre_rec_from_empty_friends():
     # Arrange
     sonyas_data = {
         "watched": [INTRIGUE_1b],
@@ -56,10 +56,18 @@ def test_new_genre_rec_from_empty_watched():
         ]
     }
 
-    raise Exception("Test needs to be completed.")
+    #raise Exception("Test needs to be completed.")
     # *********************************************************************
     # ****** Complete the Act and Assert Portions of theis tests **********
     # *********************************************************************
+
+    # Act
+    recommendations = get_new_rec_by_genre(sonyas_data)
+
+    # Assert
+    assert len(recommendations) == 0
+
+
 
 # test 4
 @pytest.mark.skip()
