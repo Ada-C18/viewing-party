@@ -55,7 +55,28 @@ def get_watched_avg_rating(user_data):
         
     return average_rating
 
-
+def get_most_watched_genre(user_data):
+    watched_list = user_data["watched"]
+    if not watched_list:
+        return None
+    else:
+        # initialize dict and loop though movies in watched list 
+        watched_genre_dict = {}
+        for movie in watched_list:
+            genre_name = movie["genre"]
+            
+            # add each new genre name as key and assign value 1
+            # if key with genre name is already exist, increment by 1
+            if genre_name not in watched_genre_dict:
+                watched_genre_dict[genre_name] = 1
+            else:
+                watched_genre_dict[genre_name] += 1
+    
+    # use get method and max function to return dictionary key with max value
+    max_watched_genre = max(watched_genre_dict, key = watched_genre_dict.get)
+    
+    return max_watched_genre
+        
 
 
 
