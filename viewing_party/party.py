@@ -67,10 +67,7 @@ def get_most_watched_genre(user_data):
             else :
                 genre_dict[genre] = 1
 
-        # now that I have my genre_dict I can sort
-        #  the list of values and get the last number as the most occoring      
-        # genre_dict_values = genre_dict.values()
-        # genre_dict_keys = genre_dict.keys()
+        
         genre_list = []
         for k, v in genre_dict.items():
             genre_list.append((v, k))
@@ -78,31 +75,39 @@ def get_most_watched_genre(user_data):
         return genre_list[0][1]
     else :
         return None
+         
 
-            
-
-        # sorted_genre_dict_values = list(genre_dict_values).sort(reverse = True)
-        # most_occurring = sorted_genre_dict_values[0]
-
-        # for i in range(len(genre_dict)):
-        """
-            if genre_dict[genre_dict_keys[i]]== most_occurring :
-                return genre_dict_keys[i]
-            else :
-                return None
-
-    else :
-        return None 
-        """             
-
-
-
-    
 
 # -----------------------------------------
 # ------------- WAVE 3 --------------------
 # -----------------------------------------
+def converting_list_of_dict_to_set(user_list_of_movies):
+    user_set = set()
+    length = len(user_list_of_movies)
+    for i in range(length):
+        user_set.add(user_list_of_movies[i]["title"])
+    return user_set
 
+
+def get_unique_watched(user_data):
+    user_watched_set = converting_list_of_dict_to_set(user_data["watched"])
+    friends_watched_sets = set()
+    length = user_data["friends"]
+    user_list_of_uniques = []
+    for i in range(len(length)):
+        friend_watched_set = converting_list_of_dict_to_set(user_data["friends"][i]["watched"])
+        user_watched_set = user_watched_set - friend_watched_set
+
+    for i in range(len(user_data["watched"])):
+        if user_data["watched"][i]["title"] in user_watched_set :
+            user_list_of_uniques.append(user_data["watched"][i])
+
+
+    return user_list_of_uniques  
+
+
+
+    
         
 # -----------------------------------------
 # ------------- WAVE 4 --------------------
