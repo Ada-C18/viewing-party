@@ -33,33 +33,33 @@ def watch_movie(user_data, title):
             return user_data
     return user_data
 
-
-
-
-
-
-    # for value in user_data.values():
-    #     for item in :
-    #         return item 
-    #         user_data["watched"].append(title)
-    # return user_data
-        # if user_data[key][0][item]["title"] == title:
-        #     item +=1
-        #     user_data[key][1].append(title)
-    return user_data
-    # for key, value in user_data.items():
-    #     for item in user_data[item]["watchlist"]["title"]:
-    #         if title in user_data[item]["watchlist"]["title"]:
-    #             user_data["watched"].append(item)
-    # for key,value in user_data.items():
-    #     for 
-    #         return title
-
-
-
 # -----------------------------------------
 # ------------- WAVE 2 --------------------
 # -----------------------------------------
+def get_watched_avg_rating(user_data):
+    average_rating = 0 
+    sum_list = []
+    for i in user_data["watched"]:
+        if i["rating"]:
+            sum_list.append(i["rating"])
+        average_rating = sum(sum_list)/len(user_data["watched"])
+    return average_rating
+
+    
+def get_most_watched_genre(user_data):
+    genre_list =[]
+    for i in user_data["watched"]:
+        if i["genre"]:
+            genre_list.append(i["genre"])
+            most_popular = max(set(genre_list), key = genre_list.count)
+        return most_popular
+    return None
+
+
+
+
+
+
 
 
 # -----------------------------------------
