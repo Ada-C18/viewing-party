@@ -33,10 +33,49 @@ def watch_movie(user_data, movie):
             user_data["watched"].append(movie_dict)
     return user_data
 
+
 # -----------------------------------------
 # ------------- WAVE 2 --------------------
 # -----------------------------------------
+def get_watched_avg_rating(user_data):
+    rating_total = 0
+    num_watched = 0
+    if len(user_data["watched"]) == 0:
+        avg_rating = 0
+    else:
+        for movie_dict in user_data["watched"]:
+            for key, value in movie_dict.items():
+                if key == "rating":
+                    rating_total += value
+                    num_watched += 1
+        avg_rating = rating_total / num_watched
+    return avg_rating
 
+def get_most_watched_genre(user_data):
+    genre_map = {}
+    most_genre = None
+    highest_num = None
+    if len(user_data["watched"]) == 0:
+        return most_genre
+    for movie in user_data["watched"]:
+        for key, value in movie.items():
+            if key == "genre":
+                if value not in genre_map:
+                    genre_map[value] = 1
+                else:
+                    genre_map[value] += 1
+    for genre, num in genre_map.items():
+        if most_genre == None:
+            most_genre = genre
+            highest_num = num
+        elif num > highest_num:
+            most_genre = genre
+            highest_num = num
+        else:
+            continue
+
+
+    return most_genre
 
 # -----------------------------------------
 # ------------- WAVE 3 --------------------
