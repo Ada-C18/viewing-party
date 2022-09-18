@@ -29,8 +29,8 @@ def watch_movie(user_data, title):
         if title == movie_dict['title']:
             user_data['watched'].append(movie_dict)
             user_data['watchlist'].remove(movie_dict)
-            return user_data
-        return user_data
+
+    return user_data
 
 
     # for movie in user_data.values():
@@ -46,7 +46,13 @@ def watch_movie(user_data, title):
 # -----------------------------------------
 # ------------- WAVE 2 --------------------
 # -----------------------------------------
-
+def get_watched_avg_rating(user_data):
+    total_rating = 0.0
+    avg_rating = 0.0
+    for movie_dict in user_data['watched']:
+        total_rating += movie_dict['rating']
+    avg_rating = total_rating/ len(user_data['watched'])
+    return avg_rating
 
 # -----------------------------------------
 # ------------- WAVE 3 --------------------
