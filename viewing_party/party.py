@@ -149,20 +149,56 @@ def get_user_watched_list(user_data):
 # ------------- WAVE 4 --------------------
 # -----------------------------------------
 
+# def get_available_recs(user_data):
+#     friends_unique_list = get_friends_unique_watched(user_data)
+#     user_recs = friends_unique_list.copy()
+    
+#     user_subscription_list = user_data["subscriptions"]
+#     print("user subscription list is: ",user_subscription_list)
+#     print("==========================================")
+#     print("friends unique list ",friends_unique_list)
+#     print("==========================================")
+#     for element in range(len(user_recs)):
+#         if user_recs[element]["host"] not in user_subscription_list:
+#             user_recs.remove(user_recs[element])
+#     print(user_recs)
+#     return user_recs
+
 def get_available_recs(user_data):
+    to_remove_list = get_to_remove_list(user_data)
+    # print("to remove list is: ",to_remove_list)
     friends_unique_list = get_friends_unique_watched(user_data)
+    # print("=====================")
+    # print("friends list is: ",to_remove_list)
+    # print("==========================")
     user_recs = friends_unique_list.copy()
     
-    user_subscription_list = user_data["subscriptions"]
-    print("user subscription list is: ",user_subscription_list)
-    print("==========================================")
-    print("friends unique list ",friends_unique_list)
-    print("==========================================")
-    for element in range(len(user_recs)):
-        if user_recs[element]["host"] not in user_subscription_list:
-            user_recs.remove(user_recs[element])
-    print(user_recs)
+    for element in user_recs[:]:
+        if element in to_remove_list:
+            user_recs.remove(element)
+    # print("==========================")
+    # print(len(user_recs))
     return user_recs
+
+    
+def get_to_remove_list(user_data):    
+    friends_unique_list = get_friends_unique_watched(user_data)
+    user_recs = friends_unique_list.copy()
+    to_remove_list = []
+    # print("user recs list is ",user_recs)
+    # print("==========================================")
+    user_subscription_list = user_data["subscriptions"]
+    # print("user subscription list is: ",user_subscription_list)
+    # print("==========================================")
+    # print("friends unique list ",friends_unique_list)
+    # print("==========================================")
+    # print("length of user_recs",(len(user_recs)))
+    for element in range(len(user_recs)):
+        if (user_recs[element]["host"]) not in user_subscription_list:
+            to_remove_list.append(user_recs[element])
+    # print(to_remove_list)
+    return to_remove_list
+
 
 # -----------------------------------------
 # ------------- WAVE 5 --------------------
