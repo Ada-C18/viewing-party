@@ -51,13 +51,13 @@ def watch_movie(user_data, title):
     user_data: a dict with keys "watchlist" and "watched"
     title: a str representing the title of the movie the user has watched
     """
+    counter = 0
     for movie in user_data["watchlist"]:
         if title == movie["title"]:
-            # remove movie from "watchlist"
-            movie_watched = user_data["watchlist"].pop(movie)
-            # add movie to "watched"
+            movie_watched = user_data["watchlist"].pop(counter)
             user_data["watched"].append(movie_watched)
             return user_data
+        counter += 1
     else:
         return user_data
 
