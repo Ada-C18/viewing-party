@@ -17,10 +17,6 @@ def add_to_watchlist(user_data, movie):
     return updated_data 
 
 def watch_movie(user_data, movie):
-    # updated_data = user_data
-    # I want to go into the dict user_data
-    # I want to go into the key user_data["watchlist"] --- the value is a list of movies to watch
-    # I want to go through the all the movies in that list, if the movie_title = movie param, remove that movie
     for item in user_data["watchlist"]:
         if item["title"] == movie:
             watched_movie = item
@@ -33,6 +29,41 @@ def watch_movie(user_data, movie):
 # -----------------------------------------
 # ------------- WAVE 2 --------------------
 # -----------------------------------------
+
+# works when I change to float, ask instructor why
+def get_watched_avg_rating(user_data):
+    number_of_movies = 0
+    average_ratings = 0.0
+    if len(user_data["watched"]) == 0:
+        average_ratings = 0.0
+        return average_ratings
+    for movie in user_data["watched"]:
+        number_of_movies += 1
+        average_ratings += float(movie["rating"])
+    average_ratings = average_ratings/number_of_movies
+    return average_ratings
+        
+def get_most_watched_genre(user_data):
+    # loop through the user_data["watched"]
+    # for every genre add to a new dictionary as a key
+    # if key already exists, increase value by 1
+    # if key doesn't already exist add to dictionary
+    # go through this new dictionary, and find highest value and return that genre
+    genre_dict = {}
+    highest_count = 0
+    most_frequent_genre = ""
+    if len(user_data["watched"]) == 0:
+        return None
+    for movie in user_data["watched"]:
+        if movie["genre"] not in genre_dict:
+            genre_dict[movie["genre"]] = 0
+        elif movie["genre"] in genre_dict:
+            genre_dict[movie["genre"]] += 1
+    for genre, count in genre_dict.items():
+        if count > highest_count:
+            most_frequent_genre = genre
+            highest_count = count
+    return most_frequent_genre
 
 
 # -----------------------------------------
