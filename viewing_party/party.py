@@ -18,14 +18,18 @@ def add_to_watchlist(user_data, movie):
     return user_data
 
 def watch_movie(user_data, title):
-    watchlist = user_data["watchlist"] #[{}]
-    watched = user_data["watched"] #[{}]
-    for i in range(0, len(watchlist)):
-        if title == watchlist[i]["title"]:
-            watched.append(watchlist[i])
-            watchlist.remove(watchlist[i])
-    user_data["watchlist"] = watchlist
-    user_data["watched"] = watched
+    for movie in user_data["watchlist"]:
+        if title == movie["title"]:
+            user_data["watched"].append(movie)
+            user_data["watchlist"].remove(movie)
+    # watchlist = user_data["watchlist"] #[{}]
+    # watched = user_data["watched"] #[{}]
+    # for i in range(0, len(watchlist)):
+    #     if title == watchlist[i]["title"]:
+    #         watched.append(watchlist[i])
+    #         watchlist.remove(watchlist[i])
+    # user_data["watchlist"] = watchlist
+    # user_data["watched"] = watched
     return user_data
 
 
@@ -119,9 +123,9 @@ def get_available_recs(user_data):
     
     return movie_recs
 
-
-
 # -----------------------------------------
 # ------------- WAVE 5 --------------------
 # -----------------------------------------
 
+
+    
