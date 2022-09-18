@@ -1,5 +1,8 @@
 # ------------- WAVE 1 --------------------
 
+from enum import unique
+
+
 def create_movie(title, genre, rating):
     dict = {}
     if title and genre and rating:
@@ -69,6 +72,48 @@ def get_most_watched_genre(user_data):
 # ------------- WAVE 3 --------------------
 # -----------------------------------------
 
+def get_unique_watched(user_data):
+    friends_watched = []
+    friends_movies = user_data['friends']
+    user_unique = []
+    for watched_list in friends_movies:
+        for friend_movie in watched_list['watched']:
+            friends_watched.append(friend_movie['title'])
+    # print('Friend Watched:', friends_watched, '\n')
+    for user_movie in user_data['watched']:
+        if user_movie['title'] not in friends_watched:
+            user_unique.append(user_movie)
+    # print('User:', user_data['watched'], '\n')
+    # print('User Unique: ', user_unique)
+    return user_unique
+
+
+def get_friends_unique_watched(user_data):
+    #user_data = {"watched": [{"title"}], "friends": [{"watched": ["title"]}]}
+    unique_movies = []
+    unique_movies_titles = []
+    watched_movies = []
+    friends_movies = user_data['friends']
+    # print('Friends:', friends_movies)
+    
+    #go through friends watched list
+        #if friends watched list movie title is a title that does not exists in personal watched list
+            #add that dict to unique_movies
+
+    for user_movie in user_data['watched']:
+        watched_movies.append(user_movie['title'])
+    #print('Watched Movies: ', watched_movies, '\n')
+    for watched_list in friends_movies:
+        for friend_movie in watched_list['watched']:
+            #print('friend_movie:', friend_movie)
+            if friend_movie['title'] not in watched_movies:
+                if friend_movie['title'] not in unique_movies_titles:
+                    unique_movies.append(friend_movie)
+                    unique_movies_titles.append(friend_movie['title'])
+    print('Unique Movies:', unique_movies)
+    print('Unique Movie Titles:', unique_movies_titles)
+    return unique_movies
+    #return unique_movies
         
 # -----------------------------------------
 # ------------- WAVE 4 --------------------
