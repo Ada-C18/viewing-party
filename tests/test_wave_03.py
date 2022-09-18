@@ -56,6 +56,9 @@ def test_friends_unique_movies_not_duplicated():
     assert len(friends_unique_movies) == 3
 
     raise Exception("Test needs to be completed.")
+    assert friends_unique_movies[0]["title"] == "The Programmer: An Unexpected Stack Trace"
+    assert friends_unique_movies[1]["title"] == 'Zero Dark Python'
+    assert friends_unique_movies[2]["title"] == 'Zero Dark Python'
     # *************************************************************************************************
     # ****** Add assertions here to test that the correct movies are in friends_unique_movies **********
     # **************************************************************************************************
