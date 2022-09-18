@@ -127,5 +127,21 @@ def get_available_recs(user_data):
 # ------------- WAVE 5 --------------------
 # -----------------------------------------
 
+def get_new_rec_by_genre(user_data):
+    movie_recs_by_genre = []
+    friends_movies = get_friends_unique_watched(user_data)
+    user_genre = get_most_watched_genre(user_data)
+    for movie in friends_movies:
+        if movie["genre"] == user_genre: 
+            movie_recs_by_genre.append(movie)
+    return movie_recs_by_genre
 
-    
+
+def get_rec_from_favorites(user_data):
+    user_unique = get_unique_watched(user_data)
+    rec_from_favorites = []
+    for user_unique_movie in user_unique:
+        for fav_movie in user_data["favorites"]:
+            if user_unique_movie["title"] == fav_movie["title"]:
+                rec_from_favorites.append(user_unique_movie)
+    return rec_from_favorites
