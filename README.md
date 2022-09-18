@@ -202,7 +202,8 @@ When our test failures leave us confused and stuck, let's use the detailed proje
 
 ### Wave 1
 
-1. Create a function named  `create_movie`. This function and all subsequent functions should be in `party.py`. `create_movie` should...
+1. Create a function named  `create_movie`. ** PASSED **
+ This function and all subsequent functions should be in `party.py`. `create_movie` should...
 
 - take three parameters: `title`, `genre`, `rating`
 - If those three attributes are truthy, then return a dictionary. This dictionary should...
@@ -211,7 +212,8 @@ When our test failures leave us confused and stuck, let's use the detailed proje
   - The values of these key-value pairs should be appropriate values
 - If `title` is falsy, `genre` is falsy, or `rating` is falsy, this function should return `None`
 
-2. Create a function named `add_to_watched`. This function should...
+2. Create a function named `add_to_watched`. ** PASSED **
+This function should...
 
 - take two parameters: `user_data`, `movie`
   - the value of `user_data` will be a dictionary with a key `"watched"`, and a value which is a list of dictionaries representing the movies the user has watched
@@ -227,7 +229,7 @@ When our test failures leave us confused and stuck, let's use the detailed proje
 - add the `movie` to the `"watched"` list inside of `user_data`
 - return the `user_data`
 
-3. Create a function named `add_to_watchlist`. This function should...
+3. Create a function named `add_to_watchlist`. This function should... ** Passed! **
 
 - take two parameters: `user_data`, `movie`
   - the value of `user_data` will be a dictionary with a key `"watchlist"`, and a value which is a list of dictionaries representing the movies the user wants to watch
