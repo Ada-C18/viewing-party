@@ -1,5 +1,4 @@
 # ------------- WAVE 1 --------------------
-# 1
 def create_movie(title, genre, rating):
     """ 
     input: a str title, str genre, and float rating
@@ -15,7 +14,6 @@ def create_movie(title, genre, rating):
     else:
         return None
 
-# part 2
 def add_to_watched(user_data, movie):
     """
     user_data: a dictionary with a key "watched" and a value list of dictionaries representing the movies the user watched
@@ -30,7 +28,7 @@ def add_to_watched(user_data, movie):
     access_watched.append(movie)
     return user_data
 
-# part 3
+
 def add_to_watchlist(user_data, movie):
     """
     user_data: a dict with the key "watchlist" and value list of dictionaries representing the movies the user wants to watch
@@ -45,7 +43,6 @@ def add_to_watchlist(user_data, movie):
     access_watchlist.append(movie)
     return user_data
 
-#part 4
 def watch_movie(user_data, title):
     """
     user_data: a dict with keys "watchlist" and "watched"
@@ -64,7 +61,32 @@ def watch_movie(user_data, title):
 # -----------------------------------------
 # ------------- WAVE 2 --------------------
 # -----------------------------------------
+# part 1
+def get_watched_avg_rating(user_data):
+    """
+    user_data: a dict with a "watched" list of movie dicts
+    """
+    num_movies_watched = len(user_data["watched"])
+    all_ratings = 0.0
 
+    if num_movies_watched == 0:
+        return all_ratings
+    else:
+        for movie in user_data["watched"]:
+            all_ratings += movie["rating"]
+        average_rating = all_ratings / num_movies_watched
+        return average_rating
+
+# part 2
+def get_most_watched_genre(user_data):
+    """
+    user_data: a dict with a "watched" list of movie dicts
+    """
+    # if watched list is empty:
+        # return none
+    # else:
+        # iterate over the genres in watch list
+        # return the most-watched genre
 
 # -----------------------------------------
 # ------------- WAVE 3 --------------------
