@@ -12,14 +12,21 @@ def create_movie(title, genre, rating):
     my_dict["title"] = title
     my_dict["genre"] = genre
     my_dict["rating"] = rating
+    return my_dict
+  else:
+    return None
 
-  return my_dict
+def add_to_watched(user_data, movie):
+  
+  for key, value in user_data.items():
+    user_data["watched"] = [movie]
+    return user_data
+def add_to_watchlist(user_data, movie):
+  for key,value in user_data.items():
+    user_data["watchlist"] = [movie]
+    return user_data
 
-# def add_to_watched(user_data, movie):
-
-
-
-# for 
+# def watch_movie(user_data, title):
 
 
 # }
