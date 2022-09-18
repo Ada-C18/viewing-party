@@ -73,9 +73,9 @@ def get_most_watched_genre(user_data):
                 watched_genre_dict[genre_name] += 1
     
     # use get method and max function to return dictionary key with max value
-    max_watched_genre = max(watched_genre_dict, key = watched_genre_dict.get)
+    most_watched_genre = max(watched_genre_dict, key = watched_genre_dict.get)
     
-    return max_watched_genre
+    return most_watched_genre
 
 # -----------------------------------------
 # ------------- WAVE 3 --------------------
@@ -134,20 +134,32 @@ def get_available_recs(user_data):
     # get_friends_unique_watched
     user_has_not_watched_movies = get_friends_unique_watched(user_data)
        
-    # loop though list of movies which user has not watched and
-    # add movie to the recommended if user that subcription to the host of the movie
+    # loop though list of the movies which user has not watched;
+    # add a movie to the recommended if the user that subcription to the host of the movie
     for movie in user_has_not_watched_movies:
         for subcribton in user_subcribtion_list:
             if movie["host"] == subcribton:
                 recommended_movies.append(movie)
     return recommended_movies
 
-
-
-
-
-
 # -----------------------------------------
 # ------------- WAVE 5 --------------------
 # -----------------------------------------
+
+def get_new_rec_by_genre(user_data):
+    recommended_movies_by_genre = []
+    most_popular_wached_genre = get_most_watched_genre(user_data)
+    # initialize a variable with return value of function 
+    # get_friends_unique_watched
+    user_has_not_watched_movies = get_friends_unique_watched(user_data)
+    
+    # loop though list of movies which the user has not watched;
+    # add a movie to the recommended if the "genre" of the movie is the same 
+    # as the user's most frequent genre
+    for movie in user_has_not_watched_movies:
+        if most_popular_wached_genre == movie["genre"]:
+                recommended_movies_by_genre.append(movie)
+    
+    return recommended_movies_by_genre
+    
 
