@@ -103,10 +103,23 @@ def get_friends_unique_watched(user_data):
                 friends_unique_titles.remove(movie["title"]) #prevent appending repeat movies
 
     return friends_unique_movies
-
 # -----------------------------------------
 # ------------- WAVE 4 --------------------
 # -----------------------------------------
+
+def get_available_recs(user_data):
+    user_subscriptions = user_data["subscriptions"]
+    friends_movies = get_friends_unique_watched(user_data)
+    movie_recs = []
+    # for index in range(len(friends_movies)):
+    #     for movie in friends_movie
+    for movie in friends_movies: 
+        if movie["host"] in user_subscriptions:
+            movie_recs.append(movie)
+    
+    return movie_recs
+
+
 
 # -----------------------------------------
 # ------------- WAVE 5 --------------------
