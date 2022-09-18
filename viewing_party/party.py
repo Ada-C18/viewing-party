@@ -31,6 +31,16 @@ def add_to_watchlist(user_data, movie):
     print(user_data)
     return user_data
 
+# Create watch_movie function that moves movies from watchlist to watched list
+def watch_movie(user_data, movie_to_watch):
+    for i in range(len(user_data["watchlist"])):
+        if user_data["watchlist"][i]["title"] == movie_to_watch:
+            movie_watched = user_data["watchlist"][i]
+            user_data["watched"].append(movie_watched)
+            user_data["watchlist"].remove(movie_watched)
+    
+    print(user_data)
+    return user_data
 # -----------------------------------------
 # ------------- WAVE 2 --------------------
 # -----------------------------------------
