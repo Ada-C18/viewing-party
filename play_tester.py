@@ -25,27 +25,19 @@ pp = pprint.PrettyPrinter(indent=4)
 #print("\n-----Wave 03 user_data-----")
 #pp.pprint(clean_wave_3_data())
 
-def get_friends_unique_watched(user_data):
-# return what their friends have watched but not user
-    user_watched_list = []
-    friend_watched_list = []
-    friend_unique_movies = []
-
-    for movie in user_data["watched"]:
-        user_watched_list.append(movie)
-
-    for friend_movie in user_data['friends']:
-        for movie in friend_movie['watched']:
-            friend_watched_list.append(movie)
-
-    for i in friend_watched_list:
-        if i not in user_watched_list:
-            friend_unique_movies.append(i)
-    return friend_unique_movies
-    
 # Wave 04 user data
-#print("\n-----Wave 04 user_data-----")
-#pp.pprint(clean_wave_4_data())
+# print("\n-----Wave 04 user_data-----")
+# pp.pprint(clean_wave_4_data())
+
+def get_available_recs(user_data):
+    recs = []
+    movies_from_friends = get_friends_unique_watched(user_data)
+    for i in range(len(movies_from_friends)):
+        if (movies_from_friends[i]['host']) in user_data['subscriptions']:
+            recs.append(movies_from_friends[i])
+    return recs
+
+get_available_recs(clean_wave_4_data())
 
 # Wave 05 user data
 #print("\n-----Wave 05 user_data-----")
