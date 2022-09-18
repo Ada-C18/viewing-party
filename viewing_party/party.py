@@ -32,11 +32,13 @@ def watch_movie(user_data, title):
         if title  == movie["title"]:
             print(f"debug: title in movie dict")
             # remove that movie from the watchlist
+            watchlist.remove(movie)
         else:
             print(f"debug: title no in movie dict")
-        
-        # add that movie to watched 
-        #  return the user_data
+        # add that movie to watched
+        user_data["watched"].append(movie)
+        # return the user_data
+        return user_data
 
     # if the title is not a movie in the user's watchlist:
         # return the user_data
