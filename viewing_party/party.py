@@ -136,4 +136,31 @@ def get_available_recs(user_data):
 # -----------------------------------------
 # ------------- WAVE 5 --------------------
 # -----------------------------------------
+def get_new_rec_by_genre(user_data):
+    fav_genre = get_most_watched_genre(user_data)
+    movie_recs = []
+    watched_movies = []
+    for user_movie in user_data['watched']:
+        watched_movies.append(user_movie['title'])
+    for friend in user_data['friends']:
+        for movie in friend['watched']:
+            if movie['title'] not in watched_movies:
+                if movie['genre'] == fav_genre:
+                    movie_recs.append(movie)
+    return movie_recs
+
+def get_rec_from_favorites(user_data):
+    friends_watched = []
+    friends_movies = user_data['friends']
+    movie_recs = []
+    fav_movies = []
+    for watched_list in friends_movies:
+        for friend_movie in watched_list['watched']:
+            friends_watched.append(friend_movie['title'])
+    for fav_movie in user_data['favorites']:
+        fav_movies.append(fav_movie['title'])
+    for movie in user_data['watched']:
+        if movie['title'] in fav_movies and movie['title'] not in friends_watched:
+            movie_recs.append(movie)
+    return movie_recs
 
