@@ -44,11 +44,27 @@ def get_watched_avg_rating(user_data):
 
 def get_most_watched_genre(user_data):
 
-    if user_data == {"watched": []}:
-        return None
+    # if user_data == {"watched": []}:
+    #     return None
 
+    # else:
+    index = 0
+    genres = []
+    least_popular = []
+    most_popular = []
+    
+    if user_data == {"watched":[]}:
+        return None
     else:
-        
+        for movie in user_data["watched"]:
+            index +=1
+            genres.append(user_data["watched"][index-1]["genre"])
+        for item in genres:
+            if item not in least_popular:
+                least_popular.append(item)
+            else:
+                most_popular.append(item)
+        return (most_popular[0])
 
 
 
