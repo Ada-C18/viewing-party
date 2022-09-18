@@ -24,7 +24,24 @@ def add_to_watchlist(user_data, movie):
     }
     return user_data
 
+def watch_movie(user_data, title):
+    pass
+    watchlist = user_data["watchlist"]
+    for movie in watchlist:
+    # if the title is in a movie in the user's watchlist:
+        if title  == movie["title"]:
+            print(f"debug: title in movie dict")
+            # remove that movie from the watchlist
+        else:
+            print(f"debug: title no in movie dict")
+        
+        # add that movie to watched 
+        #  return the user_data
 
+    # if the title is not a movie in the user's watchlist:
+        # return the user_data
+
+    
 # -----------------------------------------
 # ------------- WAVE 2 --------------------
 # -----------------------------------------
@@ -42,4 +59,3 @@ def add_to_watchlist(user_data, movie):
 # -----------------------------------------
 # ------------- WAVE 5 --------------------
 # -----------------------------------------
-
