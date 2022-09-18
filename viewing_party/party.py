@@ -57,12 +57,32 @@ def get_watched_avg_rating(user_data):
     for watched_list in user_data.values():
         for movie in watched_list:
             rating_list.append(movie['rating'])
-    rating_avg = average(rating_list)
+    
 
     if rating_list:
-        return rating_avg
+        return average(rating_list)
     else:
         return 0.0
+
+def get_most_watched_genre(user_data):
+    most_watched_genre_dict = {}
+    for watched_list in user_data.values():
+        for movie in watched_list:
+            genre = movie['genre']
+            if genre not in most_watched_genre_dict:
+                most_watched_genre_dict[genre] = 1
+            else:
+                most_watched_genre_dict[genre] += 1
+    # max_val = list(most_watched_genre_dict.values())
+    # max_key = list(most_watched_genre_dict.keys())
+    # most_watched_genre = max_key[max_val.index(max(max_val))]
+
+    if most_watched_genre_dict:
+        max_val = list(most_watched_genre_dict.values())
+        max_key = list(most_watched_genre_dict.keys())
+        return max_key[max_val.index(max(max_val))]
+    else:
+        return None
 
 # -----------------------------------------
 # ------------- WAVE 3 --------------------
