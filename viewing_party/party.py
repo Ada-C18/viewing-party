@@ -82,15 +82,9 @@ def get_most_watched_genre(user_data):
 # -----------------------------------------
 def get_unique_watched(user_data):
     unique_movies = []
-    user_movies = []
-    friend_movies = []
-    for friend in user_data["friends"]:
-        for movie_dict in friend["watched"]:
-            if movie_dict not in friend_movies:
-                friend_movies.append(movie_dict)
-    for movie_dict in user_data["watched"]:
-        if movie_dict not in user_movies:
-            user_movies.append(movie_dict)
+    unique_movies = []
+    friend_movies = get_friend_movie_lists(user_data)
+    user_movies = get_user_movie_list(user_data)
     for movie_dict in user_movies:
         if movie_dict not in friend_movies:
             unique_movies.append(movie_dict)
@@ -99,24 +93,35 @@ def get_unique_watched(user_data):
 
 def get_friends_unique_watched(user_data):
     unique_movies = []
-    user_movies = []
-    friend_movies = []
-    for friend in user_data["friends"]:
-        for movie_dict in friend["watched"]:
-            if movie_dict not in friend_movies:
-                friend_movies.append(movie_dict)
-    for movie_dict in user_data["watched"]:
-        if movie_dict not in user_movies:
-            user_movies.append(movie_dict)
+    friend_movies = get_friend_movie_lists(user_data)
+    user_movies = get_user_movie_list(user_data)
     for movie_dict in friend_movies:
         if movie_dict not in user_movies:
             unique_movies.append(movie_dict)
 
     return unique_movies
 
+def get_user_movie_list(user_data):
+    user_movies = []
+    for movie_dict in user_data["watched"]:
+        if movie_dict not in user_movies:
+            user_movies.append(movie_dict)
+    return user_movies
+
+def get_friend_movie_lists(user_data):
+    friend_movies = []
+    for friend in user_data["friends"]:
+        for movie_dict in friend["watched"]:
+            if movie_dict not in friend_movies:
+                friend_movies.append(movie_dict)
+    return friend_movies
+
 # -----------------------------------------
 # ------------- WAVE 4 --------------------
 # -----------------------------------------
+def get_available_recs(user_data):
+    pass
+
 
 # -----------------------------------------
 # ------------- WAVE 5 --------------------
