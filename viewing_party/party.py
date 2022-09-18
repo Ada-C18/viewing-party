@@ -24,7 +24,6 @@ def watch_movie(user_data, title):
     for movie in user_data["watchlist"]:
         if title == movie["title"]:
             popped_movie = user_data["watchlist"].pop(i)
-            print(popped_movie)
             user_data["watched"].append(popped_movie)
         i += 1
     return user_data
@@ -46,21 +45,33 @@ def get_most_watched_genre(user_data):
     genre_counts = {}
     if not user_data["watched"]:
         return None
-    
+    # Counts each genre using a dict (formatted as genre: count)
     for movie in user_data["watched"]:
         current_genre = movie["genre"]
         if current_genre not in genre_counts:
             genre_counts[current_genre] = 1
         else:
             genre_counts[current_genre] += 1
-    
+    # Returns key (genre) with the highest value (count)
     return max(genre_counts, key=genre_counts.get)
-
 
 # -----------------------------------------
 # ------------- WAVE 3 --------------------
 # -----------------------------------------
 
+def get_unique_watched(user_data):
+    all_friends_watched = []
+    unique_watched = []
+    # Adds all friends' watched movies to a list
+    for friend in user_data["friends"]:
+        for movie in friend["watched"]:
+            all_friends_watched.append(movie)
+    # Compares user's watched list to friends' watched list
+    for movie in user_data["watched"]:
+        if movie not in all_friends_watched:
+            unique_watched.append(movie)
+    
+    return unique_watched
 
 # -----------------------------------------
 # ------------- WAVE 4 --------------------
