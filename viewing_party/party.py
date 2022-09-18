@@ -99,11 +99,82 @@ def get_most_watched_genre(user_data):
 # ------------- WAVE 3 --------------------
 # -----------------------------------------
 def get_unique_watched(user_data):
-    pass
+# (1) watched list of user
+# (2) friend's list
+# (3) compare two lists
+# (4) return user's unique list (elements in dict!) 
+
+    titles_user = []
+    titles_friends = []
+    watched_list = user_data["watched"]
+    friends_list = user_data["friends"]
+
+    # movie titles of user
+    for movie in watched_list:
+        title = movie["title"]
+        titles_user.append(title) 
+
+    # friend in dict
+    for friend in friends_list: 
+        movie_list_each_friend = friend["watched"]
+        for movie in movie_list_each_friend:
+            title = movie["title"]
+            titles_friends.append(title)
+
+    # compare 
+    movie_set_user = set(titles_user)
+    movie_set_friends = set(titles_friends)
+    unique_movie_title_user = movie_set_user - movie_set_friends
+
+    # list of unique movies (in dict)
+    unique_movie_user = []
+    for movie in watched_list:
+        title = movie["title"]
+        if title in unique_movie_title_user:
+            unique_movie_user.append(movie)
+
+    return unique_movie_user
 
 def get_friends_unique_watched(user_data):
-    pass
+# (1) watched list of user
+# (2) friend's list
+# (3) compare two lists
+# (4) return frieds' unique list (elements in dict!) 
+    titles_user = []
+    titles_friends = []
+    watched_list = user_data["watched"]
+    friends_list = user_data["friends"]
+
+    # movie titles of user
+    for movie in watched_list:
+        title = movie["title"]
+        titles_user.append(title) 
+
+    # friend in dict
+    for friend in friends_list: 
+        movie_list_each_friend = friend["watched"]
+        for movie in movie_list_each_friend:
+            title = movie["title"]
+            titles_friends.append(title)
         
+    # compare 
+    movie_set_user = set(titles_user)
+    movie_set_friends = set(titles_friends)
+    unique_movie_title_friends = movie_set_friends - movie_set_user
+
+    # list of unique movies (in dict)
+    unique_movie_friends = []
+    for friend in friends_list: 
+        movie_list_each_friend = friend["watched"]
+        for movie in movie_list_each_friend:
+            title = movie["title"]
+            # avoid duplicate!
+            if title in unique_movie_title_friends and not movie in unique_movie_friends:
+                print(title)
+                unique_movie_friends.append(movie)
+        
+    return unique_movie_friends
+
 # -----------------------------------------
 # ------------- WAVE 4 --------------------
 # -----------------------------------------
