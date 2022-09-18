@@ -4,9 +4,10 @@ def create_movie(title, genre, rating):
     movie_dict = {}
     movie_dict["title"] = title
     movie_dict["genre"] = genre
-    movie_dict["rating"] = rating 
+    movie_dict["rating"] = rating
+    if movie_dict["title"] == None:
+        return None
     return movie_dict
-
 
 
 # -----------------------------------------
