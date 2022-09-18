@@ -55,6 +55,7 @@ def watch_movie(user_data, title):
 # -----------------------------------------
 # ------------- WAVE 2 --------------------
 # -----------------------------------------
+
 def get_watched_avg_rating(user_data):
 # (1) extract each movie from a list and get each rating
 # (2) sum up rating during loop
@@ -92,8 +93,8 @@ def get_most_watched_genre(user_data):
                 genres[genre] = 1
             else:
                 genres[genre] += 1 
-        max_genre = max(genres, key=genres.get)
-        return max_genre
+        most_genre = max(genres, key=genres.get)
+        return most_genre
 
 # -----------------------------------------
 # ------------- Helper Function -----------
@@ -106,11 +107,12 @@ def get_value_list_with_same_key_in_dict_list(dict_list, key, value_list):
         # if not same_key_value in value_list:
         # ok for redundant as it might have a different details in other keys
         value_list.append(same_key_value)
-    return value_list
+    #return value_list
 
 # -----------------------------------------
 # ------------- WAVE 3 --------------------
 # -----------------------------------------
+
 def get_unique_watched(user_data):
 # (1) watched list of user
 # (2) friend's list
@@ -182,6 +184,7 @@ def get_friends_unique_watched(user_data):
 # -----------------------------------------
 # ------------- WAVE 4 --------------------
 # -----------------------------------------
+
 def get_available_recs(user_data):
 # (1) service list of user subscribes
 # (2) friends' unique movie list
@@ -207,10 +210,34 @@ def get_available_recs(user_data):
 def get_new_rec_by_genre(user_data):
 # (1) user's most frequently watched genre: get_most_watched_genre(user_data)
 # .   multiple case?
-# (2)
-#    get_most_watched_genre(user_data)
+# (2) friends' unique movie list
+# (3) compare genre of the movie to user's favorite
 
-    pass
+    most_genre = get_most_watched_genre(user_data) # in str
+    unique_movie_friends = get_friends_unique_watched(user_data) # in dict
+    recommended_list = []
+
+    for movie in unique_movie_friends: 
+        genre_friends = movie["genre"]
+        if genre_friends == most_genre:
+            recommended_list.append(movie)
+    
+    return recommended_list
 
 def get_rec_from_favorites(user_data):
-    pass
+# (1) favorite movie list (elements are in dict)
+# (2) user's unique movie list
+# (3) favorite movies in user's unique list (in a list of dict)
+
+    favorite_list = user_data["favorites"]
+    titles_user_favorite = []
+    recommended_list = []
+    unique_movie_user = get_unique_watched(user_data)
+    get_value_list_with_same_key_in_dict_list(favorite_list, "title", titles_user_favorite)
+
+    for movie in unique_movie_user: 
+        unique_movie_title = movie["title"]
+        if unique_movie_title in titles_user_favorite: 
+            recommended_list.append(movie)
+            
+    return recommended_list
