@@ -25,9 +25,13 @@ user_data = {
 
 MOVIE_TITLE_2 = "Gooneys"
 # putting in own test inputs to run program to observe outputs
-print(create_movie("mybad", "horror", "4.8"))
+# print(create_movie("mybad", "horror", "4.8"))
 print(watch_movie(user_data, MOVIE_TITLE_1))
-print(watch_movie(user_data, MOVIE_TITLE_2))
+# print(watch_movie(user_data, MOVIE_TITLE_2))
+# user_data = (watch_movie(user_data, MOVIE_TITLE_1))
+print(len(user_data["watchlist"]), user_data["watchlist"])
+print(len(user_data["watched"]), user_data["watched"])
+
 # print("\n-----Wave 02 user_data-----")
 # pp.pprint(clean_wave_2_data())
 
