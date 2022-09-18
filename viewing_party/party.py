@@ -32,7 +32,6 @@ def watch_movie(user_data, title):
     if user_data["watchlist"][0]["title"] == title:
         user_data["watched"] = [user_data["watchlist"][0]]
         user_data["watchlist"] = []
-    print(user_data)
     # for i in user_data["watchlist"]: # looking at every item in list
     #     for key in i:
     #         if key["title"] == title:
