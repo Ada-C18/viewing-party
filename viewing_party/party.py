@@ -60,14 +60,34 @@ def get_most_watched_genre(user):
         if dict_most_genre[genre] == most_genre_val:
             most_genre.append(genre)
     return ''.join(most_genre)
-
-
-    
 # -----------------------------------------
 # ------------- WAVE 3 --------------------
 # -----------------------------------------
+def get_unique_watched(user_data):
+    #first I want to access the dictionary and the "watched" list
+    list_compare = []
+    list_friends = friend_list_of_user(user_data)
+    for movie in user_data["watched"]:
+        if movie not in list_friends:
+            list_compare.append(movie)
+    return list_compare
+def friend_list_of_user(user_data):
+    list_friends = []
+    set_title = set()
+    for friend in user_data["friends"]:
+        for movie in friend["watched"]:
+            if movie not in list_friends:
+                list_friends.append(movie)
+    return list_friends
 
         
+def get_friends_unique_watched(user_data):
+    list_compare = []
+    list_friends = friend_list_of_user(user_data)
+    for movie in list_friends:
+        if movie not in user_data["watched"]:
+            list_compare.append(movie)
+    return list_compare
 # -----------------------------------------
 # ------------- WAVE 4 --------------------
 # -----------------------------------------
