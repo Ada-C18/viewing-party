@@ -96,6 +96,19 @@ def get_most_watched_genre(user_data):
         return max_genre
 
 # -----------------------------------------
+# ------------- Helper Function -----------
+# -----------------------------------------
+def get_value_list_with_same_key_in_dict_list(dict_list, key, value_list):
+# get a list of values with the same key from a list of dictionaries
+    for a_dict in dict_list:
+        same_key_value = a_dict[key]
+        ## if value is new
+        # if not same_key_value in value_list:
+        # ok for redundant as it might have a different details in other keys
+        value_list.append(same_key_value)
+    return value_list
+
+# -----------------------------------------
 # ------------- WAVE 3 --------------------
 # -----------------------------------------
 def get_unique_watched(user_data):
@@ -110,16 +123,12 @@ def get_unique_watched(user_data):
     friends_list = user_data["friends"]
 
     # movie titles of user
-    for movie in watched_list:
-        title = movie["title"]
-        titles_user.append(title) 
+    get_value_list_with_same_key_in_dict_list(watched_list, "title", titles_user)
 
     # friend in dict
     for friend in friends_list: 
         movie_list_each_friend = friend["watched"]
-        for movie in movie_list_each_friend:
-            title = movie["title"]
-            titles_friends.append(title)
+        get_value_list_with_same_key_in_dict_list(movie_list_each_friend, "title", titles_friends)
 
     # compare 
     movie_set_user = set(titles_user)
@@ -146,16 +155,12 @@ def get_friends_unique_watched(user_data):
     friends_list = user_data["friends"]
 
     # movie titles of user
-    for movie in watched_list:
-        title = movie["title"]
-        titles_user.append(title) 
+    get_value_list_with_same_key_in_dict_list(watched_list, "title", titles_user)
 
     # friend in dict
     for friend in friends_list: 
         movie_list_each_friend = friend["watched"]
-        for movie in movie_list_each_friend:
-            title = movie["title"]
-            titles_friends.append(title)
+        get_value_list_with_same_key_in_dict_list(movie_list_each_friend, "title", titles_friends)
         
     # compare 
     movie_set_user = set(titles_user)
@@ -170,7 +175,6 @@ def get_friends_unique_watched(user_data):
             title = movie["title"]
             # avoid duplicate!
             if title in unique_movie_title_friends and not movie in unique_movie_friends:
-                print(title)
                 unique_movie_friends.append(movie)
         
     return unique_movie_friends
@@ -179,11 +183,34 @@ def get_friends_unique_watched(user_data):
 # ------------- WAVE 4 --------------------
 # -----------------------------------------
 def get_available_recs(user_data):
-    pass
+# (1) service list of user subscribes
+# (2) friends' unique movie list
+# (3-1) check if services of (2) in (1)
+# (3-2) recommended list: list of friends' unique movies on a services which user subscribes
 
+    service_list_user = user_data["subscriptions"]
+    unique_movie_friends = get_friends_unique_watched(user_data) # in list
+    recommended_list = []
+
+    # friend in dict
+    for movie in unique_movie_friends: 
+        service_friends = movie["host"]
+        if service_friends in service_list_user:
+            recommended_list.append(movie)
+    
+    return recommended_list
+    
 # -----------------------------------------
 # ------------- WAVE 5 --------------------
 # -----------------------------------------
+
 def get_new_rec_by_genre(user_data):
+# (1) user's most frequently watched genre: get_most_watched_genre(user_data)
+# .   multiple case?
+# (2)
+#    get_most_watched_genre(user_data)
+
     pass
 
+def get_rec_from_favorites(user_data):
+    pass
