@@ -8,7 +8,7 @@ def create_movie(title, genre, rating):
 
     new_movie = {}
     
-    if not bool(title) or not bool(genre) or not bool(rating):
+    if not title or not genre or not rating:
         return None
     else:
         new_movie["title"] = title
@@ -18,14 +18,12 @@ def create_movie(title, genre, rating):
 
 def add_to_watched(user_data, movie):
 
-    if len(user_data) == 1:
-        user_data["watched"].append(movie)
+    user_data["watched"].append(movie)
     return user_data
 
 def add_to_watchlist(user_data, movie):
 
-    if not user_data["watchlist"]:
-        user_data["watchlist"].append(movie)
+    user_data["watchlist"].append(movie)
     return user_data
 
 def watch_movie(user_data, title):
@@ -73,7 +71,7 @@ def get_most_watched_genre(user_data):
 def get_unique_watched(user_data):
     
     unique = [users for users in user_data["watched"]]
-    
+
     for film in user_data["friends"]:
         for name in film["watched"]:
             if name in unique:
