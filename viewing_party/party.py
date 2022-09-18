@@ -311,72 +311,7 @@ def get_available_recs(user_data):
     return(final_list)
 
 
-get_available_recs({
-    "subscriptions":["netflix","hulu"],
-    "watched":[{
-    "title": "The Lord of the Functions: The Fellowship of the Function",
-    "genre": "Fantasy",
-    "rating": 4.8
-},{
-    "title": "The Lord of the Functions: The Two Parameters",
-    "genre": "Fantasy",
-    "rating": 4.0
-}, {
-    "title": "The Programmer: An Unexpected Stack Trace",
-    "genre": "Fantasy",
-    "rating": 4.0
-},{
-    "title": "The JavaScript and the React",
-    "genre": "Action",
-    "rating": 2.2
-},{
-    "title": "Recursion",
-    "genre": "Intrigue",
-    "rating": 2.0
-},{
-    "title": "Instructor Student TA Manager",
-    "genre": "Intrigue",
-    "rating": 4.5
-}], "friends":[
-    {
-    "watched":[
-    {"title": "The Lord of the Functions: The Fellowship of the Function",
-    "genre": "Fantasy",
-    "rating": 4.8,
-    "host":"netflix"
-    },
-    {
-    "title": "Zero Dark Python",
-    "genre": "Intrigue",
-    "rating": 3.0,
-    "host":"netflix"
-},
-{
-    "title": "Zero Dark Python",
-    "genre": "Intrigue",
-    "rating": 3.0,
-    "host":"netflix"
-}, {
-    "title": "JavaScript 3: VS Code Lint",
-    "genre": "Action",
-    "rating": 3.5,
-    "host":"hulu"
-},
-    {
-    "title": "The Lord of the Functions: The Two Parameters",
-    "genre": "Fantasy",
-    "rating": 4.0,
-    "host":"netflix"
-}]
-    },
-{"watched":[
-     {
-    "title": "The Programmer: An Unexpected Stack Trace",
-    "genre": "Fantasy",
-    "rating": 4.0,
-    "host":"disney"}]
-    }, 
-]})
+
 # -----------------------------------------
 # ------------- WAVE 5 --------------------
 # -----------------------------------------
@@ -392,86 +327,52 @@ get_available_recs({
 
 def get_new_rec_by_genre(user_data):
 
+    if len(user_data["watched"])==0:
+        return []
+
     # step 1. find the most frequent genre of user
     genre_data=[]
     for list in user_data["watched"]:
         genre_data.append(list["genre"])
 
     most_often=mode(genre_data)
+
     
-    #step 2: find movies the user has not watched but a friend has 
+#step 2: find movies the user has not watched but a friend has 
+    user_watched=[]
+    friends_watched=[]
+    user_not_watched=[]
+    no_duplicates=[]
+    final_list=[]
 
-
+    for watch in user_data["watched"]:
+        user_watched.append(watch)
+    for friend in user_data["friends"]:
+        for movie in friend.values():
+            for i in movie:
+                friends_watched.append(i)
+    
+    #if a movie in friends_watched is not in user_watched, add to user_not_watched list
+    
+    for f in friends_watched:
+        if f not in user_watched:
+            user_not_watched.append(f)
+    
+        
+#  remove duplicates 
+    for movie in user_not_watched:
+        if movie not in no_duplicates:
+            no_duplicates.append(movie)
 
 #step 3: only have movies with the genre that the user watches most 
 
+    for movie in no_duplicates:
+        if movie["genre"]==most_often:
+            final_list.append(movie)
 
-get_new_rec_by_genre({
-    "subscriptions":["netflix","hulu"],
-    "watched":[{
-    "title": "The Lord of the Functions: The Fellowship of the Function",
-    "genre": "Fantasy",
-    "rating": 4.8
-},{
-    "title": "The Lord of the Functions: The Two Parameters",
-    "genre": "Fantasy",
-    "rating": 4.0
-}, {
-    "title": "The Programmer: An Unexpected Stack Trace",
-    "genre": "Fantasy",
-    "rating": 4.0
-},{
-    "title": "The JavaScript and the React",
-    "genre": "Action",
-    "rating": 2.2
-},{
-    "title": "Recursion",
-    "genre": "Intrigue",
-    "rating": 2.0
-},{
-    "title": "Instructor Student TA Manager",
-    "genre": "Intrigue",
-    "rating": 4.5
-}], "friends":[
-    {
-    "watched":[
-    {"title": "The Lord of the Functions: The Fellowship of the Function",
-    "genre": "Fantasy",
-    "rating": 4.8,
-    "host":"netflix"
-    },
-    {
-    "title": "Zero Dark Python",
-    "genre": "Intrigue",
-    "rating": 3.0,
-    "host":"netflix"
-},
-{
-    "title": "Zero Dark Python",
-    "genre": "Intrigue",
-    "rating": 3.0,
-    "host":"netflix"
-}, {
-    "title": "JavaScript 3: VS Code Lint",
-    "genre": "Action",
-    "rating": 3.5,
-    "host":"hulu"
-},
-    {
-    "title": "The Lord of the Functions: The Two Parameters",
-    "genre": "Fantasy",
-    "rating": 4.0,
-    "host":"netflix"
-}]
-    },
-{"watched":[
-     {
-    "title": "The Programmer: An Unexpected Stack Trace",
-    "genre": "Fantasy",
-    "rating": 4.0,
-    "host":"disney"}]
-    }, 
-]})
+    return(final_list)
+
+
 
 # 2. Create a function named  `get_rec_from_favorites`. This function should...
 
@@ -483,3 +384,110 @@ get_new_rec_by_genre({
 #   - None of the user's friends have watched it
 # - Return the list of recommended movies
 
+def get_rec_from_favorites(user_data):
+    favorites=[]
+    recommended=[]
+    friends_list=[]
+
+    for fave in user_data["favorites"]:
+        favorites.append(fave)
+    for watch in user_data["friends"]:
+        for movie in watch["watched"]:
+            friends_list.append(movie)
+
+    for f in favorites:
+        if f not in friends_list:
+            recommended.append(f)
+            
+    print(recommended)
+    return recommended
+    
+
+    
+
+get_rec_from_favorites({   'favorites': [   {   'genre': 'Fantasy',
+                         'host': 'netflix',
+                         'rating': 4.8,
+                         'title': 'The Lord of the Functions: The Fellowship '
+                                  'of the Function'},
+                     {   'genre': 'Fantasy',
+                         'host': 'netflix',
+                         'rating': 4.0,
+                         'title': 'The Lord of the Functions: The Two '
+                                  'Parameters'},
+                     {   'genre': 'Intrigue',
+                         'host': 'hulu',
+                         'rating': 2.0,
+                         'title': 'Recursion'},
+                     {   'genre': 'Intrigue',
+                         'host': 'disney+',
+                         'rating': 4.5,
+                         'title': 'Instructor Student TA Manager'}],
+    'friends': [   {   'watched': [   {   'genre': 'Fantasy',
+                                          'host': 'netflix',
+                                          'rating': 4.8,
+                                          'title': 'The Lord of the Functions: '
+                                                   'The Fellowship of the '
+                                                   'Function'},
+                                      {   'genre': 'Fantasy',
+                                          'host': 'amazon',
+                                          'rating': 4.0,
+                                          'title': 'The Lord of the Functions: '
+                                                   'The Return of the Value'},
+                                      {   'genre': 'Fantasy',
+                                          'host': 'hulu',
+                                          'rating': 4.0,
+                                          'title': 'The Programmer: An '
+                                                   'Unexpected Stack Trace'},
+                                      {   'genre': 'Horror',
+                                          'host': 'netflix',
+                                          'rating': 3.5,
+                                          'title': 'It Came from the Stack '
+                                                   'Trace'}]},
+                   {   'watched': [   {   'genre': 'Fantasy',
+                                          'host': 'netflix',
+                                          'rating': 4.8,
+                                          'title': 'The Lord of the Functions: '
+                                                   'The Fellowship of the '
+                                                   'Function'},
+                                      {   'genre': 'Action',
+                                          'host': 'amazon',
+                                          'rating': 2.2,
+                                          'title': 'The JavaScript and the '
+                                                   'React'},
+                                      {   'genre': 'Intrigue',
+                                          'host': 'hulu',
+                                          'rating': 2.0,
+                                          'title': 'Recursion'},
+                                      {   'genre': 'Intrigue',
+                                          'host': 'disney+',
+                                          'rating': 3.0,
+                                          'title': 'Zero Dark Python'}]}],
+    'subscriptions': ['netflix', 'hulu'],
+    'watched': [   {   'genre': 'Fantasy',
+                       'host': 'netflix',
+                       'rating': 4.8,
+                       'title': 'The Lord of the Functions: The Fellowship of '
+                                'the Function'},
+                   {   'genre': 'Fantasy',
+                       'host': 'netflix',
+                       'rating': 4.0,
+                       'title': 'The Lord of the Functions: The Two '
+                                'Parameters'},
+                   {   'genre': 'Fantasy',
+                       'host': 'amazon',
+                       'rating': 4.0,
+                       'title': 'The Lord of the Functions: The Return of the '
+                                'Value'},
+                   {   'genre': 'Action',
+                       'host': 'amazon',
+                       'rating': 2.2,
+                       'title': 'The JavaScript and the React'},
+                   {   'genre': 'Intrigue',
+                       'host': 'hulu',
+                       'rating': 2.0,
+                       'title': 'Recursion'},
+                   {   'genre': 'Intrigue',
+                       'host': 'disney+',
+                       'rating': 4.5,
+                       'title': 'Instructor Student TA Manager'}]})
