@@ -19,30 +19,30 @@ pp = pprint.PrettyPrinter(indent=4)
 
 # print("\n-----Wave 02 user_data-----")
 # pp.pprint(clean_wave_2_data())
-janes_data = clean_wave_2_data()
-def get_most_watched_genre(janes_data):
-    #     popular_genre = get_most_watched_genre(janes_data)
 
-    # # Assert
-    # assert popular_genre == "Fantasy"
-    watched_genres = []
-    for watched_list in janes_data.values():
-        for i in range(len(watched_list)):
-            watched_genres.append(watched_list[i]['genre'])
-    # print(watched_genres)
-    # most_watched_genre_dict = {}
-    # for genre in watched_genres:
-    #     print(genre)
-    #     # most_watched_genre_dict[genre] += 1
-    # print(most_watched_genre_dict)
-    most_watched_genre = Counter(watched_genres).most_common(1)
-    # print(most_watched_genre[0][0])
 
-get_most_watched_genre(janes_data)
 
 #print("\n-----Wave 03 user_data-----")
 #pp.pprint(clean_wave_3_data())
 
+def get_friends_unique_watched(user_data):
+# return what their friends have watched but not user
+    user_watched_list = []
+    friend_watched_list = []
+    friend_unique_movies = []
+
+    for movie in user_data["watched"]:
+        user_watched_list.append(movie)
+
+    for friend_movie in user_data['friends']:
+        for movie in friend_movie['watched']:
+            friend_watched_list.append(movie)
+
+    for i in friend_watched_list:
+        if i not in user_watched_list:
+            friend_unique_movies.append(i)
+    return friend_unique_movies
+    
 # Wave 04 user data
 #print("\n-----Wave 04 user_data-----")
 #pp.pprint(clean_wave_4_data())
