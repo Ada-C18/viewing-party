@@ -122,16 +122,30 @@ def get_friends_unique_watched(user_data):
             friends_unique_list.append(movie)  
     print(friends_unique_list)
     return friends_unique_list
-
-
-       
-                    
-
-
-        
 # -----------------------------------------
 # ------------- WAVE 4 --------------------
 # -----------------------------------------
+
+# create function to return list of recommended movies
+def get_available_recs(user_data):
+    recommended_movies = []
+    user_subcribtion_list = user_data["subscriptions"]
+    # initialize a variable with return value of function 
+    # get_friends_unique_watched
+    user_has_not_watched_movies = get_friends_unique_watched(user_data)
+       
+    # loop though list of movies which user has not watched and
+    # add movie to the recommended if user that subcription to the host of the movie
+    for movie in user_has_not_watched_movies:
+        for subcribton in user_subcribtion_list:
+            if movie["host"] == subcribton:
+                recommended_movies.append(movie)
+    return recommended_movies
+
+
+
+
+
 
 # -----------------------------------------
 # ------------- WAVE 5 --------------------
