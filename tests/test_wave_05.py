@@ -52,11 +52,16 @@ def test_new_genre_rec_from_empty_friends():
             }
         ]
     }
-
-    raise Exception("Test needs to be completed.")
     # *********************************************************************
     # ****** Complete the Act and Assert Portions of theis tests **********
     # *********************************************************************
+    
+    # Act
+    rec_list = get_new_rec_by_genre(sonyas_data)
+
+    # Assert
+    assert len(rec_list) == 0
+    assert INTRIGUE_1b not in rec_list
 
 # @pytest.mark.skip()
 def test_unique_rec_from_favorites():

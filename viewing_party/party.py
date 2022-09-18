@@ -1,3 +1,4 @@
+from re import M
 from statistics import mode
 
 # ------------- WAVE 1 --------------------
@@ -96,13 +97,15 @@ def get_new_rec_by_genre(user_data):
     fav_genre = get_most_watched_genre(user_data)
 
     for movie in friends_watched:
-        if movie not in recommended_movies and movie["genre"] == fav_genre:
+        if movie not in recommended_movies and movie["genre"] is fav_genre:
             recommended_movies.append(movie)
-
     return recommended_movies
 
 
 def get_rec_from_favorites(user_data):
     recommended_movies = []
-
+    user_uniques = get_unique_watched(user_data)
+    for movie in user_data["favorites"]:
+            if movie in user_uniques and movie not in recommended_movies:
+                recommended_movies.append(movie)
     return recommended_movies
