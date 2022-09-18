@@ -73,7 +73,6 @@ def get_unique_watched(user_data):
     return list_compare
 def friend_list_of_user(user_data):
     list_friends = []
-    set_title = set()
     for friend in user_data["friends"]:
         for movie in friend["watched"]:
             if movie not in list_friends:
@@ -91,7 +90,13 @@ def get_friends_unique_watched(user_data):
 # -----------------------------------------
 # ------------- WAVE 4 --------------------
 # -----------------------------------------
-
+def get_available_recs(user):
+    recommended_list = []
+    movies_unique = get_friends_unique_watched(user)
+    for movie in movies_unique:
+        if movie["host"] in user["subscriptions"]:
+            recommended_list.append(movie)
+    return recommended_list
 # -----------------------------------------
 # ------------- WAVE 5 --------------------
 # -----------------------------------------
