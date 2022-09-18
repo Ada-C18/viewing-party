@@ -82,11 +82,18 @@ def get_most_watched_genre(user_data):
     """
     user_data: a dict with a "watched" list of movie dicts
     """
-    # if watched list is empty:
-        # return none
-    # else:
-        # iterate over the genres in watch list
-        # return the most-watched genre
+    all_genres = {}
+    most_watched_genre = None
+    if len(user_data["watched"]) == 0:
+        return most_watched_genre
+    else:
+        for movie in user_data["watched"]:
+            if movie["genre"] in all_genres:
+                all_genres[movie["genre"]] += 1
+            else:
+                all_genres[movie["genre"]] = 1
+        most_watched_genre = max(all_genres, key=all_genres.get)
+        return most_watched_genre
 
 # -----------------------------------------
 # ------------- WAVE 3 --------------------
