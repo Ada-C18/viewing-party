@@ -65,13 +65,29 @@ def get_unique_watched(user_data):
     # Adds all friends' watched movies to a list
     for friend in user_data["friends"]:
         for movie in friend["watched"]:
-            all_friends_watched.append(movie)
+            if movie not in all_friends_watched:
+                all_friends_watched.append(movie)
     # Compares user's watched list to friends' watched list
     for movie in user_data["watched"]:
         if movie not in all_friends_watched:
             unique_watched.append(movie)
     
     return unique_watched
+
+def get_friends_unique_watched(user_data):
+    all_friends_watched = []
+    unique_friends_watched = []
+    # Adds all friends' watched movies to a list
+    for friend in user_data["friends"]:
+        for movie in friend["watched"]:
+            if movie not in all_friends_watched:
+                all_friends_watched.append(movie)
+    # Compares friends' watched list to user's watched list
+    for movie in all_friends_watched:
+        if movie not in user_data["watched"]:
+            unique_friends_watched.append(movie)
+    
+    return unique_friends_watched
 
 # -----------------------------------------
 # ------------- WAVE 4 --------------------
