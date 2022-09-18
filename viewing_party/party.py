@@ -76,14 +76,57 @@ def get_most_watched_genre(user_data):
     max_watched_genre = max(watched_genre_dict, key = watched_genre_dict.get)
     
     return max_watched_genre
-        
-
-
-
 
 # -----------------------------------------
 # ------------- WAVE 3 --------------------
 # -----------------------------------------
+
+
+# create helper function to get unique movies for user
+def get_user_watched_list(user_data):
+    user_watched_movies_list = user_data["watched"]
+    return user_watched_movies_list
+
+# create helper function to get unique movies for all friends
+def get_all_friends_unique_watched_list(user_data):
+    friends_unique_watched_list = []
+    friends_list = user_data["friends"]
+   
+    for friend in friends_list:
+        for movie in friend["watched"]:
+            if movie not in friends_unique_watched_list:
+                friends_unique_watched_list.append(movie) 
+    return friends_unique_watched_list  
+
+# create function to get list of movies that user has watched, 
+# but none of their friends have watched.
+def get_unique_watched(user_data): 
+    user_unique_list = []
+    user_only_unique_list = get_user_watched_list(user_data)
+    all_friends_unique_list = get_all_friends_unique_watched_list(user_data)
+
+    for movie in user_only_unique_list:
+        if movie not in all_friends_unique_list:
+            user_unique_list.append(movie)  
+    return user_unique_list  
+
+# create function to get list of movies at least one of the user's friends
+# have watched, but the user has not watched.
+def get_friends_unique_watched(user_data):
+    friends_unique_list = []
+    user_unique_list = get_user_watched_list(user_data)
+    all_friends_unique_list = get_all_friends_unique_watched_list(user_data)
+
+    for movie in all_friends_unique_list:
+        if movie not in user_unique_list:
+            friends_unique_list.append(movie)  
+    print(friends_unique_list)
+    return friends_unique_list
+
+
+       
+                    
+
 
         
 # -----------------------------------------
