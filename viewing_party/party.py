@@ -23,8 +23,7 @@ def watch_movie(user_data, movie_title):
     movie_index = 0
     for movie in user_data["watchlist"]:
         if movie_title == movie["title"]:
-            movie_dict = user_data["watchlist"][movie_index]
-            user_data["watched"].append(movie_dict)
+            user_data["watched"].append(movie)
             user_data["watchlist"].pop(movie_index)
         movie_index += 1
 
