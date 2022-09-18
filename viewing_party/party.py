@@ -144,12 +144,25 @@ def get_user_watched_list(user_data):
     
     return user_watched_list
         
-
-
-        
+   
 # -----------------------------------------
 # ------------- WAVE 4 --------------------
 # -----------------------------------------
+
+def get_available_recs(user_data):
+    friends_unique_list = get_friends_unique_watched(user_data)
+    user_recs = friends_unique_list.copy()
+    
+    user_subscription_list = user_data["subscriptions"]
+    print("user subscription list is: ",user_subscription_list)
+    print("==========================================")
+    print("friends unique list ",friends_unique_list)
+    print("==========================================")
+    for element in range(len(user_recs)):
+        if user_recs[element]["host"] not in user_subscription_list:
+            user_recs.remove(user_recs[element])
+    print(user_recs)
+    return user_recs
 
 # -----------------------------------------
 # ------------- WAVE 5 --------------------
