@@ -122,7 +122,6 @@ def test_moves_movie_from_watchlist_to_empty_watched():
     assert updated_data["watched"] == MOVIE_TITLE_1
     # raise Exception("Test needs to be completed.")
 
-    
     # *******************************************************************************************
     # ****** Add assertions here to test that the correct movie was added to "watched" **********
     # *******************************************************************************************
