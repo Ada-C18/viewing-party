@@ -125,8 +125,8 @@ def get_friends_unique_watched(user_data):
         
         for title in friends_watched_list_of_sets[i] :
             friends_list.append(title)
-    for title in friends_list:   
-        friends_sets.add(title)
+    for title in friends_list:  
+            friends_sets.add(title)
     friends_unique_sets = friends_sets - user_watched_set
     
     for i in range(len(length)):
@@ -148,7 +148,7 @@ def get_available_recs(user_data):
     recommended_movies = []
     friends_unique_movies = get_friends_unique_watched(user_data)
     for movie in friends_unique_movies:
-        if movie["host"] in user_data["subscription"]:
+        if movie["host"] in user_data["subscriptions"]:
             recommended_movies.append(movie)
 
     return recommended_movies        
