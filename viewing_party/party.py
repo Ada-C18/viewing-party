@@ -91,16 +91,29 @@ def get_friends_unique_watched(user_data):
 
     
 
-
-
-
-
-
-
-        
+    
 # -----------------------------------------
 # ------------- WAVE 4 --------------------
 # -----------------------------------------
+
+def get_available_recs(user_data):
+    rec_list = []
+    list_watched = (user_data["watched"])
+    if list_watched == []:
+        return []
+
+    list_friend_1 = user_data["friends"][0]["watched"]
+    list_friend_2 = user_data["friends"][1]["watched"]
+    list_friends = list_friend_1 + list_friend_2
+    friends_unique = [i for i in list_friends if i not in list_watched]
+    friends_unique = [dict(t) for t in {tuple(d.items()) for d in friends_unique}]
+
+    for movie in friends_unique:
+        if movie["host"] in user_data["subscriptions"]:
+            rec_list.append(movie)
+    
+    return rec_list
+
 
 
 
