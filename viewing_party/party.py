@@ -115,9 +115,14 @@ def get_friends_unique_watched(user_data):
     user_watched_list = get_user_watched_list(user_data)
     friends_unique_list = []
     
-    for friends_dict in range(len(friends_watched_list)):
-        if friends_watched_list[friends_dict] not in user_watched_list:
-            friends_unique_list.append(friends_watched_list[friends_dict])
+    # for friends_dict in range(len(friends_watched_list)):
+    #     if friends_watched_list[friends_dict] not in user_watched_list:
+    #         friends_unique_list.append(friends_watched_list[friends_dict])
+    # return friends_unique_list
+    for friends_dict in friends_watched_list:
+        if friends_dict not in user_watched_list:
+            friends_unique_list.append(friends_dict)
+    print(friends_unique_list)
     return friends_unique_list
 
 #HELPER FUNCTION TO CREATE FRIENDS' WATCHED LIST
