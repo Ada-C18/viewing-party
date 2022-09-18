@@ -82,7 +82,6 @@ def get_most_watched_genre(user_data):
 # -----------------------------------------
 def get_unique_watched(user_data):
     unique_movies = []
-    unique_movies = []
     friend_movies = get_friend_movie_lists(user_data)
     user_movies = get_user_movie_list(user_data)
     for movie_dict in user_movies:
