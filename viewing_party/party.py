@@ -42,18 +42,33 @@ def watch_movie(user_data, title):
             if i['title'] == title:
                 user_data["watched"].append(i)
                 user_data['watchlist'].remove(i)
-                
+
     return user_data
 
 # -----------------------------------------
 # ------------- WAVE 2 --------------------
 # -----------------------------------------
 
-def get_watched_avg_rating(user_data): #param is "watched" list of movie dicts
-    #calculate average rating of all watched movies.
-    # empty watched list has 0.0 average rating
-    
-def get_most_watched_genre(user_data): #param same as above
+# {'watched': [{'title': 'The Lord of the Functions: The Fellowship of the Function', 'genre': 'Fantasy', 'rating': 4.8}, {'title': 'The Lord of the Functions: The Two Parameters', 'genre': 'Fantasy', 'rating': 4.0}, {'title': 'The Lord of the Functions: The Return of the Value', 'genre': 'Fantasy', 'rating': 4.0}, {'title': 'The JavaScript and the React', 'genre': 'Action', 'rating': 2.2}, {'title': 'Recursion', 'genre': 'Intrigue', 'rating': 2.0}, {'title': 'Instructor Student TA Manager', 'genre': 'Intrigue', 'rating': 4.5}]}
+
+
+def get_watched_avg_rating(user_data):
+    sum = 0
+    ratings_list = []
+    if user_data:
+        for i in user_data["watched"]:
+            ratings_list.append(i['rating'])
+        list_len = len(ratings_list)
+        for i in ratings_list:
+            sum += i
+        average = sum/list_len
+        return average
+# empty watched list has 0.0 average rating
+
+    return 0.0
+
+
+# def get_most_watched_genre(user_data): #param same as above
     # use genre keys in each movie to find which is most watched.
     # if value of user_data is empty, return None
 
@@ -62,15 +77,15 @@ def get_most_watched_genre(user_data): #param same as above
 # ------------- WAVE 3 --------------------
 # -----------------------------------------
 
-#Function compares user watched list with friends watched, Returns UNIQUE list ONLY USER watched.
+# Function compares user watched list with friends watched, Returns UNIQUE list ONLY USER watched.
 
 # def get_unique_watched(user_data):
-    
-#Function that compares user list with friends, returns UNIQUE list ONLY FRIENDS watched
+
+# Function that compares user list with friends, returns UNIQUE list ONLY FRIENDS watched
 
 # def get_friends_unique_watched(user_data):
-    
-    
+
+
 # -----------------------------------------
 # ------------- WAVE 4 --------------------
 # -----------------------------------------
