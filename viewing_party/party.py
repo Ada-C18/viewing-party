@@ -163,3 +163,18 @@ def get_new_rec_by_genre(user_data):
     return recommended_movies_by_genre
     
 
+def get_rec_from_favorites(user_data):
+    recommended_from_favorites_movies = []
+    user_favorite_movies = user_data["favorites"]
+    
+    all_friends_unique_list = get_all_friends_unique_watched_list(user_data)
+    # loop though list of the user's favorite movies;
+    # add a movie to the recommended from favorites if 
+    # none of the user's friends have watched it
+    for user_favorite_movie in user_favorite_movies:
+        if user_favorite_movie not in all_friends_unique_list:
+            recommended_from_favorites_movies.append(user_favorite_movie)
+
+    return recommended_from_favorites_movies
+
+
