@@ -56,6 +56,25 @@ def get_watched_avg_rating(user_data):
         else:
             avg_rating = total_rating/ len(user_data['watched'])
     return avg_rating
+def get_most_watched_genre(user_data):
+    genres = []
+    genre_counter = {}
+    for movie_dict in user_data['watched']:
+        genres.append(movie_dict['genre'])
+    for genre in genres:
+        if genre not in genre_counter.keys():
+            genre_counter[genre] = 1
+        else:
+            genre_counter[genre] += 1
+    sorted_genre_count = sorted(genre_counter.values())
+    for key, value in genre_counter.items():
+        if value == sorted_genre_count[-1]:
+            return key
+    return None
+        
+
+
+
 
 # -----------------------------------------
 # ------------- WAVE 3 --------------------
