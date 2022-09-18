@@ -14,9 +14,20 @@ pp.pprint(HORROR_1)
 pp.pprint(FANTASY_1)
 pp.pprint(FANTASY_2)
 
+user_data = {
+        "watchlist": [{
+            "title": MOVIE_TITLE_1,
+            "genre": GENRE_1,
+            "rating": RATING_1
+        }],
+        "watched": []
+    }
+
+MOVIE_TITLE_2 = "Gooneys"
 # putting in own test inputs to run program to observe outputs
 print(create_movie("mybad", "horror", "4.8"))
-
+print(watch_movie(user_data, MOVIE_TITLE_1))
+print(watch_movie(user_data, MOVIE_TITLE_2))
 # print("\n-----Wave 02 user_data-----")
 # pp.pprint(clean_wave_2_data())
 
