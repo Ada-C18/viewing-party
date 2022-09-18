@@ -28,12 +28,26 @@ def add_to_watchlist(user_data, movie):
     return updated_user_data
 
 def watch_movie(user_data, title):
+    
+    title_list = []
 
-    updated_user_data = user_data.copy()
-    updated_user_data["watched"].append(updated_user_data["watchlist"].copy())
-    updated_user_data["watchlist"].pop()
+    for dicts in user_data["watchlist"]:
+        title_list.append(dicts["title"])
 
-    return updated_user_data
+    for dicts in user_data["watched"]:
+        title_list.append(dicts["title"])
+        
+    if title in title_list:
+        updated_user_data = user_data.copy()
+        updated_user_data["watched"].append(updated_user_data["watchlist"].copy())
+        updated_user_data["watchlist"].pop()
+        
+        return updated_user_data
+    
+    else:
+        return user_data
+
+
 # -----------------------------------------
 # ------------- WAVE 2 --------------------
 # -----------------------------------------
