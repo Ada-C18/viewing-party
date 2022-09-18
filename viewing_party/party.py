@@ -7,6 +7,8 @@ def create_movie(title, genre, rating):
     movie_dict["rating"] = rating
     if movie_dict["title"] == None:
         return None
+    if movie_dict["genre"] == None:
+        return None
     return movie_dict
 
 
