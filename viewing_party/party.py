@@ -51,8 +51,11 @@ def get_watched_avg_rating(user_data):
     for i in range(len(user_data["watched"])):
         total_watched_rating += user_data["watched"][i]["rating"]
 
-    avg_rating = total_watched_rating / len(user_data["watched"])
-    return avg_rating
+    if user_data["watched"] == []:
+        return 0.0
+    else:
+        avg_rating = total_watched_rating / len(user_data["watched"])
+        return avg_rating
 
 # -----------------------------------------
 # ------------- WAVE 3 --------------------
