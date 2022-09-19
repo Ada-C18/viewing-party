@@ -61,7 +61,6 @@ def watch_movie(user_data, title):
 # -----------------------------------------
 # ------------- WAVE 2 --------------------
 # -----------------------------------------
-# part 1
 def get_watched_avg_rating(user_data):
     """
     user_data: a dict with a "watched" list of movie dicts
@@ -77,7 +76,6 @@ def get_watched_avg_rating(user_data):
         average_rating = all_ratings / num_movies_watched
         return average_rating
 
-# part 2
 def get_most_watched_genre(user_data):
     """
     user_data: a dict with a "watched" list of movie dicts
@@ -98,13 +96,92 @@ def get_most_watched_genre(user_data):
 # -----------------------------------------
 # ------------- WAVE 3 --------------------
 # -----------------------------------------
+# part 1
+def get_unique_watched(user_data):
+    """
+    user_data = dict w/ these keys:
+        "watched" : list of movie dicts
+        "friends": list of dicts, within which:
+            "watched" : list of movie dicts
+                ^ these all contain a "title"       
+    """
+    # get the necessary info you need
+    unique_watched_movies = []
+    friend_watched_list = []
+    user_watched_list = [movie["title"] for movie in user_data["watched"]]
 
-        
+    for friends_list in user_data["friends"]:
+        if "watched" in friends_list.keys():
+            for movie in friends_list["watched"]:
+                friend_watched_list.append(movie["title"])
+
+    # determine which movies the user watched that the frnds did not    
+    user_watched_set = set(user_watched_list)
+    friend_watched_set = set(friend_watched_list)
+    unique_watched_set = user_watched_set - friend_watched_set
+    
+    # return a list of dictionaries that represents a list of movies    
+    for movie in user_data["watched"]:
+        if movie["title"] not in unique_watched_set:
+            continue
+        elif movie["title"] in unique_watched_set:
+            unique_watched_movies.append(movie)
+
+    return unique_watched_movies
+
+#part 2
+def get_friends_unique_watched(user_data):
+    """
+    user_data = dict w/ two keys:
+        "watched": list of movie dicts
+        "friends": list of dicts, within which:
+            "watched": list of movie dicts
+                ^ these all contain a "title"
+    """
+    # determine whihc movies at least one of the user friends watched but the user did not watch
+    # return a list of dicts representing the list of movies
+
 # -----------------------------------------
 # ------------- WAVE 4 --------------------
 # -----------------------------------------
+def get_available_recs(user_data):
+    """
+    user_data contains:
+    "subscriptions" = list of strings, representing streaming services user has access to
+    "friends" = many friends w/ watched lists
+        each movie in watched lists has a "host": streaming service
+    """
+    # create a list of recommended movies
+    # add only movies that fit this critera:
+        # not in user_data["watched"]
+        # in at least 1 friend's "watched"
+        # the movie's "host" is in "subscriptions"
+    # return the recommended movie list
+    pass
 
 # -----------------------------------------
 # ------------- WAVE 5 --------------------
 # -----------------------------------------
+# part 1
+def get_new_rec_by_genre(user_data):
+    """
+    consider the user's most frequently watched genre
+    determine a list of movies, adding only if:
+        movie not in user's "watched"
+        movie in at least 1 friend's "watched"
+        movie "genre" is same as user's most watched genre
+    return the list of recommended movies
+    """
+    pass
 
+# part 2
+def get_rec_from_favorites(user_data):
+    """
+    user_data has "favorites"
+    "favorites" is list of movie dicts representing user faves
+    determine list of movies, adding only if:
+        movie in user's "favorites"
+        movie not in any friend's "watched"
+    return the list of recommended movies
+    """
+    pass
