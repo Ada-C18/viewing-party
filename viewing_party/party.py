@@ -121,21 +121,18 @@ def friends_not_unique_movies(user_data):
             if movie == friend_movies:
                 non_unique_movies.remove(movie)
     
-    
-
-                
-
-
-    
-
-            
-                
-
-
 
 # -----------------------------------------
 # ------------- WAVE 4 --------------------
 # -----------------------------------------
+
+def get_available_recs(user_data):
+    friend_movies = get_friends_unique_watched(user_data)
+    recommended_movies = []
+    for movie in friend_movies:
+        if movie["host"] in user_data["subscriptions"]:
+            recommended_movies.append(movie)
+    return recommended_movies
 
 # -----------------------------------------
 # ------------- WAVE 5 --------------------
