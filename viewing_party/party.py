@@ -106,3 +106,17 @@ def get_available_recs(user_data):
 # ------------- WAVE 5 --------------------
 # -----------------------------------------
 
+#add to recommendations if user has not watched
+#at least one friend has watched
+# it is in user's most frequent genre
+
+
+def get_new_rec_by_genre(user_data):
+    recommendations = []
+    most_watched_genre = get_most_watched_genre(user_data)
+
+    for friend in user_data["friends"]:
+        for movie in friend["watched"]:
+            if movie["genre"] == most_watched_genre and movie not in user_data["watched"]:
+                recommendations.append(movie)
+    return recommendations
