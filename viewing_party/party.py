@@ -1,6 +1,7 @@
 # ------------- WAVE 1 --------------------
 
 from enum import unique
+import copy
 # from types import NoneType
 
 
@@ -70,7 +71,7 @@ def get_most_watched_genre(user_data):
 
 def get_unique_watched(user_data):
     
-    unique = [users for users in user_data["watched"]]
+    unique = copy.copy(user_data["watched"])
 
     for film in user_data["friends"]:
         for name in film["watched"]:
