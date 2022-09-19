@@ -65,6 +65,7 @@ def search(a_list, movie_title):
 def get_watched_avg_rating(user_data):
     #this takes in the user's data (a dictionary with 2 keys: watched and watchlist)
     #it outputs the average rating of all the movies in the dictionary 'watched'
+    #I would like to save these values to a user...by making a class?  We'll see. 
     ratings_lst = []
     #this gives a list of ratings
     for movie in user_data["watched"]:
@@ -79,6 +80,21 @@ def get_watched_avg_rating(user_data):
     else: 
         return 0
 
+
+def get_most_watched_genre(user_data):
+    #This will make a dictionary, and add a count of how many times each genre appears. 
+    genre_count = {}
+    #keys will be genres (strings)
+    #values will be the number of movies in that genre.
+    for movie in user_data["watched"]:
+        genre = movie["genre"]
+        if genre not in genre_count:
+            genre_count[genre] = 1
+        else:
+            genre_count[genre] += 1
+    #now, genre_count is complete.  Let's return which key has the highest value associated with it.
+    most_watched_genre = max(genre_count, key = genre_count.get)
+    return most_watched_genre
 
 # -----------------------------------------
 # ------------- WAVE 3 --------------------
