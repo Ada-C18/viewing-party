@@ -100,3 +100,13 @@ def get_available_recs(user_data):
 # ------------- WAVE 5 --------------------
 # -----------------------------------------
 
+def get_new_rec_by_genre(user_data):
+    if not user_data["watched"]:
+        return []
+    most_watched = get_most_watched_genre(user_data)
+    available_recs = get_available_recs(user_data)
+    new_recs = filter(
+        lambda movie: movie["genre"] == most_watched, 
+        available_recs)
+    return list(new_recs)
+
