@@ -86,15 +86,19 @@ def get_most_watched_genre(user_data):
     genre_count = {}
     #keys will be genres (strings)
     #values will be the number of movies in that genre.
-    for movie in user_data["watched"]:
-        genre = movie["genre"]
-        if genre not in genre_count:
-            genre_count[genre] = 1
-        else:
-            genre_count[genre] += 1
-    #now, genre_count is complete.  Let's return which key has the highest value associated with it.
-    most_watched_genre = max(genre_count, key = genre_count.get)
-    return most_watched_genre
+    #adding in an if to deal with if watched is an empty list:
+    if len(user_data["watched"]) > 0:
+        for movie in user_data["watched"]:
+            genre = movie["genre"]
+            if genre not in genre_count:
+                genre_count[genre] = 1
+            else:
+                genre_count[genre] += 1
+        #now, genre_count is complete.  Let's return which key has the highest value associated with it.
+        most_watched_genre = max(genre_count, key = genre_count.get)
+        return most_watched_genre
+    else:
+        return None
 
 # -----------------------------------------
 # ------------- WAVE 3 --------------------
