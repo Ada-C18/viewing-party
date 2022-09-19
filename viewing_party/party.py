@@ -1,6 +1,7 @@
 # ------------- WAVE 1 --------------------
 
 from multiprocessing.sharedctypes import Value
+from re import I
 
 from tests.test_constants import GENRE_1, MOVIE_TITLE_1, RATING_1
 
@@ -57,50 +58,42 @@ def get_most_watched_genre(user_data):
 # -----------------------------------------
 # ------------- WAVE 3 --------------------
 # -----------------------------------------
-def get_unique_watched(user_data):
-    friend_list_movie = []
-    user_list_movie = []
-    unique_list = []
 
-    for dict in user_data["friends"]:
-        for movie in dict["watched"]:
-            friend_list_movie.append(movie)
-
+def get_my_movies_list(user_data):
+    user_list_movie =[]
     for movie in user_data["watched"]:
         user_list_movie.append(movie)
+    return user_list_movie
 
+
+def get_friends_movies_list(user_data):
+    friend_list_movie = []
+    for my_dict in user_data["friends"]:
+        for friend_movie in my_dict["watched"]:
+            if friend_movie not in friend_list_movie:
+                friend_list_movie.append(friend_movie )
+    return friend_list_movie
+
+
+def get_unique_watched(user_data):
+    unique_list =[]
+    user_list_movie = get_my_movies_list(user_data)
+    friend_list_movie =get_friends_movies_list(user_data)
     for movie_dict in user_list_movie:
         if movie_dict not in friend_list_movie:
             unique_list.append(movie_dict)
     return unique_list
 
-
 def get_friends_unique_watched(user_data):
-    friend_list_movie =[]
-    user_list_movie =[]
-    friend_unique_list=[]
-
-
-    for dict in user_data["friends"]:
-        for movie in dict["watched"]:
-            friend_list_movie.append(movie)
-
-    for movie in user_data["watched"]:
-        user_list_movie.append(movie)
-
+    friends_unique_list = []
+    user_list_movie = get_my_movies_list(user_data)
+    friend_list_movie =get_friends_movies_list(user_data)
     for movie_dict in friend_list_movie:
         if movie_dict not in user_list_movie:
-            friend_unique_list.append(movie_dict)
+            friends_unique_list.append(movie_dict)
+    return friends_unique_list
 
-    check_set = set()
-    friend_no_duplicates = []
-    for movie_dict in friend_unique_list:
-        tuple_dict = tuple(sorted(movie_dict.items()))
-        if tuple_dict not in check_set:
-            check_set.add(tuple_dict)
-            friend_no_duplicates.append(movie_dict)
-    return friend_no_duplicates
-            
+
 
 # -----------------------------------------
 # ------------- WAVE 4 --------------------
@@ -124,28 +117,28 @@ def get_new_rec_by_genre(user_data):
     movies_unseen = []
     recommended_movies_list = []
 
-    for i in range(len(user_data["friends"])):
-        if user_data["watched"] ==[] or user_data["friends"][i]["watched"] ==[]:
-            return []
-    else:
-        for friend in user_data["friends"]:
-            for movie in friend["watched"]:
-                if movie not in user_data["watched"]:
-                    movies_unseen.append(movie)
-                    for movie in user_data["watched"]:
-                        most_popular_genres_list.append(movie["genre"])
-                        favorite_genre = max(most_popular_genres_list, key=most_popular_genres_list.count)
-                        for new_movie in movies_unseen: 
-                            if favorite_genre == new_movie["genre"]:
-                                recommended_movies_list.append(new_movie)
-                        return recommended_movies_list
+#     for i in range(len(user_data["friends"])):
+#         if user_data["watched"] ==[] or user_data["friends"][i]["watched"] ==[]:
+#             return []
+#     else:
+#         for friend in user_data["friends"]:
+#             for movie in friend["watched"]:
+#                 if movie not in user_data["watched"]:
+#                     movies_unseen.append(movie)
+#                     for movie in user_data["watched"]:
+#                         most_popular_genres_list.append(movie["genre"])
+#                         favorite_genre = max(most_popular_genres_list, key=most_popular_genres_list.count)
+#                         for new_movie in movies_unseen: 
+#                             if favorite_genre == new_movie["genre"]:
+#                                 recommended_movies_list.append(new_movie)
+#                         return recommended_movies_list
 
 
-def get_rec_from_favorites(user_data):
-    movie_recommendations = []
-    i = 0 
-    for movie in user_data["favorites"]:
-        if user_data["friends"] ==[] or movie not in user_data["friends"][i]["watched"]:
-            movie_recommendations.append(movie)
-            i +=1
-    return movie_recommendations
+# def get_rec_from_favorites(user_data):
+#     movie_recommendations = []
+#     i = 0 
+#     for movie in user_data["favorites"]:
+#         if user_data["friends"] ==[] or movie not in user_data["friends"][i]["watched"]:
+#             movie_recommendations.append(movie)
+#             i +=1
+#     return movie_recommendations
