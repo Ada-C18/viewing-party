@@ -1,9 +1,6 @@
 # ------------- WAVE 1 --------------------
 
 from enum import unique
-import copy
-# from types import NoneType
-
 
 def create_movie(title, genre, rating):
 
@@ -82,7 +79,7 @@ def get_unique_watched(user_data):
 def get_friends_unique_watched(user_data):
 
     friend_unique = []
-
+    
     for film in user_data["friends"]:
         for name in film["watched"]:
             if name not in user_data["watched"] and name not in friend_unique:
