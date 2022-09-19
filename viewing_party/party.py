@@ -84,7 +84,6 @@ def get_unique_watched(user_data):
 
 
 def get_friends_unique_watched(user_data):
-    # check additional tests for test_friends_unique_movies_not_duplicated():
     movies_watched = user_data["watched"]
     friends_movies = user_data["friends"]
     unique_movies = []
@@ -98,12 +97,31 @@ def get_friends_unique_watched(user_data):
                         add_to_new_list = False
                 if add_to_new_list == True and friends_movies[i][watched][j] not in unique_movies:
                     unique_movies.append(friends_movies[i][watched][j])
-    
     return unique_movies
         
 # -----------------------------------------
 # ------------- WAVE 4 --------------------
 # -----------------------------------------
+def get_available_recs(user_data):
+    movies_watched= user_data["watched"]
+    friends_movies = user_data["friends"]
+    sub_options = user_data["subscriptions"]
+    avail_recs = []
+
+    for i in range(len(friends_movies)):
+        for watched in friends_movies[i]:
+            for j in range(len(friends_movies[i][watched])):
+                add_to_new_list = True
+                for k in range(len(movies_watched)):
+                    if movies_watched[k]["title"]== friends_movies[i][watched][j]["title"]:
+                        add_to_new_list = False
+                if add_to_new_list == True and friends_movies[i][watched][j]["host"] not in sub_options:
+                    add_to_new_list = False
+                if add_to_new_list == True and friends_movies[i][watched][j] not in avail_recs:
+                   avail_recs.append(friends_movies[i][watched][j])
+             
+
+
 
 # -----------------------------------------
 # ------------- WAVE 5 --------------------
