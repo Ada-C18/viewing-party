@@ -15,7 +15,6 @@ def create_movie(title, genre, rating):
         movie_dict["title"]=title
         movie_dict["genre"]=genre
         movie_dict["rating"]=rating
-    print(movie_dict)
     return movie_dict
 
 
@@ -29,24 +28,41 @@ def add_to_watchlist(user_data,movie):
     return user_data
 
 
+
 def watch_movie(user_data,title):
-    
-    for val in user_data["watchlist"]:
-        for i in val.values():
-            if i==title:
-                user_data["watchlist"].remove(val)
-                user_data["watched"]=[val]
-            
+    for movie in user_data["watchlist"]:
+        if movie["title"]==title:
+            user_data["watched"].append(movie)
+            user_data["watchlist"].remove(movie)
+
+
     return user_data
 
+
+# Create a function named `watch_movie`. This function should...
+
+# - take two parameters: `user_data`, `title`
+#   - the value of `user_data` will be a dictionary with a `"watchlist"` and a `"watched"`
+#     - This represents that the user has a watchlist and a list of watched movies
+#   - the value of `title` will be a string
+#     - This represents the title of the movie the user has watched
+# - If the title is in a movie in the user's watchlist:
+#   - remove that movie from the watchlist
+#   - add that movie to watched
+#   - return the `user_data`
+# - If the title is not a movie in the user's watchlist:
+#   - return the `user_data`
+
 watch_movie({
-        "watchlist": [{
-            "title": "It Came from the Stack Trace",
-            "genre": "Horror",
-            "rating": 3.5
-        }],
-        "watched": []
-    },"It Came from the Stack Trace")
+        "watchlist": [{'genre': 'Horror', 'rating': 3.5, 'title': 'It Came from the Stack Trace'},
+{   'genre': 'Fantasy',
+    'rating': 4.8,
+    'title': 'The Lord of the Functions: The Fellowship of the Function'}],
+    
+    "watched": [{ 'genre': 'Fantasy',
+    'rating': 4.0,
+    'title': 'The Lord of the Functions: The Two Parameters'}]
+    },'It Came from the Stack Trace')
 
 
 
@@ -199,8 +215,9 @@ def get_friends_unique_watched(user_data):
     for item in user_not_watched:
         if item not in final_list:
             final_list.append(item)
-    
+
     return(final_list)
+   
 
 
 get_friends_unique_watched({"watched":[{
@@ -351,6 +368,7 @@ def get_new_rec_by_genre(user_data):
         for movie in friend.values():
             for i in movie:
                 friends_watched.append(i)
+   
     
     #if a movie in friends_watched is not in user_watched, add to user_not_watched list
     
@@ -369,6 +387,7 @@ def get_new_rec_by_genre(user_data):
     for movie in no_duplicates:
         if movie["genre"]==most_often:
             final_list.append(movie)
+
 
     return(final_list)
 
@@ -399,7 +418,6 @@ def get_rec_from_favorites(user_data):
         if f not in friends_list:
             recommended.append(f)
             
-    print(recommended)
     return recommended
     
 
