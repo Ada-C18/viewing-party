@@ -22,15 +22,15 @@ def add_to_watched(user_data, movie):
     #     "genre" :
     #     "rating":
     # }
-
     watched_list = user_data["watched"]
-    watched_list.append(movie)
+    while movie not in watched_list:
+        watched_list.append(movie)
 
     return user_data
 
 def add_to_watchlist(user_data, movie):
 
-    watched_list = user_data["watched"]
+    watched_list = user_data["watchlist"]
     watched_list.append(movie)
 
     return user_data
@@ -39,10 +39,15 @@ def watch_movie(user_data, title):
     # watchlist = add_to_watchlist(user_data, movie)
     watchlist = user_data["watchlist"]
     # watched_list = add_to_watchlist(user_data, movie)
-    watched_list = (user_data["watched"])
+    watched_list = user_data["watched"]
 
-    if title in watchlist:
-        watchlist.pop(title)
+    title_list = []
+    for movie in watchlist:
+        title_list.append(movie["title"])
+
+    while title in title_list:
+        # print(title_list)
+        watchlist.remove(title)
         watched_list.append(title)
 
     return user_data
@@ -74,16 +79,16 @@ def get_most_watched_genre(user_data):
 # -----------------------------------------
 def get_unique_watched(user_data):
     unique_watchlist = []
-    for movie in user_data.values("watched"):
-        while movie not in user_data.values("friends"):
+    for movie in user_data["watched"]:
+        while movie not in user_data["friends"]:
             unique_watchlist.append(movie)
 
     return unique_watchlist
 
 def get_friends_unique_watched(user_data):
     friend_unique = []
-    for movie in user_data.values("friends"):
-        while movie not in user_data.values("watched"):
+    for movie in user_data["friends"]:
+        while movie not in user_data["watched"]:
             friend_unique.append(movie)
 
     return friend_unique
@@ -97,9 +102,8 @@ def get_available_recs(user_data):
     rec_movie = []
     for movie in user_data["friends"]:
         while movie not in user_data["watched"]:
-            for movie in user_data["friends"]:
-                if movie["host"] in user_data["subscriptions"]:
-                    rec_movie.append(movie["host"])
+            if movie["host"] in user_data["subscriptions"]:
+                rec_movie.append(movie["host"])
     return rec_movie
 
 
