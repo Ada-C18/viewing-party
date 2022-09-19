@@ -24,15 +24,18 @@ def watch_movie(data, movie_title):
         add_to_watched(data, movie)
         data["watchlist"].remove(movie)
     return data
-    
-    
 
-
-    
 
 # -----------------------------------------
 # ------------- WAVE 2 --------------------
 # -----------------------------------------
+def get_watched_avg_rating(data):
+    rating_total = 0
+    number_of_ratings = len(data["watched"])
+    for i in range(number_of_ratings):
+        rating_total += data["watched"][i]["rating"]
+    return rating_total / number_of_ratings
+    
 
 
 # -----------------------------------------
