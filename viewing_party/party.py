@@ -119,7 +119,7 @@ def get_available_recs(user_data):
                     add_to_new_list = False
                 if add_to_new_list == True and friends_movies[i][watched][j] not in avail_recs:
                    avail_recs.append(friends_movies[i][watched][j])
-             
+    return avail_recs
 
 
 
