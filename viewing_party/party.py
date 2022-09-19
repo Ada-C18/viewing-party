@@ -184,7 +184,15 @@ def get_new_rec_by_genre(user_data):
         movie "genre" is same as user's most watched genre
     return the list of recommended movies
     """
-    pass
+    fave_genre = get_most_watched_genre(user_data)
+    friend_recs = get_friends_unique_watched(user_data)
+    genre_recs = []
+
+    for movie in friend_recs:
+        if movie["genre"] == fave_genre:
+            genre_recs.append(movie)
+    
+    return genre_recs
 
 # part 2
 def get_rec_from_favorites(user_data):
