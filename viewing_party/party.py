@@ -27,7 +27,7 @@ def add_to_watchlist(user_data, movie):
     return user_data
 
 def watch_movie(user_data, title):
-    
+      watched = user_data["watchlist"]
       for value in user_data.values():
         if title in value:
           continue
