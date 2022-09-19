@@ -2,6 +2,7 @@
 
 from hashlib import new
 from re import M
+from collections import Counter
 
 from tests.test_constants import GENRE_1, MOVIE_TITLE_1, RATING_1
 
@@ -20,48 +21,66 @@ def create_movie(title, genre, rating):
         return None
 
 def add_to_watched(user_data, movie):
-    updated_data = {"watched": {}}
-    for finished_movie in movie:
-        updated_data["watched"] = [
+    for i in movie:
+        user_data["watched"] = [
             {
                 "title": movie["title"],
                 "genre": movie["genre"],
                 "rating": movie["rating"]
             }
         ]            
-    return updated_data
+    return user_data
     
 def add_to_watchlist(user_data, movie):
-    updated_data = {"watchlist": {}}
-    for finished_movie in movie:
-        updated_data["watchlist"] = [
+    for i in movie:
+        user_data["watchlist"] = [
             {
                 "title": movie["title"],
                 "genre": movie["genre"],
                 "rating": movie["rating"]
             }
         ]            
-    return updated_data
+    return user_data
 
 def watch_movie(janes_data, MOVIE_TITLE_1):
-    updated_data = janes_data
-    watched_movie = MOVIE_TITLE_1
-    for i in range(len(updated_data["watchlist"])):
-        if updated_data["watchlist"][i]["title"] == watched_movie:
+    for i in range(len(janes_data["watchlist"])):
+        if janes_data["watchlist"][i]["title"] == MOVIE_TITLE_1:
             move_from_watchlist_to_watched = {
-                    "title": updated_data["watchlist"][i].pop("title"),
-                    "genre": updated_data["watchlist"][i].pop("genre"),
-                    "rating": updated_data["watchlist"][i].pop("rating")
+                    "title": janes_data["watchlist"][i].pop("title"),
+                    "genre": janes_data["watchlist"][i].pop("genre"),
+                    "rating": janes_data["watchlist"][i].pop("rating")
                 }
-            updated_data["watched"].append(move_from_watchlist_to_watched)
+            janes_data["watched"].append(move_from_watchlist_to_watched)
         else:
             continue
-    updated_data["watchlist"] = list(filter(None, updated_data["watchlist"]))         
-    return updated_data
+    janes_data["watchlist"] = list(filter(None, janes_data["watchlist"]))        
+    return janes_data
 
-# -----------------------------------------
-# ------------- WAVE 2 --------------------
-# -----------------------------------------
+def get_watched_avg_rating(janes_data):
+    total_of_all_ratings = 0
+    average = 0.0
+    if len(janes_data["watched"]) > 0:
+        for i in range(len(janes_data["watched"])):
+            total_of_all_ratings += janes_data["watched"][i]["rating"]
+        average = total_of_all_ratings / len(janes_data["watched"])
+    return average
+
+def get_most_watched_genre(janes_data):
+    list_of_genres = []
+    dict_of_genres = Counter()
+    popular_genre = ""
+    if len(janes_data["watched"]) != 0:
+        for i in range(len(janes_data["watched"])):
+                list_of_genres.append(janes_data["watched"][i]["genre"])
+        for genre in list_of_genres:
+            if genre not in dict_of_genres:
+                dict_of_genres[genre] = 0
+            dict_of_genres[genre] +=1
+        popular_genre = dict_of_genres.most_common(1)[0][0]
+        return popular_genre
+    else:
+        return None
+            
 
 
 # -----------------------------------------
