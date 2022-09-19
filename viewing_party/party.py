@@ -1,6 +1,9 @@
 # -----------------------------------------
 # ------------- WAVE 1 --------------------
 # -----------------------------------------
+from csv import list_dialects
+
+
 TITLE_KEY = "title"
 GENRE_KEY = "genre"
 RATING_KEY = "rating"
@@ -91,7 +94,7 @@ def get_most_watched_genre(user_data):
     # friends_title_list.append(friend_dict['title'])
     # for user_dict in user_watched_list:
     # if friend_dict in user_watched_list or friend_dict['title'] == user_dict['title']:
-    # if user_dict not in user_unique_movie_list:
+    # if user_dict not in unique_user_movie_list:
     # unified_friends_set = friend_1_watched | friend_2_watched
     # users_unique_movies = user_watched_list | unified_friends_set
     # turn into dictionary user_unique_movies
@@ -101,15 +104,15 @@ def get_most_watched_genre(user_data):
 def get_unique_watched(user_data):
     user_watched_list = user_data['watched']
     complete_list_of_friends = user_data['friends']
-    user_unique_movie_list = []
+    unique_user_movie_list = []
     friends_title_list = []
     for friend in complete_list_of_friends:
         for friend_dict in friend['watched']:
             friends_title_list.append(friend_dict['title'])
     for user_dict in user_watched_list:
         if user_dict['title'] not in friends_title_list:
-            user_unique_movie_list.append(user_dict)
-    return user_unique_movie_list
+            unique_user_movie_list.append(user_dict)
+    return unique_user_movie_list
 
 # -----------------------------------------------
     # Function that compares user list with friends, returns UNIQUE list ONLY FRIENDS watched
@@ -132,8 +135,38 @@ def get_friends_unique_watched(user_data):
     # ------------- WAVE 4 --------------------
     # -----------------------------------------
 
-    # def get_available_recs(user_data):
 
+def get_available_recs(user_data):
+    user_watched_list = user_data['watched']
+    complete_list_of_friends = user_data['friends']
+    subscriptions_list = user_data['subscriptions']
+    unique_user_movie_list = get_unique_watched(user_data)
+    unique_friends_movie_list = get_friends_unique_watched(
+        user_data)  # helper func
+    list_of_recommended_movies = []
+
+    for movie in unique_friends_movie_list:
+        if movie not in unique_user_movie_list and movie['host'] in subscriptions_list:
+            list_of_recommended_movies.append(movie)
+
+    return list_of_recommended_movies
+# user_data[{},{},{}]
+# user_data[ list, dictionary
+#     {'watched':
+#       [
+    #   {title,genre,rating,host},{}]
+#      },
+#     'friends':[{'watched':[{},{}]}],
+#     'subscriptions':['netflix','hulu']
+#     ]
+# user_data will have a field "subscriptions". The value of "subscriptions" is a list of strings
+# This represents the names of streaming services that the user has access to
+# Each friend in "friends" has a watched list. Each movie in the watched list has a "host", which is a string that says what streaming service it's hosted on
+# Determine a list of recommended movies. A movie should be added to this list if and only if:
+# The user has not watched it
+# At least one of the user's friends has watched
+# The "host" of the movie is a service that is in the user's "subscriptions"
+# Return the list of recommended movies
     # -----------------------------------------
     # ------------- WAVE 5 --------------------
     # -----------------------------------------
