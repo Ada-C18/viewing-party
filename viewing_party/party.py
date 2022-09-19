@@ -61,7 +61,6 @@ def get_most_watched_genre(user_data):
 # ------------- WAVE 3 --------------------
 # -----------------------------------------
 
-#return a list of dicts where each dict is a movie only user has watched
 def get_unique_watched(user_data):
     unique_watched = []
     friends_watched = []
@@ -91,6 +90,18 @@ def get_friends_unique_watched(user_data):
 # -----------------------------------------
 # ------------- WAVE 4 --------------------
 # -----------------------------------------
+
+def get_available_recs(user_data):
+    recommendations = []
+    not_watched = []
+
+    for friend in user_data["friends"]: 
+        for movie in friend["watched"]:
+            if movie not in user_data["watched"] and movie["host"] in user_data["subscriptions"] and movie not in recommendations:
+                recommendations.append(movie)
+
+    return recommendations
+
 
 # -----------------------------------------
 # ------------- WAVE 5 --------------------
