@@ -171,15 +171,20 @@ def get_friends_unique_watched(user_data):
 # -----------------------------------------
 
 def get_available_recs(user_data):
-    subscriptions = user_data['subscriptions']
+    
+    # making sure that this is robust to subscriptions not existing because \
+    # it's not in the Arrange section of the test where Sonya has no friends.
+    
+    subscriptions = user_data.get('subscriptions', None)
     available_recs = []
 
     friends_unique = get_friends_unique_watched(user_data)
 
     if friends_unique:
         for movie in friends_unique:
-            if movie['host'] in subscriptions:
-                available_recs.append(movie)
+            if subscriptions:
+                if movie['host'] in subscriptions:
+                    available_recs.append(movie)
 
     return available_recs
 
@@ -187,3 +192,18 @@ def get_available_recs(user_data):
 # ------------- WAVE 5 --------------------
 # -----------------------------------------
 
+def get_new_rec_by_genre(user_data):
+    rec_genre = get_most_watched_genre(user_data)
+    available_recs = get_available_recs(user_data)
+    movie_recs_by_genre = []
+
+    if user_data['watched']:
+        if available_recs:
+            for movie in available_recs:
+                if movie['genre'] == rec_genre:
+                    movie_recs_by_genre.append(movie)
+    
+    return movie_recs_by_genre
+
+def get_rec_from_favorites(user_data):
+    pass
