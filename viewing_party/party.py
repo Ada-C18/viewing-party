@@ -51,9 +51,34 @@ def get_watched_avg_rating(user_data):
         for key,value in user_data["watched"][movie].items():
             if key == "rating":
                 sum += value
-    average = sum / len(user_data["watched"])
+    if sum > 0:
+        average = sum / len(user_data["watched"])
+    else:
+        average = 0.0
     return average
 
+def get_most_watched_genre(user_data):
+    genre_list = []
+    genre_count = {}
+
+    for movie in range(len(user_data["watched"])):
+        genre_list.append(user_data["watched"][movie]['genre'])
+        
+    for i in genre_list:
+        if i not in genre_count:
+            count = 0
+            genre_count[i] = count
+        else:
+            genre_count[i] = count + 1
+    print(genre_count)
+    print("HERE IS A CHECK OF GENRE COUNTING")
+
+
+            
+
+    # empty list
+    # count genres
+    # find max
 
 
 # -----------------------------------------
