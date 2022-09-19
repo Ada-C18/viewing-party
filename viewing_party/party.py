@@ -162,13 +162,14 @@ def get_available_recs(user_data):
     "friends" = many friends w/ watched lists
         each movie in watched lists has a "host": streaming service
     """
-    # create a list of recommended movies
-    # add only movies that fit this critera:
-        # not in user_data["watched"]
-        # in at least 1 friend's "watched"
-        # the movie's "host" is in "subscriptions"
-    # return the recommended movie list
+    recommended_movies = []
+    friend_recommendations = get_friends_unique_watched(user_data)
     
+    for movie in friend_recommendations:
+        if movie["host"] in user_data["subscriptions"]:
+            recommended_movies.append(movie)
+
+    return recommended_movies
 
 # -----------------------------------------
 # ------------- WAVE 5 --------------------
