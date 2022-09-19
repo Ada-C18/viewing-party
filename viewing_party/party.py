@@ -1,7 +1,16 @@
 # ------------- WAVE 1 --------------------
 
-def create_movie(title, genre, rating):
-    pass
+def create_movie(title, genre, rating):    
+    if title and genre and (type(rating) == int or float):
+        new_movie ={}  
+        new_movie['title'] = title
+        new_movie['genre'] = genre
+        new_movie['rating'] = rating
+        return new_movie
+    return None
+
+# def add_to_watched(user_data, movie):
+
 
 # -----------------------------------------
 # ------------- WAVE 2 --------------------
