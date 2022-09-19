@@ -54,7 +54,8 @@ def get_most_watched_genre(user_data):
         for genre in genre_list:
             genre_dict[genre] = genre_dict.get(genre,0) + 1
             
-            if genre_dict[genre] >= max_freq:
+            # Note: this will break if there are ties for genres. If there are ties, need to make a list to hold ties and have an elif statement
+            if genre_dict[genre] > max_freq:
                 max_freq = genre_dict[genre]
                 most_common_genre = genre
         return most_common_genre
@@ -63,11 +64,34 @@ def get_most_watched_genre(user_data):
 # -----------------------------------------
 # ------------- WAVE 3 --------------------
 # -----------------------------------------
+
+#helper function to create list 
+def list_friends_movies(user_data):
+    friends_movies = []
+    for friend in user_data["friends"]:
+        for movie in friend["watched"]:
+            friends_movies.append(movie)
+    return friends_movies
+
 def get_unique_watched(user_data):
-    pass
+    user_unique_watched = []
+    user_movies = user_data["watched"]
+    friends_movies = list_friends_movies(user_data)
+
+    for movie in user_movies:
+        if movie not in friends_movies:
+            user_unique_watched.append(movie)
+    return user_unique_watched       
 
 def get_friends_unique_watched(user_data):
-    pass
+    friends_unique_watched = []
+    user_movies = user_data["watched"]
+    friends_movies = list_friends_movies(user_data)
+
+    for movie in friends_movies:
+        if movie not in user_movies and movie not in friends_unique_watched:
+            friends_unique_watched.append(movie)
+    return friends_unique_watched
 
 # -----------------------------------------
 # ------------- WAVE 4 --------------------
