@@ -3,9 +3,6 @@
 # I feel like there's a better way to test if title, genre, & rating are truthy 
 # but not sure how
 
-from multiprocessing.sharedctypes import Value
-
-
 def create_movie(title, genre, rating):
     new_movie = {"title": title, "genre": genre, "rating": rating}
     if title and genre and rating:
@@ -40,10 +37,55 @@ def watch_movie(user_data, title):
 # ------------- WAVE 2 --------------------
 # -----------------------------------------        
 
+def get_watched_avg_rating(user_data):
+    count = 0
+    movie_rating = 0.0
+    if len(user_data["watched"]) == 0:
+        return 0.0
+    else:
+        for movies in user_data["watched"]:
+            movie_rating += movies["rating"]
+            count += 1  
+        return movie_rating/count
+
+
+
+def get_most_watched_genre(user_data):
+    genre_list = []
+    if len(user_data["watched"]) == 0:
+        return None
+    else:
+        for movie in user_data["watched"]:
+            genre_list.append(movie["genre"])
+        return max(set(genre_list), key = genre_list.count)
+
+        
+
+
+
 # -----------------------------------------
 # -----------------------------------------
 # ------------- WAVE 3 --------------------
 # -----------------------------------------
+
+def get_unique_watched(user_data):
+    movies_list = [movies for movies in user_data["watched"]]
+    for movie in user_data["friends"]:
+        for title in movie["watched"]:
+            if title in movies_list:
+                movies_list.remove(title)
+    return movies_list
+            
+def get_friends_unique_watched(user_data):
+    movies_list = [movies for movies in user_data["watched"]]
+    friends_list = []
+    for movie in user_data["friends"]:
+        for title in movie["watched"]:
+            if title not in movies_list:
+                if title not in friends_list:
+                    friends_list.append(title)
+    
+    return friends_list
 
         
 # -----------------------------------------
