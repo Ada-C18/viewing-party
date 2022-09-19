@@ -38,7 +38,40 @@ def watch_movie(user_data, MOVIE_TITLE_1):
 # -----------------------------------------
 # ------------- WAVE 2 --------------------
 # -----------------------------------------
+import collections
 
+def get_watched_avg_rating(user_data):
+    ratings = []
+    if not user_data["watched"]:
+        return 0
+    for i in user_data["watched"]:
+        ratings.append(i["rating"])
+        
+    return sum(ratings)/len(ratings)
+
+user_data = {
+    "watched":[
+        {"title": "Anchorman",
+        "genre": "Comedy",
+        "rating": 3},
+        {"title": "Frankenstein",
+        "genre": "Horror",
+        "rating": 5}
+        ]
+    }
+
+print(get_watched_avg_rating(user_data))
+    
+def get_most_watched_genre(user_data):
+    genres = []
+    for i in user_data["watched"]:
+        genres.append(i["genre"])
+    counter = collections.Counter(genres)
+    genre_frequencies = counter.values()
+
+    for genre,frequency in counter.items():
+        if frequency == max(genre_frequencies):
+            return genre
 
 # -----------------------------------------
 # ------------- WAVE 3 --------------------
