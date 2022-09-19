@@ -1,5 +1,8 @@
 # ------------- WAVE 1 --------------------
 
+from symbol import single_input
+
+
 def create_movie(title, genre, rating): #Wave 1, step 1 done
     movie_dict={}
     if title is None or genre is None or rating is None:
@@ -172,3 +175,39 @@ def get_available_recs(single_user_data):
 # -----------------------------------------
 # ------------- WAVE 5 --------------------
 # -----------------------------------------
+
+def get_new_rec_by_genre(single_user_data):
+    #Returns an empty list if the user does not have a most frequent genre
+    if len(single_user_data["watched"]) == 0:
+        return []
+    
+    #Returns an empty list if the user's friends do not have watchlists with movie info that can be used to get available movie recommendations
+    if len(get_friends_unique_watched(single_user_data)) == 0 :
+        return []
+
+    users_most_frequent_genre=get_most_watched_genre(single_user_data)
+    list_of_users_recco_movie_info=get_available_recs(single_user_data)
+    print(list_of_users_recco_movie_info)
+    list_of_users_recco_movie_info_by_genre=[]
+
+    #Adds recommended movie info to new list if the movie's genre is the most watched genre
+    for movie_info in list_of_users_recco_movie_info:
+        if movie_info["genre"] == users_most_frequent_genre:
+            list_of_users_recco_movie_info_by_genre.append(movie_info)
+    return list_of_users_recco_movie_info_by_genre
+
+def get_rec_from_favorites(single_user_data):
+    #Returns an empty list if the user does not have a favorites list
+    if len(single_user_data["favorites"]) == 0:
+        return []
+
+    list_of_users_recco_movies_by_favorites=[]
+    list_of_user_favorties_movie_info=single_user_data["favorites"]
+    #Uses wave_03 function to add user's unique watched (friends have not watched) movie info to a list
+    list_of_unique_user_movie_info=get_unique_watched(single_user_data)
+
+    #Adds movie info to a new list if only the user has watched it and it is in the user's favorites list
+    for movie_info in list_of_user_favorties_movie_info:
+        if movie_info in list_of_unique_user_movie_info:
+            list_of_users_recco_movies_by_favorites.append(movie_info)
+    return list_of_users_recco_movies_by_favorites
