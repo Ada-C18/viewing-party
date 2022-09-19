@@ -126,3 +126,24 @@ def get_available_recs(user_data):
 # -----------------------------------------
 # ------------- WAVE 5 --------------------
 # -----------------------------------------
+
+def get_new_rec_by_genre(user_data):
+
+    most_watched_genre = get_most_watched_genre(user_data)
+    movies_watched= user_data["watched"]
+    friends_movies = user_data["friends"]
+    avail_recs = []
+
+    for i in range(len(friends_movies)):
+        for watched in friends_movies[i]:
+            for j in range(len(friends_movies[i][watched])):
+                add_to_new_list = True
+                for k in range(len(movies_watched)):
+                    if movies_watched[k]["title"]== friends_movies[i][watched][j]["title"]:
+                        add_to_new_list = False
+                if add_to_new_list == True and friends_movies[i][watched][j]["genre"] != most_watched_genre:
+                    add_to_new_list = False
+                if add_to_new_list == True and friends_movies[i][watched][j] not in avail_recs:
+                   avail_recs.append(friends_movies[i][watched][j])
+    return avail_recs
+
