@@ -62,7 +62,7 @@ def search(a_list, movie_title):
 # ------------- WAVE 2 --------------------
 # -----------------------------------------
 
-def get_watched_avg_rating(user_data):
+#def get_watched_avg_rating(user_data):
     #this takes in the user's 
 
 
