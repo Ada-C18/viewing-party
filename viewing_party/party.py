@@ -34,7 +34,10 @@ def get_watched_avg_rating(data):
     number_of_ratings = len(data["watched"])
     for i in range(number_of_ratings):
         rating_total += data["watched"][i]["rating"]
-    return rating_total / number_of_ratings
+    if number_of_ratings > 0:
+        return rating_total / number_of_ratings
+    else:
+        return 0
     
 
 
