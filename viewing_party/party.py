@@ -61,6 +61,9 @@ def get_most_watched_genre(user_data):
     genre_list = []
     genre_count = {}
 
+    if user_data["watched"] == []:
+        return None
+
     for movie in range(len(user_data["watched"])):
         genre_list.append(user_data["watched"][movie]['genre'])
         
