@@ -97,6 +97,46 @@ def get_watched_avg_rating(user_data):
     # pass back the average 
     return sum_rating/count_rating 
 
+# design questions
+# handling ties? 
+# Star Wars: science fiction, fantasy, or science fantasy? 
+
+def get_most_watched_genre(user_data):
+
+    # chedk for empty watch list
+    watched = user_data.get('watched', [])
+    if not watched:
+        return None 
+
+    # keys ~ str, vals ~ int
+    genre_freq_table = {}
+    for movie in watched:
+        # ignore movies where the genre isn't set
+        genre = movie.get('genre', None)
+        # safely get the old freq with a default value
+        # of 0 if we've not seen this genre
+        if genre:
+            old_freq = genre_freq_table.get(genre, 0)
+            genre_freq_table[genre] = old_freq + 1
+
+    # loop over genre_freq_table 
+    # and collect the key with the highest value
+    top_genre = None
+    top_freq = 0
+    for genre, freq in genre_freq_table.items():
+        if freq > top_freq:
+            # make sure to update both top_freq and 
+            # top_genre 
+            top_freq = freq 
+            top_genre = genre
+    
+    return top_genre 
+
+
+
+
+    
+
 
 
 
