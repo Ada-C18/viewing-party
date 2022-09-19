@@ -49,18 +49,18 @@ def get_watched_avg_rating(user_data):
         
     return sum(ratings)/len(ratings)
 
-user_data = {
-    "watched":[
-        {"title": "Anchorman",
-        "genre": "Comedy",
-        "rating": 3},
-        {"title": "Frankenstein",
-        "genre": "Horror",
-        "rating": 5}
-        ]
-    }
+# user_data = {
+#     "watched":[
+#         {"title": "Anchorman",
+#         "genre": "Comedy",
+#         "rating": 3},
+#         {"title": "Frankenstein",
+#         "genre": "Horror",
+#         "rating": 5}
+#         ]
+#     }
 
-print(get_watched_avg_rating(user_data))
+# print(get_watched_avg_rating(user_data))
     
 def get_most_watched_genre(user_data):
     genres = []
@@ -76,6 +76,19 @@ def get_most_watched_genre(user_data):
 # -----------------------------------------
 # ------------- WAVE 3 --------------------
 # -----------------------------------------
+def get_unique_watched(user_data):
+    unique_movies=[]
+    friends_watched = []
+    for friend in user_data["friends"]:
+        for movie in friend["watched"]:
+            # for title in movie["title"]
+            friends_watched.append(movie["title"])
+            print(movie["title"])
+    for i in user_data["watched"]:
+            if i["title"] not in friends_watched:
+                unique_movies.append(i)
+
+    return unique_movies
 
         
 # -----------------------------------------
