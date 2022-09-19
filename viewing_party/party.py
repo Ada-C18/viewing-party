@@ -18,7 +18,7 @@ def add_to_watched(user_data, movie):
     user_data = {
         "watched": [movie] 
     }
-    
+
     movie = {
         "title": "Title A",
         "genre": "Horror",
@@ -26,6 +26,21 @@ def add_to_watched(user_data, movie):
     }
 
     return user_data
+
+def add_to_watchlist(user_data, movie):
+    user_data = {
+        "watchlist": [movie] 
+    }
+
+    movie = {
+        "title": "Title A",
+        "genre": "Horror",
+        "rating": 3.5
+    }
+
+    return user_data
+    
+
 
 
 # -----------------------------------------
