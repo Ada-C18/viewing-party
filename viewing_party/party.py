@@ -57,7 +57,7 @@ def get_most_watched_genre(user_data):
 
 def get_unique_watched(user_data):
     unique_watched = []
-    unique_watched += user_data["watched"]
+    unique_watched.extend(user_data["watched"])
     for list in user_data["friends"]:
         for movie in list["watched"]:
             if movie in unique_watched:
@@ -81,8 +81,7 @@ def get_available_recs(user_data):
     recommended_movies = []
     friend_unique = get_friends_unique_watched(user_data)
     for movie in friend_unique:
-        if movie not in recommended_movies:
-            if movie["host"] in user_data["subscriptions"]:
+        if movie not in recommended_movies and movie["host"] in user_data["subscriptions"]:
                 recommended_movies.append(movie)
     return recommended_movies
 
