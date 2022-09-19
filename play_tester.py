@@ -16,14 +16,14 @@ pp = pprint.PrettyPrinter(indent=4)
 
 # print(create_movie("title", "genre", "rating")) #added during Intro to Viewing Party demo
 
-print("\n-----Wave 02 user_data-----")
-pp.pprint(clean_wave_2_data())
+# print("\n-----Wave 02 user_data-----")
+# pp.pprint(clean_wave_2_data())
 
-#print("\n-----Wave 03 user_data-----")
-#pp.pprint(clean_wave_3_data())
+print("\n-----Wave 03 user_data-----")
+pp.pprint(clean_wave_3_data())
 
 # Wave 04 user data
-#print("\n-----Wave 04 user_data-----")
+#print("\n----s-Wave 04 user_data-----")
 #pp.pprint(clean_wave_4_data())
 
 # Wave 05 user data
