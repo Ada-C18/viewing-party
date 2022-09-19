@@ -146,7 +146,8 @@ def test_moves_movie_from_watchlist_to_watched():
     #raise Exception("Test needs to be completed.")
     assert updated_data["watchlist"] == [FANTASY_1]
 
-@pytest.mark.skip()
+# TEST 9
+# @pytest.mark.skip()
 def test_does_nothing_if_movie_not_in_watchlist():
     # Arrange
     movie_to_watch = HORROR_1
