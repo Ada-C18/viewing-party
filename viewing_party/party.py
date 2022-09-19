@@ -87,7 +87,7 @@ def get_unique_watched(user_data):
                     if dictionary["title"] == dict["title"]:
                         user_unique_movies.remove(dictionary)
 
-    print(user_unique_movies)
+    return user_unique_movies
 
 def get_friends_unique_watched(user_data):
     user_movie_list = user_data["watched"]
