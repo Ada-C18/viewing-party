@@ -29,14 +29,14 @@ def add_to_watchlist(user_data, movie):
 def watch_movie(user_data, title):
     # user_data is a dictionary with "watchlist" and "watched" keys
     # title is a string and reps the title of a movie the user has watched
-    if user_data["watchlist"][0]["title"] == title:
-        user_data["watched"] = [user_data["watchlist"][0]]
-        user_data["watchlist"] = []
-    # for i in user_data["watchlist"]: # looking at every item in list
-    #     for key in i:
-    #         if key["title"] == title:
-    #             user_data["watched"].append(key)
-    #             user_data["watchlist"].pop(key)
+    for movie in range(len(user_data["watchlist"])):
+        for key,value in user_data["watchlist"][movie].items():
+            if value == title:
+                user_data["watched"].append(movie)
+                user_data["watchlist"].pop(movie)
+    # if user_data["watchlist"][0]["title"] == title:
+    #     user_data["watched"] = [user_data["watchlist"][0]]
+    #     user_data["watchlist"] = []
     return user_data
 
 
