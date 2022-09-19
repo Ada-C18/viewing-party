@@ -125,6 +125,7 @@ def get_available_recs(user_data):
     return recommended_movies
 
 
+
 # -----------------------------------------
 # ------------- WAVE 5 --------------------
 # -----------------------------------------
@@ -143,4 +144,20 @@ def get_new_rec_by_genre(user_data):
 
     return recommended_movies
 
-def get
+def get_rec_from_favorites(user_data):
+    user_movies = user_data['watched']
+    friends_movies = user_data['friends']
+    favorites = user_data['favorites']
+
+    recommended_movies = []
+    friends_movie_list = []
+
+    for friend_dict in friends_movies:
+        for friend_movie in friend_dict['watched']:
+            friends_movie_list.append(friend_movie)
+
+    for movie in favorites:
+        if movie not in friends_movie_list:
+            recommended_movies.append(movie)
+    
+    return recommended_movies
