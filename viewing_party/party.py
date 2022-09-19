@@ -1,5 +1,6 @@
 # ------------- WAVE 1 --------------------
 
+from functools import total_ordering
 from operator import length_hint
 import re
 
@@ -201,9 +202,15 @@ def get_new_rec_by_genre(user_data):
 
 def get_rec_from_favorites(user_data):
     recommended_movies = []
-    friends_unique_movies = get_friends_unique_watched(user_data)
+    friends = user_data["friends"]
+    friends_all_movies = []
+    for friend in friends:
+        friend_movies = friend["watched"]
+        friends_all_movies +=friend_movies
+
+    friends_movies = get_friends_unique_watched(user_data)
     for movie in user_data["favorites"] :
-        if movie not in friends_unique_movies:
+        if movie not in friends_all_movies:
             recommended_movies.append(movie)
 
     return recommended_movies        
