@@ -144,11 +144,6 @@ def get_friends_unique_watched(user_data):
             title_genre = movie['title'], movie['genre']
             user_watched.add(title_genre)
 
-        initial_set_length = 0
-        new_set_length = 0
-        i = 0
-        index_list = []
-
         if friends:
             for friend in friends:
                 for movie in friend['watched']:
@@ -169,44 +164,6 @@ def get_friends_unique_watched(user_data):
                             friends_unique_movies.append(movie)
 
     return friends_unique_movies
-
-
-# concerns when doing this problem: in the real world, ratings wouldn't match \
-# how would we reattach the ratings in that case (as an average or just as the first friend's rating)?
-
-# # the function below creates a list of all movies watched by the user, \
-# # where each movie appears only once, even if the movie was watched more than once \
-# # by the user, but this was not what the test wanted.
-
-# def get_unique_watched(user_data):
-#     watched = user_data['watched']
-#     title_genre = tuple()
-#     movie_titles_genres = set()
-#     initial_set_length = 0
-#     new_set_length = 0
-#     i = 0
-#     index_list = []
-#     unique_movies = []
-
-# # sometimes movies that are different have the same title, \
-# # so to ensure uniqueness, we don't want to use only titles 
-
-#     if len(watched):
-#         for movie in watched:
-#             initial_set_length = len(movie_titles_genres)
-#             title_genre = movie['title'], movie['genre']
-#             movie_titles_genres.add(title_genre)
-#             new_set_length = len(movie_titles_genres)
-
-#             if new_set_length > initial_set_length:
-#                 index_list.append(i)
-
-#             i += 1
-
-#         for number in index_list:
-#             unique_movies.append(watched[number])
-
-#     return unique_movies
 
 
 # -----------------------------------------
