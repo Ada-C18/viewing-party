@@ -111,10 +111,9 @@ def get_unique_watched(user_data):
     user_watched_list = [movie["title"] for movie in user_data["watched"]]
 
     for friends_list in user_data["friends"]:
-        if "watched" in friends_list.keys():
-            for movie in friends_list["watched"]:
-                friend_watched_list.append(movie["title"])
- 
+        for movie in friends_list["watched"]:
+            friend_watched_list.append(movie["title"])
+
     user_watched_set = set(user_watched_list)
     friend_watched_set = set(friend_watched_list)
     unique_watched_set = user_watched_set - friend_watched_set
@@ -134,28 +133,22 @@ def get_friends_unique_watched(user_data):
             "watched": list of movie dicts
                 ^ these all contain a "title"
     """
-    # determine whihc movies at least one of the user friends watched but the user did not watch
-    # return a list of dicts representing the list of movies
     unique_watched_movies = []
     friend_watched_list = []
     user_watched_list = [movie["title"] for movie in user_data["watched"]]
 
     for friends_list in user_data["friends"]:
-        if "watched" in friends_list.keys():
-            for movie in friends_list["watched"]:
-                friend_watched_list.append(movie["title"])
+        for movie in friends_list["watched"]:
+            friend_watched_list.append(movie["title"])
 
-    # determine which movies friends watched that user did not   
     user_watched_set = set(user_watched_list)
     friend_watched_set = set(friend_watched_list)
     unique_watched_set = friend_watched_set - user_watched_set
     
-    # return a list of dictionaries that represents a list of movies    
-    # for movie in user_data["watched"]:
-    #     if movie["title"] not in unique_watched_set:
-    #         continue
-    #     elif movie["title"] in unique_watched_set:
-    #         unique_watched_movies.append(movie)
+    for friends_list in user_data["friends"]:
+        for movie in friends_list["watched"]:
+            if movie["title"] in unique_watched_set:
+                unique_watched_movies.append(movie)
 
     return unique_watched_movies
 
