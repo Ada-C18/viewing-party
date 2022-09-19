@@ -52,7 +52,7 @@ def get_watched_avg_rating(user_data):
     avg_rating = 0.0
     watched = user_data['watched']
 
-    if len(watched):
+    if watched:
         for movie in watched:
             total_rating += movie['rating']
         
@@ -69,7 +69,7 @@ def get_most_watched_genre(user_data):
     # we have to determine what these are and initialize the dictionary \
     # before we can increment the genres.
 
-    if len(watched):
+    if watched:
         for movie in watched:
             genre_names.add(movie['genre'])
         
@@ -101,7 +101,7 @@ def get_unique_watched(user_data):
     # we want to ensure uniqueness by grabbing/comparing both title and genre
     # we want to have a clean comparison by not grabbing rating
 
-    if len(watched):
+    if watched:
         
         for movie in watched:
             title_genre = movie['title'], movie['genre']
@@ -109,7 +109,7 @@ def get_unique_watched(user_data):
         
         user_unique_set = user_watched
 
-        if len(friends):
+        if friends:
             for friend in friends:
                 for movie in friend['watched']:
                     title_genre = movie['title'], movie['genre']
@@ -124,6 +124,55 @@ def get_unique_watched(user_data):
 
     return unique_movies
 
+def get_friends_unique_watched(user_data):
+    watched = user_data['watched']
+    friends = user_data['friends']
+    title_genre = tuple()
+    user_watched = set()
+    friend_watched = set()
+    friend_user_unique = set()
+    friends_unique_set = set()
+    friends_all_movies = []
+    friends_unique_movies = []
+
+    # we want to ensure uniqueness by grabbing/comparing both title and genre
+    # we want to have a clean comparison by not grabbing rating
+
+    if len(watched):
+        
+        for movie in watched:
+            title_genre = movie['title'], movie['genre']
+            user_watched.add(title_genre)
+
+        initial_set_length = 0
+        new_set_length = 0
+        i = 0
+        index_list = []
+
+        if friends:
+            for friend in friends:
+                for movie in friend['watched']:
+                    title_genre = movie['title'], movie['genre']
+                    friend_watched.add(title_genre)
+                    friends_all_movies.append(movie)
+                
+                friend_user_unique = friend_watched-user_watched
+                friends_unique_set = friends_unique_set | friend_user_unique
+
+        if friends_unique_set:
+            for movie in friends_all_movies:
+                for entry in friends_unique_set:
+                    if entry == (movie['title'], movie['genre']):
+                        if movie in friends_unique_movies:
+                            continue
+                        else:
+                            friends_unique_movies.append(movie)
+
+    return friends_unique_movies
+
+
+# concerns when doing this problem: in the real world, ratings wouldn't match \
+# how would we reattach the ratings in that case (as an average or just as the first friend's rating)?
 
 # # the function below creates a list of all movies watched by the user, \
 # # where each movie appears only once, even if the movie was watched more than once \
@@ -163,6 +212,13 @@ def get_unique_watched(user_data):
 # -----------------------------------------
 # ------------- WAVE 4 --------------------
 # -----------------------------------------
+
+def get_available_recs(user_data):
+    watched = user_data['watched']
+    friends = user_data['friends']
+    subscriptions = user_data['subscriptions']
+
+    return user_data
 
 # -----------------------------------------
 # ------------- WAVE 5 --------------------
