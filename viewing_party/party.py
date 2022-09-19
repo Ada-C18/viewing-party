@@ -82,6 +82,7 @@ def get_most_watched_genre(user_data):
     """
     all_genres = {}
     most_watched_genre = None
+
     if len(user_data["watched"]) == 0:
         return most_watched_genre
     else:
@@ -105,7 +106,6 @@ def get_unique_watched(user_data):
             "watched" : list of movie dicts
                 ^ these all contain a "title"       
     """
-    # get the necessary info you need
     unique_watched_movies = []
     friend_watched_list = []
     user_watched_list = [movie["title"] for movie in user_data["watched"]]
@@ -114,17 +114,13 @@ def get_unique_watched(user_data):
         if "watched" in friends_list.keys():
             for movie in friends_list["watched"]:
                 friend_watched_list.append(movie["title"])
-
-    # determine which movies the user watched that the frnds did not    
+ 
     user_watched_set = set(user_watched_list)
     friend_watched_set = set(friend_watched_list)
     unique_watched_set = user_watched_set - friend_watched_set
     
-    # return a list of dictionaries that represents a list of movies    
     for movie in user_data["watched"]:
-        if movie["title"] not in unique_watched_set:
-            continue
-        elif movie["title"] in unique_watched_set:
+        if movie["title"] in unique_watched_set:
             unique_watched_movies.append(movie)
 
     return unique_watched_movies
@@ -140,6 +136,28 @@ def get_friends_unique_watched(user_data):
     """
     # determine whihc movies at least one of the user friends watched but the user did not watch
     # return a list of dicts representing the list of movies
+    unique_watched_movies = []
+    friend_watched_list = []
+    user_watched_list = [movie["title"] for movie in user_data["watched"]]
+
+    for friends_list in user_data["friends"]:
+        if "watched" in friends_list.keys():
+            for movie in friends_list["watched"]:
+                friend_watched_list.append(movie["title"])
+
+    # determine which movies friends watched that user did not   
+    user_watched_set = set(user_watched_list)
+    friend_watched_set = set(friend_watched_list)
+    unique_watched_set = friend_watched_set - user_watched_set
+    
+    # return a list of dictionaries that represents a list of movies    
+    # for movie in user_data["watched"]:
+    #     if movie["title"] not in unique_watched_set:
+    #         continue
+    #     elif movie["title"] in unique_watched_set:
+    #         unique_watched_movies.append(movie)
+
+    return unique_watched_movies
 
 # -----------------------------------------
 # ------------- WAVE 4 --------------------
@@ -157,7 +175,7 @@ def get_available_recs(user_data):
         # in at least 1 friend's "watched"
         # the movie's "host" is in "subscriptions"
     # return the recommended movie list
-    pass
+    
 
 # -----------------------------------------
 # ------------- WAVE 5 --------------------
