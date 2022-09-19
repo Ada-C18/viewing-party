@@ -62,8 +62,17 @@ def search(a_list, movie_title):
 # ------------- WAVE 2 --------------------
 # -----------------------------------------
 
-#def get_watched_avg_rating(user_data):
-    #this takes in the user's 
+def get_watched_avg_rating(user_data):
+    #this takes in the user's data (a dictionary with 2 keys: watched and watchlist)
+    #it outputs the average rating of all the movies in the dictionary 'watched'
+    ratings_lst = []
+    #this gives a list of ratings
+    for movie in user_data["watched"]:
+        ratings_lst.append(movie["rating"])
+
+    #this calculates the average:
+    avg_rating = sum(ratings_lst) / len(ratings_lst)
+    return avg_rating
 
 
 # -----------------------------------------
