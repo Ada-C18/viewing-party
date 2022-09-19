@@ -82,63 +82,94 @@ def get_most_watched_genre(user_data):
 # -----------------------------------------
 # ------------- WAVE 3 --------------------
 # -----------------------------------------
-def converting_list_of_dict_to_set(user_list_of_movies):
-    user_set = set()
-    length = len(user_list_of_movies)
-    for i in range(length):
-        user_set.add(user_list_of_movies[i]["title"])
-    return user_set
-
 
 def get_unique_watched(user_data):
-    user_watched_set = converting_list_of_dict_to_set(user_data["watched"])
+    user_unique_watched = []
+    friends_watched_list =[]
+    user_list = user_data["watched"]
+    friends= user_data["friends"]
     
-    length = user_data["friends"]
-    user_list_of_uniques = []
-    for i in range(len(length)):
-        friend_watched_set = converting_list_of_dict_to_set(user_data["friends"][i]["watched"])
-        user_watched_set =user_watched_set - friend_watched_set
+    for friend in friends:
+        friend_watched = friend["watched"]
+        friends_watched_list += friend_watched
 
-    for i in range(len(user_data["watched"])):
-        if user_data["watched"][i]["title"] in user_watched_set:
-            user_list_of_uniques.append(user_data["watched"][i])
+    for movie in user_list:
+        if movie not in friends_watched_list:
+            user_unique_watched.append(movie)   
 
-
-    return user_list_of_uniques  
+    return user_unique_watched
 
 
 def get_friends_unique_watched(user_data):
-    
-    friends_unique_movies =[]
-    friends_watched_list_of_sets=[]
-    friends_list = []
-    friends_unique_sets= set()
-    friends_sets = set()
-    # this length represents number of friends
-    length = user_data["friends"]
+    friends_unique_watched = []
+    friends_watch_list = []
+    user_list = user_data["watched"]
+    friends=user_data["friends"]
 
-    user_watched_set = converting_list_of_dict_to_set(user_data["watched"])
-    for i in range(len(length)):
-        friends_watched_list_of_sets.append(converting_list_of_dict_to_set(user_data["friends"][i]["watched"]))
-        
-    for i in range(len(length)) :
-        
-        for title in friends_watched_list_of_sets[i] :
-            friends_list.append(title)
-    for title in friends_list:  
-            friends_sets.add(title)
-    friends_unique_sets = friends_sets - user_watched_set
+    for friend in friends:
+        friend_watched = friend["watched"]
+        friends_watch_list +=friend_watched
+
+    for movie in friends_watch_list:
+        if movie not in user_list and movie not in friends_unique_watched:
+            friends_unique_watched.append(movie)
+
+    return friends_unique_watched           
+
+
+# def converting_list_of_dict_to_set(user_list_of_movies):
+#     user_set = set()
+#     length = len(user_list_of_movies)
+#     for i in range(length):
+#         user_set.add(user_list_of_movies[i]["title"])
+#     return user_set
+
+
+# def get_unique_watched(user_data):
+    # user_watched_set = converting_list_of_dict_to_set(user_data["watched"])
     
-    for i in range(len(length)):
-        for j in range(len(user_data["friends"][i]["watched"])):
-            if user_data["friends"][i]["watched"][j]["title"] in list(friends_unique_sets):
-                friends_unique_movies.append(user_data["friends"][i]["watched"][j])
+    # length = user_data["friends"]
+    # user_list_of_uniques = []
+    # for i in range(len(length)):
+    #     friend_watched_set = converting_list_of_dict_to_set(user_data["friends"][i]["watched"])
+    #     user_watched_set =user_watched_set - friend_watched_set
+
+    # for i in range(len(user_data["watched"])):
+    #     if user_data["watched"][i]["title"] in user_watched_set:
+    #         user_list_of_uniques.append(user_data["watched"][i])
+
+
+    # return user_list_of_uniques  
+
+
+# def get_friends_unique_watched(user_data):
+    
+#     friends_unique_movies =[]
+#     friends_watched_list_of_sets=[]
+#     friends_list = []
+#     friends_unique_sets= set()
+#     friends_sets = set()
+#     # this length represents number of friends
+#     length = user_data["friends"]
+
+    # user_watched_set = converting_list_of_dict_to_set(user_data["watched"])
+    # for i in range(len(length)):
+    #     friends_watched_list_of_sets.append(converting_list_of_dict_to_set(user_data["friends"][i]["watched"]))
+        
+    # for i in range(len(length)) :
+        
+    #     for title in friends_watched_list_of_sets[i] :
+    #         friends_list.append(title)
+    # for title in friends_list:  
+    #         friends_sets.add(title)
+    # friends_unique_sets = friends_sets - user_watched_set
+    
+    # for i in range(len(length)):
+    #     for j in range(len(user_data["friends"][i]["watched"])):
+    #         if user_data["friends"][i]["watched"][j]["title"] in list(friends_unique_sets):
+    #             friends_unique_movies.append(user_data["friends"][i]["watched"][j])
    
-    return friends_unique_movies
-    
-    
-         
-
+    # return friends_unique_movies
     
         
 # -----------------------------------------
@@ -169,11 +200,11 @@ def get_new_rec_by_genre(user_data):
     return recommended_movies        
 
 def get_rec_from_favorites(user_data):
-    recommended_movie = []
+    recommended_movies = []
     friends_unique_movies = get_friends_unique_watched(user_data)
     for movie in user_data["favorites"] :
         if movie not in friends_unique_movies:
-            recommended_movie.append(movie)
+            recommended_movies.append(movie)
 
-    return recommended_movie        
+    return recommended_movies        
 
