@@ -128,7 +128,7 @@ def get_friends_unique_watched(user_data):
     for friends_dict in friends_watched_list:
         if friends_dict not in user_watched_list:
             friends_unique_list.append(friends_dict)
-    print(friends_unique_list)
+    # print(friends_unique_list)
     return friends_unique_list
 
 #HELPER FUNCTION TO CREATE FRIENDS' WATCHED LIST
@@ -177,11 +177,11 @@ def get_user_watched_list(user_data):
 def get_available_recs(user_data):
     to_remove_list = get_to_remove_list(user_data)
     # print("to remove list is: ",to_remove_list)
-    friends_unique_list = get_friends_unique_watched(user_data)
+    user_recs = get_friends_unique_watched(user_data)
     # print("=====================")
     # print("friends list is: ",to_remove_list)
     # print("==========================")
-    user_recs = friends_unique_list.copy()
+    # user_recs = friends_unique_list.copy()
     
     for element in user_recs[:]:
         if element in to_remove_list:
@@ -190,7 +190,7 @@ def get_available_recs(user_data):
     # print(len(user_recs))
     return user_recs
 
-    
+#HELPER FUNCTION TO GET LIST OF SUBSCRIPTION USER DO NOT HAVE    
 def get_to_remove_list(user_data):    
     friends_unique_list = get_friends_unique_watched(user_data)
     user_recs = friends_unique_list.copy()
@@ -214,3 +214,58 @@ def get_to_remove_list(user_data):
 # ------------- WAVE 5 --------------------
 # -----------------------------------------
 
+def get_new_rec_by_genre(user_data):
+    user_most_popular_genre = get_pop_genre(user_data)
+    user_recs = get_friends_unique_watched(user_data)
+
+    
+    if user_most_popular_genre is None:
+        user_recs == []
+        print("len of user recs is",len(user_recs))
+        return user_recs
+    else:
+        for element in user_recs[:]:
+            if (element["genre"]) not in user_most_popular_genre:
+                user_recs.remove(element)
+        
+        print(len(user_recs))
+        return(user_recs)
+    
+#HELPER FUNCTION
+
+def get_pop_genre(user_data):
+    popular_genre = []
+    most_popular_genre = []
+    if len(user_data["watched"]) == 0:
+        most_popular_genre = []
+        return most_popular_genre
+    
+    else:
+
+        for movie_dicts in (user_data["watched"]): #first loop to give us the movie list (of dictionaries) of "friends"
+
+            for key,value in movie_dicts.items(): #third loop give us access to each element within the list of friends watched list to compare title
+
+                popular_genre.append(movie_dicts["genre"])
+        
+        # print("length of pop genre is",len(popular_genre))
+        most_popular_genre = (max(set(popular_genre), key = popular_genre.count))
+  
+        print("User popular genre",most_popular_genre)
+        return most_popular_genre    
+
+#HELPER FUNCTION
+
+def unpopular_genre_list(user_data):
+    # friends_unique_list = get_friends_unique_watched(user_data)
+    user_recs = get_friends_unique_watched(user_data) #friends_unique_list.copy()
+    user_popular_genre = get_pop_genre(user_data)
+    user_unpopular_genre = []
+    # print("list to recommend before genre is ",user_recs)
+
+    for movie_dict in user_recs:
+        if movie_dict["genre"] not in user_popular_genre:
+            user_unpopular_genre.append(movie_dict)
+    print("user unpopular genre is ",user_unpopular_genre)
+    return user_unpopular_genre
+# unpopular_genre_list(user_data)
