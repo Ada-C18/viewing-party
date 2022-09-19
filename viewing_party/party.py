@@ -73,7 +73,25 @@ def get_most_watched_genre(user_data):
 # -----------------------------------------
 # ------------- WAVE 3 --------------------
 # -----------------------------------------
-
+def get_unique_watched(user_data):
+    #user data is a dict that has two elements: friends (a list) and watched (a list)
+    unique_movies = []
+    for movie in user_data["watched"]:
+        unique_movies.append(movie)
+    for friend in user_data["friends"]:
+        for movie in friend["watched"]:
+              if movie in unique_movies:
+                  unique_movies.remove(movie)
+    return unique_movies
+        
+def get_friends_unique_watched(user_data):
+    friends_unique_movies = []
+    for friend in user_data["friends"]:
+        for movie in friend["watched"]:
+            if movie not in user_data["watched"] and movie not in friends_unique_movies:
+                friends_unique_movies.append(movie)
+    return friends_unique_movies
+                
         
 # -----------------------------------------
 # ------------- WAVE 4 --------------------
@@ -83,14 +101,75 @@ def get_most_watched_genre(user_data):
 # ------------- WAVE 5 --------------------
 # -----------------------------------------
 
-test_data = {"watchlist": [{"title": 1,
-                            "genre": "scifi",
-                            "rating": 3}],
-             "watched": [{"title": 4,
-                          "genre": "fantasy",
-                          "rating": 6}]
-    }
+# test_data = {
+#     "watchlist": [{"title": "foo",
+#                             "genre": "scifi",
+#                             "rating": 3}],
+#              "watched": [{"title": "bar",
+#                           "genre": "fantasy",
+#                           "rating": 6}]
+#     }
 
-watch_movie(test_data, 1)
-get_watched_avg_rating(test_data)
-get_most_watched_genre(test_data)
+# # watch_movie(test_data, 1)
+# get_watched_avg_rating(test_data)
+# get_most_watched_genre(test_data)
+# get_unique_watched(test_data)
+# get_friends_unique_watched(test_data)
+
+# #Wave 3 test data
+# test_data = {   'friends': [   {   'watched': [   {   'genre': 'Fantasy',
+#                                           'rating': 4.8,
+#                                           'title': 'The Lord of the Functions: '
+#                                                     'The Fellowship of the '
+#                                                     'Function'},
+#                                       {   'genre': 'Fantasy',
+#                                           'rating': 4.0,
+#                                           'title': 'The Lord of the Functions: '
+#                                                     'The Return of the Value'},
+#                                       {   'genre': 'Fantasy',
+#                                           'rating': 4.0,
+#                                           'title': 'The Programmer: An '
+#                                                     'Unexpected Stack Trace'},
+#                                       {   'genre': 'Horror',
+#                                           'rating': 3.5,
+#                                           'title': 'It Came from the Stack '
+#                                                     'Trace'},
+#                                         {   'genre': 'Intrigue',
+#                                           'rating': 3.0,
+#                                           'title': 'Zero Dark Python'}]},
+#                     {   'watched': [   {   'genre': 'Fantasy',
+#                                           'rating': 4.8,
+#                                           'title': 'The Lord of the Functions: '
+#                                                     'The Fellowship of the '
+#                                                     'Function'},
+#                                       {   'genre': 'Action',
+#                                           'rating': 2.2,
+#                                           'title': 'The JavaScript and the '
+#                                                     'React'},
+#                                       {   'genre': 'Intrigue',
+#                                           'rating': 2.0,
+#                                           'title': 'Recursion'},
+#                                       {   'genre': 'Intrigue',
+#                                           'rating': 3.0,
+#                                           'title': 'Zero Dark Python'}]}],
+#     'watched': [   {   'genre': 'Fantasy',
+#                         'rating': 4.8,
+#                         'title': 'The Lord of the Functions: The Fellowship of '
+#                                 'the Function'},
+#                     {   'genre': 'Fantasy',
+#                         'rating': 4.0,
+#                         'title': 'The Lord of the Functions: The Two '
+#                                 'Parameters'},
+#                     {   'genre': 'Fantasy',
+#                         'rating': 4.0,
+#                         'title': 'The Lord of the Functions: The Return of the '
+#                                 'Value'},
+#                     {   'genre': 'Action',
+#                         'rating': 2.2,
+#                         'title': 'The JavaScript and the React'},
+#                     {'genre': 'Intrigue', 'rating': 2.0, 'title': 'Recursion'},
+#                     {   'genre': 'Intrigue',
+#                         'rating': 4.5,
+#                         'title': 'Instructor Student TA Manager'}]}
+
+# test_data.keys()
