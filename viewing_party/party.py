@@ -4,13 +4,13 @@ from tests.test_constants import GENRE_1, MOVIE_TITLE_1, RATING_1
 
 
 def create_movie(title, genre, rating):
-    new_movie = {"title": [], "genre": [], "rating": []}
+    new_movie = {}
 
-    new_movie["title"] = MOVIE_TITLE_1
-    new_movie["genre"] = GENRE_1
-    new_movie["rating"] = RATING_1
 
     if title and genre and rating:
+        new_movie["title"] = title
+        new_movie["genre"] = genre
+        new_movie["rating"] = rating
         return new_movie
     else: 
         return None
@@ -50,6 +50,7 @@ def watch_movie(user_data, title):
                         user_data["watchlist"].remove(i)
         else:
             return user_data
+        
     return user_data
 
 
@@ -58,23 +59,20 @@ def watch_movie(user_data, title):
 # -----------------------------------------
 def get_watched_avg_rating(user_data):
     rating_total = []
-    for value in user_data.values():
-        for i in value:
-            for key, value in i.items():
-                if key == "rating":
-                    rating_total.append(value)
+
+    for i in user_data["watched"]:
+        rating_total.append(i["rating"])
     if len(rating_total) != 0:
         return sum(rating_total)/len(rating_total)
     else: 
         return 0.0
 
+
 def get_most_watched_genre(user_data):
+ 
     popular_genre = []
-    for value in user_data.values():
-        for i in value:
-            for key, value in i.items():
-                if key == "genre":
-                    popular_genre.append(value)
+    for i in user_data["watched"]:
+        popular_genre.append(i["genre"])
     if len(popular_genre) != 0:
         return max(set(popular_genre), key = popular_genre.count)
     else: 
@@ -88,15 +86,11 @@ def get_unique_watched(user_data):
     my_movie_list = []
     third_list = []
 
-    for key, value in user_data.items():
-        if key == "friends":
-            for i in value:
-                for key, value in i.items():
-                    for i in value: 
-                        friends_movie_list.append(i)
-        if key == "watched":
-            for i in value:
-                my_movie_list.append(i)
+    for i in user_data["friends"]:
+        for movie in i["watched"]:
+            friends_movie_list.append(movie)
+    for i in user_data["watched"]:
+        my_movie_list.append(i)
 
     for movie in my_movie_list:
         if movie not in friends_movie_list:
@@ -110,21 +104,16 @@ def get_friends_unique_watched(user_data):
     my_movie_list = []
     third_list = []
 
-    for key, value in user_data.items():
-        if key == "watched":
-            for i in value:
-                my_movie_list.append(i)
-        if key == "friends":
-            for i in value:
-                for key, value in i.items():
-                    for i in value: 
-                        friends_movie_list.append(i)
+    for i in user_data["watched"]:
+        my_movie_list.append(i)
+    for friend in user_data["friends"]:
+        for other in friend["watched"]:
+            friends_movie_list.append(other)
 
     for movie in friends_movie_list:
         if movie not in my_movie_list:
             if movie not in third_list:
                 third_list.append(movie)
-
     return third_list
         
 # -----------------------------------------
