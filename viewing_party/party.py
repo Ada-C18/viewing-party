@@ -1,3 +1,5 @@
+import math
+from queue import Empty
 # ------------- WAVE 1 --------------------
 
 def create_movie(title, genre, rating):
@@ -51,7 +53,32 @@ def watch_movie(user_data, title):
 # -----------------------------------------
 # ------------- WAVE 2 --------------------
 # -----------------------------------------
-
+def get_watched_avg_rating(user_data):
+    
+    watched_list = list(user_data.values())
+    
+    try:
+        ratings_list = [sub['rating'] for sub in watched_list[0]]
+        ratings_sum = math.fsum(ratings_list)
+        avg_rating = ratings_sum/len(ratings_list)
+        
+        return avg_rating
+    
+    except ZeroDivisionError:
+        avg_rating = 0
+        
+        return avg_rating
+        
+def get_most_watched_genre(user_data):
+    watched_list = list(user_data.values())
+    genre_list = [sub['genre'] for sub in watched_list[0]]
+    
+    if not genre_list:
+        return None
+    else:
+        most_frequent_genre = max(set(genre_list), key = genre_list.count)
+        
+        return most_frequent_genre
 
 # -----------------------------------------
 # ------------- WAVE 3 --------------------
