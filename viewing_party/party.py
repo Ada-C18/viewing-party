@@ -70,9 +70,9 @@ def get_most_watched_genre(user_data):
             genre_count[i] = count
         else:
             genre_count[i] = count + 1
-    print(genre_count)
-    print("HERE IS A CHECK OF GENRE COUNTING")
-
+    
+    max_genre = max(genre_count, key =genre_count.get)
+    return max_genre
 
             
 
