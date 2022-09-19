@@ -67,7 +67,39 @@ def get_most_watched_genre(user_data):
 # -----------------------------------------
 
 def get_unique_watched(user_data):
-    pass
+    #user data has a friends list which has dictionaries
+    movies_watched = user_data["watched"]
+    friends_movies = user_data["friends"]
+    unique_movies = []
+    for i in range(len(movies_watched)):
+        add_to_new_list = True
+        for j in range(len(friends_movies)):
+            for watched in friends_movies[j]:
+                for k in range(len(friends_movies[j][watched])):
+                    if movies_watched[i]["title"] == friends_movies[j][watched][k]["title"]:
+                        add_to_new_list = False
+        if add_to_new_list == True:
+            unique_movies.append(movies_watched[i])
+    return unique_movies
+
+
+def get_friends_unique_watched(user_data):
+    # check additional tests for test_friends_unique_movies_not_duplicated():
+    movies_watched = user_data["watched"]
+    friends_movies = user_data["friends"]
+    unique_movies = []
+ 
+    for i in range(len(friends_movies)):
+        for watched in friends_movies[i]:
+            for j in range(len(friends_movies[i][watched])):
+                add_to_new_list = True
+                for k in range(len(movies_watched)):
+                    if movies_watched[k]["title"] == friends_movies[i][watched][j]["title"]:
+                        add_to_new_list = False
+                if add_to_new_list == True and friends_movies[i][watched][j] not in unique_movies:
+                    unique_movies.append(friends_movies[i][watched][j])
+    
+    return unique_movies
         
 # -----------------------------------------
 # ------------- WAVE 4 --------------------
