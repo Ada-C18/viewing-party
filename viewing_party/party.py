@@ -204,4 +204,20 @@ def get_rec_from_favorites(user_data):
         movie not in any friend's "watched"
     return the list of recommended movies
     """
-    pass
+    rec_list = []
+    friend_watched_list = []
+    user_fave_list = [movie["title"] for movie in user_data["favorites"]]
+
+    for friends_list in user_data["friends"]:
+        for movie in friends_list["watched"]:
+            friend_watched_list.append(movie["title"])
+    
+    user_fave_set = set(user_fave_list)
+    friend_watched_set = set(friend_watched_list)
+    user_fave_recs = user_fave_set - friend_watched_set
+
+    for movie in user_data["favorites"]:
+        if movie["title"] in user_fave_recs:
+            rec_list.append(movie)
+
+    return rec_list
