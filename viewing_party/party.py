@@ -35,6 +35,50 @@ def watch_movie(single_user_data,movie_title):
 # ------------- WAVE 2 --------------------
 # -----------------------------------------
 
+def get_watched_avg_rating(single_user_data):
+    list_of_watched_movie_info=single_user_data["watched"]
+    number_of_watched_movies=len(list_of_watched_movie_info)
+    list_of_movie_ratings=[]
+    sum_of_all_ratings=0
+
+    if len(list_of_watched_movie_info) == 0:
+        return 0.0
+
+    for movie_info in list_of_watched_movie_info:
+        list_of_movie_ratings.append(movie_info["rating"])
+
+    for rating in list_of_movie_ratings:
+        sum_of_all_ratings+=rating
+
+    average_rating=sum_of_all_ratings/number_of_watched_movies
+    return average_rating
+
+def get_most_watched_genre(single_user_data):
+    list_of_watched_movie_info=single_user_data["watched"]
+    list_of_genres=[]
+    genre_counter_dict={}
+    list_of_watched_genre_counts=[]
+
+    if len(list_of_watched_movie_info) == 0:
+        return None
+
+    for movie_info in list_of_watched_movie_info:
+        list_of_genres.append(movie_info['genre'])
+
+    for genre in list_of_genres:
+        if not genre in genre_counter_dict:
+            genre_counter_dict[genre] = 1
+        else:
+            genre_counter_dict[genre] += 1
+    
+    for genre_count_value in genre_counter_dict.values():
+        list_of_watched_genre_counts.append(genre_count_value)
+
+    max_watched_genre_count=max(list_of_watched_genre_counts)
+
+    for genre,genre_count_value in genre_counter_dict.items():
+        if genre_count_value == max_watched_genre_count:
+            return genre
 
 # -----------------------------------------
 # ------------- WAVE 3 --------------------
