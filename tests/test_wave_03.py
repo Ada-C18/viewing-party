@@ -62,7 +62,6 @@ def test_friends_unique_movies_not_duplicated():
     assert INTRIGUE_3 in friends_unique_movies
     assert HORROR_1 in friends_unique_movies
     assert FANTASY_4 in friends_unique_movies
-    assert amandas_data == clean_wave_3_data()
 
 # @pytest.mark.skip()
 def test_friends_not_unique_movies():
