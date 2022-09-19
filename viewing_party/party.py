@@ -13,62 +13,46 @@ def create_movie(title, genre, rating):
         return None
     else:
         return new_movie
+    
 def add_to_watched(user_data, movie):
-    user_data ={}
-    watched_list = []
-    user_data["watched"]: watched_list
-    if None in watched_list:
-        return None
-    elif movie not in watched_list:
-        watched_list.append(movie)
-        print(len(watched_list))
+
+    user_data = {}
+    user_data["watched"] = [movie]
+    
     return user_data
-#  test_adds_movie_to_user_watched()
 
 def add_to_watchlist(user_data,movie):
-    user_data ={}
-    watched_list = user_data["watched"]
-    user_data["watched"]: watched_list
-    if user_data["watched"] == None:
-        # user_data["watched"] == None
-        watched_list.append(None)
-    user_data["watchlist"].append(movie)
-    return user_data#- take two parameters: `user_data`, `title`
-#   - the value of `user_data` will be a dictionary with a `"watchlist"` and a `"watched"`
-#     - This represents that the user has a watchlist and a list of watched movies
-#   - the value of `title` will be a string
-#     - This represents the title of the movie the user has watched
-# - If the title is in a movie in the user's watchlist:
-#   - remove that movie from the watchlist
-#   - add that movie to watched
-#   - return the `user_data`
-# - If the title is not a movie in the user's watchlist:
-#   - return the `user_data`
-# Details = {"Destination": "China", 
-#            "Nstionality": "Italian", "Age": []}
-# Details["Age"] += [20, "Twenty"]
-# print(Details)
+    user_data = {}
+    user_data["watchlist"] = [movie]
+
+    return user_data
 
 def watch_movie(user_data, title):
-    user_data ={}
-    watched_list = []
-    user_data["watched"]: watched_list
+    for movie in user_data["watchlist"]:
+        if movie["title"] == title:
+            user_data["watchlist"].remove(movie)
+            user_data["watched"].append(movie)
     
-    user_data["watchlist"]: title
-    if title in watched_list:
-        user_data["watchlist"].pop(title)
-        user_data["watched"] = title
-        
-        
-    if user_data["watched"] == None:
-        watched_list.append("None")
-    return user_data        
-   # Arrange
- 
+            return user_data    
+    return user_data    
 # -----------------------------------------
+
 # ------------- WAVE 2 --------------------
+def get_watched_avg_rating(user_data):
+    average_rating = 0
+    list_sum = []
+    for i in user_data["watched"]:
+        if i["rating"] == 0:
+            return 0.0
+        if i["rating"]:
+            list_sum.append(i["rating"])
+        average_rating = sum(list_sum) / len(user_data["watched"])
+    return average_rating
 
-
+def get_most_watched_genre(user_data):
+    genre_dict = {}
+    
+    
     
 # -----------------------------------------
 
