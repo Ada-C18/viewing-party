@@ -100,7 +100,7 @@ def test_adds_movie_to_user_watchlist():
     assert updated_data["watchlist"][0]["genre"] == GENRE_1
     assert updated_data["watchlist"][0]["rating"] == RATING_1
 
-@pytest.mark.skip()
+#pytest.mark.skip()
 def test_moves_movie_from_watchlist_to_empty_watched():
     # Arrange
     janes_data = {
@@ -119,9 +119,9 @@ def test_moves_movie_from_watchlist_to_empty_watched():
     assert len(updated_data["watchlist"]) == 0
     assert len(updated_data["watched"]) == 1
     
-    raise Exception("Test needs to be completed.")
-    # *******************************************************************************************
-    # ****** Add assertions here to test that the correct movie was added to "watched" **********
+    #raise Exception("Test needs to be completed.")
+
+    assert [{'genre': 'Horror', 'rating': 3.5, 'title': 'It Came from the Stack Trace'}] == updated_data["watched"]
     # *******************************************************************************************
 
 @pytest.mark.skip()
