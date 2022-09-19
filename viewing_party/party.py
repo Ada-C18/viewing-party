@@ -1,5 +1,8 @@
 # ------------- WAVE 1 --------------------
 
+from re import I
+
+
 def create_movie(title, genre, rating):
     new_movie = {}
     if title == None or genre == None or rating == None:
@@ -119,8 +122,20 @@ def get_friend_movie_lists(user_data):
 # ------------- WAVE 4 --------------------
 # -----------------------------------------
 def get_available_recs(user_data):
-    pass
+    all_available_recs = get_friends_unique_watched(user_data)
+    user_subscriptions = get_user_subscription(user_data)
+    recs_by_subscription = []
+    for subscription in user_subscriptions:
+        for movie_dict in all_available_recs:
+            if subscription in movie_dict["host"]:
+                recs_by_subscription.append(movie_dict)
+    return recs_by_subscription
 
+def get_user_subscription(user_data):
+    subs = []
+    for subscription in user_data["subscriptions"]:
+        subs.append(subscription)
+    return subs
 
 # -----------------------------------------
 # ------------- WAVE 5 --------------------
