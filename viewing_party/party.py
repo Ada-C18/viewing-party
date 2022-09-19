@@ -104,6 +104,17 @@ def get_most_watched_genre(user_data):
 # ------------- WAVE 3 --------------------
 # -----------------------------------------
 
+def get_unique_watched(user_data):
+    #takes in user data (a dictionary with 2 keys, watched and watchlist)
+    #outputs the list of movies (each of with is a dictionary, I believe) in watched that are unique.
+    unique_watched = []
+    for movie in user_data["watched"]:
+        if movie not in unique_watched:
+            unique_watched.append(movie)
+    return unique_watched
+    
+
+
         
 # -----------------------------------------
 # ------------- WAVE 4 --------------------
