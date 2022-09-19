@@ -72,13 +72,8 @@ def get_most_watched_genre(user_data):
             genre_count[i] = count + 1
     
     max_genre = max(genre_count, key =genre_count.get)
+    print(genre_count)
     return max_genre
-
-            
-
-    # empty list
-    # count genres
-    # find max
 
 
 # -----------------------------------------
