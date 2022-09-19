@@ -62,12 +62,6 @@ def get_watched_avg_rating(user_data):
         avg_rating = total_rating / len(user_data["watched"])
         return avg_rating
     
-#HELPER FUNCTION TO CALCULATE TOTAL RATING    
-def sum_rating(rating_list):
-    sum = 0
-    for rating in rating_list:
-        sum += rating
-    return sum
 
 def get_most_watched_genre(user_data):
     genre_list = []
@@ -89,7 +83,15 @@ def get_most_watched_genre(user_data):
                 popular_genre = item
         # print(popular_genre)
         return popular_genre
-    
+
+
+#HELPER FUNCTION TO CALCULATE TOTAL RATING    
+def sum_rating(rating_list):
+    sum = 0
+    for rating in rating_list:
+        sum += rating
+    return sum
+
 # -----------------------------------------
 # ------------- WAVE 3 --------------------
 # -----------------------------------------
@@ -104,6 +106,8 @@ def get_unique_watched(user_data):
     #     if user_watched_list[movie_dict] not in friends_watched_list:
     #         user_unique_list.append(user_watched_list[movie_dict])
     # return user_unique_list
+    
+    #ENHANCE CODES FOR READABILITY
     for movie_dict in user_watched_list:
         if movie_dict not in friends_watched_list:
             user_unique_list.append(movie_dict)
@@ -119,6 +123,8 @@ def get_friends_unique_watched(user_data):
     #     if friends_watched_list[friends_dict] not in user_watched_list:
     #         friends_unique_list.append(friends_watched_list[friends_dict])
     # return friends_unique_list
+    
+    #ENHANCE CODES FOR READABILITY
     for friends_dict in friends_watched_list:
         if friends_dict not in user_watched_list:
             friends_unique_list.append(friends_dict)
@@ -133,12 +139,20 @@ def get_friends_watched_list(user_data):
         friends_watched_list = []
     
     else:
-        for index1 in range(len(user_data["friends"])): #first loop to give us the movie list (of dictionaries) of "friends"
-            for index2 in range(len(user_data["friends"][index1]["watched"])): #second loop give us each element (list of dictionaries of "friends' watched list")
-                for index3 in range(len(user_data["friends"][index1]["watched"][index2])): #third loop give us access to each element within the list of friends watched list to compare title
-                    if user_data["friends"][index1]["watched"][index2] not in friends_watched_list:
-                        friends_watched_list.append(user_data["friends"][index1]["watched"][index2])
-
+        # for index1 in range(len(user_data["friends"])): #first loop to give us the movie list (of dictionaries) of "friends"
+        #     for index2 in range(len(user_data["friends"][index1]["watched"])): #second loop give us each element (list of dictionaries of "friends' watched list")
+        #         for index3 in range(len(user_data["friends"][index1]["watched"][index2])): #third loop give us access to each element within the list of friends watched list to compare title
+        #             if user_data["friends"][index1]["watched"][index2] not in friends_watched_list:
+        #                 friends_watched_list.append(user_data["friends"][index1]["watched"][index2])
+        
+        #ENHANCE CODES FOR READABILITY
+        for friend_movie_dicts in (user_data["friends"]): #first loop to give us the movie list (of dictionaries) of "friends"
+            for watched_dict in friend_movie_dicts["watched"]: #second loop give us each element (list of dictionaries of "friends' watched list")
+                for key,value in watched_dict.items(): #third loop give us access to each element within the list of friends watched list to compare title
+                    # print(watched_dict["title"])
+                    if watched_dict not in friends_watched_list:
+                        friends_watched_list.append(watched_dict)
+        
         return friends_watched_list
 
 #HELPER FUNCTION TO CREATE USER'S WATCH LIST
