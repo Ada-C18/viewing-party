@@ -27,16 +27,69 @@ def watch_movie(user_data, title):
     return user_data
         
 
-
-
 # -----------------------------------------
 # ------------- WAVE 2 --------------------
 # -----------------------------------------
 
+def get_watched_avg_rating(user_data):
+    sum = 0
+    average = 0
+
+    for i in range(len(user_data["watched"])):
+        sum += (user_data["watched"][i]["rating"])
+        average = sum/len(user_data["watched"])
+    return average
+
+def get_most_watched_genre(user_data):
+    # if user_data == {"watched": []}:
+    #     return None
+    # else:
+    index = 0
+    genres = []
+    least_popular = []
+    most_popular = []
+    if user_data == {"watched":[]}:
+        return None
+    else:
+        for movie in user_data["watched"]:
+            index +=1
+            genres.append(user_data["watched"][index-1]["genre"])
+        for item in genres:
+            if item not in least_popular:
+                least_popular.append(item)
+            else:
+                most_popular.append(item)
+        return (most_popular[0])
 
 # -----------------------------------------
 # ------------- WAVE 3 --------------------
 # -----------------------------------------
+
+def get_unique_watched(user_data):
+    # user data = dict("watched" & "friends")
+    #Create a set of movies friends have watched
+    friend_set=set()
+    for friend in user_data["friends"]:
+        for movie in friend["watched"]:
+            friend_set.add(movie["title"])
+
+    unique_list=[]
+
+    # 
+    for movie in user_data["watched"]:
+        if movie["title"] not in friend_set:
+            unique_list.append(movie)
+
+    return unique_list 
+    
+    
+
+
+
+
+
+    # what movies has the "watched" compared to "friends"
+    # return the list 
 
         
 # -----------------------------------------
@@ -46,4 +99,3 @@ def watch_movie(user_data, title):
 # -----------------------------------------
 # ------------- WAVE 5 --------------------
 # -----------------------------------------
-
