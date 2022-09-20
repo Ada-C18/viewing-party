@@ -116,10 +116,10 @@ def get_available_recs(user_data):
     #Needs to check if their movies are hosted by user's subscriptions
     friends_unique_watched = get_friends_unique_watched(user_data)
     recommendations = []
-    
-    for movie in friends_unique_watched:
-        if movie["host"] in user_data["subscriptions"]:
-            recommendations.append(movie)
+    if len(friends_unique_watched) > 0:
+        for movie in friends_unique_watched:
+            if movie["host"] in user_data["subscriptions"]:
+                recommendations.append(movie)
     
     return recommendations
 
