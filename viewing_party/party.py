@@ -29,12 +29,12 @@ def watch_movie(user_data, title):
     for movie in user_data["watchlist"]:
     # if the title is in a movie in the user's watchlist:
         if title  == movie["title"]:
-            print(f"debug: title in movie dict")
+            # print(f"debug: title in movie dict")
             user_data["watchlist"].remove(movie)
             user_data["watched"].append(movie)
             # return the user_data
 
-    print(f"debug: title not in movie dict")
+    # print(f"debug: title not in movie dict")
     return user_data
         
         
@@ -65,7 +65,7 @@ def get_most_watched_genre(user_data):
     for movie_genre in range(len(user_data["watched"])):
         movie_genre_list.append(user_data["watched"][movie_genre]["genre"])
 
-    print(max(set(movie_genre_list), key = movie_genre_list.count), movie_genre_list)
+    # print(max(set(movie_genre_list), key = movie_genre_list.count), movie_genre_list)
     
     return(max(set(movie_genre_list), key = movie_genre_list.count))
 
@@ -75,7 +75,8 @@ def get_most_watched_genre(user_data):
 def get_unique_watched(user_data):
     # what movies has the user watched?
     user_data_movies_list = user_data["watched"]
-    print(f"user data movie list {user_data_movies_list}\n")
+    # print(f"debug:user data movies list {user_data_movies_list}\n")
+
     unique_user_data_movies_list = []
     friends_movies_1_title_list = []
     friends_movies_2_title_list = []
@@ -97,11 +98,11 @@ def get_unique_watched(user_data):
     # print(f"friend2 movie titles list: {friends_movies_2_title_list}")
     
     friends_movie_list = friends_movies_1_title_list + friends_movies_2_title_list
-    friends_unique_movie_set = set(friends_movie_list)
-    friends_unique_movie_list = list(friends_unique_movie_set)
+    friends_movie_set = set(friends_movie_list)
+    friends_movie_list = list(friends_movie_set)
 
     for movie in range(len(user_data_movies_list)):
-        if not user_data_movies_list[movie]["title"] in friends_unique_movie_list:
+        if not user_data_movies_list[movie]["title"] in friends_movie_list:
             unique_user_data_movies_list.append(user_data_movies_list[movie])
 
 
@@ -112,10 +113,34 @@ def get_unique_watched(user_data):
 
 
 def get_friends_unique_watched(user_data):
-    # what movies has the user watched?
+    user_data_movies_list = []
+
+    for i in range(len(user_data["watched"])):
+        user_data_movies_list.append(user_data["watched"][i]["title"])
+    print(f"debug:user data movies list titles {user_data_movies_list}\n")
+
+    friends_unique_movies_list = []
+    
     # what movies has the user's friends watched?
-    # Determine which movies at least one of the user's friends have watched, but the user has not watched.
+    friends_movie_1_list = user_data["friends"][0]["watched"]
+    friends_movie_2_list = user_data["friends"][1]["watched"]
+    # print(f"friend 1 movie list: {friends_movie_1_list} \n")
+    # print(f"friend 2 movie list: {friends_movie_2_list} \n")
+
+    friends_total_movie_list = friends_movie_1_list + friends_movie_2_list
+    print(friends_total_movie_list)
+
+
+    for movie in range(len(friends_total_movie_list)):
+        if not friends_total_movie_list[movie]["title"] in user_data_movies_list:
+            if friends_total_movie_list[movie] in friends_unique_movies_list:
+                continue
+            else:
+                friends_unique_movies_list.append(friends_total_movie_list[movie])
+
+    print(f"debug:friend's unique list of movies: {friends_unique_movies_list}")
     # return a list of dictionaries that represents the list of movies 
+    return friends_unique_movies_list
     ...
 # -----------------------------------------
 # ------------- WAVE 4 --------------------
