@@ -123,24 +123,22 @@ def get_new_rec_by_genre(user_data):
     available_recs = get_available_recs(user_data)
     new_recs = filter(
         lambda movie: movie["genre"] == most_watched, 
-        available_recs)
+        available_recs
+    )
     return list(new_recs)
 
 def get_rec_from_favorites(user_data):
     """Return a list of movies that are in the user's favorites and that 
     haven't been watched by their friends."""
-    recs = []
-    for favorite in user_data["favorites"]:
-        skip = False
-        favorite_title = favorite["title"]
-        for friend in user_data["friends"]:
-            for movie in friend["watched"]:
-                movie_title = movie["title"]
-                if movie_title == favorite_title:
-                    skip = True
-                    break
-            if skip:
-                break
-        if not skip:
-            recs.append(favorite)
-    return recs
+    # Get set of all movies that have been watched by friends.
+    friends_watched = set()
+    for friend in user_data["friends"]:
+        titles = [movie["title"] for movie in friend["watched"]]
+        friends_watched = friends_watched.union(titles)
+    # Get list of user's favorite movies that have not been watched by their 
+    # friends.
+    recs = filter(
+        lambda movie: movie["title"] not in friends_watched,
+        user_data["favorites"]
+    )
+    return list(recs)
