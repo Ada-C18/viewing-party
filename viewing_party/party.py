@@ -1,5 +1,7 @@
 # ------------- WAVE 1 --------------------
-# I re-download it
+
+from os import waitstatus_to_exitcode
+
 
 def create_movie(title, genre, rating):
     movie_dict = {}
@@ -39,19 +41,48 @@ def watch_movie(user_data, title):  # this one can still improve
 
 
 
-    
-
-
-
-
-    
-
-
 
 # -----------------------------------------
 # ------------- WAVE 2 --------------------
 # -----------------------------------------
+def get_watched_avg_rating(user_data):
+    rating_list = []
+    ratings_sum = 0
+    watch_list = user_data["watched"]
+    # access the list inside the dict
+    if len(watch_list) == 0:   # check if the list is empty
+        return 0.0
+    else: 
+        for i in range(len(watch_list)):    
+            rating_list.append(watch_list[i]["rating"])
+            # a list contains elements, each elements as a key-value pair
+            # watch_list[i]["rating"] only access the value from the key names "rating"
+    for rate in rating_list:
+        # access every rate inside the rating list
+        ratings_sum += rate
+        # add the rates together
+    average = ratings_sum/len(rating_list)
+    return average
+    
+    
+def get_most_watched_genre(user_data):
+    popular_genre = []
+    genre_list = user_data["watched"]
+    print(genre_list)
+    if len(genre_list) == 0:
+        return None
+    else:
+       for j in range (len(genre_list)):
+            popular_genre.append(genre_list[j]["genre"])
+            print(popular_genre)
+    
+    return max(set(popular_genre), key = popular_genre.count)
 
+# def most_frequent(List):
+# return max(set(List), key = List.count)
+
+# List = [2, 1, 2, 2, 1, 3]
+# print(most_frequent(List))
 
 # -----------------------------------------
 # ------------- WAVE 3 --------------------
