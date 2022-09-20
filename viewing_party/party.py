@@ -87,7 +87,6 @@ def get_unique_watched(user_data):
             if friends_key == "watched" and friends_value not in friends_watched:
                 friends_watched.extend(friends_value)
 
-    # print(friends_watched_set)
     unique_watched = []
     for movie in watched_list:
         if movie not in friends_watched and movie not in unique_watched:
@@ -95,8 +94,6 @@ def get_unique_watched(user_data):
     # if unique_watched:
     return unique_watched
     # return None
-
-    # return list(set(watched_list) - set(friends_watched))
 
 def get_friends_unique_watched(user_data):
     watched_list = user_data["watched"]
@@ -118,18 +115,17 @@ def get_friends_unique_watched(user_data):
     return friends_unique
     # return None
 
-    # print(f'unique: {friends_unique}/')
-
 # -----------------------------------------
 # ------------- WAVE 4 --------------------
 # -----------------------------------------
 
 def get_available_recs(user_data):
-    sub_list = user_data["subscriptions"]
+    subs_list = user_data["subscriptions"]
+    # print(sub_list)
     friends_watched = get_friends_unique_watched(user_data)
     rec_movie = []
     for movie in friends_watched:
-        if movie["host"] in sub_list:
+        if movie["host"] in subs_list and movie not in rec_movie:
             rec_movie.append(movie)
     return rec_movie
 
@@ -138,17 +134,23 @@ def get_available_recs(user_data):
 # -----------------------------------------
 
 def get_new_rec_by_genre(user_data):
-    available_recs = get_available_recs(user_data)
     most_genre = get_most_watched_genre(user_data)
+    friends_watched = get_friends_unique_watched(user_data)
     new_rec_by_genre = []
-    for movie in available_recs:
-        while movie["genre"] == most_genre:
+    for movie in friends_watched:
+        if movie["genre"] == most_genre and movie not in new_rec_by_genre:
             new_rec_by_genre.append(movie)
     return new_rec_by_genre
 
 def get_rec_from_favorites(user_data):
+    friends_watched = []
+    for friends_dict in user_data["friends"]:
+        for friends_key, friends_value in friends_dict.items():
+            if friends_key == "watched" and friends_value not in friends_watched:
+                friends_watched.extend(friends_value)
+    
     rec_from_favorites = []
     for movie in user_data["favorites"]:
-        while movie not in user_data["friends"]:
+        if movie not in friends_watched and movie not in rec_from_favorites:
             rec_from_favorites.append(movie)
     return rec_from_favorites
