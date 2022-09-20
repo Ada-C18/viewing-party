@@ -1,7 +1,12 @@
 # ------------- WAVE 1 --------------------
 
 def create_movie(title, genre, rating):
-    pass
+    
+    new_move = {"title": title,
+                "genre" : genre,
+                "rating": rating}
+
+    return new_move
 
 # -----------------------------------------
 # ------------- WAVE 2 --------------------
