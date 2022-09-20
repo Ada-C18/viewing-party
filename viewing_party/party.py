@@ -22,24 +22,7 @@ def watch_movie(user_data, title):
             i = user_data['watchlist'].index(movie)
             user_data['watchlist'].pop(i)
     return user_data
-        
-#janes_data = {
-#        "watchlist": [{
-#            "title": MOVIE_TITLE_1,
-#            "genre": GENRE_1,
-#           "rating": RATING_1},
-# {
-#            "title": MOVIE_TITLE_2,
-#            "genre": GENRE_2,
-#           "rating": RATING_2}
-# ],
-#       "watched": [{
-#            "title": MOVIE_TITLE_4,
-#            "genre": GENRE_4,
-#           "rating": RATING_4
-#       }]
-#    }
-
+    
 # -----------------------------------------
 # ------------- WAVE 2 --------------------
 # -----------------------------------------
@@ -109,3 +92,31 @@ def get_available_recs(user_data):
 # -----------------------------------------
 # ------------- WAVE 5 --------------------
 # -----------------------------------------
+
+def get_new_rec_by_genre(user_data):
+    users_genres = []
+    recs_by_genre = []
+    if len(user_data['watched']) == 0 :
+        return {}
+    if len(user_data['friends']) == 0 :
+        return {}
+    for movie in user_data['watched']:
+        users_genres.append(movie['genre'])
+    top_genre = max(set(users_genres), key = users_genres.count)
+    unfiltered_recs = get_friends_unique_watched(user_data)
+    for movie in unfiltered_recs:
+        if movie['genre'] == top_genre:
+            recs_by_genre.append(movie)
+    return recs_by_genre
+
+def get_rec_from_favorites(user_data):
+    favorites = list(user_data['favorites'])
+    recs =[]
+
+    friends = [movie for friend in user_data['friends'] for movie in friend['watched']]
+    print(recs)
+    friends = [dict(t) for t in {tuple(movie.items()) for movie in friends}]
+    for movie in favorites:
+        if movie not in friends:
+            recs.append(movie)
+    return recs
