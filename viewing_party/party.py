@@ -93,6 +93,21 @@ def get_unique_watched(user_data):
     
     return unique_movies
 
+def get_friends_unique_watched(user_data):
+    #Return list of movies only friends have watched
+    user_watched = []
+    friends_unique_watched = []
+    
+    for movie in user_data["watched"]:
+        user_watched.append(movie)
+    
+    for watched_dict in user_data["friends"]:
+        for movie in watched_dict["watched"]:
+            if not (movie in user_watched or movie in friends_unique_watched): 
+                friends_unique_watched.append(movie)
+    
+    return friends_unique_watched
+
 
 # -----------------------------------------
 # ------------- WAVE 4 --------------------
