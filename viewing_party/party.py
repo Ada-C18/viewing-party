@@ -93,13 +93,33 @@ def get_unique_watched(user_data):
     return unique
 
 def get_friends_unique_watched(user_data):
-    
+    unique = []
+    not_unique = []
+    total_movies_list = []
+    users_movies = []
+    friends_movies = []
+    for movie in user_data["watched"]:
+        users_movies.append(movie)
 
+    for movie in user_data["friends"]:
+        for item in movie["watched"]:
+            friends_movies.append(item)
+
+    total_movies_list = users_movies + friends_movies
+
+    for item in friends_movies:
+        if item not in users_movies:
+            if item not in unique:
+                unique.append(item)
+        else:
+            not_unique.append(item)
+    return unique
 
 # -----------------------------------------
 # ------------- WAVE 4 --------------------
 # -----------------------------------------
 
+def get_available_recs_(user_data):
 
 # -----------------------------------------
 # ------------- WAVE 5 --------------------
