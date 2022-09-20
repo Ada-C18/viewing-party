@@ -3,6 +3,7 @@ from collections import Counter
 # ------------- WAVE 1 --------------------
 
 def create_movie(title, genre, rating):
+    """Create a dictionary containing information about a movie."""
     if not title or not genre or not rating:
         return None
     return {
@@ -12,16 +13,19 @@ def create_movie(title, genre, rating):
     }
 
 def add_to_watched(user_data, movie):
+    """Add a movie to a user's watched list."""
     updated_data = user_data.copy()
     updated_data["watched"].append(movie)
     return updated_data
 
 def add_to_watchlist(user_data, movie):
+    """Add a movie to a user's watchlist."""
     updated_data = user_data.copy()
     updated_data["watchlist"].append(movie)
     return updated_data
 
 def watch_movie(user_data, movie):
+    """If a movie is in the user's watchlist, add it to watched."""
     updated_data = user_data.copy()
     watchlist = updated_data["watchlist"]
     watched = updated_data["watched"]
@@ -41,6 +45,8 @@ def watch_movie(user_data, movie):
 # -----------------------------------------
 
 def get_watched_avg_rating(user_data):
+    """Return the average rating of a user's watched movies. Return 0 if 
+    watched is empty."""
     watched = user_data["watched"]
     total = 0
     for movie in watched:
@@ -48,6 +54,7 @@ def get_watched_avg_rating(user_data):
     return (total / len(watched)) if len(watched) else 0
 
 def get_most_watched_genre(user_data):
+    """Return the most watched genre in a user's watched list.""" 
     genres = Counter([movie["genre"] for movie in user_data["watched"]])
     return genres.most_common(1)[0][0] if genres else None
 
@@ -56,6 +63,8 @@ def get_most_watched_genre(user_data):
 # -----------------------------------------
 
 def get_unique_watched(user_data):
+    """Return all the movies the user has watched that their friends have not 
+    watched."""
     user_watched = {movie["title"]: movie for movie in user_data["watched"]}
     friends_watched = set()
     for friend in user_data["friends"]:
@@ -67,6 +76,8 @@ def get_unique_watched(user_data):
     return list(user_watched.values())
 
 def get_friends_unique_watched(user_data):
+    """Return all the movies that at least one of the user's friends has 
+    watched but the user has not watched."""
     friends_watched = {}
     for friend in user_data["friends"]:
         for movie in friend["watched"]:
@@ -82,12 +93,16 @@ def get_friends_unique_watched(user_data):
 # -----------------------------------------
 
 def get_available_recs(user_data):
+    """Return a list of movies that the user has not watched, that one of 
+    their friends has watched, and that is available on a service they are 
+    subscribed to."""
+    # Build list of movies that friends have watched but user has not.
     friend_movies = []
     for friend in user_data["friends"]:
         for movie in friend["watched"]:
             if movie not in friend_movies:
                 friend_movies.append(movie)
-    
+    # Filter out movies not on a service the user is subscribed to.
     recommended_movies = []
     subscriptions = user_data["subscriptions"]
     watched = user_data["watched"]
@@ -101,6 +116,7 @@ def get_available_recs(user_data):
 # -----------------------------------------
 
 def get_new_rec_by_genre(user_data):
+    """Return a list of recommended movies in the user's most watched genre."""
     if not user_data["watched"]:
         return []
     most_watched = get_most_watched_genre(user_data)
@@ -111,6 +127,8 @@ def get_new_rec_by_genre(user_data):
     return list(new_recs)
 
 def get_rec_from_favorites(user_data):
+    """Return a list of movies that are in the user's favorites and that 
+    haven't been watched by their friends."""
     recs = []
     for favorite in user_data["favorites"]:
         skip = False
