@@ -96,7 +96,6 @@ def get_unique_watched(user_data):
     return generate_movie_list(*set_comparison_from_data(user_data,"watched","user"))
     
 def get_friends_unique_watched(user_data):
-    (title_list, title_dict) = set_comparison_from_data(user_data,"watched","friend")
     return generate_movie_list(*set_comparison_from_data(user_data,"watched","friend"))
 
 
