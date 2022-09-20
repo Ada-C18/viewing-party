@@ -30,11 +30,12 @@ def add_to_watchlist(user_data, movie):
 def watch_movie(user_data, title):
     for movie in user_data["watchlist"]:
         if movie["title"] == title:
-            user_data["watchlist"].remove(movie)
             user_data["watched"].append(movie)
+            i = user_data["watchlist"].index(movie)
+            user_data["watchlist"].pop(i)
             return user_data
-        
-    return user_data
+    else:
+        return user_data
 
 
 # -----------------------------------------
@@ -44,25 +45,15 @@ def get_watched_avg_rating(user_data):
     rating = []
     sum = 0.0
 
-    for i in user_data["watched"]:
-        if i["rating"] == None:
+    for i in user_data["watched"]: #4.0, 4.8
+        if i["rating"] == None: # i = 4.8
             return sum
-        elif i["rating"] != None:
-            sum += i["rating"]
-            rating.append(i["rating"])
+        elif i["rating"] != None: 
+            sum += i["rating"] #4.0 + 4.8 = 8.8 
+            rating.append(i["rating"]) #[4.0, 4.8] 
             
-        return sum/len(rating)
+    return sum/len(rating) 
 
-# def get_watched_avg_rating(user_data):
-    rating = []
-    sum = 0
-
-    for i in user_data["watched"]:
-        if i["rating"] == None:
-            return 0.0
-        else:
-            rating.append(i["rating"])
-    return sum
 
 def get_most_watched_genre(user_data): 
     fav_genre = []
@@ -77,23 +68,7 @@ def get_most_watched_genre(user_data):
         if(curr_freq > counter):
             counter = curr_freq
             top_genre = genre
-        elif fav_genre == []:
-            return None
-    return top_genre
-
-def get_most_watched_genre(user_data): 
-    fav_genre = []
-    counter = 0
-    top_genre = fav_genre
-
-    for i in user_data["watched"]:
-        fav_genre.append(i["genre"])
-    
-    for genre in fav_genre:
-        curr_freq = fav_genre.count(genre)
-        if(curr_freq > counter):
-            counter = curr_freq
-            top_genre = genre
+            return top_genre
         elif fav_genre == []:
             return None
 
