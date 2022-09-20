@@ -13,9 +13,8 @@ def create_movie(title, genre, rating):
         return None
 
 def add_to_watched(user_data, movie):
-     user_data["watched"].append(movie)
-     return user_data
-  
+    user_data["watched"].append(movie)
+    return user_data
     
 def add_to_watchlist(user_data, movie):
     user_data["watchlist"].append(movie)
@@ -66,6 +65,31 @@ def get_most_watched_genre(user_data):
                 most_popular.append(item)
         return (most_popular[0])
 
+# ------------- WAVE 3 --------------------
+# -----------------------------------------
+
+
+def get_unique_watched(user_data):      
+    # breakpoint()
+    # create a set of movies that friends have watched: 
+    friend_set = set()
+    for friend in user_data["friends"]:
+        for movie in friend["watched"]:
+            friend_set.add(movie["title"])   # for sets is add
+
+    #breakpoint() 
+
+    unique_watched = []
+    for movie in user_data["watched"]:
+        if movie["title"] not in friend_set:
+            unique_watched.append(movie)
+    # breakpoint()
+    
+    return unique_watched
+
+
+
+
 
 
 
@@ -79,14 +103,6 @@ def get_most_watched_genre(user_data):
 
 
 
-
-
-
-# -----------------------------------------
-# ------------- WAVE 3 --------------------
-# -----------------------------------------
-
-        
 # -----------------------------------------
 # ------------- WAVE 4 --------------------
 # -----------------------------------------
