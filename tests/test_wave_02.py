@@ -51,3 +51,5 @@ def test_genre_is_None_if_empty_watched():
 
     # Assert
     assert popular_genre == None
+
+
