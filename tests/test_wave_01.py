@@ -125,6 +125,7 @@ def test_moves_movie_from_watchlist_to_empty_watched():
     # *******************************************************************************************
     assert updated_data["watched"][0]["title"] == MOVIE_TITLE_1
 
+
 # @pytest.mark.skip()
 def test_moves_movie_from_watchlist_to_watched():
     # Arrange
