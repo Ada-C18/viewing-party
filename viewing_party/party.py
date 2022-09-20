@@ -1,6 +1,5 @@
 # ------------- WAVE 1 --------------------
 
-from readline import append_history_file
 from statistics import StatisticsError, mode
 
 
@@ -94,7 +93,16 @@ def get_friends_unique_watched(user_data):
 # -----------------------------------------
 # ------------- WAVE 4 --------------------
 # -----------------------------------------
-
+def get_available_recs(user_data):
+    friends_unique_watched = get_friends_unique_watched(user_data)
+    subscription = user_data["subscriptions"]
+    recommend = []
+    for friend in user_data["friends"]:
+        for movie in friend["watched"]:
+            if movie in friends_unique_watched and movie["host"] in subscription:
+                recommend.append(movie)
+    return recommend
+        
 # -----------------------------------------
 # ------------- WAVE 5 --------------------
 # -----------------------------------------
