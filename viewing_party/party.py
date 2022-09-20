@@ -1,7 +1,7 @@
 # ------------- WAVE 1 --------------------
 
 from readline import append_history_file
-from statistics import mode
+from statistics import StatisticsError, mode
 
 
 def create_movie(title, genre, rating):
@@ -51,11 +51,13 @@ def get_watched_avg_rating (user_data):
 
 def get_most_watched_genre(user_data):
     genre_list = []
-    popular_genre = None
-    for movie in user_data["watched"]:
-        genre_list.append(movie["genre"])
-    popular_genre = mode(genre_list)
-    return popular_genre
+    try: 
+        for movie in user_data["watched"]:
+            genre_list.append(movie["genre"])
+        popular_genre = mode(genre_list)
+        return popular_genre
+    except StatisticsError:
+        return None
 
 
 # -----------------------------------------
