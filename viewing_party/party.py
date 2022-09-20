@@ -31,6 +31,18 @@ def watch_movie(user_data, title):
 # ------------- WAVE 2 --------------------
 # -----------------------------------------
 
+def get_watched_avg_rating(user_data):
+    sum = 0
+    counter = 0
+    average = 0.0
+    for movie in user_data["watched"]:
+        if movie["rating"] == False:
+            average == 0.0
+        else:
+            sum += movie["rating"]
+            counter += 1
+            average = sum / counter
+    return average
 
 # -----------------------------------------
 # ------------- WAVE 3 --------------------
