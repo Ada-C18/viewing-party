@@ -43,6 +43,8 @@ def get_most_watched_genre(data):
     watch_frequency = {}
     most_watched_rate = 0
     watched_list = data["watched"]
+    if len(watched_list) < 1:
+        return None
     for i in range(len(watched_list)):
         genre = data["watched"][i]["genre"]
         if  genre not in watch_frequency:
