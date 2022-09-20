@@ -177,9 +177,43 @@ def get_available_recs(user_data):
 
     return recommendations
 
-
-
 # -----------------------------------------
 # ------------- WAVE 5 --------------------
 # -----------------------------------------
+
+def get_new_rec_by_genre(user_data):
+    # this looks at the movies the user has watched.  
+    # it finds the most watched genre.
+    #look at unique watched by friends
+    #return what movies on that list are in the most watched genre.
+
+    top_genre = get_top_genre(user_data)
+    
+    friends_unique_watched = get_friends_unique_watched(user_data)
+
+    recommendations_to_user = []
+
+    for movie in friends_unique_watched:
+        if movie["genre"] == top_genre:
+            recommendations_to_user.append(movie)
+
+    return recommendations_to_user
+
+
+def get_top_genre(user_data):
+    #make a dictionary with keys as genres and values of counts of how often that genre comes up.
+    genre_occurances = {}
+    for movie in user_data["watched"]:
+        if movie["genre"] not in genre_occurances.keys():
+            genre_occurances[movie["genre"]] = 1
+        else:
+            genre_occurances[movie["genre"]] += 1
+    
+    top_genre = max(genre_occurances, key = genre_occurances.get)
+    
+    return top_genre
+
+
+
+
 
