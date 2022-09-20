@@ -1,5 +1,8 @@
 # ------------- WAVE 1 --------------------
 
+from codecs import unicode_escape_decode
+
+
 def create_movie(title, genre, rating):
     new_movie = {
     "title" : title,
@@ -46,11 +49,58 @@ def get_watched_avg_rating(user_data):
         avg_rating += movie["rating"]
     return avg_rating / len(user_data["watched"])
 
+
+def get_most_watched_genre(user_data):
+    genre_list = []
+    counter = 0
+    popular_genre = None
+    if len(user_data["watched"]) == 0:
+        return None
+    else:
+        for movie in user_data["watched"]:
+            genre_list.append(movie["genre"])
+
+        for item in genre_list:
+            freq = genre_list.count(item)
+            if freq > counter:
+                counter = freq
+                popular_genre = item
+        return popular_genre
+               
+
 # -----------------------------------------
 # ------------- WAVE 3 --------------------
 # -----------------------------------------
+def get_unique_watched(user_data):
+    unique_movies = []
+    all_friends_movies = [] 
 
-        
+    for friend in user_data["friends"]:
+        for movie in friend["watched"]:
+            if movie not in all_friends_movies:
+                all_friends_movies.append(movie)
+
+    for movie in user_data["watched"]:
+        if movie not in all_friends_movies:
+            unique_movies.append(movie)
+    return unique_movies
+
+
+def get_friends_unique_watched(user_data):
+    user_movies = []
+    unique_friend_movies = []
+    for movie in user_data["watched"]:
+        if movie not in user_movies:
+            user_movies.append(movie)
+
+    for friend in user_data["friends"]:
+        for movie in friend["watched"]:
+            if movie not in user_movies and movie not in unique_friend_movies:
+                unique_friend_movies.append(movie)
+    return unique_friend_movies
+
+
+
 # -----------------------------------------
 # ------------- WAVE 4 --------------------
 # -----------------------------------------
@@ -58,4 +108,3 @@ def get_watched_avg_rating(user_data):
 # -----------------------------------------
 # ------------- WAVE 5 --------------------
 # -----------------------------------------
-
