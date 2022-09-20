@@ -18,23 +18,27 @@ def create_movie(title, genre, rating):
 
 def add_to_watched(user_data, movie):
   
-  for key, value in user_data.items():
-    user_data["watched"] = [movie]
+    user_data["watched"].append(movie)
     return user_data
+
 def add_to_watchlist(user_data, movie):
-  for key,value in user_data.items():
-    user_data["watchlist"] = [movie]
+  
+    user_data["watchlist"].append(movie)
     return user_data
 
 def watch_movie(user_data, title):
-      watched = user_data["watchlist"]
-      for value in user_data.values():
-        if title in value:
-          continue
-        user_data["watchlist"] = [value]
-      
-        user_data["watched"] = [title]
-        return user_data
+  for movie in user_data["watchlist"]:
+    if title == movie["title"]:
+      user_data["watchlist"].remove(movie)
+
+      user_data["watched"].append(movie)
+      break
+  return user_data
+    
+
+
+
+    
     
 
 # }
