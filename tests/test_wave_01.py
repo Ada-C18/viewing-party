@@ -153,9 +153,10 @@ def test_moves_movie_from_watchlist_to_watched():
     # ****** Add assertions here to test that the correct movie was added to "watched" **********
     # *******************************************************************************************
 
-    assert updated_data["watchlist"][0] == MOVIE_TITLE_1
-    assert updated_data["watchlist"][1] == GENRE_1
     assert updated_data["watched"][0] == FANTASY_2
+    assert updated_data["watched"][1] == movie_to_watch
+    assert updated_data["watchlist"][0] == FANTASY_1
+    
 
 
 # @pytest.mark.skip()
