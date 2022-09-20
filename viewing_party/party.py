@@ -147,6 +147,7 @@ def get_friends_watched_list(user_data):
         
         #ENHANCE CODES FOR READABILITY
         for friend_movie_dicts in (user_data["friends"]): #first loop to give us the movie list (of dictionaries) of "friends"
+
             for watched_dict in friend_movie_dicts["watched"]: #second loop give us each element (list of dictionaries of "friends' watched list")
                 for key,value in watched_dict.items(): #third loop give us access to each element within the list of friends watched list to compare title
                     # print(watched_dict["title"])
@@ -171,7 +172,6 @@ def get_user_watched_list(user_data):
 # -----------------------------------------
 # ------------- WAVE 4 --------------------
 # -----------------------------------------
-
 
 
 def get_available_recs(user_data):
@@ -214,10 +214,10 @@ def get_to_remove_list(user_data):
 # ------------- WAVE 5 --------------------
 # -----------------------------------------
 
+##FIRST FUNCTION SOLUTION
 def get_new_rec_by_genre(user_data):
     user_most_popular_genre = get_pop_genre(user_data)
     user_recs = get_friends_unique_watched(user_data)
-
     
     if user_most_popular_genre is None:
         user_recs == []
@@ -242,12 +242,9 @@ def get_pop_genre(user_data):
     
     else:
 
-        for movie_dicts in (user_data["watched"]): #first loop to give us the movie list (of dictionaries) of "friends"
-
-            for key,value in movie_dicts.items(): #third loop give us access to each element within the list of friends watched list to compare title
-
-                popular_genre.append(movie_dicts["genre"])
-        
+        for movie_dicts in (user_data["watched"]): 
+            for key,value in movie_dicts.items(): 
+                popular_genre.append(movie_dicts["genre"])        
         # print("length of pop genre is",len(popular_genre))
         most_popular_genre = (max(set(popular_genre), key = popular_genre.count))
   
@@ -268,4 +265,34 @@ def unpopular_genre_list(user_data):
             user_unpopular_genre.append(movie_dict)
     print("user unpopular genre is ",user_unpopular_genre)
     return user_unpopular_genre
-# unpopular_genre_list(user_data)
+
+##SECOND FUNCTION SOLUTION
+
+def get_user_fav(user_data):
+    user_favorite = []
+    
+    if len(user_data["favorites"]) == 0:
+        user_favorite == []
+        return user_favorite
+    user_favorite = user_data["favorites"]
+    print("User favorite movies are (to check) ",user_favorite)
+    return user_favorite
+
+def get_rec_from_favorites(user_data):
+    user_favorite_list = get_user_fav(user_data)
+    print("==================================================")
+    print("User favorite movies are ",user_favorite_list)
+    print("==================================================")
+    to_rec_to_friend = get_unique_watched(user_data)
+    print("movie list to rec to friends",to_rec_to_friend)
+    print("==================================================")
+    
+    if len(user_data["friends"]) == 0:
+        to_rec_to_friend = user_favorite_list
+    for movie in to_rec_to_friend:
+        print("movie to recomend are",movie)
+        if movie not in user_favorite_list:
+            to_rec_to_friend.remove(movie)
+    print("MOVIE RECS",to_rec_to_friend)
+    return to_rec_to_friend
+# get_rec_from_favorites(sonyas_data)
