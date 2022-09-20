@@ -18,10 +18,12 @@ def add_to_watchlist(user_data, movie):
     return user_data
 
 def watch_movie(user_data, title):
+    # index = 0
     for movie in user_data["watchlist"]:
         if title in movie["title"]:
-            user_data["watchlist"].pop(movie)
+            user_data["watchlist"].remove(movie)
             user_data["watched"].append(movie)
+            # index += 1
     return user_data
             
 
