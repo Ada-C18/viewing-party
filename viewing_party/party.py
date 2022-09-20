@@ -15,33 +15,24 @@ def create_movie(title, genre, rating):
     return new_movie
 
 def add_to_watched(user_data, movie):
-    for watched_list in user_data.values():
-        watched_list.append(movie)
-
+    user_data["watched"].append(movie)
     updated_data = user_data
     return updated_data
 
 def add_to_watchlist(user_data, movie):
-    for watched_list in user_data.values():
-        watched_list.append(movie)
-
+    user_data["watchlist"].append(movie)
     updated_data = user_data
     return updated_data
 
-def watch_movie(janes_data, title):
+def watch_movie(user_data, title):
     watched = {}
-    for watchlist_list in janes_data.values():
-        if not watchlist_list:
-            pass
-        else:
-            for i in range(len(watchlist_list)):
-                if watchlist_list[i]['title'] == title:
-                    watched = watchlist_list.pop(i)
+    for i in range(len(user_data['watchlist'])):
+        if (user_data["watchlist"][i]["title"]) == title:
+            watched = user_data["watchlist"].pop(i)
     if watched: 
-        janes_data["watched"].append(watched)
-    updated_data = janes_data
+        user_data["watched"].append(watched)
+    updated_data = user_data
     return updated_data
-
 
 # -----------------------------------------
 # ------------- WAVE 2 --------------------
@@ -127,20 +118,20 @@ def get_available_recs(user_data):
             recs.append(movies_from_friends[i])
     return recs
 
-# input
-# user data = {"watched":[]
-# "friends": ["watched":{movie:movie, genre:}, "watched:{movie:move, genre:genere"]
-# "subscriptions": ["hulu", "disney"]
-# }
-# use get unique watched which is movies friend has seen but not user
-# movies_from_friends = get_friends_unique_watched(user_data)
-# Determine a list of recommended movies. A movie should be added to this list if and only if:
-# The user has not watched it
-# At least one of the user's friends has watched
-# The "host" of the movie is a service that is in the user's "subscriptions"
-# Return the list of recommended movies
-# recommended_movies = []
+
 # -----------------------------------------
 # ------------- WAVE 5 --------------------
 # -----------------------------------------
+
+def get_new_rec_by_genre(user_data):
+    pass
+    # get users most frequent genre
+    user_most_frequent_genre = get_most_watched_genre(user_data)
+    recs = []
+    # add to movie rec if
+        # user has not watched it
+        # friend HAS watched
+    friend_has_watched = get_friends_unique_watched(user_data)
+        # genre of movie is same as user's most frequent
+    # output is list of rec movies
 
