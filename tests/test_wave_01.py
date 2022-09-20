@@ -4,7 +4,7 @@ import pytest
 from viewing_party.party import *
 from tests.test_constants import *
 
-@pytest.mark.skip()
+#pytest.mark.skip()
 def test_create_successful_movie():
     # Arrange
     movie_title = MOVIE_TITLE_1
@@ -118,13 +118,16 @@ def test_moves_movie_from_watchlist_to_empty_watched():
     # Assert
     assert len(updated_data["watchlist"]) == 0
     assert len(updated_data["watched"]) == 1
+    assert updated_data['watched']==[{'title': 'It Came from the Stack Trace', 'genre': 'Horror', 'rating': 3.5}]
     
-    raise Exception("Test needs to be completed.")
+    
+  
+    
     # *******************************************************************************************
-    # ****** Add assertions here to test that the correct movie was added to "watched" **********
+    
     # *******************************************************************************************
 
-@pytest.mark.skip()
+#pytest.mark.skip()
 def test_moves_movie_from_watchlist_to_watched():
     # Arrange
     movie_to_watch = HORROR_1
@@ -149,7 +152,7 @@ def test_moves_movie_from_watchlist_to_watched():
     # ****** Add assertions here to test that the correct movie was added to "watched" **********
     # *******************************************************************************************
 
-pytest.mark.skip()
+#pytest.mark.skip()
 def test_does_nothing_if_movie_not_in_watchlist():
     # Arrange
     movie_to_watch = HORROR_1
