@@ -92,6 +92,10 @@ def get_unique_watched(user_data):
             not_unique.append(item)
     return unique
 
+def get_friends_unique_watched(user_data):
+    
+
+
 # -----------------------------------------
 # ------------- WAVE 4 --------------------
 # -----------------------------------------
