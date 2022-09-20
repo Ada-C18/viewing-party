@@ -120,7 +120,8 @@ def test_moves_movie_from_watchlist_to_empty_watched():
     assert len(updated_data["watched"]) == 1
     
     # raise Exception("Test needs to be completed.")
-    assert MOVIE_TITLE_1 in updated_data["watched"][0]["title"]
+    assert any(dict["title"] == MOVIE_TITLE_1 for dict in updated_data["watched"])
+
     
 # @pytest.mark.skip()
 def test_moves_movie_from_watchlist_to_watched():
@@ -142,8 +143,8 @@ def test_moves_movie_from_watchlist_to_watched():
     assert len(updated_data["watched"]) == 2
     
     # raise Exception("Test needs to be completed.")
-    assert MOVIE_TITLE_1 in updated_data["watched"][1]["title"]
-    
+    assert any(dict["title"] == MOVIE_TITLE_1 for dict in updated_data["watched"])
+
 # @pytest.mark.skip()
 def test_does_nothing_if_movie_not_in_watchlist():
     # Arrange

@@ -82,11 +82,16 @@ def get_most_watched_genre(janes_data):
         return None
             
 
-
-# -----------------------------------------
-# ------------- WAVE 3 --------------------
-# -----------------------------------------
-
+def get_unique_watched(amandas_data):
+    unique_movies = []
+    for i in range(len(amandas_data["watchlist"])):
+        if janes_data["watchlist"][i]["title"] == MOVIE_TITLE_1:
+            move_from_watchlist_to_watched = {
+                    "title": janes_data["watchlist"][i].pop("title"),
+                    "genre": janes_data["watchlist"][i].pop("genre"),
+                    "rating": janes_data["watchlist"][i].pop("rating")
+                }
+            janes_data["watched"].append(move_from_watchlist_to_watched)    
         
 # -----------------------------------------
 # ------------- WAVE 4 --------------------
