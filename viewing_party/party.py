@@ -1,8 +1,5 @@
 # ------------- WAVE 1 --------------------
 
-from turtle import clear
-
-
 def create_movie(title, genre, rating):
     movie = {
         "title" : title,
@@ -34,11 +31,37 @@ def watch_movie(user_data, movie):
 # -----------------------------------------
 
 def get_watched_avg_rating(user_data):
-    x = 0
+    x = 0.0
+    
+    if len(user_data["watched"]) == 0:
+        return x
+    
     for film in user_data["watched"]:
         x += film["rating"]
-    return x / len(user_data["watched"])        
+    return x / len(user_data["watched"]) 
 
+def get_most_watched_genre(user_data):
+    genre_count = {}
+    x = -1 
+    best_genre = "" 
+    
+    if len(user_data["watched"]) == 0:
+        return None
+    
+    for film in user_data["watched"]: 
+        current_genre = film["genre"]   
+        if current_genre not in genre_count.keys():
+            genre_count.update({current_genre : 1})
+        else:
+            genre_count[current_genre] += 1 
+    for genre, count in genre_count.items(): 
+        if count > x:
+            x = count
+            best_genre = genre
+    return best_genre
+
+    
+        
 
       
 
