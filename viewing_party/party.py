@@ -31,7 +31,6 @@ def watch_movie(user_data, title):
         if movie["title"] == title:
             user_data["watchlist"].remove(movie)
             user_data["watched"].append(movie)
-            print(movie["title"])
     return user_data
 
 
@@ -51,6 +50,7 @@ def get_watched_avg_rating(user_data):
     if not user_data:
         return 0.0
     
+    average = get_watched_avg_rating(user_data)
 
 def get_most_watched_genre(user_data):
     user_data = {
@@ -65,6 +65,28 @@ def get_most_watched_genre(user_data):
 # -----------------------------------------
 # ------------- WAVE 3 --------------------
 # -----------------------------------------
+def get_unique_watched(user_data):
+    friends_watched_list = []
+    user_watched_list = []
+    unique_list_of_dicts = []
+    friends = user_data["friends"]
+    user_watched = user_data["watched"]
+    
+    for friend in friends:
+        for movie in friend["watched"]:
+            friends_watched_list.append(movie["title"])
+            
+    # for movie in user_watched:
+    #     unique_list_of_dicts.append(movie["title"])
+    
+    for movie in user_watched:
+        if movie["title"] not in friends_watched_list:
+            unique_list_of_dicts.append(movie)
+    
+    return unique_list_of_dicts 
+
+
+
 
         
 # -----------------------------------------
