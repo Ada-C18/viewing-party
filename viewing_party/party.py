@@ -151,8 +151,10 @@ def get_rec_from_favorites(user_data):
     user_unique_watched = get_unique_watched(user_data)
     recommendations = []
     
-    for movie in user_data["favorites"]:
-        if movie in user_unique_watched:
-            recommendations.append(movie)
-    
+    if len(user_data["favorites"]) > 0:
+        
+        for movie in user_data["favorites"]:
+            if movie in user_unique_watched:
+                recommendations.append(movie)
+        
     return recommendations
