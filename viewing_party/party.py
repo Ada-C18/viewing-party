@@ -126,11 +126,3 @@ def get_new_rec_by_genre(user_data):
 
 def get_rec_from_favorites(user_data):
     return generate_movie_list(*set_comparison_from_data(user_data,"favorites","user"))
-
-
-
-    """title_dict=generate_user_dict(user_data,"watched")
-    user_watched=make_set_from_dict_keys(title_dict) 
-    friends_title_dict=generate_friends_dict(user_data)
-    friends_watched=make_set_from_dict_keys(friends_title_dict)
-    title_list=list_dif_of_p1(friends_watched,user_watched)"""
