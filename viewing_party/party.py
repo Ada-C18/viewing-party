@@ -109,6 +109,26 @@ def get_friends_unique_watched(user_data):
 # ------------- WAVE 4 --------------------
 # -----------------------------------------
 
+'''
+add movies to recs if user has not watched it, at least one friend has, "host" is in users "subscriptions
+
+utilize friends unique movies as a helper function to get list of users_unwatched_movies
+use the movies in this list to access the host of each movie
+append to recs list if the host is in subscriptions list (returned as list of movie dictionaries)
+return rec list
+'''
+
+def get_available_recs(user_data):
+    users_unwatched_movies = get_friends_unique_watched(user_data)
+    user_recommended_movies = []
+
+    for movie_dict in users_unwatched_movies:
+        if movie_dict["host"] in user_data["subscriptions"]:
+            user_recommended_movies.append(movie_dict)
+
+    return user_recommended_movies
+
+
 # -----------------------------------------
 # ------------- WAVE 5 --------------------
 # -----------------------------------------
