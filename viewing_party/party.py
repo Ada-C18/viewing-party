@@ -121,6 +121,7 @@ def get_available_recs(user_data):
     not_unique = []
     users_movies = []
     friends_movies = []
+    
     for movie in user_data["watched"]:
         users_movies.append(movie)
 
@@ -137,8 +138,66 @@ def get_available_recs(user_data):
             not_unique.append(item)
     return unique
 
-
 # -----------------------------------------
 # ------------- WAVE 5 --------------------
 # -----------------------------------------
 
+def get_new_rec_by_genre(user_data):
+    most_genre = []
+
+    unique = []
+    not_unique = []
+    users_movies = []
+    friends_movies = []
+    
+    for movie in user_data["watched"]:
+        users_movies.append(movie)
+        most_genre.append(movie['genre'])
+
+    if len(users_movies) == 0:
+        return friends_movies
+
+    the_max = max(set(most_genre), key=most_genre.count)
+
+    for movie in user_data["friends"]:
+        for item in movie["watched"]:
+            friends_movies.append(item)
+
+    for item in friends_movies:
+        if item not in users_movies:
+            if item not in unique:
+                if item["host"] in user_data["subscriptions"]:
+                    if most_genre[0] in item['genre']:
+                        unique.append(item)
+            else:
+                not_unique.append(item)
+    return unique
+
+def get_rec_from_favorites(user_data):
+    most_genre = []
+
+    unique = []
+    not_unique = []
+    users_movies = []
+    friends_movies = []
+    
+    for movie in user_data["watched"]:
+        users_movies.append(movie)
+        most_genre.append(movie['genre'])
+
+    if len(users_movies) == 0:
+        return friends_movies
+
+    the_max = max(set(most_genre), key=most_genre.count)
+
+    for movie in user_data["friends"]:
+        for item in movie["watched"]:
+            friends_movies.append(item)
+
+    for item in user_data["favorites"]:
+        if item not in friends_movies:
+            unique.append(item)
+
+        else:
+                not_unique.append(item)
+    return unique
