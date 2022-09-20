@@ -17,8 +17,13 @@ pp.pprint(FANTASY_2)
 # print("\n-----Wave 02 user_data-----")
 # pp.pprint(clean_wave_2_data())
 
-#print("\n-----Wave 03 user_data-----")
-#pp.pprint(clean_wave_3_data())
+print("\n-----Wave 03 user_data-----")
+pp.pprint(clean_wave_3_data())
+    # Arrange
+amandas_data = clean_wave_3_data()
+
+    # Act
+amandas_unique_movies = get_unique_watched(amandas_data)
 
 # Wave 04 user data
 #print("\n-----Wave 04 user_data-----")
