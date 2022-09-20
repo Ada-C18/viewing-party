@@ -93,12 +93,11 @@ def get_most_watched_genre(user_data):
 
 
 def get_unique_watched(user_data):
-    (title_list, title_dict) = set_comparison_from_data(user_data,"watched","user")
-    return generate_movie_list(title_list,title_dict)
+    return generate_movie_list(*set_comparison_from_data(user_data,"watched","user"))
     
 def get_friends_unique_watched(user_data):
     (title_list, title_dict) = set_comparison_from_data(user_data,"watched","friend")
-    return generate_movie_list (title_list,title_dict)
+    return generate_movie_list(*set_comparison_from_data(user_data,"watched","friend"))
 
 
         
@@ -124,12 +123,10 @@ def get_new_rec_by_genre(user_data):
     (title_list, title_dict) = set_comparison_from_data(user_data,"watched","friend")
     user_genre_list=[entry["genre"] for entry in user_data["watched"]]
     user_preferred_genre=collections.Counter(user_genre_list).most_common()[0][0]
-    movie_list=[title_dict[title] for title in title_list if title_dict[title]["genre"]==user_preferred_genre]
-    return movie_list
+    return [title_dict[title] for title in title_list if title_dict[title]["genre"]==user_preferred_genre]
 
 def get_rec_from_favorites(user_data):
-    (title_list, title_dict) = set_comparison_from_data(user_data,"favorites","user")
-    return generate_movie_list(title_list,title_dict)
+    return generate_movie_list(*set_comparison_from_data(user_data,"favorites","user"))
 
 
 
