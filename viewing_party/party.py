@@ -38,7 +38,22 @@ def get_watched_avg_rating(data):
         return rating_total / number_of_ratings
     else:
         return 0
-    
+
+def get_most_watched_genre(data):
+    watch_frequency = {}
+    most_watched_rate = 0
+    watched_list = data["watched"]
+    for i in range(len(watched_list)):
+        genre = data["watched"][i]["genre"]
+        if  genre not in watch_frequency:
+            watch_frequency[genre] = 1
+        else:
+            watch_frequency[genre] += 1
+    for value in watch_frequency.values():
+        if value > most_watched_rate:
+            most_watched_rate = value
+    most_watched = list(watch_frequency.keys())[list(watch_frequency.values()).index(most_watched_rate)]
+    return most_watched
 
 
 # -----------------------------------------
