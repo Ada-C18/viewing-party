@@ -43,8 +43,20 @@ def watch_movie(user_data, title):
 # ------------- WAVE 2 --------------------
 # -----------------------------------------
 # Note: For Waves 2, 3, 4, and 5, your implementation of each of the functions should not modify user_data.
+# 1. Calculate the average rating of all movies in the watched list
+# The average rating of an empty watched list is 0.0
+# return the average rating
+def get_watched_avg_rating(user_data):
+    sum_rating = 0
+    watched_lst = user_data["watched"]
+    watched_lst_length = len(watched_lst)
 
+    if watched_lst_length == 0:
+        return 0.0
 
+    for movie in watched_lst:
+        sum_rating += movie["rating"]
+    return sum_rating / watched_lst_length
 
 # -----------------------------------------
 # ------------- WAVE 3 --------------------
