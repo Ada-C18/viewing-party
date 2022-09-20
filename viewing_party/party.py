@@ -122,8 +122,7 @@ def get_unique_watched(user_data):
     for movie in user_data["watched"]:
         if movie["title"] in unique_watched_titles:
             unique_watched_movies.append(movie)
-            unique_watched_titles.remove(movie["title"])
-
+            unique_watched_titles.remove(movie["title"]) #remove it to prevent duplicates
     return unique_watched_movies
 
 def get_user_watched_titles(user_data):
@@ -161,6 +160,24 @@ def get_friends_unique_watched(user_data):
 # -----------------------------------------
 # ------------- WAVE 4 --------------------
 # -----------------------------------------
+
+
+def get_available_recs(user_data):
+    #this will return a list of movies that:
+    #the user has not watched
+    #at least one of the user's friends has watched
+    #is on a streaming service that the user has. 
+
+    friends_uniqued_watched = get_friends_unique_watched(user_data)
+    # here we filter for movies in the users subscription list.
+    recommendations = []
+    for movie in friends_uniqued_watched:
+        if movie["host"] in user_data["subscriptions"]:
+            recommendations.append(movie)
+
+    return recommendations
+
+
 
 # -----------------------------------------
 # ------------- WAVE 5 --------------------
