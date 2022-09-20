@@ -133,11 +133,64 @@ def get_available_recs(user_data):
 
 def get_user_subscription(user_data):
     subs = []
-    for subscription in user_data["subscriptions"]:
-        subs.append(subscription)
+    if "subscriptions" in user_data:
+        for subscription in user_data["subscriptions"]:
+            subs.append(subscription)
     return subs
 
 # -----------------------------------------
 # ------------- WAVE 5 --------------------
 # -----------------------------------------
 
+def get_new_rec_by_genre(user_data):
+    fav_genre_recs = []
+    fav_genre = most_frequent_genre(user_data)
+
+    if fav_genre is None:
+        return fav_genre_recs
+
+    available_recs_by_subs = get_available_recs(user_data)
+
+    for movie_dict in available_recs_by_subs:
+        if movie_dict["genre"] == fav_genre:
+            fav_genre_recs.append(movie_dict)
+        else:
+            continue
+
+    return fav_genre_recs
+
+def most_frequent_genre(user_data):
+    genre_count = {}
+    user_movie_list = get_user_movie_list(user_data)
+    if len(user_movie_list) == 0:
+        return None
+    for movie_dict in user_movie_list:
+        for key, value in movie_dict.items():
+            if key == "genre":
+                if value not in genre_count:
+                    genre_count[value] = 1
+                else:
+                    genre_count[value] += 1
+
+    fav_genre = str(max(genre_count, key =genre_count.get))
+
+    return fav_genre
+
+def get_rec_from_favorites(user_data):
+    fav_movie_rec_list = []
+    user_fav_movies = get_user_fav_list(user_data)
+    friend_movies = get_friend_movie_lists(user_data)
+
+    for movie_dict in user_fav_movies:
+        if movie_dict not in friend_movies:
+            fav_movie_rec_list.append(movie_dict)
+
+    return fav_movie_rec_list
+
+
+def get_user_fav_list(user_data):
+    user_fav_movies = []
+    for movie_dict in user_data["favorites"]:
+        if movie_dict not in user_fav_movies:
+            user_fav_movies.append(movie_dict)
+    return user_fav_movies
