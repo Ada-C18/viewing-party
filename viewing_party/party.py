@@ -87,6 +87,56 @@ def get_most_watched_genre(user_data):
 # -----------------------------------------
 # ------------- WAVE 3 --------------------
 # -----------------------------------------
+def get_unique_watched(user_data):
+    # create a list of movies watched by the user
+    # create a list of movies watched by the friends
+    # compare list of movies by user to movies by friend
+    # return list of movies only watched by user
+    # create a new unique list of movies watched by user
+    user_movie_list = user_watched_list(user_data)
+    print("USER LIST: ", user_movie_list)
+    friends_movie_list = friends_watched_list(user_data)
+    print("============================")
+    print("FRIEND LIST: ", friends_movie_list)
+    unique_movie_list = []
+
+    # for index in range(len(user_movie_list)):
+    #     for movie in user_movie_list[index]:
+    #         if movie in friends_movie_list:
+    #             unique_movie_list.append(movie)
+    for movie in user_movie_list:
+        if movie not in friends_movie_list:
+            unique_movie_list.append(movie)
+    return unique_movie_list
+
+# HELPER FUNCTION
+def user_watched_list(user_data):
+    user_watched_list = []
+    for movie in user_data["watched"]:
+        user_watched_list.append(movie)
+    return user_watched_list
+
+# HELPER FUNCTION
+def friends_watched_list(user_data):
+    friends_watched_list = []
+    for friend_movie_dict in user_data["friends"]:
+        for movie_dict in friend_movie_dict["watched"]:
+            for value in movie_dict.items():
+                if value not in friends_watched_list:
+                    friends_watched_list.append(movie_dict)
+    return friends_watched_list
+    # return friends_watched_list
+    # for i in range(len(user_data["friends"])): # i to signifiy variable of the watched_list for friends
+    #     friends_watched_dict = i
+    #     for movie in friends_watched_dict["watched"]:
+    #         friends_watched_list.append(movie)
+    # for movie in user_data["friends"]["watched"]:
+       
+  
+
+
+
+
 
         
 # -----------------------------------------
