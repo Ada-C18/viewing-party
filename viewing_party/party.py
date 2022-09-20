@@ -141,10 +141,20 @@ def get_friends_watched_titles(user_data):
     return set(friend_watched_titles)
 
 
-#def get_friends_unique_watched(user_data):
+def get_friends_unique_watched(user_data):
     #this takes in user_data (with keys including 'watched' and 'friends')
     # it returns a list of dictionaries of all the movies a friend(s) has watched that user hasn't.  
+    friend_watched_titles = get_friends_watched_titles(user_data)
+    user_watched_titles = get_user_watched_titles(user_data)
+    friends_unique_titles = friend_watched_titles - user_watched_titles
 
+    #retrieve info from user_data matching the titles
+    unique_watched = []
+    for friend in user_data["friends"]:
+        for movie in friend["watched"]:
+            if movie["title"] in friends_unique_titles:
+                unique_watched.append(movie)
+    return unique_watched
 
         
 # -----------------------------------------
