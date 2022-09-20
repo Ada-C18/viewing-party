@@ -66,7 +66,7 @@ def get_most_watched_genre(user_data):
     for i in range(len(user_data["watched"])):
         genres.append(user_data['watched'][i]['genre'])
         genres.sort()
-    print(f"genres: {genres}")
+    # print(f"genres: {genres}")
 
     for item in genres:
         if item not in genre_count:
@@ -125,18 +125,20 @@ def get_friends_unique_watched(user_data):
 
 
 def get_available_recs(user_data):
+    # print("json at get_available_recs")
     # print(json.dumps(user_data,indent=2))
+    pass
     '''Creating friend movie recommendation list for user. User must have subscription
     service where movie is streamed and not seen the movies yet'''
     # list to return
     recommended_movies = []
     
     # get list of friend movies not in user watched list
-    unique_friend_movies = get_friends_unique_watched(user_data)
-    print(f"{unique_friend_movies=}")
-    
+    friend_movies = get_friends_unique_watched(user_data)
+    print(f"{friend_movies=}")
+
     # check if user subscriptions includes friend movie host
-    for movie in unique_friend_movies:
+    for movie in friend_movies:
         if movie["host"] in user_data["subscriptions"]:
             recommended_movies.append(movie)
     
@@ -156,8 +158,20 @@ def get_available_recs(user_data):
 # - Return the list of recommended movies
 
 def get_new_rec_by_genre(user_data):
-    # recommended_movies = []
-    pass
+    '''Creating friend recommended movie list if user has not seen it and
+    genre matches user most frequently watched genre'''
+    # print("json at get_new_rec_by_genre")
+    # print(json.dumps(user_data,indent=2))
+    recommended_movies = []
+    user_most_watched_genre = get_most_watched_genre(user_data)
+    friend_unique_movies = get_friends_unique_watched(user_data)
+
+    for friend in user_data["friends"]:
+        for movie in friend["watched"]:
+            if movie in friend_unique_movies and movie["genre"] == user_most_watched_genre:
+                recommended_movies.append(movie)
+        
+    return recommended_movies
 
 # 2. Create a function named  `get_rec_from_favorites`. This function should...
 
@@ -170,4 +184,19 @@ def get_new_rec_by_genre(user_data):
 # - Return the list of recommended movies
 
 def get_rec_from_favorites(user_data):
-    pass   
+    print("json at get_rec_from_favorites")
+    print(json.dumps(user_data,indent=2))
+    recommended_movies =[]
+    
+    friend_watched_movies = []
+    for friend in user_data["friends"]:
+        for movie in friend["watched"]:
+            friend_watched_movies.append(movie)
+
+
+    for movie in user_data["favorites"]:
+        if movie not in friend_watched_movies:
+            recommended_movies.append(movie)
+    
+    return recommended_movies
+
