@@ -279,6 +279,24 @@ def get_user_fav(user_data):
     return user_favorite
 
 def get_rec_from_favorites(user_data):
+    # user_favorite_list = get_user_fav(user_data)
+    # print("==================================================")
+    # print("User favorite movies are ",user_favorite_list)
+    # print("==================================================")
+    # to_rec_to_friend = get_unique_watched(user_data)
+    # print("movie list to rec to friends",to_rec_to_friend)
+    # print("==================================================")
+    
+    # if len(user_data["friends"]) == 0:
+    #     to_rec_to_friend = user_favorite_list
+        
+    # for movie in to_rec_to_friend:
+    #     print("movie to recomend are",movie)
+    #     if movie not in user_favorite_list:
+    #         to_rec_to_friend.remove(movie)
+    # print("MOVIE RECS",to_rec_to_friend)
+    # return to_rec_to_friend
+    
     user_favorite_list = get_user_fav(user_data)
     print("==================================================")
     print("User favorite movies are ",user_favorite_list)
@@ -286,13 +304,16 @@ def get_rec_from_favorites(user_data):
     to_rec_to_friend = get_unique_watched(user_data)
     print("movie list to rec to friends",to_rec_to_friend)
     print("==================================================")
-    
     if len(user_data["friends"]) == 0:
         to_rec_to_friend = user_favorite_list
-    for movie in to_rec_to_friend:
-        print("movie to recomend are",movie)
-        if movie not in user_favorite_list:
-            to_rec_to_friend.remove(movie)
-    print("MOVIE RECS",to_rec_to_friend)
-    return to_rec_to_friend
+        print("MOVIE RECS ARE",to_rec_to_friend)
+        return to_rec_to_friend
+    else:
+        for movie in to_rec_to_friend:
+            print("movie to recomend are",movie)
+            if movie not in user_favorite_list:
+                to_rec_to_friend.remove(movie)
+        print("MOVIE RECS",to_rec_to_friend)
+        return to_rec_to_friend
+    
 # get_rec_from_favorites(sonyas_data)
