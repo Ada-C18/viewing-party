@@ -64,16 +64,19 @@ def get_most_watched_genre(user_data):
 # -----------------------------------------
 # ------------- WAVE 3 --------------------
 # -----------------------------------------
-
+'''
 def get_unique_watched(user_data):
     # user data = dict("watched" & "friends")
     #Create a set of movies friends have watched
-    friend_set=set()
+
+    # first attemp using a set
+   
+    friend_set = set()
     for friend in user_data["friends"]:
         for movie in friend["watched"]:
             friend_set.add(movie["title"])
 
-    unique_list=[]
+    unique_list = []
 
     # 
     for movie in user_data["watched"]:
@@ -81,15 +84,45 @@ def get_unique_watched(user_data):
             unique_list.append(movie)
 
     return unique_list 
+'''
+
+    # second attempt using a list
+
+def get_unique_watched(user_data):
+
+    unique = []
+    not_unique = []
+    total_movies_list = []
+    users_movies = []
+    friends_movies = []
+
+    for movie in user_data["watched"]:
+        users_movies.append(movie)
+
+    for movie in user_data["friends"]:
+        for item in movie["watched"]:
+            friends_movies.append(item)
+
+    total_movies_list = users_movies + friends_movies
+
+    for item in total_movies_list:
+        if item not in friends_movies:
+            unique.append(item)
+        else:
+            not_unique.append(item)
+    return unique
     
+# def get_friends_unique_watched(user_data):
+    # will need to access watched inside user_data
+    # user_list = []
     
+    # and compare it to friends["watched"]
+    # create a new list left_to_watch
+    # left_to_watch = []
+    # if movie in friends["watched"] is not in user_data["watched"]
+    # we append to a list left_to_watch
 
-
-
-
-
-    # what movies has the "watched" compared to "friends"
-    # return the list 
+    # returning a list of what the user_data["watched"] has not seen
 
         
 # -----------------------------------------
