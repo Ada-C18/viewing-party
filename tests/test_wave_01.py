@@ -154,19 +154,19 @@ def test_moves_movie_from_watchlist_to_watched():
     # *******************************************************************************************
 
 # @pytest.mark.skip()
-# def test_does_nothing_if_movie_not_in_watchlist():
-#     # Arrange
-#     movie_to_watch = HORROR_1
-#     janes_data = {
-#         "watchlist": [FANTASY_1],
-#         "watched": [FANTASY_2]
-#     }
+def test_does_nothing_if_movie_not_in_watchlist():
+    # Arrange
+    movie_to_watch = HORROR_1
+    janes_data = {
+        "watchlist": [FANTASY_1],
+        "watched": [FANTASY_2]
+    }
 
-#     # Act
-#     updated_data = watch_movie(janes_data, "Non-Existent Movie Title")
+    # Act
+    updated_data = watch_movie(janes_data, "Non-Existent Movie Title")
 
-#     # Assert
-#     assert len(updated_data["watchlist"]) == 1
-#     assert len(updated_data["watched"]) == 1
-#     assert movie_to_watch not in updated_data["watchlist"]
-#     assert movie_to_watch not in updated_data["watched"]
+    # Assert
+    assert len(updated_data["watchlist"]) == 1
+    assert len(updated_data["watched"]) == 1
+    assert movie_to_watch not in updated_data["watchlist"]
+    assert movie_to_watch not in updated_data["watched"]
