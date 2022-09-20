@@ -1,4 +1,7 @@
 # ------------- WAVE 1 --------------------
+from enum import unique
+
+
 def create_movie(title, genre, rating):
     """ 
     input: a str title, str genre, and float rating
@@ -134,21 +137,25 @@ def get_friends_unique_watched(user_data):
                 ^ these all contain a "title"
     """
     unique_watched_movies = []
-    friend_watched_list = []
+    friend_watched_titles_only = []
+    all_friend_watched = []
+    unique_movie_titles = set()
     user_watched_list = [movie["title"] for movie in user_data["watched"]]
 
     for friends_list in user_data["friends"]:
         for movie in friends_list["watched"]:
-            friend_watched_list.append(movie["title"])
+            friend_watched_titles_only.append(movie["title"])
+            all_friend_watched.append(movie)
 
     user_watched_set = set(user_watched_list)
-    friend_watched_set = set(friend_watched_list)
+    friend_watched_set = set(friend_watched_titles_only)
     unique_watched_set = friend_watched_set - user_watched_set
-    
-    for friends_list in user_data["friends"]:
-        for movie in friends_list["watched"]:
-            if movie["title"] in unique_watched_set:
+
+    for movie in all_friend_watched:
+        if movie["title"] in unique_watched_set:
+            if movie["title"] not in unique_movie_titles:
                 unique_watched_movies.append(movie)
+                unique_movie_titles.add(movie["title"])
 
     return unique_watched_movies
 
