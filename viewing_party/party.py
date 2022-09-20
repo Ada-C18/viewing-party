@@ -1,5 +1,8 @@
 # ------------- WAVE 1 --------------------
 
+from turtle import clear
+
+
 def create_movie(title, genre, rating):
     movie = {
         "title" : title,
@@ -25,10 +28,19 @@ def watch_movie(user_data, movie):
             user_data["watched"].append(user_data["watchlist"].pop())
     return user_data
 
+      
 # -----------------------------------------
 # ------------- WAVE 2 --------------------
 # -----------------------------------------
 
+def get_watched_avg_rating(user_data):
+    x = 0
+    for film in user_data["watched"]:
+        x += film["rating"]
+    return x / len(user_data["watched"])        
+
+
+      
 
 # -----------------------------------------
 # ------------- WAVE 3 --------------------
