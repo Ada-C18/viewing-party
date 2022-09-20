@@ -111,27 +111,33 @@ def get_unique_watched(user_data):
     # The dictionary for each friend has "watched", with a list of movies. (which is itself a dict, remember.) 
     #This function outputs the list of movies (dicts) in watched that are unique, and not watched by another friend.
     
-    #make a list of the user's movies
-    user_watched = user_data['watched']
+    #make a list of the user's movie titles
+    user_watched_titles = []
+    for movie in user_data['watched']:
+        user_watched_titles.append(movie["title"])
     
 
-    #make a list of the friend's movies.
-    friend_watched = []
+    #make a list of the friend's movie titles
+    friend_watched_titles = []
     for friend in user_data["friends"]:
-        friend_watched.extend(friend["watched"])
+        for movie in friend["watched"]:
+            friend_watched_titles.append(movie["title"])
     
-    #make them sets:
-    #set(user_watched)
-    #set(friend_watched)
-    #calling the above gives us an unhashable type difference.  
-    #this is weird because friend_watched is a list, and we should be able to call sets on this. 
-    
-    
-    #do set differene
-    #return the set as a list. 
+    #make a set of these titles. 
+    user_watched_titles = set(user_watched_titles)
+    friend_watched_titles = set(friend_watched_titles)
 
+    #set difference
+    unique_watched_titles = user_watched_titles - friend_watched_titles
 
-    #return unique_watched
+    #retrieve the dictionary entries from the original user_data
+    unique_watched_movies = []
+    for movie in user_data["watched"]:
+        if movie["title"] in unique_watched_titles:
+            unique_watched_movies.append(movie)
+
+    return unique_watched_movies
+
     
 
 
