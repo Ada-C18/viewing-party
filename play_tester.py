@@ -15,36 +15,9 @@ pp = pprint.PrettyPrinter(indent=4)
 # pp.pprint(FANTASY_1)
 # pp.pprint(FANTASY_2)
 
-# user data = {
-#   "watchlist": [{movie:move, genre: genre}]
-# }
-janes_data = clean_wave_2_data()
-def get_most_watched_genre(user_data):
-    genre_list = []
-    genre_counter = {}
-    for i in range(len(user_data["watched"])):
-        genre_list.append(user_data["watched"][i]["genre"])
-    for genre in genre_list:
-        if genre not in genre_counter:
-            genre_counter[genre] = 1
-        elif genre in genre_counter:
-            genre_counter[genre] += 1
-    max_value = max(genre_counter.values())
-    for key, value in genre_counter.items():
-        if max_value == value:
-            return key
-
-
-        # if genre in genre_counter.keys():
-        #     genre_counter["genre"] += 1
-        # elif genre not in genre_counter.keys():
-        #     genre_counter["genre"] = 1
-    # print(genre_counter)
-    # should be 3 fantasy, 1 action, 2 intrigue
 
 
 
-get_most_watched_genre(janes_data)
 
 # print("\n-----Wave 02 user_data-----")
 # pp.pprint(clean_wave_2_data())
@@ -63,19 +36,48 @@ get_most_watched_genre(janes_data)
 # Wave 05 user data
 #print("\n-----Wave 05 user_data-----")
 #pp.pprint(clean_wave_5_data())
+sonyas_data = clean_wave_5_data()
+# print(sonyas_data["friends"])
+def get_rec_from_favorites(user_data):
 
-user_data = clean_wave_5_data()
-def get_new_rec_by_genre(user_data):
-    # get users most frequent genre
-    # user_most_frequent_genre = get_most_watched_genre(user_data)
+    user_fav_movies = []
+    friend_watched_list = []
     recs = []
-    # add to movie rec if
-        # user has not watched it
-        # friend HAS watched
-    friend_has_watched = get_friends_unique_watched(user_data)
-        # genre of movie is same as user's most frequent
-    # output is list of rec movies
-    # print(user_most_frequent_genre)
-    print(friend_has_watched)
 
-# get_new_rec_by_genre(user_data)
+    for movie in user_data["favorites"]:
+        user_fav_movies.append(movie)
+
+    for friend_movie in user_data['friends']:
+        for movie in friend_movie['watched']:
+            friend_watched_list.append(movie)
+
+    for fav_movie in user_fav_movies:
+        if fav_movie not in friend_watched_list:
+            recs.append(fav_movie)
+    return recs
+
+    # print(user_data["favorites"])
+    # friends_watched = []
+    # recs = []
+    # for i in range(len(user_data["friends"])):
+    #     friends_watched.append(user_data["friends"][i]["watched"])
+    # print(friends_watched)
+    # for i in range(len(user_data["favorites"])):
+    #     if user_data["favorites"][i] not in friends_watched:
+    #         recs.append(user_data["favorites"][i])
+    # print(recs)
+get_rec_from_favorites(sonyas_data)
+#     recs_from_favorites = []
+#     friends_have_not_watched = get_unique_watched(user_data)
+# # Determine a list of recommended movies. A movie should be added to this list if and only if:
+# # The movie is in the user's "favorites"
+# # None of the user's friends have watched it
+#     # loop through favorites and if not add
+#     for favs in user_data["favorites"]:
+#         for movies in friends_have_not_watched:
+#             if favs != movies:
+#                 recs_from_favorites.append(favs)
+#     print(recs_from_favorites)
+   
+
+# get_rec_from_favorites(sonyas_data)
