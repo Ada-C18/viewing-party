@@ -94,21 +94,29 @@ def get_unique_watched(user_data):
     # return list of movies only watched by user
     # create a new unique list of movies watched by user
     user_movie_list = user_watched_list(user_data)
-    print("USER LIST: ", user_movie_list)
     friends_movie_list = friends_watched_list(user_data)
-    print("============================")
-    print("FRIEND LIST: ", friends_movie_list)
     unique_movie_list = []
 
-    # for index in range(len(user_movie_list)):
-    #     for movie in user_movie_list[index]:
-    #         if movie in friends_movie_list:
-    #             unique_movie_list.append(movie)
     for movie in user_movie_list:
         if movie not in friends_movie_list:
             unique_movie_list.append(movie)
     return unique_movie_list
 
+def get_friends_unique_watched(user_data):
+    user_movie_list = user_watched_list(user_data)
+    friends_movie_list = friends_watched_list(user_data)
+    friends_unique_movie_list = []
+
+    for movie in friends_movie_list:
+        # print("********************")
+        # print("movie", movie)
+        if movie not in user_movie_list:
+            if movie not in friends_unique_movie_list:
+                friends_unique_movie_list.append(movie)
+        # print("UNIQUE LIST:", friends_unique_movie_list)
+        # print("*******************")
+    return friends_unique_movie_list
+    
 # HELPER FUNCTION
 def user_watched_list(user_data):
     user_watched_list = []
