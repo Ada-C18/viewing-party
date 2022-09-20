@@ -19,19 +19,15 @@ def create_movie(title, genre, rating):
 
 def add_to_watched(user_data, movie):
     prev = user_data["watched"] # creating a variable prev = the value of watched - we know key = watched
-    curr = prev.append(movie)
-    user_data["watched"] = curr # replacing the old empty value with the new value
+    curr = prev.append(movie) # tried .append and got type error none doesn't have len # do we need to bring the index in at all?
+    # user_data["watched"] = curr # replacing the old empty value with the new value # this was causing the issue - why?
 
     return user_data
     
+# curr = prev.update({"watched":movie}) # this gives AttributeError: 'list' object has no attribute 'update' error # tried .append and got type error none doesn't have len # do we need to bring the index in at all?
+''' user_data["watched"].append(movie)
+    return user_data '''
 
-# 
-# if parameters = True return a dict with 
-# {
-# "title": "Interstellar"
-# "genre": "Drama"
-# "rating": 5}
-# create empty dict
 
 '''
 
