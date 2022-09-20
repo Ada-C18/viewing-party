@@ -1,7 +1,31 @@
 # ------------- WAVE 1 --------------------
 
 def create_movie(title, genre, rating):
-    pass
+
+ # 1.1   
+    # movie = {}
+    # return movie
+
+
+    # if 3 attributes are truthy return dictionary
+
+    movie_dict = {
+            "title": title,
+            "genre": genre,
+            "rating": rating
+        }
+
+    return movie_dict
+
+    # else:
+    #     return None
+
+
+
+
+# def add_to_watched(user_data, movie):
+    # user_data will be a dictionary with key "watched" 
+
 
 # -----------------------------------------
 # ------------- WAVE 2 --------------------
