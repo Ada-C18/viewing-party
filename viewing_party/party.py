@@ -63,7 +63,7 @@ def get_most_watched_genre(user_data):
     else:
         for movie in watched_list:
             genre = movie['genre']
-            print(genre)
+            # print(genre)
             if genre in frequency:
                 frequency[genre] += 1
             else:
@@ -71,7 +71,7 @@ def get_most_watched_genre(user_data):
         # print(frequency)
         most_watched_genre = max(frequency, key = frequency.get)
         # get the largest value at the KEY "genre"
-        print(most_watched_genre)
+        # print(most_watched_genre)
         return most_watched_genre
 
 
