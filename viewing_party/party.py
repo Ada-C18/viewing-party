@@ -39,8 +39,14 @@ def add_to_watchlist(user_data, movie):
     }
 
     return user_data
-    
 
+def watch_movie(user_data, title):
+
+    if title == user_data["watchlist"][0]["title"]:
+        user_data["watched"].append(user_data["watchlist"][0])
+        user_data["watchlist"]=[]
+        
+    return user_data
 
 
 # -----------------------------------------
