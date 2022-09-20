@@ -1,6 +1,7 @@
 # ------------- WAVE 1 --------------------
 
 from optparse import TitledHelpFormatter
+from xmlrpc.client import NOT_WELLFORMED_ERROR
 
 
 def create_movie(title, genre, rating):
@@ -125,4 +126,28 @@ def get_available_recs(user_data):
 # -----------------------------------------
 # ------------- WAVE 5 --------------------
 # -----------------------------------------
+
+def get_new_rec_by_genre(user_data):
+    new_rec_by_genre = []
+
+    favorite_genre = get_most_watched_genre(user_data)
+    friends_unique_watched = get_friends_unique_watched(user_data)
+
+    for movie in friends_unique_watched:
+        if movie["genre"] == favorite_genre:
+            new_rec_by_genre.append(movie)
+    
+    return new_rec_by_genre
+
+
+def get_rec_from_favorites(user_data):
+    favorites = []
+
+    unique_watched = get_unique_watched(user_data)
+
+    for movie in unique_watched:
+        if movie in user_data["favorites"]:
+            favorites.append(movie)
+
+    return favorites
 
