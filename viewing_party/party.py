@@ -72,8 +72,51 @@ def get_most_watched_genre(user_data):
 # -----------------------------------------
 # ------------- WAVE 3 --------------------
 # -----------------------------------------
+def get_unique_watched(user_data):
+    # what movies has the user watched?
+    user_data_movies_list = user_data["watched"]
+    print(f"user data movie list {user_data_movies_list}\n")
+    unique_user_data_movies_list = []
+    friends_movies_1_title_list = []
+    friends_movies_2_title_list = []
+    
+    # what movies has the user's friends watched?
+    friends_movie_1_list = user_data["friends"][0]["watched"]
+    friends_movie_2_list = user_data["friends"][1]["watched"]
+    # print(f"friend 1 movie list: {friends_movie_1_list} \n")
+    # print(f"friend 2 movie list: {friends_movie_2_list} \n")
+            
+    for movie in range(len(friends_movie_1_list)):
+        title_f1 = friends_movie_1_list[movie]["title"]
+        friends_movies_1_title_list.append(title_f1)
+    # print(f"friend1 movie titles list: {friends_movies_1_title_list}")
 
-        
+    for movie in range(len(friends_movie_2_list)):
+        title_f2 = friends_movie_2_list[movie]["title"]
+        friends_movies_2_title_list.append(title_f2)
+    # print(f"friend2 movie titles list: {friends_movies_2_title_list}")
+    
+    friends_movie_list = friends_movies_1_title_list + friends_movies_2_title_list
+    friends_unique_movie_set = set(friends_movie_list)
+    friends_unique_movie_list = list(friends_unique_movie_set)
+
+    for movie in range(len(user_data_movies_list)):
+        if not user_data_movies_list[movie]["title"] in friends_unique_movie_list:
+            unique_user_data_movies_list.append(user_data_movies_list[movie])
+
+
+    # print(f"debug:user data's unique list of movies: {unique_user_data_movies_list}")
+    # return a list of dictionaries that represents the list of movies 
+    return unique_user_data_movies_list
+
+
+
+def get_friends_unique_watched(user_data):
+    # what movies has the user watched?
+    # what movies has the user's friends watched?
+    # Determine which movies at least one of the user's friends have watched, but the user has not watched.
+    # return a list of dictionaries that represents the list of movies 
+    ...
 # -----------------------------------------
 # ------------- WAVE 4 --------------------
 # -----------------------------------------
