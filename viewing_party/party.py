@@ -135,7 +135,6 @@ def get_friends_unique_watched(user_data):
                         if value == unique_movie:
                             result_unique_movies.append(movie)
     return result_unique_movies
-        
 # -----------------------------------------
 # ------------- WAVE 4 --------------------
 # -----------------------------------------
