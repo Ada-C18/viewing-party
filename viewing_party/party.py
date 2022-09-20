@@ -105,13 +105,33 @@ def get_most_watched_genre(user_data):
 # -----------------------------------------
 
 def get_unique_watched(user_data):
-    #takes in user data (a dictionary with 2 keys, watched and watchlist)
-    #outputs the list of movies (each of with is a dictionary, I believe) in watched that are unique.
-    unique_watched = []
-    for movie in user_data["watched"]:
-        if movie not in unique_watched:
-            unique_watched.append(movie)
-    return unique_watched
+    #takes in user_data (a dictionary with 2 keys, watched and watchlist)
+    #now, user_data has a third key: "friends".
+    #the value associated with this is a list of dictionaries, one dictionary per friend.
+    # The dictionary for each friend has "watched", with a list of movies. (which is itself a dict, remember.) 
+    #This function outputs the list of movies (dicts) in watched that are unique, and not watched by another friend.
+    
+    #make a list of the user's movies
+    user_watched = user_data['watched']
+    
+
+    #make a list of the friend's movies.
+    friend_watched = []
+    for friend in user_data["friends"]:
+        friend_watched.extend(friend["watched"])
+    
+    #make them sets:
+    #set(user_watched)
+    #set(friend_watched)
+    #calling the above gives us an unhashable type difference.  
+    #this is weird because friend_watched is a list, and we should be able to call sets on this. 
+    
+    
+    #do set differene
+    #return the set as a list. 
+
+
+    #return unique_watched
     
 
 
