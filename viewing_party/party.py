@@ -1,3 +1,5 @@
+# import json
+# print(json.dumps(user_data,indent=2))
 # ------------- WAVE 1 --------------------
 # 1. Create a function named  `create_movie`. This function and all subsequent functions should be in `party.py`. 
 
@@ -92,7 +94,7 @@ def get_most_watched_genre(user_data):
 # -----------------------------------------
 # ------------- WAVE 3 --------------------
 # -----------------------------------------
-# Consider the movies that the user has watched, and consider the movies that their friends have watched. Determine which movies the user has watched, but none of their friends have watched.
+# 1. Consider the movies that the user has watched, and consider the movies that their friends have watched. Determine which movies the user has watched, but none of their friends have watched.
 # Return a list of dictionaries, that represents a list of movies
 
 
@@ -106,13 +108,17 @@ def get_unique_watched(user_data):
     # 2. loop thru user data
     for movie in watched_lst:
         for friend in friends_lst:
-            if movie not in friend:
+            if movie not in friend["watched"]:
         # -- find same title in "watched" and "friends" lsts
         # if movie["title"] not in friends_lst:
             # 3. add movie dict to unique lst
                 unique_watched_lst.append(movie)
     # 4. return lst output
     return unique_watched_lst
+
+# 2. Create a function named get_friends_unique_watched.
+# Consider the movies that the user has watched, and consider the movies that their friends have watched. Determine which movies at least one of the user's friends have watched, but the user has not watched.
+# def get_friends_unique_watched(user_data):
 
 
         
