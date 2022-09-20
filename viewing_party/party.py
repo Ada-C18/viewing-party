@@ -119,23 +119,9 @@ def friend_watched_list(user_data):
     return set_friends_watched
 
 def get_friends_unique_watched(user_data):
-    user_watch_list = []
-    friends_watch_list = []
-
-    for movie in user_data["watched"]:
-        for key,value in movie.items():
-            if key == "title":
-                user_watch_list.append(value)
-    
-    for friend in user_data["friends"]:
-        for movie in friend["watched"]:
-            for key,value in movie.items():
-                if key == "title":
-                    friends_watch_list.append(value)
-    
-    set_user_watched = set(user_watch_list)
-    set_friends_watched = set(friends_watch_list)
-    unique_movies_set = set_friends_watched - set_user_watched
+    user_set = user_watched_list(user_data)
+    friends_set = friend_watched_list(user_data)
+    unique_movies_set = friends_set - user_set
     unique_movies_list = list(unique_movies_set)
 
     result_unique_movies = []
