@@ -202,6 +202,9 @@ def get_new_rec_by_genre(user_data):
 
 def get_top_genre(user_data):
     #make a dictionary with keys as genres and values of counts of how often that genre comes up.
+    if not user_data["watched"]:
+        return None
+    
     genre_occurances = {}
     for movie in user_data["watched"]:
         if movie["genre"] not in genre_occurances.keys():
