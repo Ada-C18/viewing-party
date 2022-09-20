@@ -1,6 +1,7 @@
 # ------------- WAVE 1 --------------------
 
 from readline import append_history_file
+from statistics import mode
 
 
 def create_movie(title, genre, rating):
@@ -46,8 +47,15 @@ def get_watched_avg_rating (user_data):
         total_rating += movie["rating"]
         if count > 1:
             avg_rating = total_rating/count
- 
     return avg_rating
+
+def get_most_watched_genre(user_data):
+    genre_list = []
+    popular_genre = None
+    for movie in user_data["watched"]:
+        genre_list.append(movie["genre"])
+    popular_genre = mode(genre_list)
+    return popular_genre
 
 
 # -----------------------------------------
@@ -62,4 +70,4 @@ def get_watched_avg_rating (user_data):
 # -----------------------------------------
 # ------------- WAVE 5 --------------------
 # -----------------------------------------
-
+# 
