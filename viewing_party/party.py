@@ -134,10 +134,12 @@ def get_new_rec_by_genre(user_data):
     user_watched_genres = []
     recommendations = []
     
-    for movie in user_data["watched"]:
-        user_watched_genres.append(movie["genre"])
+    if (len(friends_unique_watched) > 0
+        and len(user_data["watched"]) > 0):
     
-    if len(friends_unique_watched) > 0:
+        for movie in user_data["watched"]:
+            user_watched_genres.append(movie["genre"])
+        
         for movie in friends_unique_watched:
             if (movie["host"] in user_data["subscriptions"] 
                 and movie["genre"] in user_watched_genres):
