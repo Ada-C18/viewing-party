@@ -1,6 +1,6 @@
 # ------------- WAVE 1 --------------------
 
-from collections import Counter
+# from collections import Counter
 from tests.test_constants import GENRE_1, MOVIE_TITLE_1, RATING_1
 
 
@@ -38,31 +38,33 @@ def watch_movie(user_data, title):
 # ------------- WAVE 2 --------------------
 # -----------------------------------------
 
-def get_watched_avg_rating(janes_data):
-# input: users data dict with list {[watched]}
-# janes_data = {
-#   "watched" : [{movie: blah, rating: blah}]
-# }
-# calculate average of movies in watched list
+def get_watched_avg_rating(user_data):
     sum_of_ratings = 0
-    for watched_list in janes_data.values():
-        if not watched_list:
-            return 0
-        else:
-            for i in range(len(watched_list)):
-                sum_of_ratings += watched_list[i]['rating']
-    return sum_of_ratings/len(watched_list)    
+    if not user_data["watched"]:
+        return 0
+    else:
+        for i in range(len(user_data["watched"])):
+            sum_of_ratings += user_data["watched"][i]["rating"]
+        average_rating = sum_of_ratings/len(user_data["watched"])
+    return average_rating  
 
-def get_most_watched_genre(janes_data):
-    watched_genres = []
-    for watched_list in janes_data.values():
-        if not watched_list:
-            return None
-        else:
-            for i in range(len(watched_list)):
-                watched_genres.append(watched_list[i]['genre'])
-    popular_genre = Counter(watched_genres).most_common(1)[0][0]
-    return popular_genre
+def get_most_watched_genre(user_data):
+    genre_list = []
+    genre_counter = {}
+    if not user_data["watched"]:
+        return None
+    else:
+        for i in range(len(user_data["watched"])):
+            genre_list.append(user_data["watched"][i]["genre"])
+        for genre in genre_list:
+            if genre not in genre_counter:
+                genre_counter[genre] = 1
+            elif genre in genre_counter:
+                genre_counter[genre] += 1
+        max_value = max(genre_counter.values())
+        for key, value in genre_counter.items():
+            if max_value == value:
+                return key
     
 # -----------------------------------------
 # ------------- WAVE 3 --------------------
@@ -85,7 +87,6 @@ def get_unique_watched(user_data):
     return user_unique_movies
 
 def get_friends_unique_watched(user_data):
-# return what their friends have watched but not user
     user_watched_list = []
     friend_watched_list = []
     friend_unique_movies = []

@@ -18,26 +18,34 @@ pp = pprint.PrettyPrinter(indent=4)
 # user data = {
 #   "watchlist": [{movie:move, genre: genre}]
 # }
-janes_data = {
-    "watchlist": [{
-        "title": MOVIE_TITLE_1,
-        "genre": GENRE_1,
-        "rating": RATING_1
-    }],
-    "watched": []
-}
+janes_data = clean_wave_2_data()
+def get_most_watched_genre(user_data):
+    genre_list = []
+    genre_counter = {}
+    for i in range(len(user_data["watched"])):
+        genre_list.append(user_data["watched"][i]["genre"])
+    for genre in genre_list:
+        if genre not in genre_counter:
+            genre_counter[genre] = 1
+        elif genre in genre_counter:
+            genre_counter[genre] += 1
+    max_value = max(genre_counter.values())
+    for key, value in genre_counter.items():
+        if max_value == value:
+            return key
 
-def watch_movie(user_data, title):
-    watched = {}
-    for i in range(len(user_data['watchlist'])):
-        if (user_data["watchlist"][i]["title"]) == title:
-            watched = user_data["watchlist"].pop(i)
-    if watched: 
-        user_data["watched"].append(watched)
-    updated_data = user_data
-    print(updated_data)
 
-watch_movie(janes_data, MOVIE_TITLE_1)
+        # if genre in genre_counter.keys():
+        #     genre_counter["genre"] += 1
+        # elif genre not in genre_counter.keys():
+        #     genre_counter["genre"] = 1
+    # print(genre_counter)
+    # should be 3 fantasy, 1 action, 2 intrigue
+
+
+
+get_most_watched_genre(janes_data)
+
 # print("\n-----Wave 02 user_data-----")
 # pp.pprint(clean_wave_2_data())
 
