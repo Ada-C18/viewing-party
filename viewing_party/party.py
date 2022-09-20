@@ -117,7 +117,7 @@ def get_friends_unique_watched(user_data):
 
     for i in range(len(user_data["watched"])):
         user_data_movies_list.append(user_data["watched"][i]["title"])
-    print(f"debug:user data movies list titles {user_data_movies_list}\n")
+    # print(f"debug:user data movies list titles {user_data_movies_list}\n")
 
     friends_unique_movies_list = []
     
@@ -128,7 +128,7 @@ def get_friends_unique_watched(user_data):
     # print(f"friend 2 movie list: {friends_movie_2_list} \n")
 
     friends_total_movie_list = friends_movie_1_list + friends_movie_2_list
-    print(friends_total_movie_list)
+    # print(f"friends total movies list: {friends_total_movie_list}")
 
 
     for movie in range(len(friends_total_movie_list)):
@@ -138,13 +138,61 @@ def get_friends_unique_watched(user_data):
             else:
                 friends_unique_movies_list.append(friends_total_movie_list[movie])
 
-    print(f"debug:friend's unique list of movies: {friends_unique_movies_list}")
+    # print(f"debug:friend's unique list of movies: {friends_unique_movies_list}")
     # return a list of dictionaries that represents the list of movies 
     return friends_unique_movies_list
     ...
 # -----------------------------------------
 # ------------- WAVE 4 --------------------
 # -----------------------------------------
+def get_available_recs(user_data):
+    """Determine a list of recommended movies.
+    A movie should be added to this list if and only if:
+    The user has not watched it
+    At least one of the user's friends has watched
+    The "host" of the movie is a service that is in the user's "subscriptions"
+    """
+    user_data_movies_list = []
+
+    for i in range(len(user_data["watched"])):
+        user_data_movies_list.append(user_data["watched"][i]["title"])
+    # print(f"debug:user data movies list titles {user_data_movies_list}\n")
+
+    subscriptions = user_data["subscriptions"]
+    print(f"debug: user data subscriptions: {subscriptions}")
+    
+    friends_unique_movies_list = []
+    
+    friends_movie_1_list = user_data["friends"][0]["watched"]
+    friends_movie_2_list = user_data["friends"][1]["watched"]
+    # print(f"friend 1 movie list: {friends_movie_1_list} \n")
+    # print(f"friend 2 movie list: {friends_movie_2_list} \n")
+
+    friends_total_movie_list = friends_movie_1_list + friends_movie_2_list
+    # print(f"debug:friends total movies list: {friends_total_movie_list}\n")
+
+    for movie in range(len(friends_total_movie_list)):
+        if not friends_total_movie_list[movie]["title"] in user_data_movies_list:
+            if friends_total_movie_list[movie] in friends_unique_movies_list:
+                continue
+            else:
+                friends_unique_movies_list.append(friends_total_movie_list[movie])
+
+    print(f"debug:friend's unique list of movies: {friends_unique_movies_list}")
+    
+    movie_recommendations_list = []
+    # loop through friends unique movies to see if any of them are hosted by
+    # user_data subscriptions service(s)
+    for movie in range(len(friends_unique_movies_list)):
+        if friends_unique_movies_list[movie]["host"] in subscriptions:
+            movie_recommendations_list.append(friends_unique_movies_list[movie])
+    
+
+    print(f"debug: movie recommendations: {movie_recommendations_list}")
+    return movie_recommendations_list
+
+
+
 
 # -----------------------------------------
 # ------------- WAVE 5 --------------------

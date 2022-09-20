@@ -9,10 +9,10 @@ import pprint
 pp = pprint.PrettyPrinter(indent=4)
 
 # play testing section
-print("\n-----Wave 01 test data-----")
-pp.pprint(HORROR_1)
-pp.pprint(FANTASY_1)
-pp.pprint(FANTASY_2)
+# print("\n-----Wave 01 test data-----")
+# pp.pprint(HORROR_1)
+# pp.pprint(FANTASY_1)
+# pp.pprint(FANTASY_2)
 
 # *****wave 1 test_inputs******
 # user_data = {
@@ -38,34 +38,38 @@ pp.pprint(FANTASY_2)
 # **********
 
 # *****wave 2 test_inputs******
-user_data = {"watched" :[{
-            "title": "title_a",
-            "genre": "comedy",
-            "rating": 3.9
-        }, 
-        {
-            "title": "title_b",
-            "genre": "action",
-            "rating": 3.1
-        }, 
-        {
-            "title": "title_c",
-            "genre": "comedy",
-            "rating": 5.0
-        }, 
-        {
-            "title": "title_d",
-            "genre": "horror",
-            "rating": 2.8
-        }, 
-        ]
+# user_data = {"watched" :[{
+#             "title": "title_a",
+#             "genre": "comedy",
+#             "rating": 3.9
+#         }, 
+#         {
+#             "title": "title_b",
+#             "genre": "action",
+#             "rating": 3.1
+#         }, 
+#         {
+#             "title": "title_c",
+#             "genre": "comedy",
+#             "rating": 5.0
+#         }, 
+#         {
+#             "title": "title_d",
+#             "genre": "horror",
+#             "rating": 2.8
+#         }, 
+#         ]
 
-}
-print(get_most_watched_genre(user_data))
+# }
+# print(get_most_watched_genre(user_data))
 # ***********
 
-#print("\n-----Wave 03 user_data-----")
-#pp.pprint(clean_wave_3_data())
+print("\n-----Wave 03 user_data-----")
+# pp.pprint(clean_wave_3_data())
+# *****wave 3 test_inputs******
+# user_data = clean_wave_3_data()
+
+# print(get_unique_watched(user_data))
 
 # Wave 04 user data
 #print("\n-----Wave 04 user_data-----")
