@@ -140,6 +140,13 @@ def get_friends_watched_titles(user_data):
             friend_watched_titles.append(movie["title"])
     return set(friend_watched_titles)
 
+def get_favorite_watched_titles(user_data):
+    #returns a set of titles user has watched.
+    user_watched_titles = []
+    for movie in user_data['favorites']:
+        user_watched_titles.append(movie["title"])
+    return set(user_watched_titles)
+
 
 def get_friends_unique_watched(user_data):
     #this takes in user_data (with keys including 'watched' and 'friends')
@@ -215,6 +222,25 @@ def get_top_genre(user_data):
     top_genre = max(genre_occurances, key = genre_occurances.get)
     
     return top_genre
+
+def get_rec_from_favorites(user_data):
+    #takes in user_data
+    #compare list of favorite movies with list of friend's watched movies. 
+    #return the favorite movies that friends haven't watched yet.
+    fav_watched_titles = get_favorite_watched_titles(user_data)
+    friends_watched_titles = get_friends_watched_titles(user_data)
+
+    recommended_titles = fav_watched_titles - friends_watched_titles
+
+    lst_of_recs = []
+
+    for movie in user_data["favorites"]:
+        if movie["title"] in recommended_titles:
+            lst_of_recs.append(movie)
+    return lst_of_recs
+
+
+
 
 
 
