@@ -9,17 +9,18 @@ def create_movie(title, genre, rating):
     "genre" : genre, 
     "rating" : rating}
 
-# if three attributes are truthy, i.e. we have all any truthy values for all attribues
+    # if three attributes are truthy, i.e. we have all any truthy values for all attribues
     if title and genre and rating:
         return movie
-# otherwise, it's not movie. return none
+    # otherwise, it's not movie. return none
     else:
         return None 
 
 def add_to_watched(user_data, movie):
-
-# insert movie (in dict) in the watched (in list) in user_data (in dict)
-# exception: if no watched list (poor baby), create an empty one.
+    '''
+    insert movie (in dict) in watched (in list) in user_data (in dict)
+    exception: if no watched list (poor baby), create an empty one.
+    '''
 
     if not user_data["watched"]:
         user_data["watched"] = [] 
@@ -29,9 +30,10 @@ def add_to_watched(user_data, movie):
     return user_data
 
 def add_to_watchlist(user_data, movie):
-
-# insert movie (in dict) in the watchlist (in list) in user_data (in dict)
-# exception: if no watchlist (poor baby), create an empty one.
+    '''
+    insert movie (in dict) in watchlist (in list) in user_data (in dict)
+    exception: if no watchlist (poor baby), create an empty one.
+    '''
 
     if not user_data["watchlist"]:
         user_data["watchlist"] = [] 
@@ -41,6 +43,10 @@ def add_to_watchlist(user_data, movie):
     return user_data
 
 def watch_movie(user_data, title):
+    '''
+    remove movie from watchlist
+    insert movie in watched
+    '''
     
     movies_watchlist = user_data["watchlist"] # in list
 
@@ -57,9 +63,11 @@ def watch_movie(user_data, title):
 # -----------------------------------------
 
 def get_watched_avg_rating(user_data):
-# (1) extract each movie from a list and get each rating
-# (2) sum up rating during loop
-# exception: empty watched (poor!), return 0.0
+    '''
+    (1) extract each movie from a list and get each rating
+    (2) sum up rating during loop
+    exception: empty watched (poor!), return 0.0
+    '''
 
     watched_list = user_data["watched"]
     rating_sum = 0.0
@@ -74,12 +82,14 @@ def get_watched_avg_rating(user_data):
     return rating_avg
 
 def get_most_watched_genre(user_data):
-# (1) extract each movie from a list and get each genre
-# (2-0) genres in dict
-# (2-1) new genre: create key & set value 1 
-# (2-2) ex-genre: value +1 
-# (3) find key corresponing max value ! assume no multiple keys :p
-# exception: empty watched (poor!), return None
+    '''
+    (1) extract each movie from a list and get each genre
+    (2-0) genres in dict
+    (2-1) new genre: create key & set value 1 
+    (2-2) ex-genre: value +1 
+    (3) find key corresponing max value ! assume no multiple keys :p
+    exception: empty watched (poor!), return None
+    '''
 
     watched_list = user_data["watched"]
     
@@ -100,24 +110,28 @@ def get_most_watched_genre(user_data):
 # ------------- Helper Function -----------
 # -----------------------------------------
 def get_value_list_with_same_key_in_dict_list(dict_list, key, value_list):
-# get a list of values with the same key from a list of dictionaries
+    '''
+    get a list of values with the same key from a list of dictionaries
+    value_list: input & output
+    ! does not return value_list as the function can be called recursively in for-loop
+    '''
+
     for a_dict in dict_list:
         same_key_value = a_dict[key]
-        ## if value is new
-        # if not same_key_value in value_list:
-        # ok for redundant as it might have a different details in other keys
+        # assume ok for redundant as it might have a different details in other keys
         value_list.append(same_key_value)
-    #return value_list
 
 # -----------------------------------------
 # ------------- WAVE 3 --------------------
 # -----------------------------------------
 
 def get_unique_watched(user_data):
-# (1) watched list of user
-# (2) friend's list
-# (3) compare two lists
-# (4) return user's unique list (elements in dict!) 
+    '''
+    (1) watched list of user
+    (2) friend's list
+    (3) compare two lists
+    (4) return user's unique list (elements in dict!) 
+    '''
 
     titles_user = []
     titles_friends = []
@@ -127,7 +141,7 @@ def get_unique_watched(user_data):
     # movie titles of user
     get_value_list_with_same_key_in_dict_list(watched_list, "title", titles_user)
 
-    # friend in dict
+    # combined movie titles of friend (in dict) from friends_list
     for friend in friends_list: 
         movie_list_each_friend = friend["watched"]
         get_value_list_with_same_key_in_dict_list(movie_list_each_friend, "title", titles_friends)
@@ -147,10 +161,13 @@ def get_unique_watched(user_data):
     return unique_movie_user
 
 def get_friends_unique_watched(user_data):
-# (1) watched list of user
-# (2) friend's list
-# (3) compare two lists
-# (4) return frieds' unique list (elements in dict!) 
+    '''    
+    (1) watched list of user
+    (2) friend's list
+    (3) compare two lists
+    (4) return frieds' unique list (elements in dict!) 
+    '''
+
     titles_user = []
     titles_friends = []
     watched_list = user_data["watched"]
@@ -159,7 +176,7 @@ def get_friends_unique_watched(user_data):
     # movie titles of user
     get_value_list_with_same_key_in_dict_list(watched_list, "title", titles_user)
 
-    # friend in dict
+    # combined movie titles of friend (in dict) from friends_list
     for friend in friends_list: 
         movie_list_each_friend = friend["watched"]
         get_value_list_with_same_key_in_dict_list(movie_list_each_friend, "title", titles_friends)
@@ -186,10 +203,12 @@ def get_friends_unique_watched(user_data):
 # -----------------------------------------
 
 def get_available_recs(user_data):
-# (1) service list of user subscribes
-# (2) friends' unique movie list
-# (3-1) check if services of (2) in (1)
-# (3-2) recommended list: list of friends' unique movies on a services which user subscribes
+    '''
+    (1) service list of user subscribes
+    (2) friends' unique movie list: call get_friends_unique_watched
+    (3-1) check if services of (2) in (1)
+    (3-2) recommended list: list of friends' unique movies on a services which user subscribes
+    '''
 
     service_list_user = user_data["subscriptions"]
     unique_movie_friends = get_friends_unique_watched(user_data) # in list
@@ -208,10 +227,12 @@ def get_available_recs(user_data):
 # -----------------------------------------
 
 def get_new_rec_by_genre(user_data):
-# (1) user's most frequently watched genre: get_most_watched_genre(user_data)
-# .   multiple case?
-# (2) friends' unique movie list
-# (3) compare genre of the movie to user's favorite
+    '''
+    (1) user's most frequently watched genre: call get_most_watched_genre(user_data)
+        ! assume no multiple genre
+    (2) friends' unique movie list: call get_friends_unique_watched
+    (3) compare genre of the movie to user's favorite
+    '''
 
     most_genre = get_most_watched_genre(user_data) # in str
     unique_movie_friends = get_friends_unique_watched(user_data) # in dict
@@ -225,9 +246,11 @@ def get_new_rec_by_genre(user_data):
     return recommended_list
 
 def get_rec_from_favorites(user_data):
-# (1) favorite movie list (elements are in dict)
-# (2) user's unique movie list
-# (3) favorite movies in user's unique list (in a list of dict)
+    '''
+    (1) favorite movie list (elements are in dict)
+    (2) user's unique movie list: call get_unique_watched
+    (3) favorite movies in user's unique list (in a list of dict)
+    '''
 
     favorite_list = user_data["favorites"]
     titles_user_favorite = []
