@@ -110,3 +110,19 @@ def get_new_rec_by_genre(user_data):
         available_recs)
     return list(new_recs)
 
+def get_rec_from_favorites(user_data):
+    recs = []
+    for favorite in user_data["favorites"]:
+        skip = False
+        favorite_title = favorite["title"]
+        for friend in user_data["friends"]:
+            for movie in friend["watched"]:
+                movie_title = movie["title"]
+                if movie_title == favorite_title:
+                    skip = True
+                    break
+            if skip:
+                break
+        if not skip:
+            recs.append(favorite)
+    return recs
