@@ -70,24 +70,42 @@ def get_most_watched_genre(user_data):
                 genre_count[movie["genre"]] = 1
             else:    
                 # key: add +1 to value
-                genre_count[movie["genre"]] += 1
-        
+                genre_count[movie["genre"]] += 1       
         #get max from genre_count
         return max(genre_count, key=genre_count.get)
     else:
         return None 
+
+
+# ------------- WAVE 3 --------------------
+
+
+# determine which movies the user has watched
+# but none of their friends have watched
+def get_unique_watched(user_data):
+     
+    # access user movie - user_data["watched"]["title"]
+    # user_data["friends"][i]["watched"] -> list of movie
+    # list of dictionary to save user's unique movies
+    user_unique_watched =[ ] 
+    # get movies from all friends 
+    all_friends_movies = [ ]
+    
+    for i in range (0, len(user_data["friends"])):
+        all_friends_movies.extend(user_data["friends"][i]["watched"])
+    print("all friends movies: ", all_friends_movies)
+
+    for movie in user_data["watched"]:
+        # if user movie title in friend's, continue?
+        if movie in all_friends_movies:
+            continue
+        # else (not in friends), append 
+        else:
+            user_unique_watched.append(movie)
+    return user_unique_watched
     
 
-
-
-# -----------------------------------------
-# ------------- WAVE 3 --------------------
-# -----------------------------------------
 '''
-#user watched but friends didnt
-def get_unique_watched(user_data):
-    intersecter??
-
 #friends watched but user didnt
 def get_friends_unique_watched(user_data):
 
