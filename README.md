@@ -200,7 +200,7 @@ This project is designed such that one could puzzle together how to implement th
 
 When our test failures leave us confused and stuck, let's use the detailed project requirements below.
 
-### Wave 1
+### Wave 1 ### Done
 
 1. Create a function named  `create_movie`. ** PASSED **
  This function and all subsequent functions should be in `party.py`. `create_movie` should...
@@ -261,7 +261,7 @@ This function should...
 
 Note: For Waves 2, 3, 4, and 5, your implementation of each of the functions should not modify `user_data`.
 
-### Wave 2
+### Wave 2 ### DONE
 
 1. Create a function named `get_watched_avg_rating`. This function should...
 
