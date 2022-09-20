@@ -1,11 +1,30 @@
 import pytest
 from viewing_party.party import *
 from tests.test_constants import *
+import pprint 
 
-@pytest.mark.skip()
+def test_watched_by_friends():
+    # Arrange
+    amandas_data = clean_wave_3_data() 
+
+    # Act
+    friends_movies = watched_by_friends(amandas_data)
+
+    #Assert 
+    assert isinstance(friends_movies, list)
+
+    # expect HORROR_1 from first friend and INTRIGUE_1 from second friend
+    assert HORROR_1 in friends_movies
+    assert INTRIGUE_1 in friends_movies 
+    # pprint.pprint(friends_movies)
+
+
+
+# @pytest.mark.skip()
 def test_my_unique_movies():
     # Arrange
     amandas_data = clean_wave_3_data()
+    # pprint.pprint(clean_wave_3_data()['friends'])
 
     # Act
     amandas_unique_movies = get_unique_watched(amandas_data)
@@ -16,7 +35,7 @@ def test_my_unique_movies():
     assert INTRIGUE_2 in amandas_unique_movies
     assert amandas_data == clean_wave_3_data()
 
-@pytest.mark.skip()
+# @pytest.mark.skip()
 def test_my_not_unique_movies():
     # Arrange
     amandas_data = clean_wave_3_data()

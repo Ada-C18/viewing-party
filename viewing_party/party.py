@@ -142,7 +142,52 @@ def get_most_watched_genre(user_data):
 # ------------- WAVE 3 --------------------
 # -----------------------------------------
 
-        
+# ----- partial data structure outline -------
+# 
+# {'friends': [
+#               {'watched': [
+#                   (list of movies) ]}]
+#   'watched': [
+#               (list of movies)]}
+
+def watched_by_friends(user_data):
+    # takes user_data, returns a list of movies watched by friends
+    # need to use a list here since dicts are not hashable. 
+    # (do not prematurely optimize, do not prematurely optimize, ...)
+
+    friends_movie_list = []
+    for friend in user_data['friends']:
+        friends_movie_list.extend(friend['watched'])
+    
+    return friends_movie_list 
+
+def get_unique_watched(user_data):
+    # takes user_data returns a list of movies watched by 
+    # the user but not watched by friends
+    
+    # all of these should be lists 
+    friends_watched = watched_by_friends(user_data)
+    my_watched = user_data.get('watched', [])
+    my_unique = []
+
+    for movie in my_watched:
+        if movie not in friends_watched:
+            my_unique.append(movie)
+
+    return my_unique
+
+
+
+
+
+
+
+
+
+
+
+
+
 # -----------------------------------------
 # ------------- WAVE 4 --------------------
 # -----------------------------------------
