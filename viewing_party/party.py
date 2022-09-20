@@ -23,7 +23,11 @@ def add_to_watched(user_data, movie):
     # user_data["watched"] = curr # replacing the old empty value with the new value # this was causing the issue - why?
 
     return user_data
-    
+
+def add_to_watchlist(user_data, movie):
+    prev = user_data["watchlist"]
+    curr = prev.append(movie)
+    return user_data
 # curr = prev.update({"watched":movie}) # this gives AttributeError: 'list' object has no attribute 'update' error # tried .append and got type error none doesn't have len # do we need to bring the index in at all?
 ''' user_data["watched"].append(movie)
     return user_data '''
