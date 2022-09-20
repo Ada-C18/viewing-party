@@ -1,21 +1,14 @@
 # ------------- WAVE 1 --------------------
 
-# def create_movie(title, genre, rating):
-#     if title and genre and rating is True:
-#         return {'title':title,
-#         'genre': genre,
-#         'rating':rating
-#         }
-#     else:
-#         return None 
-#     pass
-
 def create_movie(title, genre, rating):
-    if title is not None and genre is not None and rating is not None\
-            and title is not False and genre is not False and rating is not False:
-        return {'title': title, 'genre': genre, 'rating': rating}
+    if title and genre and rating is True:
+        return {'title':title,
+        'genre': genre,
+        'rating':rating
+        }
     else:
-        return None
+        return None 
+    pass
 
 
 def add_to_watched(user_data, movie):
@@ -40,7 +33,6 @@ def watch_movie(user_data, title):
         user_data['watchlist'].remove(needed_movie)
 
     return user_data
-
 
 
 # -----------------------------------------
