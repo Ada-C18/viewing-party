@@ -105,27 +105,14 @@ def get_most_watched_genre(user_data):
 # -----------------------------------------
 
 def get_unique_watched(user_data):
-    #takes in user_data (a dictionary with 2 keys, watched and watchlist)
+    #takes in user_data (a dictionary with 3 keys, watched and watchlist and friends)
     #now, user_data has a third key: "friends".
     #the value associated with this is a list of dictionaries, one dictionary per friend.
     # The dictionary for each friend has "watched", with a list of movies. (which is itself a dict, remember.) 
     #This function outputs the list of movies (dicts) in watched that are unique, and not watched by another friend.
     
-    #make a list of the user's movie titles
-    user_watched_titles = []
-    for movie in user_data['watched']:
-        user_watched_titles.append(movie["title"])
-    
-
-    #make a list of the friend's movie titles
-    friend_watched_titles = []
-    for friend in user_data["friends"]:
-        for movie in friend["watched"]:
-            friend_watched_titles.append(movie["title"])
-    
-    #make a set of these titles. 
-    user_watched_titles = set(user_watched_titles)
-    friend_watched_titles = set(friend_watched_titles)
+    user_watched_titles = get_user_watched_titles(user_data)
+    friend_watched_titles = get_friends_watched_titles(user_data)
 
     #set difference
     unique_watched_titles = user_watched_titles - friend_watched_titles
@@ -138,7 +125,25 @@ def get_unique_watched(user_data):
 
     return unique_watched_movies
 
-    
+def get_user_watched_titles(user_data):
+    #returns a set of titles user has watched.
+    user_watched_titles = []
+    for movie in user_data['watched']:
+        user_watched_titles.append(movie["title"])
+    return set(user_watched_titles)
+
+def get_friends_watched_titles(user_data):
+    #returns a set of titles of movies friend has watched.
+    friend_watched_titles = []
+    for friend in user_data["friends"]:
+        for movie in friend["watched"]:
+            friend_watched_titles.append(movie["title"])
+    return set(friend_watched_titles)
+
+
+#def get_friends_unique_watched(user_data):
+    #this takes in user_data (with keys including 'watched' and 'friends')
+    # it returns a list of dictionaries of all the movies a friend(s) has watched that user hasn't.  
 
 
         
