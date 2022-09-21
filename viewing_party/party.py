@@ -257,5 +257,25 @@ def most_frequent_genre(user_data):
     
     return top_genre
 
+def get_new_rec_by_genre(user_data):
+    # get a new recommendation that matches the 
+    # favorite genre and hasn't been seen. 
 
-            
+    movies_from_friends = remove_duplicates_by_title(watched_by_friends(user_data))
+    favorite_genre = most_frequent_genre(user_data)
+
+    # 1. The user has not watched it
+    # 2. At least one of the user's friends has watched
+    # 3. The "genre" of the movie is the same as the user's most frequent genre
+
+    movie_recs = []
+    for movie in movies_from_friends:
+        if (movie['genre'] == favorite_genre) and (movie not in user_data['watched']):
+            movie_recs.append(movie)
+
+    return movie_recs 
+
+
+
+
+
