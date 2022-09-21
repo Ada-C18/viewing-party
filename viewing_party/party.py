@@ -69,33 +69,86 @@ def get_most_watched_genre(user_data):
 # -----------------------------------------
 
 
-def get_unique_watched(user_data):      
-    # breakpoint()
+def get_unique_watched(user_data):    # return 
+    # a list of dictionaries of movies watched by 
+    # the user  
+
     # create a set of movies that friends have watched: 
-    friend_set = set()
-    for friend in user_data["friends"]:
-        for movie in friend["watched"]:
-            friend_set.add(movie["title"])   # for sets is add
+    # friend_set = set()
+    # for friend in user_data["friends"]:
+    #     for movie in friend["watched"]:
+    #         friend_set.add(movie["title"])   # for sets is add
 
-    #breakpoint() 
+    # #breakpoint() 
 
-    unique_watched = []
+    # unique_watched = []
+    # for movie in user_data["watched"]:
+    #     if movie["title"] not in friend_set:
+    #         unique_watched.append(movie)
+
+    # return unique_watched
+    unique = []
+    combined_movies = [] # users movies and friends movies
+    users_movies = []
+    friends_movies = []
+
     for movie in user_data["watched"]:
-        if movie["title"] not in friend_set:
-            unique_watched.append(movie)
-    # breakpoint()
+        users_movies.append(movie)
+
+    for movie in user_data["friends"]:
+        for item in movie["watched"]:
+            friends_movies.append(item)
+
+    combined_movies = users_movies + friends_movies
+
+    for item in combined_movies:
+        if item not in friends_movies:
+            unique.append(item)
+    return unique
     
-    return unique_watched
 
+#part 2:
+def get_friends_unique_watched(user_data):
 
+    # user_movies_list = []
+    # for movie in user_data["watched"]:
+    #     user_movies_list.append(movie)
+    # #print(user_movies_list)
+    # print(user_data)
 
+    left_to_watch_by_user = []
+    users_movies = []
+    friends_movies = []
 
+    for movie in user_data["watched"]:
+        users_movies.append(movie)
 
+    for movie in user_data["friends"]:
+        for item in movie["watched"]:
+            friends_movies.append(item)
 
+    for item in friends_movies:
+        if item not in users_movies:
+            if item not in left_to_watch_by_user:
+                left_to_watch_by_user.append(item)
+    return left_to_watch_by_user
+    
+   
 
+    # # friends_movies_list = []
+    # # for friends in user_data["friends"]:
+    # #     for key in friends["watched"]:
+    # #         pass
 
+    # friends_movies_list = user_data["friends"]
     
 
+
+
+
+#     my_set = ()
+#     for movie in user_data["watched"]:
+    
 
 
 
