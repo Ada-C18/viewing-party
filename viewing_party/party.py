@@ -236,3 +236,26 @@ def get_available_recs(user_data):
 # ------------- WAVE 5 --------------------
 # -----------------------------------------
 
+def most_frequent_genre(user_data):
+    # get the most frequent genre from user_data
+
+    genre_freq_table = {}
+    for movie in user_data['watched']:
+        if movie['genre'] in genre_freq_table:
+            genre_freq_table[movie['genre']] += 1
+        else:
+            genre_freq_table[movie['genre']] = 1
+
+    top_genre = ""
+    top_score = 0
+    if len(genre_freq_table) == 0:
+        return None 
+    for genre, score in genre_freq_table.items():
+        if score > top_score:
+            top_score = score
+            top_genre = genre
+    
+    return top_genre
+
+
+            

@@ -1,6 +1,32 @@
 import pytest
 from viewing_party.party import *
 from tests.test_constants import *
+import pprint 
+
+def test_most_frequent_genre():
+    # Arrange
+    sonyas_data = clean_wave_5_data()
+    adrians_data = clean_wave_5_data()
+
+    adrians_data['watched'] = []
+
+    pprint.pprint(sonyas_data['watched'])
+
+    # Act 
+    top_genre = most_frequent_genre(sonyas_data)
+    null_genre = most_frequent_genre(adrians_data)
+
+    
+
+    # Assert
+    assert top_genre == 'Fantasy'
+    assert null_genre == None
+
+
+
+
+
+
 
 @pytest.mark.skip()
 def test_new_genre_rec():
