@@ -84,8 +84,11 @@ def get_most_watched_genre(user_data):
 # ------------- WAVE 3 --------------------
 # -----------------------------------------
 def get_unique_watched(user_data):
-    # user_data is a dictionary with "watched" (with list of movie dictionaries) 
-    # and "friends" (with a list of movie dictionaries of what friends have watched)
+    ''' 
+        user_data is a dictionary with "watched" (list of movie dictionaries) 
+        "friends" (with a list of movie dictionaries of what friends have watched)
+        returns list of dictionaries of unique movies the user has watched
+    '''
     user_set = user_watched_list(user_data)
     friends_set = friend_watched_list(user_data)
     unique_movies_set = user_set - friends_set
@@ -159,4 +162,18 @@ def get_available_recs(user_data):
 # -----------------------------------------
 # ------------- WAVE 5 --------------------
 # -----------------------------------------
+def get_new_rec_by_genre(user_data):
+    '''
+    Returns a list of recommended movies for user
+    Movie in list if user has not watched it, at least one of the user's friends has watched the movie
+    The genre of the movie is the same as the user's most frequent genre
+    '''
+    recommended_movies = []
+    friends_watched = get_friends_unique_watched(user_data)
+    user_most_watched_genre = get_most_watched_genre(user_data)
 
+    for movie in friends_watched:
+        if movie["genre"] == user_most_watched_genre:
+            recommended_movies.append(movie)
+    
+    return recommended_movies
