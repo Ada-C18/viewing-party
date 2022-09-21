@@ -1,5 +1,4 @@
 # ------------- WAVE 1 --------------------
-
 def create_movie(title, genre, rating):    
     if title and genre and (type(rating) == int or type(rating) == float):
         new_movie ={}  
@@ -10,7 +9,7 @@ def create_movie(title, genre, rating):
     return None
 
 def add_to_watched(user_data, movie):
-    # add movie to the "watched" list inside "user_data"
+    # add movie (which is a dictionary) to the "watched" list inside "user_data"
     # "watched" is a dictionary key but it's also the index
     # of the list "user_data"
     user_data["watched"].append(movie)
@@ -22,17 +21,16 @@ def add_to_watchlist(user_data, movie):
     return user_data
 
 def watch_movie(user_data, title):
+    watchlist_list = user_data["watchlist"]
+    watched_list = user_data["watched"]
     
-    # if title is in a movie in watchlist
-    if user_data["watchlist"]["movie"]["title"] == title:
-    # remove the movie from watchlist using .pop()
-        user_data["watchlist"]["movie"]["title"].pop(title)
-        #add movie to "watched"
-        user_data["watched"].append(title)
-        return user_data
+    for movie in watchlist_list:
+        if movie["title"] == title:
+            watchlist_list.remove(movie)
+            watched_list.append(movie)
+            return user_data
     else:
         return user_data
-
 
 # -----------------------------------------
 
