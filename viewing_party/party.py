@@ -4,7 +4,7 @@ from hashlib import new
 from re import M
 from collections import Counter
 
-from tests.test_constants import GENRE_1, MOVIE_TITLE_1, RATING_1
+from tests.test_constants import GENRE_1, MOVIE_TITLE_1, RATING_1, USER_DATA_3
 
 
 def create_movie(title, genre, rating):
@@ -65,6 +65,7 @@ def get_watched_avg_rating(janes_data):
         average = total_of_all_ratings / len(janes_data["watched"])
     return average
 
+# added import from collections to use Counter() in this function
 def get_most_watched_genre(janes_data):
     list_of_genres = []
     dict_of_genres = Counter()
@@ -81,18 +82,52 @@ def get_most_watched_genre(janes_data):
     else:
         return None
             
-
 def get_unique_watched(amandas_data):
-    unique_movies = []
-    for i in range(len(amandas_data["watchlist"])):
-        if janes_data["watchlist"][i]["title"] == MOVIE_TITLE_1:
-            move_from_watchlist_to_watched = {
-                    "title": janes_data["watchlist"][i].pop("title"),
-                    "genre": janes_data["watchlist"][i].pop("genre"),
-                    "rating": janes_data["watchlist"][i].pop("rating")
-                }
-            janes_data["watched"].append(move_from_watchlist_to_watched)    
+    # function takes in dict of dicts {"watched":[{}],"friends":[{"watched": [{}]}, {"watched": [{}]} }] }
+    amandas_movie_list = [] 
+    friends_movie_list = []
+    unique_movie_list = []
+    j = 0 # iterator
+    
+    # create list of movie titles (strings) for movies amanda has watched
+    for movie in amandas_data["watched"]:
+        amandas_movie_list.append(movie)
+    
+    #create list of movie titles (strings) for movies friends have watched
+    for friend in amandas_data["friends"]:
+        for watched_movies in amandas_data["friends"][j]["watched"]:
+            friends_movie_list.append(watched_movies)
+        j += 1
+    
+    for movie in amandas_movie_list:
+        if movie not in friends_movie_list:
+            unique_movie_list.append(movie)
+    
+    return(unique_movie_list)
+
+def get_friends_unique_watched(amandas_data):
+    # function takes in dict of dicts {"watched":[{}],"friends":[{"watched": [{}]}, {"watched": [{}]} }] }
+    amandas_movie_list = [] 
+    friends_movie_list = []
+    unique_movie_list = []
+    j = 0 # iterator
+    
+    # create list of movie titles (strings) for movies amanda has watched
+    for movie in amandas_data["watched"]:
+        amandas_movie_list.append(movie)
+    
+    #create list of movie titles (strings) for movies friends have watched
+    for friend in amandas_data["friends"]:
+        for watched_movies in amandas_data["friends"][j]["watched"]:
+            friends_movie_list.append(watched_movies)
+        j += 1
+    
+    for movie in friends_movie_list:
+        if movie not in amandas_movie_list and movie not in unique_movie_list:
+            unique_movie_list.append(movie)
         
+    return(unique_movie_list)
+
 # -----------------------------------------
 # ------------- WAVE 4 --------------------
 # -----------------------------------------
