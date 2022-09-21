@@ -67,9 +67,9 @@ def get_most_watched_genre(user_data):
         else:
             genre_counter[genre] += 1
     sorted_genre_count = sorted(genre_counter.values())
-    for key, value in genre_counter.items():
-        if value == sorted_genre_count[-1]:
-            return key
+    for genre, frequency in genre_counter.items():
+        if frequency == sorted_genre_count[-1]:
+            return genre
     return None
         
 # -----------------------------------------
