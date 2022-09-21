@@ -88,9 +88,9 @@ def get_unique_watched(user_data):
             if friend_movie not in friend_movies_combined:
                 friend_movies_combined.append(friend_movie)
 
-    for m in user_movies:
-        if m not in friend_movies_combined:
-            unique_movies.append(m)
+    for movie in user_movies:
+        if movie not in friend_movies_combined:
+            unique_movies.append(movie)
     
     return unique_movies
 
@@ -145,7 +145,6 @@ def get_new_rec_by_genre(user_data):
     return recommended_movies
 
 def get_rec_from_favorites(user_data):
-    user_movies = user_data['watched']
     friends_movies = user_data['friends']
     favorites = user_data['favorites']
 
