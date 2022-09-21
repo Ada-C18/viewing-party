@@ -56,7 +56,7 @@ def test_friends_unique_movies_not_duplicated():
     assert len(friends_unique_movies) == 3
 
     # raise Exception("Test needs to be completed.")
-    # assert (movie in friends_unique_movies.count < 2)
+    assert len(confirm_no_duplicates(friends_unique_movies)) == len(friends_unique_movies)
 
 # @pytest.mark.skip()
 def test_friends_not_unique_movies():
