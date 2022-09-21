@@ -75,6 +75,10 @@ def get_most_watched_genre(user_data):
         # ACTION_1, 
         # INTRIGUE_1, 
         # INTRIGUE_2]
+
+    if len(temp_list_of_moviedict) == 0:
+        return None
+
          
     for i in range(0, len(temp_list_of_moviedict)):
         genre_value = temp_list_of_moviedict[i]["genre"] #fantasy

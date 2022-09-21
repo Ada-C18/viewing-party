@@ -40,14 +40,14 @@ def test_most_watched_genre():
     assert janes_data == clean_wave_2_data()
 
 # @pytest.mark.skip()-4
-# def test_genre_is_None_if_empty_watched():
-#     # Arrange
-#     janes_data = {
-#         "watched": []
-#     }
+def test_genre_is_None_if_empty_watched():
+    # Arrange
+    janes_data = {
+        "watched": []
+    }
 
-#     # Act
-#     popular_genre = get_most_watched_genre(janes_data)
+    # Act
+    popular_genre = get_most_watched_genre(janes_data)
 
-#     # Assert
-#     assert popular_genre == None
+    # Assert
+    assert popular_genre == None
