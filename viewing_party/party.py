@@ -176,21 +176,42 @@ def get_unique_watched(user_data):
 
     return my_unique
 
+def remove_duplicates_by_title(movie_list):
+    # remove duplicates from a list using the title as a key
+    # not ideal to use titles alone as keys due to duplicate 
+    # titles, but it gets the job done. 
+
+    movie_dict = {}
+    for movie in movie_list:
+        if movie['title'] not in movie_dict:
+            movie_dict[movie['title']] = movie 
+    
+    return movie_dict.values()
 
 
+def get_friends_unique_watched(user_data):
+    # takes user_data returns a list of movies watched by 
+    # friends but not watched by the user 
 
+    # all of these should be lists 
+    friends_watched = watched_by_friends(user_data)
+    my_watched = user_data.get('watched', [])
+    friends_not_unique = []
 
+    for movie in friends_watched:
+        if movie not in my_watched:
+            friends_not_unique.append(movie)
 
+    # remove duplicates from friends_not_unique
+    friends_unique = remove_duplicates_by_title(friends_not_unique)
 
-
-
-
-
-
+    return friends_unique
 
 # -----------------------------------------
 # ------------- WAVE 4 --------------------
 # -----------------------------------------
+
+
 
 # -----------------------------------------
 # ------------- WAVE 5 --------------------
