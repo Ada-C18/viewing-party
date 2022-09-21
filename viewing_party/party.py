@@ -129,26 +129,33 @@ def get_friends_unique_watched(user_data):
 # ------------- WAVE 4 --------------------
 
 
-#friends watched but user didnt, on host
+# on top of Wave 4, check if user has subscription of movie
 def get_available_recs(user_data):
-    reconmmended_movie = []
+    recs_movie = []
     friends_unique_movies = get_friends_unique_watched(user_data)
     for i in range (len(friends_unique_movies)):
         if friends_unique_movies[i]["host"] in user_data["subscriptions"]:
-            reconmmended_movie.append(friends_unique_movies[i])        
-    return reconmmended_movie
+            recs_movie.append(friends_unique_movies[i])        
+    return recs_movie
     
         
 
 # ------------- WAVE 5 --------------------
 
 
-'''
-# matching genre with the max 
+# matching genre with the max, add to recs
 def get_new_rec_by_genre(user_data):
+    recs_movie = []
+    max_genre_movie = get_most_watched_genre(user_data)
+    friends_unique_movies = get_friends_unique_watched(user_data)
+    for i in range(len(friends_unique_movies)):
+        if friends_unique_movies[i]["genre"] == max_genre_movie:
+            recs_movie.append(friends_unique_movies[i]) 
+    return recs_movie
+
+
 
 # movie is in the user's "favorites"; 
 # None of the user's friends have watched it
 
-def get_rec_from_favorites(user_data):
-'''
+#def get_rec_from_favorites(user_data):
