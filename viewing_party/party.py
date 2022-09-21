@@ -149,4 +149,29 @@ def get_available_recs(user_data):
 def get_new_rec_by_genre(user_data):
 
     favorite_genre = get_most_watched_genre(user_data)
-    print(favorite_genre)
+    new_rec_by_genre = []
+    for friend in user_data["friends"]:
+        for movie_dict in friend["watched"]:
+            if movie_dict["genre"] == favorite_genre:
+                if movie_dict not in user_data["watched"]:
+                    new_rec_by_genre.append(movie_dict)
+    
+    return new_rec_by_genre
+
+def get_rec_from_favorites(user_data):
+
+    movies_to_recommend = []
+
+    #add all user favorites to recommended list
+    for movie_dict in user_data["favorites"]:
+        movies_to_recommend.append(movie_dict)
+        print(f"favorites list: {movies_to_recommend}")
+
+    #remove movies if in friends watched lists
+    for friend in user_data["friends"]:
+        for movie_dict in friend["watched"]:
+            if movie_dict in movies_to_recommend:
+                movies_to_recommend.remove(movie_dict)
+    
+    print(f"movies to recommend: {movies_to_recommend}")
+    return movies_to_recommend
