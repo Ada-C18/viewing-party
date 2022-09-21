@@ -117,20 +117,12 @@ def get_available_recs(user_data):
     # take one parameter: user_data
 def  get_new_rec_by_genre(user_data):
     recommended_movie=[]
-    # new_list user most frequently watched by genre
     
-    # watched_genre is a string
-    # consider the user's most frequently watched genre
     watched_genre = get_most_watched_genre(user_data)
 
-    # determine list of recommended movies
-    # movies should be added to the list if and only if the user has not watched it \
-    # and at least one of the user's friends has watched
+   
     recs = get_available_recs(user_data)
 
-    # the genre of the movie is the same as the user's most frequent genre
-
-    # pull the genre of the available recs and compare them to the most watched genre
 
     for movie in recs:
         if watched_genre == movie['genre']:
