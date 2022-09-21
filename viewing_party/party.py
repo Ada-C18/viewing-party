@@ -83,8 +83,44 @@ def get_most_watched_genre(user_data):
 # -----------------------------------------
 # ------------- WAVE 3 --------------------
 # -----------------------------------------
-
+def get_unique_watched(user_data):
+    user_watch_list = user_data["watched"]
+    
+    friends_list = user_data["friends"]
+    
+    friends_watch_list = []
+    for dicts in friends_list:
+        friends_watch_list.append(dicts["watched"])
         
+    friends_watch_list = [val for sublist in friends_watch_list for val in sublist]
+
+    unique_friend_watch = list({val["title"]:val for val in friends_watch_list}.values())
+    
+    for val in unique_friend_watch:
+        if val in user_watch_list:
+            user_watch_list.remove(val)
+            
+    return user_watch_list
+
+def get_friends_unique_watched(user_data):
+    
+    user_watch_list = user_data["watched"]
+    
+    friends_list = user_data["friends"]
+    
+    friends_watch_list = []
+    for dicts in friends_list:
+        friends_watch_list.append(dicts["watched"])
+        
+    friends_watch_list = [val for sublist in friends_watch_list for val in sublist]
+    
+    unique_friend_watch = list({val["title"]: val for val in friends_watch_list}.values())
+    
+    for val in user_watch_list:
+        if val in unique_friend_watch:
+            unique_friend_watch.remove(val)
+            
+    return unique_friend_watch
 # -----------------------------------------
 # ------------- WAVE 4 --------------------
 # -----------------------------------------
