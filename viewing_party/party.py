@@ -1,9 +1,10 @@
 # ------------- WAVE 1 --------------------
-
-# create movie as dictionary with title, genre, rating as key
 from curses import keyname
 from re import A
 
+'''
+Create movie within dictionary with title, genre, rating as key.
+'''
 
 def create_movie(title, genre, rating):   
     movie = {}
@@ -15,17 +16,27 @@ def create_movie(title, genre, rating):
         movie["rating"] = rating
         return movie
 
-# add movie to watched
+'''
+Add movie to watched in user_data.
+'''
+
 def add_to_watched(user_data, movie):  
     user_data["watched"].append(movie)
     return user_data
 
-# add movie to watchlist
+'''
+Add movie to watchlist in user_data.
+'''
+
 def add_to_watchlist(user_data, movie):
     user_data["watchlist"].append(movie)
     return user_data
 
-# if title matches element in watchlist, remove movie from watchlist and add to watched; otherwise return user_data
+'''
+Remove movie from watchlist and add to watched if title matches element in watchlist; 
+Otherwise return user_data.
+'''
+
 def watch_movie (user_data, title):    
     for movie in user_data["watchlist"]:
         if title in movie["title"]:
@@ -40,7 +51,10 @@ def watch_movie (user_data, title):
 
 # ------------- WAVE 2 --------------------
 
-# calculate avg. rating of all movie in wached list
+'''
+Calculate avg. rating of all movie in wached list from user_data.
+'''
+
 def get_watched_avg_rating(user_data):
     
     sum_rating = 0.0
@@ -53,12 +67,16 @@ def get_watched_avg_rating(user_data):
     else:
         return 0.0
 
-# get most watched genre 
+'''
+Get movie name of most watched genre from user_data.
+'''
+
 def get_most_watched_genre(user_data):
     # access movie genre - user_data["watched"][0]["genre"] 
     
-    # create dict {}, genre : count, add to count if exsit, add key pair if non exsit; get max value from dict and return the key
-    #if "watched" is empty, return None
+    # create dict {}, genre : count, add to count if exsit, add key pair if non exsit; 
+    # get max value from dict and return the key
+    # if "watched" is empty, return None
     genre_count = { }
     watched_length = len(user_data["watched"])
     if watched_length > 0:
@@ -77,9 +95,13 @@ def get_most_watched_genre(user_data):
         return None 
 
 
-# ------------- WAVE 3 -------------------- HELPER FUNCTION!
+# ------------- WAVE 3 -------------------- 
+# HELPER FUNCTION!
 # set options???
-# determine which movies the user has watched but none of their friends have watched
+'''
+Return a list that determines which movies the user has watched but none of their friends have watched.
+'''
+
 def get_unique_watched(user_data):
      
     # access user movie - user_data["watched"]["title"]
@@ -91,8 +113,7 @@ def get_unique_watched(user_data):
     
     for i in range (0, len(user_data["friends"])):
         all_friends_movies.extend(user_data["friends"][i]["watched"])
-    #print("all friends movies: ", all_friends_movies)
-
+    
     for movie in user_data["watched"]:
         # if user movie title in friend's, continue?
         if movie in all_friends_movies:
@@ -103,18 +124,18 @@ def get_unique_watched(user_data):
     return user_unique_watched
     
 
-#determine which movies one of the friends watched but user didnt
+'''
+Return a list that determines which movies one of the friends watched but user didnt.
+'''
+
 def get_friends_unique_watched(user_data):
 
     # get unique movies from friends
     friends_unique_movies = []
-
     # get movies from all friends 
     all_friends_movies = []
-
     for i in range (0, len(user_data["friends"])):
         all_friends_movies.extend(user_data["friends"][i]["watched"])
-
     for friend_movie in all_friends_movies:
             # if friend movie title in user, continue
             if friend_movie in user_data["watched"]:
@@ -128,22 +149,24 @@ def get_friends_unique_watched(user_data):
 
 # ------------- WAVE 4 --------------------
 
+'''
+Get a list of recs_movie, on top of condition from friends_unique_movies in Wave 3, check if user has matching subscription.
+'''
 
-# on top of Wave 4, check if user has subscription of movie
 def get_available_recs(user_data):
     recs_movie = []
     friends_unique_movies = get_friends_unique_watched(user_data)
     for i in range (len(friends_unique_movies)):
         if friends_unique_movies[i]["host"] in user_data["subscriptions"]:
             recs_movie.append(friends_unique_movies[i])        
-    return recs_movie
-    
-        
+    return recs_movie       
 
 # ------------- WAVE 5 --------------------
 
+'''
+Get a list of recs_movie, on top of condition from friends_unique_movies() in Wave 3, check if genre matches max genre using Wave 2.
+'''
 
-# matching genre with the max, add to recs
 def get_new_rec_by_genre(user_data):
     recs_movie = []
     max_genre_movie = get_most_watched_genre(user_data)
@@ -153,10 +176,9 @@ def get_new_rec_by_genre(user_data):
             recs_movie.append(friends_unique_movies[i]) 
     return recs_movie
 
-
-
-# movie is in the user's "favorites"; 
-# None of the user's friends have watched it
+'''
+Get a list of recs_movie, on top of condition from get_unique_watched() in Wave 3, check if movie in user favorites list.
+'''
 
 def get_rec_from_favorites(user_data):
     recs_movie =[]
