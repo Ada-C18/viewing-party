@@ -186,7 +186,9 @@ def remove_duplicates_by_title(movie_list):
         if movie['title'] not in movie_dict:
             movie_dict[movie['title']] = movie 
     
-    return movie_dict.values()
+    # make sure the fuction returns a list rather than 
+    # a dict.values() iterator
+    return list(movie_dict.values())
 
 
 def get_friends_unique_watched(user_data):

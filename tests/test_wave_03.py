@@ -110,3 +110,28 @@ def test_friends_not_unique_movies():
 
     # Assert
     assert len(friends_unique_movies) == 0
+
+def test_remove_duplicates_by_title_returns_list():
+
+    # Arrange
+    watched_test1 = [HORROR_1, HORROR_1, FANTASY_1, FANTASY_1]
+    watched_test2 = [HORROR_1, FANTASY_1, HORROR_1, FANTASY_1]
+
+    # Act
+    unique1 = remove_duplicates_by_title(watched_test1)
+    unique2 = remove_duplicates_by_title(watched_test2)
+
+    # Assert 
+    assert len(unique1) == 2
+    assert len(unique2) == 2
+    assert unique1[0]['title'] != unique1[1]['title']
+    assert unique2[0]['title'] != unique2[1]['title']
+
+
+
+
+
+
+
+
+
