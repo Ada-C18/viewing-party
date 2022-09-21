@@ -1,4 +1,6 @@
+
 # ------------- WAVE 1 --------------------
+
 
 def create_movie(title, genre, rating):
     if title ==None:
@@ -116,12 +118,98 @@ def get_most_watched_genre(user_data):
 # ------------- WAVE 3 --------------------
 # -----------------------------------------
 
-        
+
+
+def get_unique_watched(user_data):
+    #dictionary['friends'][0]['watched'][movie_list][movie]
+    #if len(user_data)>0:
+
+        #create total list of movies
+        list_of_watched_movies=[]
+        for friend in user_data['friends']:
+            for movie in friend['watched']:
+                list_of_watched_movies.append(movie)
+
+        list_of_unique_movies=[]
+        #create list of unique movies   
+        for watched_movie in user_data['watched']:
+            if watched_movie not in list_of_watched_movies:
+                list_of_unique_movies.append(watched_movie)
+
+        return list_of_unique_movies  
+#write helper function
+
+
+def get_friends_unique_watched(user_data):
+
+    #get total list of all watched_movies
+    list_of_watched_movies=[]
+    for friend in user_data['friends']:
+        for movie in friend['watched']:
+            list_of_watched_movies.append(movie)
+
+    
+    #create list of unique movies for friends 
+    list_of_unique_movies=[]
+    for watched_movie in user_data['watched']:
+        if watched_movie not in list_of_watched_movies:
+            list_of_unique_movies.append(watched_movie)
+
+    #list_of_watched_movies subtract list_of_unique_movies 
+    friends_unique_movies=[]
+    for unique_movie in list_of_watched_movies:
+        if unique_movie not in user_data['watched']:
+            friends_unique_movies.append(unique_movie)
+
+    #ensure no duplicates in friends_unique_movie_list
+    result=[]
+    for i in friends_unique_movies:
+        if i not in result:
+            result.append(i)
+        print(len(result))
+    friends_unique_movies=result
+    
+    return friends_unique_movies
+    
+
+
 # -----------------------------------------
 # ------------- WAVE 4 --------------------
 # -----------------------------------------
 
+def get_available_recs(user_data):
+
+    #get list of all movies like wave 3 (movies_to_recommend)
+    movies_to_recommend=[]
+    for friend in user_data['friends']:
+        for movie in friend['watched']:
+            movies_to_recommend.append(movie)
+
+    #create list of all hosts that are available (all_available_hosts)
+    all_available_hosts=[]
+    for host in user_data["subscriptions"]:
+            all_available_hosts.append(host)
+
+    #check movies meet conditions for being added to recommended_movie_list
+    recommended_movie_list=[]
+
+    #checks 2 conditions  for recommended movie (wave 3 function)
+    friends_unique_watched=get_friends_unique_watched(user_data)
+
+    #check movies_to_recommend meet conditions for being recommended
+    if len(movies_to_recommend)>0:
+        for movie_to_recommend in movies_to_recommend:
+            
+            #check if host is available in friends["subscriptions"]_list
+            if movie_to_recommend['host'] not in all_available_hosts:
+                continue
+
+            #Checks 2 conditions for recommended_movie_list -- not in user['watched'], is in user['friends']['watched']
+            if movie_to_recommend  in friends_unique_watched:
+                recommended_movie_list.append(movie_to_recommend)
+
+    return recommended_movie_list
+
 # -----------------------------------------
 # ------------- WAVE 5 --------------------
-# -----------------------------------------
-
+# ----------------------------------------
