@@ -270,7 +270,7 @@ Note: For Waves 2, 3, 4, and 5, your implementation of each of the functions sho
   - The average rating of an empty watched list is `0.0`
 - return the average rating
 
-2. Create a function named `get_most_watched_genre`. This function should...
+2. Create a function named ``get_most_watched_genre``. This function should...
 
 - take one parameter: `user_data`
   - the value of `user_data` will be a dictionary with a `"watched"` list of movie dictionaries. Each movie dictionary has a key `"genre"`.

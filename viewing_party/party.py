@@ -78,73 +78,78 @@ def get_most_watched_genre(user_data):
         max_genre = max(total_genre, key=total_genre.get)
     return max_genre
 
+#***************************************************************************************************
 # -----------------------------------------
 # ------------- WAVE 3 --------------------
 # -----------------------------------------
 
 def get_unique_watched(user_data):
     movies_user = []
-    # friends_user = []
-    
-    # missing_list = []
-    # print('watch>>>',user_data)
+    friends_user = []
 
     for count in range(len(user_data['watched'])):
-        i = 0
-        # for movies in (user_data['friends']['counter'])):
-        print(count,'>>', user_data['watched'][count]['title'])
-        print(count, '>>, user_data['friends'][i]['watched']['title'])
-    
-    #     if user_data['watched'][count]['title'] not in user_data['friends'][i]['watched']['title']:
-    #         movies_user.append(user_data['watched'][count])
-    #     i +=1
-        
-    # return movies_user    
-            
-        
-        
-    #     # print('count', count)
-    #     # print('len>>>', len(user_data['watched']))
-        
-    #     print('prueba watch>>>', user_data['watched'][count]['title'] )
-    #     # print('prueba friends>>>', user_data['friends'] )
-    #     
-    # 
-    #     for count2 in range(len(user_data['friends'])):
-    #         print('len 2>>>>', len(user_data['friends']))
-    #         print('count 2>>>>', count2)
-    #         print('prueba friend 2>>>',user_data['friends'][count2]['watched'])
-            
-    #         for count3 in range(len(user_data['friends'][count2]['watched'])):
-    #             print('len 3>>>>', len(user_data['friends'][count2]['watched']))
-    #             print('count 3>>>>', count3)
-    #             print('prueba friend 3>>>',user_data['friends'][count2]['watched'][count3]['title'])
-                
-    #             if user_data['friends'][count2]['watched'][count3]['title'] ==  user_data['watched'][count]['title']:
-    #                 break
-    #             else:
-    #                 missing_list.append(user_data['watched'][count]['title'])
-                
-    # print(missing_list)
-    #     # print(len(user_data['friends'])
-    
+        movies_user.append(user_data['watched'][count]['title'])
 
-
-        # for count in range(len(user_data['friends'])):
-        #     print('number>>', count)
-        #     # print('prueba friends>>', user_data['friends']['watched'][count]['title'] )
-        
-#     for count in range(len('watched'])):
-        
-#         print(user_data['friends'])
-        
-        # if user_data['watched'][count]['title'] in user_data['friends']['watched'][count]['title']:
-        #     print('prueba user', user_data['watched'][count]['title'] )
-        #     print('prueba friends', user_data['friends']['watched'][count]['title'])
-        
-        # for movies in user_data['watched'][count]['title']:
-        #     print('movies>>>', movies)
+    for friend in user_data['friends']:
+        for movie in friend['watched']:
+            for title,value in movie.items():
+                if title == 'title':
+                    friends_user.append(value)
     
+    #transforme the list of movies from user and friends to set, para avoid duplicate titles
+    movies_user_set = set(movies_user)
+    friends_user_set = set(friends_user)
+    
+    # obtain the difference of movies_user minus friends_movies
+    movies_only_user = movies_user_set - friends_user_set
+    
+    #convert the list -> from set to list.
+    movies_only_final_list = list(movies_only_user)
+    
+    movies_only_final_list_dict = []
+    
+    for title in movies_only_final_list:
+        for count in range(len(user_data['watched'])):
+            if user_data['watched'][count]['title'] == title:
+                movies_only_final_list_dict.append(user_data['watched'][count])
+    
+    return movies_only_final_list_dict
+
+#***************************************************************************************************
+def get_friends_unique_watched(user_data):
+    
+    movie_user = []
+    friends_users = []
+    
+    for count in range(len(user_data['watched'])):
+        movie_user.append(user_data['watched'][count]['title'])
+        
+    for friend in user_data['friends']:
+        for movie in friend['watched']:
+            for title,value in movie.items():
+                if title == 'title':
+                    friends_users.append(value)
+    
+    #transforme the list of movies from user and friends to set, para avoid duplicate titles
+    movies_user_set = set(movie_user)
+    friends_user_set = set(friends_users)
+    
+    # obtain the difference of friends_movies minus movies_user
+    movies_only_friends = friends_user_set - movies_user_set
+    
+    #convert the list -> from set to list.
+    movies_only_final_list = list(movies_only_friends)
+    print('list>', movies_only_final_list)
+    movies_friends_final_list_dict = []
+    
+    for title in movies_only_final_list:
+        for friend in user_data['friends']:
+            for movie in friend['watched']:
+                if (movie['title']) == title:
+                    if movie not in movies_friends_final_list_dict:
+                        movies_friends_final_list_dict.append(movie)
+    
+    return movies_friends_final_list_dict
         
 # -----------------------------------------
 # ------------- WAVE 4 --------------------
