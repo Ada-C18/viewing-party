@@ -52,49 +52,94 @@ def get_watched_avg_rating(user_data):
     return average_rating
 
 
-
-# def get_most_watched_genre(user_data):
-#     user_data = {
-#         "watched": [movie]
-#     }
+def get_most_watched_genre(user_data):
+    if len(user_data['watched']) == 0:
+        return None
+    
+    movie_genre_dict = {}
+    max_count = 0
+    most_watched_genre = ""
+    
+    for movie in user_data["watched"]:
+        movie_genre = movie["genre"]
+        
+        if movie_genre not in movie_genre_dict:
+            movie_genre_dict[movie_genre] = 1
+        else:
+            movie_genre_dict[movie_genre] += 1
+    
+    for genre, count in movie_genre_dict.items():
+        if count > max_count:
+            max_count = count
+            most_watched_genre = genre 
+             
+    return most_watched_genre
     
     
-
-
-
-
+    
+    
 # -----------------------------------------
 # ------------- WAVE 3 --------------------
 # -----------------------------------------
 def get_unique_watched(user_data):
-    friends_watched_list = []
-    user_watched_list = []
+    friends_watched_list = []    
     unique_list_of_dicts = []
     friends = user_data["friends"]
     user_watched = user_data["watched"]
-    
+        
     for friend in friends:
         for movie in friend["watched"]:
             friends_watched_list.append(movie["title"])
-            
-    # for movie in user_watched:
-    #     unique_list_of_dicts.append(movie["title"])
-    
+                
     for movie in user_watched:
         if movie["title"] not in friends_watched_list:
             unique_list_of_dicts.append(movie)
-    
+        
     return unique_list_of_dicts 
 
 
 
 
-        
+def get_friends_unique_watched(user_data):
+
+    friends_watched_list = []
+    unique_friends_movies = []
+    
+    for friend in user_data["friends"]:
+        for movie in friend["watched"]:
+            if movie not in friends_watched_list:
+                friends_watched_list.append(movie)
+                
+    for movie in friends_watched_list:
+        if movie not in user_data["watched"]:
+            unique_friends_movies.append(movie)
+            
+    return unique_friends_movies
+            
+   
+                   
+                       
 # -----------------------------------------
 # ------------- WAVE 4 --------------------
 # -----------------------------------------
-
+def get_available_recs(user_data):
+    user_subscriptions = [] 
+    recommended_movies = []
+    
+    # get user list of subscriptions
+    for sub in user_data["subscriptions"]:
+        user_subscriptions.append(sub)  
+               
+    # use unique friend's function 
+    while get_friends_unique_watched(user_data):
+        for friend in user_data["friends"]:
+            for movie in friend["watched"]:
+                if movie["host"] in user_subscriptions:
+                    recommended_movies.append(movie)
+    
+    return recommended_movies
+                    
+    
 # -----------------------------------------
 # ------------- WAVE 5 --------------------
 # -----------------------------------------
-
