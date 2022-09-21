@@ -28,14 +28,6 @@ def add_to_watchlist(user_data, movie):
     return user_data
 
 # moves movie from watchlist to empty watched
-# def watch_movie(user_data, title):
-#     watchlist= user_data["watchlist"]
-#     for movie in range(len(watchlist)):
-#         if watchlist[movie]["title"]== title:
-#             user_data["watched"].append(watchlist[movie])
-#             del watchlist[movie]
-#     return user_data
-
 def watch_movie(user_data, title):
     watchlist= user_data["watchlist"]
     for movie in watchlist:
@@ -81,6 +73,7 @@ def get_most_watched_genre(user_data):
 # -----------------------------------------
 # ------------- WAVE 3 --------------------
 # -----------------------------------------
+
 # create a dictionary that holds the movies of me and my friends
 def make_movie_dict_for_me_and_friends(user_data):
 
