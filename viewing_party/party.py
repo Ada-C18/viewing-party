@@ -1,8 +1,5 @@
 # ------------- WAVE 1 --------------------
 
-# user_data is a dict with a str key and a list value consisting of dicts
-# HOW to access the values that are in the dicts in the list in the dict???? ahhhhh
-
 def create_movie(title, genre, rating):
     if title and genre and rating:
         movie = {
@@ -25,7 +22,6 @@ def add_to_watchlist(user_data, movie):
     return user_data
 
 # finds the title of a movie in watchlist, then removes and transfers it to watched
-
 def watch_movie(user_data, title):
     counter = 0
     for movie in user_data["watchlist"]:
@@ -85,7 +81,39 @@ def get_most_watched_genre(user_data):
 # ------------- WAVE 3 --------------------
 # -----------------------------------------
 
-        
+def get_unique_watched(user_data):
+    friend_movies = set()
+    user_movies = set()
+    unique_watched = []
+    for friend in user_data["friends"]:
+        for movie in friend["watched"]:
+            friend_movies.add(movie["title"])
+    for movie in user_data["watched"]:
+        user_movies.add(movie["title"])
+    unique_titles = user_movies - friend_movies
+    for movie in user_data["watched"]:
+        if movie["title"] in unique_titles:
+            unique_watched.append(movie)
+    return unique_watched
+
+def get_friends_unique_watched(user_data):
+    friend_movies = set()
+    user_movies = set()
+    unique_watched = []
+    for friend in user_data["friends"]:
+        for movie in friend["watched"]:
+            friend_movies.add(movie["title"])
+    for movie in user_data["watched"]:
+        user_movies.add(movie["title"])
+    unique_titles = friend_movies - user_movies
+    for friend in user_data["friends"]:
+        for movie in friend["watched"]:
+            if movie["title"] in unique_titles:
+                if movie not in unique_watched:
+                    unique_watched.append(movie)
+    return unique_watched
+
+
 # -----------------------------------------
 # ------------- WAVE 4 --------------------
 # -----------------------------------------
