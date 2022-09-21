@@ -48,10 +48,40 @@ def get_most_watched_genre(user_data):
     return popular_genre
 
 # -----------------------------------------
-
-
-# -----------------------------------------
 # ------------- WAVE 3 --------------------
+
+def get_unique_watched(user_data):
+    friends_watched_list = []
+    user_unique_movies = []
+
+    friends = user_data["friends"] # variable for accessing list of dictionaries storing movies that friends have watched
+    user_watched = user_data["watched"] # variable of a dictionary with its value as a list of movies user has watched
+
+    for friend in friends:
+        for movie in friend["watched"]:
+            friends_watched_list.append(movie["title"])
+    
+    for movie in user_watched:
+        if movie["title"] not in friends_watched_list:
+            user_unique_movies.append(movie) # if a movie title in user watched list is not in friend's list, append entire dictionary to unique list
+        
+    return user_unique_movies
+
+def get_friends_unique_watched(user_data):
+
+    friends_watched_list = []
+    unique_friends_movie = []
+
+    for friend in user_data["friends"]:
+        for movie in friend["watched"]:
+            if movie not in friends_watched_list:
+                friends_watched_list.append(movie)
+    
+    for movie in friends_watched_list:
+        if movie not in user_data["watched"]:
+            unique_friends_movie.append(movie)
+
+    return unique_friends_movie
 # -----------------------------------------
 
         
