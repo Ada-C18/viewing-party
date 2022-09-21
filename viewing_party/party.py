@@ -213,6 +213,23 @@ def get_friends_unique_watched(user_data):
 # ------------- WAVE 4 --------------------
 # -----------------------------------------
 
+def get_available_recs(user_data):
+    # return a list of recommendations from friends
+    # that are available through subscribed streaming services
+
+    subscriptions = user_data['subscriptions']
+    movies_from_friends = remove_duplicates_by_title(watched_by_friends(user_data))
+    my_watched_titles = [movie['title'] for movie in user_data['watched']]
+
+    recs = []
+    for movie in movies_from_friends:
+        if movie['title'] not in my_watched_titles:
+            if movie['host'] in subscriptions:
+                recs.append(movie)
+    return recs 
+        
+            
+
 
 
 # -----------------------------------------
