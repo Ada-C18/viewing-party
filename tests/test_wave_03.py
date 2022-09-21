@@ -120,12 +120,14 @@ def test_remove_duplicates_by_title_returns_list():
     # Act
     unique1 = remove_duplicates_by_title(watched_test1)
     unique2 = remove_duplicates_by_title(watched_test2)
+    unique3 = remove_duplicates_by_title([])
 
     # Assert 
     assert len(unique1) == 2
     assert len(unique2) == 2
     assert unique1[0]['title'] != unique1[1]['title']
     assert unique2[0]['title'] != unique2[1]['title']
+    assert unique3 == [] 
 
 
 
