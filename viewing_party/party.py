@@ -160,4 +160,3 @@ def get_rec_from_favorites(user_data):
         
     return recommended_movies
 
-# NEED TO WRITE ASSERT 
