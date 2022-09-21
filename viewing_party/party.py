@@ -76,7 +76,7 @@ def get_most_watched_genre(user_data):
 # ------------- WAVE 3 --------------------
 # -----------------------------------------
 
-# Create get_unique_watched function
+# Create get_unique_watched function to get list of movies user watched, but not friends
 def get_unique_watched(user_data):
     unique_watched_list = []
     # Empty full_list_of_friends_watched list to add the movies that friends have watched to make one list
@@ -90,7 +90,7 @@ def get_unique_watched(user_data):
             unique_watched_list.append(movie)
     return unique_watched_list
 
-# Create get_friends_unique_watched function
+# Create get_friends_unique_watched function to get list of movies friends watched, but not user
 def get_friends_unique_watched(user_data):
     friends_unique_watched_list = []
     full_list_of_friends_watched = []
@@ -105,6 +105,19 @@ def get_friends_unique_watched(user_data):
 # -----------------------------------------
 # ------------- WAVE 4 --------------------
 # -----------------------------------------
+
+# Create get_available_recs function to get list of movies user hasn't watched and has appropriate subscription
+def get_available_recs(user_data):
+    # Call get_friends_unique_watched function to get list of unique movies friends have watched
+    list_of_friends_unique_watched = get_friends_unique_watched(user_data)
+    # Empty recommended movies list
+    recommended_movies = []
+    for subscription in user_data["subscriptions"]:
+        for i in range(len(list_of_friends_unique_watched)):
+            if subscription == list_of_friends_unique_watched[i]["host"]:
+                recommended_movies.append(list_of_friends_unique_watched[i])
+    
+    return recommended_movies
 
 # -----------------------------------------
 # ------------- WAVE 5 --------------------
