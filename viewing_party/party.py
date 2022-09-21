@@ -1,13 +1,12 @@
 # ------------- WAVE 1 --------------------
 from hashlib import new
 # from turtle import title
-
 from tests.test_constants import MOVIE_TITLE_1, clean_wave_3_data
-
 from collections import Counter
 
-# Number 1
+
 def create_movie(title, genre, rating):
+
     if title == None or genre == None or rating == None:
         return None
     else:
@@ -18,36 +17,36 @@ def create_movie(title, genre, rating):
                         }
         return movie
     
-# Number 2
+
 def add_to_watched(user_data, movie):
-    # watched_movie= movie["title"]
+   
     user_data["watched"].append(movie)
     return user_data
 
-# Number 3 
+
 def add_to_watchlist(user_data, movie):
-    # movie_to_watch = "watchlist"["title"]
+    
     user_data["watchlist"].append(movie)
     return user_data
 
-# Number 4
+
 def watch_movie(user_data, title):
+
     to_watch_list = user_data["watchlist"]
     already_watched = user_data["watched"]
+
     for i in range(len(to_watch_list)):
-        # if title in watchlist[i][title]:
         if to_watch_list[i]["title"] == title:
             already_watched.append(to_watch_list[i])
             to_watch_list.remove(to_watch_list[i])
-            # .remove(watchlist[i][title])
     return user_data
     
 # -----------------------------------------
 # ------------- WAVE 2 --------------------
 # -----------------------------------------
-# Number 1
+
 def get_watched_avg_rating(user_data):
-    pass
+   
     already_watched = user_data["watched"]
     ratings = 0
     for i in range(len(already_watched)):
@@ -58,12 +57,11 @@ def get_watched_avg_rating(user_data):
         
     return avr_rating
 
-# Number 2
 def get_most_watched_genre(user_data):
-#      pass
+
      already_watched = user_data["watched"]
      all_genres = []
-#     Determine which genre is most frequently occurring in the watched list
+
      for i in range(len(already_watched)):
         all_genres.append(already_watched[i]["genre"])
         top_genre = [word for word, word_count in Counter(all_genres).most_common(1)]
@@ -76,10 +74,9 @@ def get_most_watched_genre(user_data):
 # -----------------------------------------
 # ------------- WAVE 3 --------------------
 # -----------------------------------------
-#  Number 1
 
 def get_unique_watched(user_data):
-    pass
+    
     friends_not_watched = []
     friends_watched = []
     user_watched = user_data["watched"]
@@ -96,7 +93,7 @@ def get_unique_watched(user_data):
     return friends_not_watched
 
 def get_friends_unique_watched(user_data):
-    pass
+   
     only_friends_watched = []
     already_watched = []
     user_watched = user_data["watched"]
@@ -105,20 +102,20 @@ def get_friends_unique_watched(user_data):
         for friend in friend_list["watched"]:
             if friend not in only_friends_watched:
                 only_friends_watched.append(friend)
-    # print(f"Only friends watched is {only_friends_watched}")
+   
     for movie in user_watched:
         already_watched.append(movie)
-    # print(f'Already watched is {already_watched}')
+    
     for i in already_watched:
         if i in only_friends_watched:
             only_friends_watched.remove(i)
-    # print(f"Final Only Friends Watched is {only_friends_watched}")
+    
     return only_friends_watched
 # -----------------------------------------
 # ------------- WAVE 4 --------------------
 # -----------------------------------------
 def get_available_recs(user_data):
-    pass
+    
     recommendations = []
     user_subscriptions = user_data["subscriptions"]
     friends_watch_list = get_friends_unique_watched(user_data)
@@ -126,15 +123,13 @@ def get_available_recs(user_data):
     for m in range(len(friends_watch_list)):
         if friends_watch_list[m]["host"] in user_subscriptions:
             recommendations.append(friends_watch_list[m])
-    # print(user_subscriptions)
-    # print(friends_watch_list)
-    # print(recommendations)
+
     return recommendations
 # -----------------------------------------
 # ------------- WAVE 5 --------------------
 # ----------------------------------------
 def get_new_rec_by_genre(user_data):
-    pass
+    
     recommendations_genre = []
     favorite_genre = get_most_watched_genre(user_data)
     friends_watch_list = get_friends_unique_watched(user_data)
