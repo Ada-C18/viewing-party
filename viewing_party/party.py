@@ -42,13 +42,14 @@ def watch_movie(user_data, title):
 # -----------------------------------------
 # ------------- WAVE 2 --------------------
 # -----------------------------------------
-# Note: For Waves 2, 3, 4, and 5, your implementation of each of the functions should not modify user_data.
+# Note: For Waves 2, 3, 4, and 5, your implementation of each of the functions should not modify user_data.?
+
 # 1. Calculate the average rating of all movies in the watched list
 # The average rating of an empty watched list is 0.0
 # return the average rating
 
 def get_watched_avg_rating(user_data):
-    sum_rating = 0
+    rating_total = 0
     watched_lst = user_data["watched"]
     watched_lst_length = len(watched_lst)
 
@@ -56,8 +57,8 @@ def get_watched_avg_rating(user_data):
         return 0.0
 
     for movie in watched_lst:
-        sum_rating += movie["rating"]
-    return sum_rating / watched_lst_length
+        rating_total += movie["rating"]
+    return rating_total / watched_lst_length
 
 
 # 2. Determine which genre is most frequently occurring in the watched list
@@ -66,23 +67,19 @@ def get_watched_avg_rating(user_data):
 
 def get_most_watched_genre(user_data):
     watched_lst = user_data["watched"]
-    # 1. create genre dict 
     genre_dict = {}
-    # 2. return None if watched list empty
+
     if len(watched_lst) == 0:
         return None
-    # 3. populate genre dict
-    # -- iterate
+
     for movie in watched_lst:
         if movie["genre"] in genre_dict:
             genre_dict[movie["genre"]] += 1
         else:
             genre_dict[movie["genre"]] = 1
     
-    # 4. compare values / num of occurrences
-    # -- return highest
     current_highest = 0
-    current_genre = 0
+    current_genre = None
     for genre, num in genre_dict.items():
         if num > current_highest:
             current_highest = num
