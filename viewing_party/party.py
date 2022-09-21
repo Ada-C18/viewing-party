@@ -89,29 +89,31 @@ def get_most_watched_genre(user_data):
 # -----------------------------------------
 # ------------- WAVE 3 --------------------
 # -----------------------------------------
-# 1. Consider the movies that the user has watched, and consider the movies that their friends have watched. Determine which movies the user has watched, but none of their friends have watched.
+# 1. Determine which movies the user has watched, but none of their friends have watched.
 # Return a list of dictionaries, that represents a list of movies
 
 
 def get_unique_watched(user_data):
-    # set
-    # remove
     watched_lst = user_data["watched"]
     friends_lst = user_data["friends"]
-    unique_watched_lst = watched_lst + friends_lst
-    # print(unique_watched_lst)
+    unique_watched_lst = []
 
     for movie in watched_lst:
+        seen_movie = False
         for friend in friends_lst:
+            if movie in friend["watched"]:
+                seen_movie = True
+        
+        if seen_movie == False:
+            unique_watched_lst.append(movie)
 
-    # TODO: add movie dict to unique lst => ONLY ONCE, FIX: remove duplicates
-    # -- find same title in "watched" and "friends" lsts
-            if movie in friend["watched"] :
-                unique_watched_lst.append(movie)
-            
-            if movie in unique_watched_lst:
-                unique_watched_lst.remove(movie)
-    # 4. return lst output
+    # another possible solution
+    # unique_watched_lst = watched_lst.copy()
+        # for movie in watched_lst:
+        #     for friend in friends_lst:
+            # if movie in friend["watched"]:
+                # unique_watched_lst.remove(movie)
+
     return unique_watched_lst
 
 # 2. Create a function named get_friends_unique_watched.
@@ -139,7 +141,8 @@ def get_friends_unique_watched(user_data):
 # -----------------------------------------
 def get_available_recs(user_data):
     recommended_movies_lst = []
-    return recommended_movies_lst
+    # return recommended_movies_lst
+    pass
 
 # -----------------------------------------
 # ------------- WAVE 5 --------------------
