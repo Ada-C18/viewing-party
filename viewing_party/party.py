@@ -140,8 +140,10 @@ def get_rec_from_favorites(user_data):
     # Get list of movies user has watched, but friends haven't
     unique_watched_list = get_unique_watched(user_data)
     rec_movies_from_favorites = []
-    for movie in user_data["favorites"]:
-        for i in range(len(unique_watched_list)):
-            if movie["title"] == unique_watched_list[i]["title"]:
-                rec_movies_from_favorites.append(unique_watched_list[i])
+
+    for movie in user_data["favorites"]:        
+       for watched_movie in unique_watched_list:
+           if movie["title"] == watched_movie["title"]:
+               rec_movies_from_favorites.append(watched_movie)
+
     return rec_movies_from_favorites
