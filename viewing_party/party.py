@@ -29,22 +29,23 @@ def watch_movie(user_data, title):
 def get_watched_avg_rating(user_data):
     sum_for_avg = 0
     count = len(user_data['watched'])
-    if not count:
+    if count:
+        for movie in user_data['watched']:
+            sum_for_avg += movie['rating']
+        return sum_for_avg/count
+    else:
         return 0.0
-    for movie in user_data['watched']:
-        sum_for_avg += movie['rating']
-    return sum_for_avg/count
 
 def get_most_watched_genre(user_data):
-    if not user_data['watched']:
-        return None
     genre_freq ={}
-    for movie in user_data['watched']:
-        genre = movie['genre']
-        if genre in genre_freq:
-            genre_freq[genre] += 1
-        else:
-            genre_freq[genre] = 0
+    if user_data['watched']:
+        for movie in user_data['watched']:
+            genre = movie['genre']
+            if genre in genre_freq:
+                genre_freq[genre] += 1
+            else:
+                genre_freq[genre] = 1
+    else: return None
     max_genre = max(genre_freq, key=genre_freq.get)
     return max_genre
 
@@ -68,15 +69,10 @@ def get_friends_unique_watched(user_data):
         for movie in friend['watched']:
             if movie['title'] not in user_watched:
                 unique_watched.append(movie)
-    unique_watched = [dict(t) for t in {tuple(movie.items()) for movie in unique_watched}]
+    #removes duplicate dictionaries from unique watched
+    unique_watched = [dict(t) for t in {tuple(movie.items()) for movie in unique_watched}] 
     return unique_watched
 
-
-
-
-
-
-        
 # -----------------------------------------
 # ------------- WAVE 4 --------------------
 # -----------------------------------------
@@ -94,15 +90,8 @@ def get_available_recs(user_data):
 # -----------------------------------------
 
 def get_new_rec_by_genre(user_data):
-    users_genres = []
     recs_by_genre = []
-    if len(user_data['watched']) == 0 :
-        return {}
-    if len(user_data['friends']) == 0 :
-        return {}
-    for movie in user_data['watched']:
-        users_genres.append(movie['genre'])
-    top_genre = max(set(users_genres), key = users_genres.count)
+    top_genre = get_most_watched_genre(user_data)
     unfiltered_recs = get_friends_unique_watched(user_data)
     for movie in unfiltered_recs:
         if movie['genre'] == top_genre:
@@ -112,10 +101,8 @@ def get_new_rec_by_genre(user_data):
 def get_rec_from_favorites(user_data):
     favorites = list(user_data['favorites'])
     recs =[]
-
-    friends = [movie for friend in user_data['friends'] for movie in friend['watched']]
-    print(recs)
-    friends = [dict(t) for t in {tuple(movie.items()) for movie in friends}]
+    friends_with_duplicates = [movie for friend in user_data['friends'] for movie in friend['watched']]
+    friends = [dict(t) for t in {tuple(movie.items()) for movie in friends_with_duplicates}]
     for movie in favorites:
         if movie not in friends:
             recs.append(movie)
