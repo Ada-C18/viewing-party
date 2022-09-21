@@ -72,12 +72,10 @@ def get_most_watched_genre(user_data):
         if count > max_count:
             max_count = count
             most_watched_genre = genre 
-             
+    
     return most_watched_genre
     
-    
-    
-    
+
 # -----------------------------------------
 # ------------- WAVE 3 --------------------
 # -----------------------------------------
@@ -98,10 +96,7 @@ def get_unique_watched(user_data):
     return unique_list_of_dicts 
 
 
-
-
 def get_friends_unique_watched(user_data):
-
     friends_watched_list = []
     unique_friends_movies = []
     
@@ -116,9 +111,7 @@ def get_friends_unique_watched(user_data):
             
     return unique_friends_movies
             
-   
-                   
-                       
+
 # -----------------------------------------
 # ------------- WAVE 4 --------------------
 # -----------------------------------------
@@ -129,17 +122,42 @@ def get_available_recs(user_data):
     # get user list of subscriptions
     for sub in user_data["subscriptions"]:
         user_subscriptions.append(sub)  
-               
-    # use unique friend's function 
-    while get_friends_unique_watched(user_data):
-        for friend in user_data["friends"]:
-            for movie in friend["watched"]:
-                if movie["host"] in user_subscriptions:
-                    recommended_movies.append(movie)
+        
+    # use unique friend's function, list of movie dicts
+    friends_unique = get_friends_unique_watched(user_data)
+    for movie in friends_unique:
+        if movie["host"] in user_subscriptions:
+            recommended_movies.append(movie)
     
+    # return list of recommended movies 
     return recommended_movies
                     
     
 # -----------------------------------------
 # ------------- WAVE 5 --------------------
 # -----------------------------------------
+def get_new_rec_by_genre(user_data):
+    recommended_movies = []
+    fav_genre = get_most_watched_genre(user_data)
+    
+    # unique friend's function, returns list of movie dicts
+    friends_unique = get_friends_unique_watched(user_data)
+    for movie in friends_unique:
+        if movie["genre"] == fav_genre:
+            recommended_movies.append(movie)
+    
+    return recommended_movies 
+
+
+def get_rec_from_favorites(user_data):
+    recommended_movies = []
+    user_watched = get_unique_watched(user_data)
+    
+    # determine users favs
+    for movie in user_data['favorites']:
+        if movie in user_watched:
+            recommended_movies.append(movie)
+        
+    return recommended_movies
+
+# NEED TO WRITE ASSERT 
