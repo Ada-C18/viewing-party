@@ -72,14 +72,66 @@ def get_most_watched_genre(user_data):
     return(popular_genre)
 
 
-
-
-
-
 # -----------------------------------------
 # ------------- WAVE 3 --------------------
 # -----------------------------------------
 
+def get_unique_watched(user_data):
+    movie_titles_user_watched = set()
+    movie_titles_friends_watched = set()
+    list_of_movie_dictionaries_friends_have_not_watched = []
+
+    for movie in user_data["watched"]:
+        movie_titles_user_watched.add((movie['title']))
+    
+    for i in range(len(user_data["friends"])):
+        for movie in user_data["friends"][i]["watched"]:
+            title = movie.get("title")
+            movie_titles_friends_watched.add(title)
+        i += 1 
+    
+    movies_user_has_watched_but_not_friends = movie_titles_user_watched.difference(movie_titles_friends_watched)
+
+    for movie in movies_user_has_watched_but_not_friends:
+        for dictionary in user_data["watched"]:
+            if movie == dictionary['title']:
+                list_of_movie_dictionaries_friends_have_not_watched.append(dictionary)
+
+    return(list_of_movie_dictionaries_friends_have_not_watched)
+
+def get_friends_unique_watched(user_data):
+    movie_titles_friends_watched = set()
+    movie_titles_user_watched = set()
+    list_of_movie_dictionaries_user_has_not_watched = []
+
+    for i in range(len(user_data["friends"])):
+        for movie in user_data["friends"][i]["watched"]:
+            title = movie.get("title")
+            movie_titles_friends_watched.add(title)
+        i += 1
+    
+    for movie in user_data["watched"]:
+        movie_titles_user_watched.add((movie["title"]))
+    
+    movies_friends_have_watched_but_not_user = movie_titles_friends_watched.difference(movie_titles_user_watched)
+
+    for movie in movies_friends_have_watched_but_not_user:
+        for i in range(len(user_data["friends"])):
+            for dictionary in user_data["friends"][i]["watched"]:
+                title = dictionary.get("title")
+                if title == movie:
+                    list_of_movie_dictionaries_user_has_not_watched.append(dictionary)
+            i+=1
+    
+    remove_dupes = set()
+    new_list_of_movie_dictionaries_user_has_not_watched = []
+    for dictionary in list_of_movie_dictionaries_user_has_not_watched:
+        tuple_me = tuple(dictionary.items())
+        if tuple_me not in remove_dupes:
+            remove_dupes.add(tuple_me)
+            new_list_of_movie_dictionaries_user_has_not_watched.append(dictionary)
+
+    return(new_list_of_movie_dictionaries_user_has_not_watched)
         
 # -----------------------------------------
 # ------------- WAVE 4 --------------------
