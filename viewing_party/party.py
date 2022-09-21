@@ -122,3 +122,15 @@ def get_available_recs(user_data):
 # -----------------------------------------
 # ------------- WAVE 5 --------------------
 # -----------------------------------------
+
+# Create get_new_rec_by_genre function to get a list of recommended movies with the genre of the user's most frequent genre
+def get_new_rec_by_genre(user_data):
+    # Get user's more frequently watched genre
+    genre = get_most_watched_genre(user_data)
+    # Call get_friends_unique_watched function to get list of unique movies friends have watched
+    list_of_friends_unique_watched = get_friends_unique_watched(user_data)
+    rec_movies_by_genre = []
+    for i in range(len(list_of_friends_unique_watched)):
+        if genre == list_of_friends_unique_watched[i]["genre"]:
+            rec_movies_by_genre.append(list_of_friends_unique_watched[i])
+    return rec_movies_by_genre
