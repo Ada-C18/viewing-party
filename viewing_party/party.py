@@ -50,16 +50,26 @@ def watch_movie(user_data, title):
             user_data["watchlist"].pop(movie_index) 
             user_data["watched"].append(movie["title"])
         else: 
-            return user_data 
+            return user_data
     
     return user_data 
-
-
 
 # -----------------------------------------
 # ------------- WAVE 2 --------------------
 # -----------------------------------------
+def get_watched_avg_rating(user_data): 
 
+    ratings = []
+    total = 0 
+    for movie in user_data["watched"]:
+        ratings.append(movie["rating"])
+    for rating in ratings:
+        total += rating
+        total = total  
+
+    average = total / len(ratings) 
+
+    return average
 
 # -----------------------------------------
 # ------------- WAVE 3 --------------------
