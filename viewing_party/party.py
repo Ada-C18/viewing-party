@@ -134,3 +134,14 @@ def get_new_rec_by_genre(user_data):
         if genre == list_of_friends_unique_watched[i]["genre"]:
             rec_movies_by_genre.append(list_of_friends_unique_watched[i])
     return rec_movies_by_genre
+
+# Create get_rec_from_favorites function to get a list of user's favorite movies that friends have not watched
+def get_rec_from_favorites(user_data):
+    # Get list of movies user has watched, but friends haven't
+    unique_watched_list = get_unique_watched(user_data)
+    rec_movies_from_favorites = []
+    for movie in user_data["favorites"]:
+        for i in range(len(unique_watched_list)):
+            if movie["title"] == unique_watched_list[i]["title"]:
+                rec_movies_from_favorites.append(unique_watched_list[i])
+    return rec_movies_from_favorites
