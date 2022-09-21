@@ -1,5 +1,8 @@
 # ------------- WAVE 1 --------------------
 
+from gc import collect
+
+
 def create_movie(title, genre, rating):
     new_movie = {}
 
@@ -28,7 +31,19 @@ def watch_movie(user_data, title):
 # -----------------------------------------
 # ------------- WAVE 2 --------------------
 # -----------------------------------------
+def get_watched_avg_rating(user_data):
+    avg_rating = 0.0
+    summed_ratings = 0
+    collected_ratings = []
 
+    if len(user_data["watched"]) >= 1:
+        collected_ratings = [movie["rating"] for movie in user_data["watched"]]
+
+    for rating in collected_ratings:
+        summed_ratings += rating
+        avg_rating = (summed_ratings / len(collected_ratings))
+
+    return avg_rating
 
 # -----------------------------------------
 # ------------- WAVE 3 --------------------
