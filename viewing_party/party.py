@@ -1,6 +1,6 @@
 # ------------- WAVE 1 --------------------
 
-from tkinter.tix import InputOnly
+# from tkinter.tix import InputOnly
 
 
 def create_movie(title, genre, rating):
@@ -142,14 +142,12 @@ def get_friends_unique_watched(user_data):
 # ------------- WAVE 4 --------------------
 
 def get_available_recs(user_data):
+    friends_watched = get_friends_unique_watched(user_data)
     rec_movie_list=[]
-    subscriptions_list= user_data["subscriptions"]
-    host_str_list= friend["watched"]["movie"]
-
-    for friend in user_data["friends"]:
-        for movie in friend["watched"]:
-            if movie not in user_data["watched"] and movie in rec_movie_list and friend["watched"]["movie"]:
-                rec_movie_list.append()
+    for friend in friends_watched:
+        if friend["host"] in user_data.get("subscriptions"):
+            rec_movie_list.append(friend)
+    return rec_movie_list
 # -----------------------------------------
 
 # -----------------------------------------
