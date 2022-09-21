@@ -65,7 +65,7 @@ def get_most_watched_genre(user_data):
 # ------------- WAVE 3 --------------------
 # -----------------------------------------
 
-#helper function
+# helper function
 def list_friends_movies(user_data):
     friends_movies = []
     for friend in user_data["friends"]:
