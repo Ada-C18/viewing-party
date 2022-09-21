@@ -77,11 +77,9 @@ def get_most_watched_genre(user_data):
         return None 
 
 
-# ------------- WAVE 3 --------------------
-
-
-# determine which movies the user has watched
-# but none of their friends have watched
+# ------------- WAVE 3 -------------------- HELPER FUNCTION!
+# set options???
+# determine which movies the user has watched but none of their friends have watched
 def get_unique_watched(user_data):
      
     # access user movie - user_data["watched"]["title"]
@@ -93,7 +91,7 @@ def get_unique_watched(user_data):
     
     for i in range (0, len(user_data["friends"])):
         all_friends_movies.extend(user_data["friends"][i]["watched"])
-    print("all friends movies: ", all_friends_movies)
+    #print("all friends movies: ", all_friends_movies)
 
     for movie in user_data["watched"]:
         # if user movie title in friend's, continue?
@@ -105,24 +103,45 @@ def get_unique_watched(user_data):
     return user_unique_watched
     
 
-'''
-#friends watched but user didnt
+#determine which movies one of the friends watched but user didnt
 def get_friends_unique_watched(user_data):
 
-'''
-        
-# -----------------------------------------
+    # get unique movies from friends
+    friends_unique_movies = []
+
+    # get movies from all friends 
+    all_friends_movies = []
+
+    for i in range (0, len(user_data["friends"])):
+        all_friends_movies.extend(user_data["friends"][i]["watched"])
+
+    for friend_movie in all_friends_movies:
+            # if friend movie title in user, continue
+            if friend_movie in user_data["watched"]:
+                continue
+        # else (not in user), append 
+            else:
+            #elif friend_movie not in user_data["friends"] and friends_unique_movies: ?? why doesnt work
+                if friend_movie not in friends_unique_movies:
+                    friends_unique_movies.append(friend_movie)
+    return friends_unique_movies    
+
 # ------------- WAVE 4 --------------------
-# -----------------------------------------
-'''
+
+
 #friends watched but user didnt, on host
 def get_available_recs(user_data):
+    reconmmended_movie = []
+    friends_unique_movies = get_friends_unique_watched(user_data)
+    for i in range (len(friends_unique_movies)):
+        if friends_unique_movies[i]["host"] in user_data["subscriptions"]:
+            reconmmended_movie.append(friends_unique_movies[i])        
+    return reconmmended_movie
+    
+        
 
-
-'''
-# -----------------------------------------
 # ------------- WAVE 5 --------------------
-# -----------------------------------------
+
 
 '''
 # matching genre with the max 
