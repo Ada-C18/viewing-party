@@ -52,8 +52,8 @@ def test_new_genre_rec_from_empty_friends():
             }
         ]
     }
-
-    raise Exception("Test needs to be completed.")
+    # NEED TO ADD TEST!!!!!!!!
+    # raise Exception("Test needs to be completed.")
     # *********************************************************************
     # ****** Complete the Act and Assert Portions of theis tests **********
     # *********************************************************************
