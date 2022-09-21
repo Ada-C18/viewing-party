@@ -36,6 +36,31 @@ def watch_movie(janes_data, title):
 # ------------- WAVE 2 --------------------
 # -----------------------------------------
 
+def get_watched_avg_rating(janes_data):
+    average_rating = 0
+    if janes_data["watched"]:
+        for movie in janes_data["watched"]:
+            average_rating += movie["rating"]
+    else:
+        return average_rating
+    return average_rating / len(janes_data["watched"])
+
+
+def get_most_watched_genre(janes_data):
+    genre_frequency = {}
+    if not janes_data["watched"]:
+        return None
+    for movie in janes_data["watched"]:
+        if movie["genre"] not in genre_frequency:
+            genre_frequency[movie["genre"]] = 1
+        else:
+            genre_frequency[movie["genre"]] += 1
+    max_value = max(genre_frequency.values())
+    print(f"{genre_frequency=}")
+    for genre, value in genre_frequency.items():
+        if value == max_value:
+            return genre
+
 
 # -----------------------------------------
 # ------------- WAVE 3 --------------------
