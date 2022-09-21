@@ -108,15 +108,29 @@ def get_unique_watched(user_data):
 def get_friends_unique_watched(user_data):
     #find the movies unique to friends
     movie_titles_unique_to_friends = friend_watched_set(user_data).difference(user_watched_set(user_data))
-    print(f"movie_title unique to friends set: {movie_titles_unique_to_friends}")
 
+
+    #iterate through friends movies and append the movie dictionary to a list if the movie's title is in movie_titles_unique_to friends set
     unique_to_friends_watched = []
-    for friend in user_data["friends"]:
-        for movie in friend["watched"]:
-            if movie['title'] in movie_titles_unique_to_friends:
-                unique_to_friends_watched.append(movie)
+
+    for friends_watched_dict in user_data["friends"]:
+            for friends_watched_movie in friends_watched_dict["watched"]:
+                if friends_watched_movie["title"] in movie_titles_unique_to_friends:
+                    if friends_watched_movie in unique_to_friends_watched:
+                        continue
+                    else:
+                        unique_to_friends_watched.append(friends_watched_movie)
     
+    """""""""
+    for title in movie_titles_unique_to_friends:
+        for friend in user_data["friends"]:
+            for movie_dict in friend["watched"]:
+                if title in movie_dict['title']:
+                    unique_to_friends_watched.append(friend)
+    """""""""
+
     return unique_to_friends_watched
+
 
 # -----------------------------------------
 # ------------- WAVE 4 --------------------
