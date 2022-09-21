@@ -10,7 +10,6 @@ def test_most_frequent_genre():
 
     adrians_data['watched'] = []
 
-    pprint.pprint(sonyas_data['watched'])
 
     # Act 
     top_genre = most_frequent_genre(sonyas_data)
@@ -87,7 +86,7 @@ def test_new_genre_rec_from_empty_friends():
     assert isinstance(recommendations, list)
 
 
-@pytest.mark.skip()
+# @pytest.mark.skip()
 def test_unique_rec_from_favorites():
     # Arrange
     sonyas_data = clean_wave_5_data()
@@ -101,7 +100,7 @@ def test_unique_rec_from_favorites():
     assert INTRIGUE_2b in recommendations
     assert sonyas_data == clean_wave_5_data()
 
-@pytest.mark.skip()
+# @pytest.mark.skip()
 def test_unique_from_empty_favorites():
     # Arrange
     sonyas_data = {
@@ -122,8 +121,9 @@ def test_unique_from_empty_favorites():
 
     # Assert
     assert len(recommendations) == 0
+    assert isinstance(recommendations, list)
 
-@pytest.mark.skip()
+# @pytest.mark.skip()
 def test_new_rec_from_empty_friends():
     # Arrange
     sonyas_data = {

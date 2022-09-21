@@ -275,6 +275,22 @@ def get_new_rec_by_genre(user_data):
 
     return movie_recs 
 
+def get_rec_from_favorites(user_data):
+    # reccomend a movie from favorites that the user's 
+    # friends have not seen.
+
+    reccomendations = []
+    movies_from_friends = remove_duplicates_by_title(watched_by_friends(user_data))
+
+    for movie in user_data['favorites']:
+        if movie not in movies_from_friends:
+            reccomendations.append(movie)
+    
+    return reccomendations
+
+
+
+
 
 
 
