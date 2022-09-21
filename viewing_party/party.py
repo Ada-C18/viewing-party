@@ -28,6 +28,23 @@ def add_to_watchlist(user_data, movie):
     prev = user_data["watchlist"]
     curr = prev.append(movie)
     return user_data
+
+def watch_movie(user_data, title):
+    for movie in user_data["watchlist"]:
+        if movie["title"] == title:
+            user_data["watchlist"].remove(movie)
+            user_data["watched"].append(movie)
+            return user_data
+    return user_data
+
+    
+        
+    # need to remove key:values from watchlist{dict} and append to watched{dict}
+    # need to figure out if we need to use a for loop maybe and if else statements and then how to "move" elements from one dict to another. Do we use 
+    # if title in watchlist{dict} remove movie from watchlist and move to watched{dict} then return user_data - use .remove and.append
+    # watchlist len will go from 1 to 0 and watched len will go from 0 to 1
+
+
 # curr = prev.update({"watched":movie}) # this gives AttributeError: 'list' object has no attribute 'update' error # tried .append and got type error none doesn't have len # do we need to bring the index in at all?
 ''' user_data["watched"].append(movie)
     return user_data '''
