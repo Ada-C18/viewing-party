@@ -37,12 +37,31 @@ def get_watched_avg_rating(user_data):
     for movie_dict in user_data["watched"]:
         total_ratings += movie_dict["rating"]
         number_of_movies += 1
-    # average_rating = total_ratings/number_of_movies
+
     if number_of_movies == 0:
         average_rating = 0.0
     else:
         average_rating = total_ratings/number_of_movies
+
     return average_rating
+
+# my_data = {"watched": [{"title": "scary movie", "genre": "horror", "rating": "3"}, {"title": "another scary movie", "genre": "horror", "rating": "2"}, {"title": "funny movie", "genre": "comedy", "rating": "5"}]}
+def get_most_watched_genre(user_data):
+    genre_freq_dict = {}
+    
+    for movie_dict in user_data["watched"]:
+        if user_data["watched"] == []:
+            return None
+        if movie_dict["genre"] not in genre_freq_dict:
+            genre_freq_dict[movie_dict["genre"]] = 1
+        else:
+            genre_freq_dict[movie_dict["genre"]] += 1
+        print(f"genre_freq_dict: {genre_freq_dict}")
+    
+    max_genre = max(genre_freq_dict, key=genre_freq_dict.get)
+
+    return max_genre
+  
 
 # -----------------------------------------
 # ------------- WAVE 3 --------------------
