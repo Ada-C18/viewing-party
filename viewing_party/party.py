@@ -127,10 +127,8 @@ def get_new_rec_by_genre(user_data):
         for movie in friend["watched"]:
             if movie not in user_watched and movie["genre"] == users_popular_genre:
                 movie_rec_by_genre.append(movie)
-            # else:
-            #     movie_rec_by_genre == None
-    
-    # return None if movie_rec_by_genre is False else movie_rec_by_genre
+
+    # return None if not movie_rec_by_genre else movie_rec_by_genre
 
     return movie_rec_by_genre
     
