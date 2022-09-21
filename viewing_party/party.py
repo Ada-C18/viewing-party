@@ -87,43 +87,49 @@ def get_unique_watched(user_data):
 '''
 
     # second attempt using a list
-
-def get_unique_watched(user_data):
+# part 1
+def get_unique_watched(user_data): # get a list of the movies that user has seen, and friend still has to see
 
     unique = []
-    not_unique = []
-    total_movies_list = []
+    total_movies_list = [] # the addition of user movies and friend movies
     users_movies = []
     friends_movies = []
 
     for movie in user_data["watched"]:
-        users_movies.append(movie)
+        users_movies.append(movie) # the new value of user_movies
 
-    for movie in user_data["friends"]:
-        for item in movie["watched"]:
-            friends_movies.append(item)
+    for movie in user_data["friends"]: # iterating and get the dict of the friends
+        for item in movie["watched"]: # iterate to the to the list of movies the friend has seen
+            friends_movies.append(item) # new value of friends_movies
 
-    total_movies_list = users_movies + friends_movies
-
-    for item in total_movies_list:
-        if item not in friends_movies:
-            unique.append(item)
-        else:
-            not_unique.append(item)
+    total_movies_list = users_movies + friends_movies # add the new values of user_movies & friends_movies
+#                                                       to total_movies_list (both user + friends)
+    for item in total_movies_list: # iterate through total_movies_list
+        if item not in friends_movies: # if the movie is not in the friend's movie list
+            unique.append(item) # we add it to the list of the user_data["watched"]
     return unique
-    
-# def get_friends_unique_watched(user_data):
+
+ # part 2   
+def get_friends_unique_watched(user_data):
     # will need to access watched inside user_data
-    # user_list = []
+    user_movies= []
+    friends_movies = []
+    # create a new list left_to_watch
+    left_to_watch = []
     
     # and compare it to friends["watched"]
-    # create a new list left_to_watch
-    # left_to_watch = []
-    # if movie in friends["watched"] is not in user_data["watched"]
-    # we append to a list left_to_watch
+    for movie in user_data["watched"]:
+        user_movies.append(movie) #user_movies has a list of the movies the user has seen
 
-    # returning a list of what the user_data["watched"] has not seen
+    for movie in user_data["friends"]: # reaching into the list of dictionaries
+        for item in movie["watched"]:
+            friends_movies.append(item) # this is now a list of the friend's movies
 
+    for item in friends_movies: # iterate through the list of friend's movies
+        if item not in user_movies: # if movie in friends["watched"] is not in user_data["watched"]
+            if item not in left_to_watch:
+                left_to_watch.append(item)
+    return left_to_watch
         
 # -----------------------------------------
 # ------------- WAVE 4 --------------------
