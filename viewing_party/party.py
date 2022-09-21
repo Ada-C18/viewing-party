@@ -158,4 +158,10 @@ def get_new_rec_by_genre(user_data):
 # movie is in the user's "favorites"; 
 # None of the user's friends have watched it
 
-#def get_rec_from_favorites(user_data):
+def get_rec_from_favorites(user_data):
+    recs_movie =[]
+    user_unique_watched = get_unique_watched(user_data)
+    for i in range(len(user_unique_watched)):
+        if user_unique_watched[i] in user_data["favorites"]:
+            recs_movie.append(user_unique_watched[i]) 
+    return recs_movie
