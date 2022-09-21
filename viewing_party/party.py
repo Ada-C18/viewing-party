@@ -114,7 +114,7 @@ def get_unique_watched(user_data):
         if uniquemovie["title"] in unique_watched: 
             unique_movie_list.append(uniquemovie)
     return unique_movie_list
-    
+
 
 # make unique watched by friends
 def get_friends_unique_watched(user_data):
@@ -126,20 +126,10 @@ def get_friends_unique_watched(user_data):
     unique_movie_list = []
     for movie in user_data["friends"]:
         for title in movie["watched"]:
-            if title["title"] in unique_watched:
+            if title["title"] in unique_watched and title not in unique_movie_list:
                 unique_movie_list.append(title)
+    return unique_movie_list
     
-# make sure there are no duplicates
-    single_unique_movies_list = []
-    for single in unique_movie_list:    
-        if unique_movie_list.count(single) > 1:
-            if single not in single_unique_movies_list:
-                single_unique_movies_list.append(single)
-        else:
-            single_unique_movies_list.append(single)
-
-    return single_unique_movies_list    
-        
 # -----------------------------------------
 # ------------- WAVE 4 --------------------
 # -----------------------------------------
