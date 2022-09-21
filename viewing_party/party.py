@@ -143,8 +143,6 @@ def friends_watched_list(user_data):
 # -----------------------------------------
 # ------------- WAVE 4 --------------------
 # -----------------------------------------
-
-# HELPER FUNCTION
 def get_available_recs(user_data):
     new_movies = get_friends_unique_watched(user_data)
     recommendations = []
@@ -153,9 +151,6 @@ def get_available_recs(user_data):
         host = movie["host"]
         if host in subscriptions:
             recommendations.append(movie)
-            # print("*********************")
-            # print(movie)
-            # print("*********************")
     return recommendations
     
 
