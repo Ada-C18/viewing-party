@@ -13,19 +13,7 @@ def create_movie(title, genre, rating):
         return dict
 
 # wave 1 part 2
-# - take two parameters: `user_data`, `movie`
-#   - the value of `user_data` will be a dictionary with a key `"watched"`, and a value which is a list of dictionaries representing the movies the user has watched
-#     - An empty list represents that the user has no movies in their watched list
-#   - the value of `movie` will be a dictionary in this format:
-#     - ```python
-#       {
-#         "title": "Title A",
-#         "genre": "Horror",
-#         "rating": 3.5
-#       }
-#       ```
-# - add the `movie` to the `"watched"` list inside of `user_data`
-# - return the `user_data`
+
 def add_to_watched(user_data, movie):
     list_of_dicts=[]
     user_data["watched"].append(movie)
@@ -63,6 +51,18 @@ def watch_movie(user_data, title):
             user_data["watched"].append(temp_dict)
     return user_data
 
+#wave 2 part 1
+def get_watched_avg_rating(user_data):
+    
+    total_rating = 0
+    temp_list_of_dict=user_data["watched"]
+    if len(temp_list_of_dict)==0:
+        return 0.0
+    for i in range (0, len(temp_list_of_dict)):
+        total_rating+=temp_list_of_dict[i]["rating"]
+    return total_rating/len(temp_list_of_dict)
+    
+            
 
 
 
