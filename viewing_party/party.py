@@ -69,7 +69,6 @@ def get_most_watched_genre(user_data):
         return None
 
     for movie in user_data_watched:
-        print("debug", movie['genre'])
         if movie["genre"] in watched_genre_count:
             watched_genre_count[movie["genre"]] += 1
         else:
@@ -87,7 +86,73 @@ def get_most_watched_genre(user_data):
 # ------------- WAVE 3 --------------------
 # -----------------------------------------
 
-        
+def get_unique_watched(user_data):
+    '''
+    collects uniqe movies watched by user comopared to friends and
+    stores it in a list, then returns that list
+    '''
+    unique_watched_list = []
+
+    friend_watched_set = set(get_friends_watched(user_data))
+    user_watched_set = set(get_users_watched(user_data))
+
+    unique_set = user_watched_set - friend_watched_set
+
+    for movie in unique_set:
+        for i in range(len(user_data["watched"])):
+            if user_data["watched"][i]['title'] == movie:
+                unique_watched_list.append(user_data["watched"][i])   
+
+    return unique_watched_list
+    
+    
+    
+def get_friends_watched(user_data):
+    '''
+    Stores the titles of the friends 'watched' list from user_data in a list,
+    and returns that list
+    '''   
+    friends_list_of_dict = user_data["friends"]
+    friends_watched_list = []
+
+    for i in range(len(friends_list_of_dict)):
+        for watched in friends_list_of_dict[i]:
+            for movie in friends_list_of_dict[i][watched]:
+                friends_watched_list.append(movie['title'])
+
+    return friends_watched_list
+
+def get_users_watched(user_data):
+    user_watched_list = user_data["watched"]
+    users_watched_movies = []
+
+    for movie in user_watched_list:
+        users_watched_movies.append(movie['title'])
+
+    return users_watched_movies
+
+# collect friends unique watched
+
+def get_friends_unique_watched(user_data):
+    '''
+    collects unique watched movies from friends, stores them in a list,
+    and returns the list
+    '''
+    unique_watched_list = []
+
+    friends_list_dict = user_data["friends"]
+    friend_watched_set = set(get_friends_watched(user_data))
+    user_watched_set = set(get_users_watched(user_data))
+
+    unique_set = friend_watched_set - user_watched_set
+
+    for i in range(len(friends_list_dict)):
+        for friend_movie in friends_list_dict[i]["watched"]:
+            if friend_movie["title"] in unique_set and friend_movie not in unique_watched_list:
+                unique_watched_list.append(friend_movie) 
+
+    return unique_watched_list
+
 # -----------------------------------------
 # ------------- WAVE 4 --------------------
 # -----------------------------------------
