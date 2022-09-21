@@ -1,7 +1,23 @@
 # ------------- WAVE 1 --------------------
 
 def create_movie(title, genre, rating):
-    pass
+    movie_dict = {'title': 'Paw Patrol', 'genre' : 'family', 'rating':2.0}
+    if 'title' and 'genre' and 'rating' in movie_dict:
+        return movie_dict
+    else:
+        return None
+    
+def add_to_watched(user_data,movie):
+
+
+
+def add_to_watchlist(user_data,movie):
+
+
+
+
+def watch_movie(user_data,title): 
+
 
 # -----------------------------------------
 # ------------- WAVE 2 --------------------
@@ -20,4 +36,3 @@ def create_movie(title, genre, rating):
 # -----------------------------------------
 # ------------- WAVE 5 --------------------
 # -----------------------------------------
-
