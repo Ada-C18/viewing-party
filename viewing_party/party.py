@@ -106,13 +106,49 @@ def get_available_recs(user_data):
 
     return rec_list
 
-
-    
-    
-
-# -----------------------------------------
-
 # -----------------------------------------
 # ------------- WAVE 5 --------------------
+
+def get_new_rec_by_genre(user_data):
+    users_genre_dict = {}
+    movie_rec_by_genre = []
+    user_watched = user_data["watched"]
+    friends = user_data["friends"]
+
+    for movie in user_watched:
+        if movie["genre"] in users_genre_dict:
+            users_genre_dict[movie["genre"]] += 1
+        else:
+            users_genre_dict[movie["genre"]] = 1
+
+    users_popular_genre = max(users_genre_dict, default=None, key = users_genre_dict.get)
+
+    for friend in friends:
+        for movie in friend["watched"]:
+            if movie not in user_watched and movie["genre"] == users_popular_genre:
+                movie_rec_by_genre.append(movie)
+            # else:
+            #     movie_rec_by_genre == None
+    
+    # return None if movie_rec_by_genre is False else movie_rec_by_genre
+
+    return movie_rec_by_genre
+    
+def get_rec_from_favorites(user_data):
+    fav_recs = []
+    friends_watched_list = []
+    user_watched = user_data["watched"]
+    friends = user_data["friends"]
+    
+    for friend in friends:
+        for movie in friend["watched"]:
+            friends_watched_list.append(movie["title"])
+    
+    for movie in user_watched:
+        if movie["title"] not in friends_watched_list and movie in user_data["favorites"]:
+            fav_recs.append(movie)
+    
+    return fav_recs
+
 # -----------------------------------------
 
