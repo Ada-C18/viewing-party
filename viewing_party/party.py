@@ -50,15 +50,17 @@ def get_most_watched_genre(user_data):
     genre_freq_dict = {}
     
     for movie_dict in user_data["watched"]:
-        if user_data["watched"] == []:
-            return None
+
         if movie_dict["genre"] not in genre_freq_dict:
             genre_freq_dict[movie_dict["genre"]] = 1
         else:
             genre_freq_dict[movie_dict["genre"]] += 1
         print(f"genre_freq_dict: {genre_freq_dict}")
     
-    max_genre = max(genre_freq_dict, key=genre_freq_dict.get)
+    if user_data["watched"] == []:
+        max_genre = None
+    else:
+        max_genre = max(genre_freq_dict, key=genre_freq_dict.get)
 
     return max_genre
   
