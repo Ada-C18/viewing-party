@@ -12,7 +12,7 @@ def create_movie(title, genre, rating):
         return movie_dict
     return None
 
-# 2. Create a function named `add_to_watched`. This function should...
+# 2. Create a function named `add_to_watched`.
 # test: test_adds_movie_to_user_watched
 def add_to_watched(user_data, movie):
     user_data["watched"].append(movie)
@@ -25,13 +25,12 @@ def add_to_watchlist(user_data, movie):
     return user_data
 
 # 4. Create a function named watch_movie.
-# TODO: move dict from watchlist to watched list -- if movie in user's watchlist
+# TODO: move dict from watchlist to watched list if movie in user's watchlist
 # OUTPUT: user_data (modified user_data if title in watchlist)
 # test_moves_movie_from_watchlist_to_watched
 def watch_movie(user_data, title):
     watchlist = user_data["watchlist"]
-    for i in range(len(watchlist)):
-        movie = watchlist[i]
+    for movie in watchlist:
         if title == movie["title"]:
             # will remove it from same list in location in memory
             watchlist.remove(movie)
@@ -39,7 +38,6 @@ def watch_movie(user_data, title):
             break
     # return outside for loop to ensure we iterate entire list
     return user_data
-# TODO: Add assertions here to test that the correct movie was added to "watched"
 
 # -----------------------------------------
 # ------------- WAVE 2 --------------------
@@ -103,30 +101,67 @@ def get_unique_watched(user_data):
     # remove
     watched_lst = user_data["watched"]
     friends_lst = user_data["friends"]
-    # 1. create return lst
-    unique_watched_lst = []
-    # 2. loop thru user data
+    unique_watched_lst = watched_lst + friends_lst
+    # print(unique_watched_lst)
+
     for movie in watched_lst:
         for friend in friends_lst:
-            if movie not in friend["watched"]:
-        # -- find same title in "watched" and "friends" lsts
-        # if movie["title"] not in friends_lst:
-            # 3. add movie dict to unique lst
+
+    # TODO: add movie dict to unique lst => ONLY ONCE, FIX: remove duplicates
+    # -- find same title in "watched" and "friends" lsts
+            if movie in friend["watched"] :
                 unique_watched_lst.append(movie)
+            
+            if movie in unique_watched_lst:
+                unique_watched_lst.remove(movie)
     # 4. return lst output
     return unique_watched_lst
 
 # 2. Create a function named get_friends_unique_watched.
 # Consider the movies that the user has watched, and consider the movies that their friends have watched. Determine which movies at least one of the user's friends have watched, but the user has not watched.
-# def get_friends_unique_watched(user_data):
+# Return a list of dictionaries, that represents a list of movies
+def get_friends_unique_watched(user_data):
+    pass
 
 
         
 # -----------------------------------------
 # ------------- WAVE 4 --------------------
+# 1. Create a function named get_available_recs. 
+# Determine a list of recommended movies. A movie should be added to this list if and only if:
+# The user has not watched it
+# REQ 1: if movie not in user's watched list
+
+# At least one of the user's friends has watched
+# REQ 2: if movie in 1 friend's watched list
+
+# The "host" of the movie is a service that is in the user's "subscriptions"
+# REQ 3: if "host" str in user's subscriptions lst
+
+# Return the list of recommended movies
 # -----------------------------------------
+def get_available_recs(user_data):
+    recommended_movies_lst = []
+    return recommended_movies_lst
 
 # -----------------------------------------
 # ------------- WAVE 5 --------------------
 # -----------------------------------------
+# 1. Create a function named get_new_rec_by_genre(user_data) 
 
+# Consider the user's most frequently watched genre. Then, determine a list of recommended movies. A movie should be added to this list if and only if:
+# 1. The user has not watched it
+# 2. At least one of the user's friends has watched
+# 3. The "genre" of the movie is the same as the user's most frequent genre
+# Return the list of recommended movies
+
+
+
+# 2. Create a function named get_rec_from_favorites(user_data)
+
+# user_data will have a field "favorites". The value of "favorites" is a list of movie dictionaries
+# This represents the user's favorite movies
+# Determine a list of recommended movies. A movie should be added to this list if and only if:
+# 1. The movie is in the user's "favorites"
+# 2. None of the user's friends have watched it
+# Return the list of recommended movies
