@@ -121,14 +121,6 @@ def get_friends_unique_watched(user_data):
                     else:
                         unique_to_friends_watched.append(friends_watched_movie)
     
-    """""""""
-    for title in movie_titles_unique_to_friends:
-        for friend in user_data["friends"]:
-            for movie_dict in friend["watched"]:
-                if title in movie_dict['title']:
-                    unique_to_friends_watched.append(friend)
-    """""""""
-
     return unique_to_friends_watched
 
 
@@ -136,6 +128,25 @@ def get_friends_unique_watched(user_data):
 # ------------- WAVE 4 --------------------
 # -----------------------------------------
 
+def get_available_recs(user_data):
+
+    recommended_movies = []
+
+    for friend in user_data["friends"]:
+        for movie_dict in friend["watched"]:
+            if movie_dict["host"] not in user_data["subscriptions"]:
+                continue
+            elif movie_dict not in user_data["watched"]:
+                recommended_movies.append(movie_dict)
+
+    return recommended_movies
+
+
 # -----------------------------------------
 # ------------- WAVE 5 --------------------
 # -----------------------------------------
+
+def get_new_rec_by_genre(user_data):
+
+    favorite_genre = get_most_watched_genre(user_data)
+    print(favorite_genre)
