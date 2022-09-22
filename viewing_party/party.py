@@ -1,11 +1,12 @@
 # ------------- WAVE 1 --------------------
-from enum import unique
+def create_movie(title: str, genre: str, rating: float):
+    """ Create a movie dictionary utilizing the arguments and return it.
+    If one of the arguments is Falsy, instead return None.
 
-
-def create_movie(title, genre, rating):
-    """ 
-    input: a str title, str genre, and float rating
-    output: a dict of the given arguments if the inputs are valid OR None if the input is invalid
+    Keyword arguments:
+    title -- a string movie title
+    genre -- a string genre name
+    rating -- a float value
     """
     if title and genre and rating:
         movie = {
@@ -17,39 +18,36 @@ def create_movie(title, genre, rating):
     else:
         return None
 
-def add_to_watched(user_data, movie):
+def add_to_watched(user_data: dict, movie: dict):
+    """ Add a movie dictionary to the "watched" key in user_data.
+    Return user_data.
+
+    Keyword arguments:
+    user_data -- a dictionary with a "watched" key with a list value
+    movie -- a dictionary with movie info
     """
-    user_data: a dictionary with a key "watched" and a value list of dictionaries representing the movies the user watched
-    movie: a dictionary in this format -
-        {
-            title": "Title A",
-            "genre": "Horror",
-            "rating": 3.5
-        }
-    """
-    access_watched = user_data["watched"]
-    access_watched.append(movie)
+    user_data["watched"].append(movie)
     return user_data
 
 
-def add_to_watchlist(user_data, movie):
+def add_to_watchlist(user_data: dict, movie: dict):
+    """ Add a movie dictionary to the "watchlist" key in user_data.
+    Return user_data.
+
+    Keyword arguments:
+    user_data -- a dictionary with a "watchlist" key with a list value
+    movie -- a diictionary with movie info
     """
-    user_data: a dict with the key "watchlist" and value list of dictionaries representing the movies the user wants to watch
-    movie: a dicitonary in this format:
-        {
-            title": "Title A",
-            "genre": "Horror",
-            "rating": 3.5
-        }
-    """
-    access_watchlist = user_data["watchlist"]
-    access_watchlist.append(movie)
+    user_data["watchlist"].append(movie)
     return user_data
 
-def watch_movie(user_data, title):
-    """
-    user_data: a dict with keys "watchlist" and "watched"
-    title: a str representing the title of the movie the user has watched
+def watch_movie(user_data: dict, title: str):
+    """ Move a movie in user_data from "watchlist" to "watched".
+    Return user_data.
+
+    Keyword arguments:
+    user_data -- a dictionary with "watchlist" and "watched" keys
+    title -- the title of the movie being moved
     """
     counter = 0
     for movie in user_data["watchlist"]:
@@ -100,7 +98,6 @@ def get_most_watched_genre(user_data):
 # -----------------------------------------
 # ------------- WAVE 3 --------------------
 # -----------------------------------------
-# part 1
 def get_unique_watched(user_data):
     """
     user_data = dict w/ these keys:
@@ -127,7 +124,6 @@ def get_unique_watched(user_data):
 
     return unique_watched_movies
 
-#part 2
 def get_friends_unique_watched(user_data):
     """
     user_data = dict w/ two keys:
@@ -181,7 +177,6 @@ def get_available_recs(user_data):
 # -----------------------------------------
 # ------------- WAVE 5 --------------------
 # -----------------------------------------
-# part 1
 def get_new_rec_by_genre(user_data):
     """
     consider the user's most frequently watched genre
@@ -201,7 +196,6 @@ def get_new_rec_by_genre(user_data):
     
     return genre_recs
 
-# part 2
 def get_rec_from_favorites(user_data):
     """
     user_data has "favorites"
