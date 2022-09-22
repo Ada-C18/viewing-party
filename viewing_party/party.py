@@ -2,29 +2,23 @@
 # Create create_movie function that adds movies (title, genre, rating) to a dictionary
 def create_movie(title, genre, rating):
     movie_dict = {}
-    movie_dict["title"] = title
-    movie_dict["genre"] = genre
-    movie_dict["rating"] = rating
-    
-    for category in movie_dict:
-        if not movie_dict[category]:
-            return None
-    
-    return movie_dict
+    if title and genre and rating:
+        movie_dict["title"] = title
+        movie_dict["genre"] = genre
+        movie_dict["rating"] = rating
+        return movie_dict
+    else:
+        return None
 
 # Create add_to_watched function that adds movies that a user has watched to a dict
 def add_to_watched(user_data, movie):
-    watched_list = []
-    watched_list.append(movie)
-    user_data["watched"] = watched_list
+    user_data["watched"].append(movie)
 
     return user_data
 
 # Create add_to_watchlist function that adds movies to a user's watchlist in a dict
 def add_to_watchlist(user_data, movie):
-    watchlist = []
-    watchlist.append(movie)
-    user_data["watchlist"] = watchlist
+    user_data["watchlist"].append(movie)
 
     return user_data
 
@@ -43,14 +37,14 @@ def watch_movie(user_data, movie_to_watch):
 # Create get_watched_avg_rating function to calculate average movie rating
 def get_watched_avg_rating(user_data):
     total_watched_rating = 0
-    for movie in user_data["watched"]:
-        total_watched_rating += movie["rating"]
-
-    if not user_data["watched"]:
-        return 0.0
+    if user_data["watched"]:
+        for movie in user_data["watched"]:
+            total_watched_rating += movie["rating"]
     else:
-        avg_rating = total_watched_rating / len(user_data["watched"])
-        return avg_rating
+        return 0.0
+
+    avg_rating = total_watched_rating / len(user_data["watched"])
+    return avg_rating
 
 # Create get_most_watched_genre function to find the genre watched the most
 def get_most_watched_genre(user_data):
