@@ -1,5 +1,8 @@
 # ------------- WAVE 1 --------------------
 
+import re
+
+
 def create_movie(title, genre, rating):
     
     if title and genre and rating:
@@ -138,4 +141,18 @@ def get_new_rec_by_genre(user_data):
         if most_watched_genre == movie['genre']:
             rec_movie_by_genre.append(movie)
 
-    return rec_movie_by_genre        
+    return rec_movie_by_genre 
+
+
+
+def get_rec_from_favorites(user_data):
+    unique_usr_watched = get_unique_watched(user_data)    
+
+    rec_movies =[]
+
+    for movie in user_data['favorites']:
+        if movie in unique_usr_watched and movie not in rec_movies:
+            rec_movies.append(movie)  
+    return rec_movies          
+
+
