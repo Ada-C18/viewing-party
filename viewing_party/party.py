@@ -137,7 +137,6 @@ def get_new_rec_by_genre(user_data):
     friends_lst = user_data["friends"]
 
     recommended_movies = []
-    # most_freq_genre = get_most_freq_genre(user_data)
     most_freq_genre = get_most_watched_genre(user_data)
 
     for friend in friends_lst:
@@ -146,26 +145,6 @@ def get_new_rec_by_genre(user_data):
                 recommended_movies.append(movie)
 
     return recommended_movies
-
-# Helper for get_new_rec_by_genre
-# def get_most_freq_genre(user_data):
-#     user_watched_lst = user_data["watched"]
-#     genre_dict = {}
-
-#     for movie in user_watched_lst:
-#         genre = movie["genre"]
-#         if genre in genre_dict:
-#             genre_dict[genre] += 1
-#         else:
-#             genre_dict[genre] = 1
-    
-#     most_freq_genre = (None, 0)
-#     for genre in genre_dict:
-#         genre_count = genre_dict[genre]
-#         if genre_count > most_freq_genre[1]:
-#             most_freq_genre = (genre, genre_count)
-
-#     return most_freq_genre[0]
 
 
 def get_rec_from_favorites(user_data):
