@@ -159,3 +159,71 @@ def get_available_recs(user_data):
 # ------------- WAVE 5 --------------------
 # -----------------------------------------
 
+def get_new_rec_by_genre(user_data):
+
+  #user data
+    user_watched_list = user_data['watched']
+
+    if not user_watched_list:
+        genre_list = []
+        most_watched_genre = None
+    else:
+        genre_list = [d['genre'] for d in user_watched_list]
+        most_watched_genre = max(set(genre_list), key=genre_list.count)
+ 
+  #friend data
+
+    user_friends_list = user_data["friends"]
+    friends_list = []
+    for dicts in user_friends_list:
+        friends_list.append(dicts["watched"])
+
+    friends_list = []
+    for dicts in user_friends_list:
+        friends_list.append(dicts["watched"])
+
+  # compiles friends watch list into one list
+    friends_rec_list = []
+    for sublist in friends_list:
+        for val in sublist:
+            friends_rec_list.append(val)
+
+  # creates recommendation list by most watched genre
+    rec_by_genre = []
+    for dict in friends_rec_list:
+        if dict['genre'] == most_watched_genre:
+            rec_by_genre.append(dict)
+
+  # removes repeated recommendations
+    recommendations = []
+    for dicts in rec_by_genre:
+        if dicts not in recommendations:
+            recommendations.append(dicts)
+   
+  # removes recommendations if user has already watched movie
+    for dicts in user_watched_list:
+        if dicts in recommendations:
+            recommendations.remove(dicts)
+        
+    return recommendations
+
+def get_rec_from_favorites(user_data):
+    user_favorites = user_data['favorites']
+
+    user_friends_list = user_data['friends']
+  
+    friends_list = []
+    for dicts in user_friends_list:
+        friends_list.append(dicts['watched'])
+
+    friends_watch_list = []
+    for sublist in friends_list:
+        for val in sublist:
+            friends_watch_list.append(val)
+
+    user_recommendations = []
+    for dicts in user_favorites:
+        if dicts not in friends_watch_list:
+            user_recommendations.append(dicts)
+            
+    return user_recommendations
