@@ -3,6 +3,9 @@
 
 
 
+from webbrowser import get
+
+
 def create_movie(title, genre, rating):
     movie = None
     if title == None or genre == None or rating == None:
@@ -121,5 +124,13 @@ def get_new_rec_by_genre(user_data):
     movie_recs = []
     for movie in unwatched_movies:
         if movie["genre"] == get_most_watched_genre(user_data):
+            movie_recs.append(movie)
+    return movie_recs
+
+def get_rec_from_favorites(user_data):
+    movie_recs = []
+    unwatched_movies = get_unique_watched(user_data)
+    for movie in user_data["favorites"]:
+        if movie in unwatched_movies:
             movie_recs.append(movie)
     return movie_recs
