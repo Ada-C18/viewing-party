@@ -173,6 +173,8 @@ def get_new_rec_by_genre(user_data):
     rec_movies = []    
 
     for movie in unique_friends_movies:
+        if freq_genre == None:
+            break
         if freq_genre in movie["genre"]:
             rec_movies.append(movie)
     return rec_movies
