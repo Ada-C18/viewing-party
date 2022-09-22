@@ -163,7 +163,8 @@ def get_friends_unique_watched(user_data):
 # ------------- WAVE 4 --------------------
 # -----------------------------------------
 def get_available_recs(user_data: dict):
-    """ Returns a list of recommended movies based on user_data.
+    """ Return a list of recommended movies based on user_data.
+    Will only return movies available on user's streaming subscriptions.
 
     Keyword arguments:
     user_data -- a dictionary with "subscriptions" and "friends" keys
@@ -179,14 +180,12 @@ def get_available_recs(user_data: dict):
 # -----------------------------------------
 # ------------- WAVE 5 --------------------
 # -----------------------------------------
-def get_new_rec_by_genre(user_data):
-    """
-    consider the user's most frequently watched genre
-    determine a list of movies, adding only if:
-        movie not in user's "watched"
-        movie in at least 1 friend's "watched"
-        movie "genre" is same as user's most watched genre
-    return the list of recommended movies
+def get_new_rec_by_genre(user_data: dict):
+    """ Return a list of recommended movies based on user_data.
+    Will select movies that match user's most frequently watched genre.
+
+    Keyword arguments:
+    user_data -- a dictionary with "friends" and "watched" keys
     """
     fave_genre = get_most_watched_genre(user_data)
     friend_recs = get_friends_unique_watched(user_data)
@@ -195,17 +194,14 @@ def get_new_rec_by_genre(user_data):
     for movie in friend_recs:
         if movie["genre"] == fave_genre:
             genre_recs.append(movie)
-    
     return genre_recs
 
-def get_rec_from_favorites(user_data):
-    """
-    user_data has "favorites"
-    "favorites" is list of movie dicts representing user faves
-    determine list of movies, adding only if:
-        movie in user's "favorites"
-        movie not in any friend's "watched"
-    return the list of recommended movies
+def get_rec_from_favorites(user_data: dict):
+    """ Return a list of user's movie recommendations.
+    Will select user's favorite movies that friends haven't watched.
+
+    Keyword arguments:
+    user_data -- a dictionary with "favorites" and "friends" keys
     """
     rec_list = []
     friend_watched_list = []
@@ -222,5 +218,4 @@ def get_rec_from_favorites(user_data):
     for movie in user_data["favorites"]:
         if movie["title"] in user_fave_recs:
             rec_list.append(movie)
-
     return rec_list
