@@ -64,6 +64,7 @@ def get_most_watched_genre(user_data):
 
     return most_freq_genre[0]
 
+
 # -----------------------------------------
 # ------------- WAVE 3 --------------------
 # -----------------------------------------
@@ -77,6 +78,9 @@ def get_unique_watched(user_data):
         if not one_friend_has_seen(movie, friends_lst):
             unique_watched_lst.append(movie)
 
+    return unique_watched_lst
+
+    # Another Solution
     # for movie in watched_lst:
     #     seen_movie = False
     #     for friend in friends_lst:
@@ -85,8 +89,6 @@ def get_unique_watched(user_data):
         
     #     if seen_movie == False:
     #         unique_watched_lst.append(movie)
-
-    return unique_watched_lst
 
 
 def get_friends_unique_watched(user_data):
