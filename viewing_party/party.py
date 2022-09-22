@@ -73,22 +73,8 @@ def get_most_watched_genre(user_data):
         if most_watched_count < genre_count[genre]:
             most_watched_count = genre_count[genre]
             most_watched_genre = genre
-            
+
     return most_watched_genre
-
-    
-
-
-
-#     # Determine which genre(is a string) is most frequently occurring in the watched list
-#     # return the genre that is the most frequently watched
-#     # If the value of "watched" is an empty list, get_most_watched_genre should return None.
-
-
-
-
-
-
 
 
 # -----------------------------------------
@@ -96,11 +82,42 @@ def get_most_watched_genre(user_data):
 # -----------------------------------------
 
 # # 3.1
-# def get_unique_watched(user_data):
-#     user_data["watched"]
 
+def get_unique_watched(user_data):
+    user_watched = user_data["watched"]
+    user_friends = user_data["friends"]
 
-        
+    unique_watched = []
+    all_friends_titles = []
+
+    for friend in user_friends:
+        for watched_movie in friend["watched"]:
+            all_friends_titles.append(watched_movie["title"])
+
+    for user_movie in user_watched:
+        if user_movie["title"] not in all_friends_titles:
+            unique_watched.append(user_movie)
+
+    return unique_watched
+
+# 3.2 
+#         
+def get_friends_unique_watched(user_data):
+    user_watched = user_data["watched"]
+    user_movie_titles = []
+    for user_movie in user_watched:
+        user_movie_titles.append(user_movie["title"])
+
+    user_not_watched = []
+    user_friends = user_data["friends"]
+    
+    for friend in user_friends:
+        friend_watched = friend["watched"]
+        for friend_movie in friend_watched:
+            if friend_movie["title"] not in user_movie_titles and friend_movie not in user_not_watched:
+                user_not_watched.append(friend_movie)
+    return user_not_watched
+
 # -----------------------------------------
 # ------------- WAVE 4 --------------------
 # -----------------------------------------
