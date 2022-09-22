@@ -126,4 +126,17 @@ def get_new_rec_by_genre(user_data):
     pass
 
 def get_rec_from_favorites(user_data):
-    pass
+    recommendations = []
+    user_unique_watched = get_unique_watched(user_data)
+
+    if len(user_data["favorites"]) < 1:
+        return recommendations
+
+    if len(user_data["friends"]) < 1:
+        return user_data["favorites"]
+    
+    for movie in user_data["favorites"]:
+        if movie in user_unique_watched:
+            recommendations.append(movie)
+
+    return recommendations
