@@ -103,7 +103,7 @@ def get_friends_unique_watched(user_data):
     return user_not_watched
 
 
-#  Helper Movie watched by friend 
+#  Helper to check if movie watched by at least one friend 
 def one_friend_has_seen(movie, friendList): 
     for friend in friendList:
         if movie in friend["watched"]:
