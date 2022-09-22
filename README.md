@@ -86,7 +86,7 @@ We will use a Test Driven Development programming workflow to work on this proje
 1. When you want to begin work on this project, ensure that your virtual environment is activated:
 
 ```bash
-$ source venv/bin/activate
+$ ç
 ```
 
 2. Check the `tests` folder, and find the test file you want to run
