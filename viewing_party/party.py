@@ -39,7 +39,6 @@ def get_watched_avg_rating(user_data):
     return avg_rating
 
 def get_most_watched_genre(user_data):
-    fav_genre = ""
     genre_dict = {}
     i = 0
     if len(user_data["watched"]) == 0:
@@ -137,15 +136,31 @@ def get_available_recs(user_data):
 # -----------------------------------------
 
 def get_new_rec_by_genre(user_data):
+
+    user_most_watched_genre = get_most_watched_genre(user_data)
     rec_by_genre_list = []
-    user_watched_genres = {}
-    user_fav_genre = ""
 
     movies_friends_watched = get_friends_unique_watched(user_data)
-    user_watched = get_users_watched(user_data)
-    for movie in user_watched:
-        if movie["genre"] == rec_by_genre_list["genre"]:
-            rec_by_genre_list["genre"]
+    for movie in movies_friends_watched:
+        if movie["genre"] == user_most_watched_genre:
+            rec_by_genre_list.append(movie)
+    return rec_by_genre_list
+
+def get_rec_from_favorites(user_data):
+    recommendations = []
+    movies_friends_watched = get_friends_watched(user_data)
+    user_favorites = user_data["favorites"]
+    # print(movies_friends_watched)
+    # print("=================")
+    # print(user_favorites)
+
+    for movie in user_favorites:
+        if movie["title"] not in movies_friends_watched:
+            recommendations.append(movie)
+    return recommendations
+
+
+
 
 
 
