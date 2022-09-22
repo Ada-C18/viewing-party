@@ -1,5 +1,9 @@
 # ------------- WAVE 1 --------------------
 
+from re import U
+from venv import create
+
+
 def create_movie(title, genre, rating):
     movie = {
         "title" : title,
@@ -59,17 +63,43 @@ def get_most_watched_genre(user_data):
             x = count
             best_genre = genre
     return best_genre
-
-    
-        
-
-      
-
 # -----------------------------------------
 # ------------- WAVE 3 --------------------
 # -----------------------------------------
 
-        
+def create_film_diff_sets(user_data, is_user):
+    user_set = set()
+    friend_set = set()
+
+    for film in user_data["watched"]:
+        user_set.add(film["title"])
+    for friend in user_data["friends"]:
+        for film in friend["watched"]:
+            friend_set.add(film["title"])
+
+    if is_user:
+        user_set.difference_update(friend_set)
+        return user_set
+    else:
+        friend_set.difference_update(user_set)
+        return friend_set
+    
+
+
+
+def get_unique_watched(user_data):
+    user_set = create_film_diff_sets(user_data, True)
+    user_unique_films = []
+   
+    for title in user_set:
+        for film in user_data[ "watched"]:
+            if title == film["title"]:
+                user_unique_films.append(film)
+    return user_unique_films
+
+
+def get_friends_unique_watched(user_data):
+    create_film_diff_sets(user_data, False)
 # -----------------------------------------
 # ------------- WAVE 4 --------------------
 # -----------------------------------------
@@ -77,4 +107,3 @@ def get_most_watched_genre(user_data):
 # -----------------------------------------
 # ------------- WAVE 5 --------------------
 # -----------------------------------------
-
