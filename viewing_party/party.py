@@ -145,3 +145,4 @@ def get_rec_from_favorites(user_data):
         if movie not in friends_watched_list:
             recommended_movies.append(movie)
     return recommended_movies
+    
