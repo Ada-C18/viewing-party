@@ -19,8 +19,6 @@ def add_to_watchlist(user_data, movie):
     return user_data
 
 def watch_movie(user_data,title):
-    #user_data["watched"].append(user_data["watchlist"][1]
-    #user_data["watchlist"].popuser_data["watchlist"][0])
     list_of_movies = user_data["watchlist"]
     for i in range(len(list_of_movies)):
         if list_of_movies[i]["title"]==title: 
@@ -81,6 +79,8 @@ def get_unique_watched(user_data):
         if add_to_new_list == True:
             unique_movies.append(movies_watched[i])
     return unique_movies
+
+
 
 
 def get_friends_unique_watched(user_data):
@@ -149,11 +149,14 @@ def get_new_rec_by_genre(user_data):
 
 def get_rec_from_favorites(user_data):
     unique_movie = get_unique_watched(user_data)
-    fav_movie_recs =[]
+    #fav_movie_recs =[]
     fav_movies = user_data["favorites"]
     
-    for i in range(len(fav_movies)):
-        for j in range(len(unique_movie)):
-            if fav_movies[i]["title"] == unique_movie[j]["title"]:
-                fav_movie_recs.append(unique_movie[j])
+    # for i in range(len(fav_movies)):
+    #     for j in range(len(unique_movie)):
+    #         if fav_movies[i]["title"] == unique_movie[j]["title"]:
+    #             fav_movie_recs.append(unique_movie[j])
+    # return fav_movie_recs
+
+    fav_movie_recs = [unique_movie[j] for i in range(len(fav_movies)) for j in range(len(unique_movie)) if fav_movies[i]["title"] == unique_movie[j]["title"]]
     return fav_movie_recs
