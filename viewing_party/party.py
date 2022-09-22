@@ -1,9 +1,5 @@
 # ------------- WAVE 1 --------------------
 
-from enum import unique
-from os import fpathconf
-from typing import Concatenate, Counter
-from tests.test_constants import GENRE_1, MOVIE_TITLE_1, RATING_1
 
 
 def create_movie(movie_title, genre, rating):

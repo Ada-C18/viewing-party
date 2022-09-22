@@ -1,6 +1,6 @@
 import pytest
 
-from tests.test_constants import MOVIE_TITLE_1
+# from tests.test_constants import MOVIE_TITLE_1
 # NOTE: In production code, we developers should change import * to something more specific. Due to some constraints of this project, we will import * in our test files.
 # from viewing_party.main import *
 from viewing_party.party import *
