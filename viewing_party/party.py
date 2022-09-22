@@ -153,21 +153,51 @@ def get_available_recs(user_data):
 # -----------------------------------------
 # ------------- WAVE 5 --------------------
 # -----------------------------------------
-# 1. Create a function named get_new_rec_by_genre(user_data) 
 
-# Consider the user's most frequently watched genre. Then, determine a list of recommended movies. A movie should be added to this list if and only if:
-# 1. The user has not watched it
-# 2. At least one of the user's friends has watched
-# 3. The "genre" of the movie is the same as the user's most frequent genre
-# Return the list of recommended movies
+def get_new_rec_by_genre(user_data):
+    user_watched_lst = user_data["watched"]
+    friends_lst = user_data["friends"]
+
+    recommended_movies = []
+    most_freq_genre = get_most_freq_genre(user_data)
+
+    for friend in friends_lst:
+        for movie in friend["watched"]:
+            if movie not in user_watched_lst and movie["genre"] == most_freq_genre and movie not in recommended_movies:
+                recommended_movies.append(movie)
+
+    return recommended_movies
+
+# Helper for get_new_rec_by_genre
+def get_most_freq_genre(user_data):
+    user_watched_lst = user_data["watched"]
+    genre_dict = {}
+
+    for movie in user_watched_lst:
+        genre = movie["genre"]
+        if genre in genre_dict:
+            genre_dict[genre] += 1
+        else:
+            genre_dict[genre] = 1
+    
+    most_freq_genre = (None, 0)
+    for genre in genre_dict:
+        genre_count = genre_dict[genre]
+        if genre_count > most_freq_genre[1]:
+            most_freq_genre = (genre, genre_count)
+
+    return most_freq_genre[0]
 
 
+def get_rec_from_favorites(user_data):
+    friends_lst = user_data["friends"]
+    users_favorites = user_data["favorites"]
 
-# 2. Create a function named get_rec_from_favorites(user_data)
+    rec_from_favorites = list(users_favorites)
 
-# user_data will have a field "favorites". The value of "favorites" is a list of movie dictionaries
-# This represents the user's favorite movies
-# Determine a list of recommended movies. A movie should be added to this list if and only if:
-# 1. The movie is in the user's "favorites"
-# 2. None of the user's friends have watched it
-# Return the list of recommended movies
+    for friend in friends_lst:
+        for movie in friend["watched"]:
+            if movie in rec_from_favorites:
+                rec_from_favorites.remove(movie)
+
+    return rec_from_favorites
