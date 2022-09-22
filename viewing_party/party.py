@@ -70,7 +70,6 @@ def get_unique_watched(user_data):
     return user_unique_movies
 
 def get_friends_unique_watched(user_data):
-    # user_watched_list = user_data["watched"]
     friend_unique_movies = []
 
     for friend in user_data['friends']:
