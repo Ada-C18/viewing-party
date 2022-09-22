@@ -93,7 +93,7 @@ def test_unique_from_empty_favorites():
         ]
     }
 
-    # Act
+    # Actls
     recommendations = get_rec_from_favorites(sonyas_data)
 
     # Assert
