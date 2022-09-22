@@ -1,8 +1,5 @@
 # ------------- WAVE 1 --------------------
 
-from gc import collect
-
-
 def create_movie(title, genre, rating):
     new_movie = {}
 
