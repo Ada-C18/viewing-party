@@ -137,6 +137,19 @@ def get_friends_unique_watched(user_data):
 # ------------- WAVE 4 --------------------
 # -----------------------------------------
 
+def get_available_recs(user_data):
+    movie_recs = []
+    list_of_movie_dictionaries_user_has_not_watched_but_friend_has = get_friends_unique_watched(user_data)
+    for subscription in user_data["subscriptions"]:
+        for dictionary in list_of_movie_dictionaries_user_has_not_watched_but_friend_has:
+            if subscription == dictionary["host"]:
+                movie_recs.append(dictionary)
+    
+    return(movie_recs)
+
+
+
+
 # -----------------------------------------
 # ------------- WAVE 5 --------------------
 # -----------------------------------------
