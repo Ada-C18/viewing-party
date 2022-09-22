@@ -90,7 +90,6 @@ def get_unique_watched(user_data):
     '''Returning list of unique movies watched by user'''
     unique_movies = copy(user_data["watched"])
 
-
     for my_movie in user_data["watched"]: #access list in user watched
         for friend in user_data["friends"]: #access friend lists in each friend
             for friend_movie in friend["watched"]: #access movie list in friend
