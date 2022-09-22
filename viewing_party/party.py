@@ -1,5 +1,6 @@
 # ------------- WAVE 1 --------------------
 
+from enum import unique
 from os import waitstatus_to_exitcode
 
 
@@ -68,25 +69,62 @@ def get_watched_avg_rating(user_data):
 def get_most_watched_genre(user_data):
     popular_genre = []
     genre_list = user_data["watched"]
-    print(genre_list)
+    # print(genre_list)
     if len(genre_list) == 0:
         return None
     else:
        for j in range (len(genre_list)):
             popular_genre.append(genre_list[j]["genre"])
-            print(popular_genre)
-    
+            # print(popular_genre)
     return max(set(popular_genre), key = popular_genre.count)
 
-# def most_frequent(List):
-# return max(set(List), key = List.count)
 
-# List = [2, 1, 2, 2, 1, 3]
-# print(most_frequent(List))
+
 
 # -----------------------------------------
 # ------------- WAVE 3 --------------------
 # -----------------------------------------
+
+def get_unique_watched(user_data):
+    # firstly tried to use set and .difference() method
+    friends_list = []
+    unique_list = []
+    # not_unique_list = []
+    friend_watched = user_data["friends"]
+    user_watched = user_data["watched"]
+
+    for val in friend_watched:
+        for movie in val["watched"]:
+            friends_list.append(movie["title"])
+    for title in user_watched:
+        # if title["title"] not in friends_list:
+        #     unique_list.append(title)
+        # if title["title"] not in user_watched:
+        #     not_unique_list.append(title)
+        if title["title"] not in friends_list and\
+        title["title"] not in user_watched:
+            unique_list.append(title)
+    return unique_list   
+
+
+def get_friends_unique_watched(user_data):
+    user_watched_list = []
+    friends_unique_movies = []
+    friend_watched = user_data["friends"]
+    user_watched = user_data["watched"]
+
+    for title in user_watched:
+        user_watched_list.append(title["title"])
+    print(user_watched_list)
+    for watched in friend_watched: 
+        for title in watched["watched"]:
+            if title["title"] not in user_watched_list and \
+            title not in friends_unique_movies:
+                friends_unique_movies.append(title)
+    return friends_unique_movies   
+
+
+
 
         
 # -----------------------------------------
