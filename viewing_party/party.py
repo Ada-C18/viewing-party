@@ -51,6 +51,11 @@ def watch_movie(user_data, title):
             user_data["watched"].append(temp_dict)
     return user_data
 
+
+
+# -----------------------------------------
+# ------------- WAVE 2 --------------------
+# -----------------------------------------
 #wave 2 part 1-ran testcase 1 and 2 
 def get_watched_avg_rating(user_data):
     
@@ -62,7 +67,7 @@ def get_watched_avg_rating(user_data):
         total_rating+=temp_list_of_dict[i]["rating"]
     return total_rating/len(temp_list_of_dict)
 
-#wave 2 part 2 
+    #wave 2 part 2 
 def get_most_watched_genre(user_data):
     #return the genre that is most frequently occuring in "watched" list
     #if "watched" list is empty, return NOne 
@@ -95,6 +100,10 @@ def get_most_watched_genre(user_data):
     return ans
     
 
+
+# -----------------------------------------
+# ------------- WAVE 3 --------------------
+# -----------------------------------------
 # wave 3 func 1-ran tests 1 and 2 in wave 3
 # make a function to compare if ele in list A is in list B
 
@@ -155,17 +164,12 @@ def get_friends_unique_watched(user_data):
     
     return result
 
+        
+# -----------------------------------------
+# ------------- WAVE 4 --------------------
+# -----------------------------------------
+
 #wave 4 function 1
-#Create a function named get_available_recs. This function should...
-# take one parameter: user_data
-# user_data will have a field "subscriptions". The value of "subscriptions" is a list of strings
-# This represents the names of streaming services that the user has access to
-# Each friend in "friends" has a watched list. Each movie in the watched list has a "host", which is a string that says what streaming service it's hosted on
-# Determine a list of recommended movies. A movie should be added to this list if and only if:
-# The user has not watched it
-# At least one of the user's friends has watched
-# The "host" of the movie is a service that is in the user's "subscriptions"
-# Return the list of recommended movies
 
 
 def get_available_recs(user_data):
@@ -180,15 +184,13 @@ def get_available_recs(user_data):
 
     for item in friends_dict:
         if item not in user_dict:
-            if item not in result:
-                if item["host"] in user_data["subscriptions"]:
-                    result.append(item)
+            if item["host"] in user_data["subscriptions"]:
+                result.append(item)
     return result
-    
-    
-            
 
-
+# -----------------------------------------
+# ------------- WAVE 5 --------------------
+# -----------------------------------------
 # wave 5 part 1
 #Create a function named get_new_rec_by_genre. This function should...
 # take one parameter: user_data
@@ -212,61 +214,4 @@ def get_available_recs(user_data):
 # The movie is in the user's "favorites"
 # None of the user's friends have watched it
 # Return the list of recommended movies
-            
-
-
-
-
-
-
-    
-
-
-
-
-
-    
-
-
-
-    
-            
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-# -----------------------------------------
-# ------------- WAVE 2 --------------------
-# -----------------------------------------
-
-
-# -----------------------------------------
-# ------------- WAVE 3 --------------------
-# -----------------------------------------
-
-        
-# -----------------------------------------
-# ------------- WAVE 4 --------------------
-# -----------------------------------------
-
-# -----------------------------------------
-# ------------- WAVE 5 --------------------
-# -----------------------------------------
 
