@@ -140,11 +140,15 @@ def get_friends_unique_watched(user_data):
     '''
     unique_watched_list = []
 
-    friends_list_dict = user_data["friends"]
+    # User Data Watched Sets
     friend_watched_set = set(get_friends_watched(user_data))
     user_watched_set = set(get_users_watched(user_data))
 
     unique_set = friend_watched_set - user_watched_set
+
+    # User Data Variables
+    friends_list_dict = user_data["friends"]
+
 
     for i in range(len(friends_list_dict)):
         for friend_movie in friends_list_dict[i]["watched"]:
@@ -156,8 +160,37 @@ def get_friends_unique_watched(user_data):
 # -----------------------------------------
 # ------------- WAVE 4 --------------------
 # -----------------------------------------
+def get_available_recs(user_data):
+    '''
+    Returns a list of recommended movies based on what
+    the user has a subscription to using user_data as input
+    '''
+    recommended_movies_list = []
+
+    # User Data Watched Sets
+    friend_watched_set = set(get_friends_watched(user_data))
+    user_watched_set = set(get_users_watched(user_data))
+    
+    unique_set = friend_watched_set - user_watched_set
+
+    # User Data Variables
+    subscriptions_list = user_data['subscriptions']
+    friends_list_dict = user_data["friends"]
+
+
+    # Pull data for recommended movies from user data
+    for i in range(len(friends_list_dict)):
+        for friend_movie in friends_list_dict[i]["watched"]:
+            if friend_movie["title"] in unique_set and friend_movie['host'] in subscriptions_list and friend_movie not in recommended_movies_list:
+                recommended_movies_list.append(friend_movie) 
+
+    return recommended_movies_list
+
 
 # -----------------------------------------
 # ------------- WAVE 5 --------------------
 # -----------------------------------------
+# made it to wave 5!! *party emoji*
 
+def get_new_rec_by_genre():
+    pass
