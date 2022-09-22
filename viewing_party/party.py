@@ -1,7 +1,4 @@
-# import json
-# print(json.dumps(user_data,indent=2))
 # ------------- WAVE 1 --------------------
-
 def create_movie(title, genre, rating):
     if title and genre and rating:
         movie_dict = {}
@@ -30,15 +27,11 @@ def watch_movie(user_data, title):
             watchlist.remove(movie)
             user_data["watched"].append(movie)
             break
-    # return outside for loop to ensure we iterate entire list
     return user_data
 
 # -----------------------------------------
 # ------------- WAVE 2 --------------------
 # -----------------------------------------
-# Note: For Waves 2, 3, 4, and 5, your implementation of each of the functions should not modify user_data.?
-
-
 def get_watched_avg_rating(user_data):
     rating_total = 0
     watched_lst = user_data["watched"]
@@ -53,25 +46,23 @@ def get_watched_avg_rating(user_data):
 
 
 def get_most_watched_genre(user_data):
-    watched_lst = user_data["watched"]
+    user_watched_lst = user_data["watched"]
     genre_dict = {}
 
-    if len(watched_lst) == 0:
-        return None
-
-    for movie in watched_lst:
-        if movie["genre"] in genre_dict:
-            genre_dict[movie["genre"]] += 1
+    for movie in user_watched_lst:
+        genre = movie["genre"]
+        if genre in genre_dict:
+            genre_dict[genre] += 1
         else:
-            genre_dict[movie["genre"]] = 1
+            genre_dict[genre] = 1
     
-    current_highest = 0
-    current_genre = None
-    for genre, num in genre_dict.items():
-        if num > current_highest:
-            current_highest = num
-            current_genre = genre
-    return current_genre
+    most_freq_genre = (None, 0)
+    for genre in genre_dict:
+        genre_count = genre_dict[genre]
+        if genre_count > most_freq_genre[1]:
+            most_freq_genre = (genre, genre_count)
+
+    return most_freq_genre[0]
 
 # -----------------------------------------
 # ------------- WAVE 3 --------------------
@@ -147,6 +138,7 @@ def get_new_rec_by_genre(user_data):
 
     recommended_movies = []
     most_freq_genre = get_most_freq_genre(user_data)
+    # get_most_watched_genre
 
     for friend in friends_lst:
         for movie in friend["watched"]:
