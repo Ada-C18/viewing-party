@@ -59,10 +59,8 @@ def get_watched_avg_rating(user_data):
     Output: function finds the average rating of all movies in watched list and returns that average rating. 
     '''
     sum = 0
-    for movie in range(len(user_data["watched"])):
-        for key,value in user_data["watched"][movie].items():
-            if key == "rating":
-                sum += value
+    for movie in user_data["watched"]:
+        sum += movie["rating"]
     if sum > 0:
         average = sum / len(user_data["watched"])
     else:
