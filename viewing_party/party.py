@@ -1,14 +1,23 @@
 # ------------- WAVE 1 --------------------
 
+from genericpath import exists
+
+
+# def create_movie(title, genre, rating):
+#     if title and genre and rating is True:
+#         return {'title':title,
+#         'genre': genre,
+#         'rating':rating
+#         }
+#     else:
+#         return None 
 def create_movie(title, genre, rating):
-    if title and genre and rating is True:
-        return {'title':title,
-        'genre': genre,
-        'rating':rating
-        }
+    if title is not None and genre is not None and rating is not None\
+            and title is not False and genre is not False and rating is not False:
+        return {'title': title, 'genre': genre, 'rating': rating}
     else:
-        return None 
-    pass
+        return None
+    
 
 
 def add_to_watched(user_data, movie):
@@ -69,6 +78,22 @@ def get_most_watched_genre(user_data):
 # -----------------------------------------
 # ------------- WAVE 3 --------------------
 # -----------------------------------------
+def get_unique_watched(user_data):
+    result = []
+    for movie in user_data['watched']:
+        watched = False 
+        for friend in user_data['friends']:
+            for friend_movie in friend['watched']:
+                if movie['title'] == friend_movie["title"]:
+                    watched = True 
+            if not watched:
+                result.append(movie)
+    return result 
+
+#def get_friends_unique_watched(user_data):
+    result = []
+
+
 
         
 # -----------------------------------------
