@@ -18,9 +18,10 @@ def create_movie(title, genre, rating):
     return movie_dict
 
 def add_to_watched(user_data, movie):
-    # user_data is a dictionary with a key "watched" and value of list of dictionaries users have watched
-        # An empty list value in user_data["watched"] means user has no movies in watched list
-    # movie is a dictionary with title, genre, and rating keys
+    '''
+    Input: user_data is a dictionary with a key "watched" and value of list of movie dictionaries the user has watched
+    Output: Function adds movie dictionary to user_data and returns user_data
+    '''
     user_data["watched"] = [movie]
     return user_data
 
