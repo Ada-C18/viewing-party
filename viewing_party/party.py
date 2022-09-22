@@ -162,12 +162,11 @@ def get_friends_unique_watched(user_data):
 # -----------------------------------------
 # ------------- WAVE 4 --------------------
 # -----------------------------------------
-def get_available_recs(user_data):
-    """
-    user_data contains:
-    "subscriptions" = list of strings, representing streaming services user has access to
-    "friends" = many friends w/ watched lists
-        each movie in watched lists has a "host": streaming service
+def get_available_recs(user_data: dict):
+    """ Returns a list of recommended movies based on user_data.
+
+    Keyword arguments:
+    user_data -- a dictionary with "subscriptions" and "friends" keys
     """
     recommended_movies = []
     friend_recommendations = get_friends_unique_watched(user_data)
@@ -175,7 +174,6 @@ def get_available_recs(user_data):
     for movie in friend_recommendations:
         if movie["host"] in user_data["subscriptions"]:
             recommended_movies.append(movie)
-
     return recommended_movies
 
 # -----------------------------------------
