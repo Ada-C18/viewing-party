@@ -89,9 +89,6 @@ def get_most_watched_genre(user_data):
 # -----------------------------------------
 # ------------- WAVE 3 --------------------
 # -----------------------------------------
-# 1. Determine which movies the user has watched, but none of their friends have watched.
-# Return a list of dictionaries, that represents a list of movies
-
 
 def get_unique_watched(user_data):
     watched_lst = user_data["watched"]
@@ -109,12 +106,6 @@ def get_unique_watched(user_data):
 
     return unique_watched_lst
 
-# 2. Create a function named get_friends_unique_watched.
-# Consider the movies that the user has watched, and consider the movies that their friends have watched. Determine which movies at least one of the user's friends have watched, but the user has not watched.
-# Return a list of dictionaries, that represents a list of movies
-
-# -- user not watched
-# -- 1+ friend watched
 
 def get_friends_unique_watched(user_data):
     user_watched_lst = user_data["watched"]
@@ -124,7 +115,7 @@ def get_friends_unique_watched(user_data):
 
     for friend in friends_lst:
         for movie in friend["watched"]:
-            if movie not in user_watched_lst:
+            if movie not in user_watched_lst and movie not in user_not_watched:
                 user_not_watched.append(movie)
 
     return user_not_watched
