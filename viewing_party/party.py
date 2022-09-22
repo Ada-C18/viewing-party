@@ -1,7 +1,7 @@
 # ------------- WAVE 1 --------------------
 
 def create_movie(title, genre, rating):
-    '''Add new movie if title, genre and rating are truthy'''
+    '''Add new movie to dict if title, genre and rating are truthy'''
     new_movie = {}
 
     if title and genre and rating:
@@ -15,13 +15,13 @@ def create_movie(title, genre, rating):
 
 
 def add_to_watched(user_data, movie):
-    '''Add movie to watched movies list in user data dict'''
+    '''Add movie to watched movies list in user_data'''
     user_data["watched"].append(movie)
     return user_data
 
 
 def add_to_watchlist(user_data, movie):
-    '''Add movies to watchlist in user data dict'''
+    '''Add movie to watchlist in user_data'''
     user_data["watchlist"].append(movie)
     return user_data
 
@@ -45,7 +45,6 @@ def get_watched_avg_rating(user_data):
     rating_total = 0.0
     
     for i in range(len(user_data["watched"])):
-        # print(user_data["watched"][i]["rating"])
         rating_total += user_data["watched"][i]["rating"]
     
     if len(user_data['watched']) == 0:
@@ -83,11 +82,12 @@ def get_most_watched_genre(user_data):
 from copy import copy
 def get_unique_watched(user_data):
     '''Returning list of unique movies watched by user'''
+    # make copy of user_data watched to use as list to remove movies also watched by friends
     unique_movies = copy(user_data["watched"])
 
     for my_movie in user_data["watched"]: #access list in user watched
-        for friend in user_data["friends"]: #access friend lists in each friend
-            for friend_movie in friend["watched"]: #access movie list in friend
+        for friend in user_data["friends"]: #access friend lists in user friends
+            for friend_movie in friend["watched"]: #access movie list in each friend watched
                 if my_movie["title"] == friend_movie["title"] and my_movie in unique_movies:
                     unique_movies.remove(my_movie)
 
