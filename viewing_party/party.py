@@ -86,25 +86,19 @@ def get_friends_watched(user_data):
 # Create get_unique_watched function to get list of movies user watched, but not friends
 def get_unique_watched(user_data):
     unique_watched_list = []
-    # Empty full_list_of_friends_watched list to add the movies that friends have watched to make one list
-    full_list_of_friends_watched = []
-    for i in range(len(user_data["friends"])):
-        full_list_of_friends_watched += user_data["friends"][i]["watched"]
-    
-    # Compare user's "watched" list with full_list_of_friends_watched list 
+    friends_watched_list = get_friends_watched(user_data)
+
     for movie in user_data["watched"]:
-        if movie not in full_list_of_friends_watched:
+        if movie not in friends_watched_list:
             unique_watched_list.append(movie)
     return unique_watched_list
 
 # Create get_friends_unique_watched function to get list of movies friends watched, but not user
 def get_friends_unique_watched(user_data):
     friends_unique_watched_list = []
-    full_list_of_friends_watched = []
-    for i in range(len(user_data["friends"])):
-        full_list_of_friends_watched += user_data["friends"][i]["watched"]
-    
-    for movie in full_list_of_friends_watched:
+    friends_watched_list = get_friends_watched(user_data)
+
+    for movie in friends_watched_list:
         if movie not in user_data["watched"] and movie not in friends_unique_watched_list:
             friends_unique_watched_list.append(movie)
     return friends_unique_watched_list
