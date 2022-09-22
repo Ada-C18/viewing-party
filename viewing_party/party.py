@@ -22,13 +22,9 @@ def add_to_watchlist(user_data,movie):
     return user_data
 
 def watch_movie(user_data,title):
-    
-
-    
     for index in range(len(user_data["watchlist"])): #accessing the list inside watchlist 
         
-        if title == user_data["watchlist"][index]["title"]:
-            
+        if title == user_data["watchlist"][index]["title"]:            
             #adding the title already watched to watched list
             user_data["watched"].append(user_data["watchlist"][index])
             #removing the title already watched out of watchlist
@@ -36,7 +32,6 @@ def watch_movie(user_data,title):
             print("watched ",user_data["watched"])
             print("watchlist ",user_data["watchlist"])
             return user_data
-    
     return user_data 
     
     
@@ -87,6 +82,7 @@ def get_most_watched_genre(user_data):
 
 #HELPER FUNCTION TO CALCULATE TOTAL RATING    
 def sum_rating(rating_list):
+    """Helper function to calculate total rating"""
     sum = 0
     for rating in rating_list:
         sum += rating
@@ -131,8 +127,9 @@ def get_friends_unique_watched(user_data):
     # print(friends_unique_list)
     return friends_unique_list
 
-#HELPER FUNCTION TO CREATE FRIENDS' WATCHED LIST
+
 def get_friends_watched_list(user_data):
+    """Helper function to create friends' watched list"""
     friends_watched_list = []
 
     if len(user_data["friends"]) == 0:
@@ -156,8 +153,9 @@ def get_friends_watched_list(user_data):
         
         return friends_watched_list
 
-#HELPER FUNCTION TO CREATE USER'S WATCH LIST
+
 def get_user_watched_list(user_data):
+    """Helper function to create user's watch list"""
     user_watched_list = []
 
     if len(user_data["friends"]) ==0:
@@ -167,8 +165,7 @@ def get_user_watched_list(user_data):
             user_watched_list.append(user_data["watched"][movie])
     
     return user_watched_list
-        
-   
+           
 # -----------------------------------------
 # ------------- WAVE 4 --------------------
 # -----------------------------------------
@@ -190,8 +187,9 @@ def get_available_recs(user_data):
     # print(len(user_recs))
     return user_recs
 
-#HELPER FUNCTION TO GET LIST OF SUBSCRIPTION USER DO NOT HAVE    
-def get_to_remove_list(user_data):    
+   
+def get_to_remove_list(user_data):
+    """Helper function to get list of 'subscription' service user do not have"""    
     friends_unique_list = get_friends_unique_watched(user_data)
     user_recs = friends_unique_list.copy()
     to_remove_list = []
