@@ -7,7 +7,7 @@ def create_movie(title, genre, rating):
     movie_dict["rating"] = rating
     
     for category in movie_dict:
-        if not bool(movie_dict[category]):
+        if not movie_dict[category]:
             return None
     
     # print(movie_dict)
