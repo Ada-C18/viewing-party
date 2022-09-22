@@ -160,10 +160,18 @@ def get_available_recs(user_data):
 def get_new_rec_by_genre(user_data):
     user_movies = []
     friends_movies = []
-    unique = []
+    most_genre = []
+    recommended_movies = []
 
     for movie in user_data["watched"]: # this is to help create the user watch list
         user_movies.append(movie) #user_movies has a list of the movies the user has seen
+        most_genre.append(movie["genre"]) # to get to the genre
+
+    if len(user_movies) == 0:
+        return friends_movies # if the list of user is completely empty
+
+    max(set(most_genre), key=most_genre.count) # will get the most watched genre, will 
+    # shorten the list to only one
 
     for movie in user_data["friends"]: # reaching into the list of dictionaries
         for item in movie["watched"]:
@@ -171,8 +179,34 @@ def get_new_rec_by_genre(user_data):
 
     for item in friends_movies: # we are accesing the list we created of movies watched by friends
         if item not in user_movies: # it the friends movie is not in the movies the user has seen
-            if item not in unique: # if that movie is also not in our list of unique movies, we add to unique
+            if item not in most_genre: # if that movie is also not in our list of unique movies, we add to unique
                 if item["host"] in user_data["subscriptions"]: # if streaming service is in subscription
-                    unique.append(item) # if streaming service is found, add to unique
+                    if most_genre[0] in item["genre"]: # if the most popular genre is in the friends dict list
+                        recommended_movies.append(item) # if streaming service is found, add to recommended movies
+    return recommended_movies
 
-    return unique
+def get_rec_from_favorites(user_data):
+    recommended_movies = []
+    user_movies = []
+    friend_movies = []
+
+    for movie in user_data["watched"]: # this will add to the user movie list
+        user_movies.append(movie)
+ 
+    if len(user_movies) == 0:
+        return friend_movies # if the list of user is completely empty
+
+    for movie in user_data["friends"]: # this will add to the friend movies
+        for item in movie["watched"]:
+            friend_movies.append(item)
+
+    for item in user_data["favorites"]: # this accesses favorites in the user data
+        if item not in friend_movies: # if that favorite is not in friends movies
+            recommended_movies.append(item) # append the item to the recommended movies
+    return recommended_movies
+
+    
+
+                
+
+
