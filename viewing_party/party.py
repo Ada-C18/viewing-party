@@ -41,9 +41,6 @@ def get_watched_avg_rating(user_data):
     return average
 
 def get_most_watched_genre(user_data):
-    # if user_data == {"watched": []}:
-    #     return None
-    # else:
     index = 0
     genres = []
     least_popular = []
@@ -135,6 +132,47 @@ def get_friends_unique_watched(user_data):
 # ------------- WAVE 4 --------------------
 # -----------------------------------------
 
+def get_available_recs(user_data):
+    user_movies = []
+    friends_movies = []
+    unique = []
+
+    for movie in user_data["watched"]: # this is to help create the user watch list
+        user_movies.append(movie) #user_movies has a list of the movies the user has seen
+
+    for movie in user_data["friends"]: # reaching into the list of dictionaries
+        for item in movie["watched"]:
+            friends_movies.append(item) # this is now a list of the friend's movies
+
+    for item in friends_movies: # we are accesing the list we created of movies watched by friends
+        if item not in user_movies: # it the friends movie is not in the movies the user has seen
+            if item not in unique: # if that movie is also not in our list of unique movies, we add to unique
+                if item["host"] in user_data["subscriptions"]: # if streaming service is in subscription
+                    unique.append(item) # if streaming service is found, add to unique
+
+    return unique
+
+
 # -----------------------------------------
 # ------------- WAVE 5 --------------------
 # -----------------------------------------
+
+def get_new_rec_by_genre(user_data):
+    user_movies = []
+    friends_movies = []
+    unique = []
+
+    for movie in user_data["watched"]: # this is to help create the user watch list
+        user_movies.append(movie) #user_movies has a list of the movies the user has seen
+
+    for movie in user_data["friends"]: # reaching into the list of dictionaries
+        for item in movie["watched"]:
+            friends_movies.append(item) # this is now a list of the friend's movies
+
+    for item in friends_movies: # we are accesing the list we created of movies watched by friends
+        if item not in user_movies: # it the friends movie is not in the movies the user has seen
+            if item not in unique: # if that movie is also not in our list of unique movies, we add to unique
+                if item["host"] in user_data["subscriptions"]: # if streaming service is in subscription
+                    unique.append(item) # if streaming service is found, add to unique
+
+    return unique
