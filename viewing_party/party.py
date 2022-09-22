@@ -31,30 +31,26 @@ def watch_movie(user_data, title):
 def get_watched_avg_rating(user_data):
     sum_of_ratings = 0
     if not user_data["watched"]:
-        return 0
+        return 0.0
     else:
-        for i in range(len(user_data["watched"])):
-            sum_of_ratings += user_data["watched"][i]["rating"]
+        for movie in user_data["watched"]:
+            sum_of_ratings += movie["rating"]
         average_rating = sum_of_ratings/len(user_data["watched"])
-    return average_rating  
+    return average_rating
 
 def get_most_watched_genre(user_data):
-    genre_list = []
     genre_counter = {}
     if not user_data["watched"]:
         return None
     else:
-        for i in range(len(user_data["watched"])):
-            genre_list.append(user_data["watched"][i]["genre"])
-        for genre in genre_list:
-            if genre not in genre_counter:
-                genre_counter[genre] = 1
-            elif genre in genre_counter:
-                genre_counter[genre] += 1
-        max_value = max(genre_counter.values())
-        for key, value in genre_counter.items():
-            if max_value == value:
-                return key
+        for movie in user_data["watched"]:
+            if movie["genre"] not in genre_counter:
+                genre_counter[movie["genre"]] = 1
+            elif movie["genre"] in genre_counter:
+                genre_counter[movie["genre"]] += 1
+        most_frequent_genre = max(genre_counter, key=genre_counter.get)
+        return most_frequent_genre
+
     
 # -----------------------------------------
 # ------------- WAVE 3 --------------------
@@ -110,18 +106,18 @@ def get_new_rec_by_genre(user_data):
     return recs
 
 def get_rec_from_favorites(user_data):
-    user_fav_movies = []
+    # user_fav_movies = []
     friend_watched_list = []
     recs = []
 
-    for movie in user_data["favorites"]:
-        user_fav_movies.append(movie)
+    # for movie in user_data["favorites"]:
+    #     user_fav_movies.append(movie)
 
-    for friend_movie in user_data['friends']:
-        for movie in friend_movie['watched']:
+    for friend in user_data['friends']:
+        for movie in friend['watched']:
             friend_watched_list.append(movie)
 
-    for fav_movie in user_fav_movies:
+    for fav_movie in user_data["favorites"]:
         if fav_movie not in friend_watched_list:
             recs.append(fav_movie)
     return recs
