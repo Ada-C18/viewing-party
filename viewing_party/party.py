@@ -155,6 +155,46 @@ def get_friends_unique_watched(user_data):
     
     return result
 
+#wave 4 function 1
+#Create a function named get_available_recs. This function should...
+# take one parameter: user_data
+# user_data will have a field "subscriptions". The value of "subscriptions" is a list of strings
+# This represents the names of streaming services that the user has access to
+# Each friend in "friends" has a watched list. Each movie in the watched list has a "host", which is a string that says what streaming service it's hosted on
+# Determine a list of recommended movies. A movie should be added to this list if and only if:
+# The user has not watched it
+# At least one of the user's friends has watched
+# The "host" of the movie is a service that is in the user's "subscriptions"
+# Return the list of recommended movies
+def check_if(s, list_a):
+    for i in range(0, len(list_a)):
+        if s is list_a[i]:
+            return True
+    return False
+
+def get_available_recs(user_data):
+    result_list = []
+    #friends
+    list_userdata = user_data["friends"] #[{"watched": [dict1, dict2,....]}]
+
+    for i in range(0, len(list_userdata)):
+        inside_list = list_userdata[i]["watched"] #[dict1, dict2, .....]
+
+        for j in range(0, len(inside_list)):
+            value_of_host= inside_list[j]["host"] #amazon
+
+            if check_if(value_of_host, user_data["subscriptions"]) == True :
+                result_list.append(get_friends_unique_watched(user_data))
+
+
+    
+    return result_list
+            
+
+
+
+
+
 
     
 
