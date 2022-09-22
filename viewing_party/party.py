@@ -134,4 +134,60 @@ def get_available_recs(user_data):
 # -----------------------------------------
 # ------------- WAVE 5 --------------------
 # -----------------------------------------
+def get_new_rec_by_genre(user_data):
+    
+    friends_list = user_data["friends"]
+    friends_watched_list = []
+    recommended_movies_list = []
+    #making friends_watched_list_of_unique_movies:
+    for friend_data in friends_list:
+        for movie in friend_data["watched"]:
+            if movie not in friends_watched_list:
+                friends_watched_list.append(movie)
 
+    # making sure friends watched list is not empty before proceeding
+    if len(friends_watched_list) == 0 or len(user_data["watched"]) == 0:
+        return recommended_movies_list
+
+    #making a dictionary of genres as keys and frequency as values from user watched movies:
+    # to find out most watched genres (genre with highest frequency count)
+    user_genre_dict = {}
+    most_watched_genre_score = 0
+    most_watched_genre = ""
+    for movie in user_data["watched"]:
+        if movie["genre"] not in user_genre_dict.keys():
+            user_genre_dict[movie["genre"]] = 1
+        else:
+            user_genre_dict[movie["genre"]] += 1
+        if user_genre_dict[movie["genre"]] > most_watched_genre_score:
+            most_watched_genre_score = user_genre_dict[movie["genre"]]
+            most_watched_genre = movie["genre"]
+    
+    #making recommended movies list based on most watched genre:
+    for movie in friends_watched_list:
+        if movie not in user_data["watched"] and movie["genre"] == most_watched_genre:
+            recommended_movies_list.append(movie)
+    
+    return recommended_movies_list
+# -----------------------------------------
+
+def get_rec_from_favorites(user_data):
+    favorite_movies_list = user_data["favorites"]
+
+    friends_list = user_data["friends"]
+    friends_watched_list = []
+    recommended_movies_list = []
+    
+    #making friends_watched_list_of_unique_movies:
+    for friend_data in friends_list:
+        for movie in friend_data["watched"]:
+            if movie not in friends_watched_list:
+                friends_watched_list.append(movie)
+    
+    # make a recommended list based on user favorites if none of friends have watched it
+    for movie in favorite_movies_list:
+        if movie not in friends_watched_list:
+            recommended_movies_list.append(movie)
+
+    return recommended_movies_list
+# -----------------------------------------    
