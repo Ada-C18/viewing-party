@@ -131,6 +131,11 @@ def get_new_rec_by_genre(user_data):
 
     most_watched_genre = get_most_watched_genre(user_data)
 
+    rec_movie_by_genre =[]
 
-    for movie in user_data["watched"]:
-        print(movie)
+    for movie in friends_unique_movies:
+        # print(movie)
+        if most_watched_genre == movie['genre']:
+            rec_movie_by_genre.append(movie)
+
+    return rec_movie_by_genre        
