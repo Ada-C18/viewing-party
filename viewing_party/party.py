@@ -1,5 +1,6 @@
 # ------------- WAVE 1 --------------------
 
+
 def create_movie(title, genre, rating):
     '''Add new movie to dict if title, genre and rating are truthy'''
     new_movie = {}
