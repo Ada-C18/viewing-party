@@ -178,3 +178,12 @@ def get_new_rec_by_genre(user_data):
         if freq_genre in movie["genre"]:
             rec_movies.append(movie)
     return rec_movies
+
+def get_rec_from_favorites(user_data):
+    rec_movies = []
+
+    for movie in user_data["favorites"]:
+        if movie in get_unique_watched(user_data):
+            rec_movies.append(movie)
+
+    return rec_movies
