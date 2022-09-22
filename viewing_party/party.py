@@ -66,9 +66,9 @@ def get_most_watched_genre(user_data):
         else:
             frequent_genre_counter[genre]=1
     max_genre = max(frequent_genre_counter.values())
-    for key in frequent_genre_counter:
-        if frequent_genre_counter[key]== max_genre:
-            return key
+    for genre in frequent_genre_counter:
+        if frequent_genre_counter[genre]== max_genre:
+            return genre
     
 
 # -----------------------------------------
@@ -110,7 +110,9 @@ def get_friends_unique_watched(user_data):
         for movie in friend["watched"]:
             if movie not in user_data["watched"] and movie not in friend_movies:
                 friend_movies.append(movie)
+                print(f"MOVIE{movie}")
     return friend_movies
+
 
 
     """
@@ -154,14 +156,21 @@ def get_available_recs(user_data):
 #input=
 #output=
 # ------------- WAVE 5 --------------------
-# def get_new_rec_by_genre(user_data):
-#     rec_movies=[]
-#     #genre=
-#     # get most frequent movie["genre"]
+def get_new_rec_by_genre(user_data):
+    friends_movies= get_friends_unique_watched(user_data)
+    my_fave_genre=get_most_watched_genre(user_data)
+    recommendations=[]
+    for movie in friends_movies:
+        if movie.get("genre") == my_fave_genre:
+            recommendations.append(movie)
+    return recommendations
 
-#     if movie not in user_data["watched"] and movie in rec_movies and genre the same as user frequent
-#     return rec_movies
-
-# def get_rec_from_favorites(user_data):
-
+def get_rec_from_favorites(user_data):
+    my_watched=get_unique_watched(user_data)
+    my_faves=user_data.get("favorites")
+    intersection=[]
+    for watched in my_watched:
+        if watched in my_faves:
+            intersection.append(watched)
+    return intersection
 # -----------------------------------------
