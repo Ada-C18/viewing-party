@@ -1,4 +1,5 @@
 # Viewing Party
+# Our first unit 1 project!
 
 ## Skills Assessed
 
