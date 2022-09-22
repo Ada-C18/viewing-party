@@ -161,4 +161,18 @@ def get_available_recs(user_data):
 # -----------------------------------------
 # ------------- WAVE 5 --------------------
 # -----------------------------------------
+def get_new_rec_by_genre(user_data):
 
+#Find the most frequently watched genre in users movies
+    freq_genre = get_most_watched_genre(user_data)
+# Find movies the user hasn't watched but at least one of their friend's have watched
+    unique_friends_movies = get_friends_unique_watched(user_data)
+
+# find which movies in the unique_friends_movies list has the same genre as...
+# the users most frequent watched genre
+    rec_movies = []    
+
+    for movie in unique_friends_movies:
+        if freq_genre in movie["genre"]:
+            rec_movies.append(movie)
+    return rec_movies
