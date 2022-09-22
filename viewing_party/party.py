@@ -98,23 +98,19 @@ def create_user_watched_set(user_data):
     # of my earlier functions? I found having the variable there helpful for the debugging
     # watch list, for example, because it was always already set up. Thoughts appreciated.
 
-    title_genre = tuple()
     user_watched = set()
 
     for movie in user_data['watched']:
-        title_genre = movie['title'], movie['genre']
-        user_watched.add(title_genre)
+        user_watched.add((movie['title'], movie['genre']))
 
     return user_watched
 
 def create_friends_watched_set(user_data):
-    title_genre = tuple()
     friends_watched = set()
 
     for friend in user_data['friends']:
         for movie in friend['watched']:
-            title_genre = movie['title'], movie['genre']
-            friends_watched.add(title_genre)
+            friends_watched.add((movie['title'], movie['genre']))
     
     return friends_watched
 
