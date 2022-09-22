@@ -1,5 +1,6 @@
 # ------------- WAVE 1 --------------------
 import json
+from unittest import result
 
 def create_movie(title, genre, rating):
     '''
@@ -174,11 +175,12 @@ def get_friends_unique_watched(user_data):
 # ------------- WAVE 4 --------------------
 # -----------------------------------------
 def get_available_recs(user_data):
-    # print(json.dumps(user_data, indent=2))
-    # return list of recommended movies
-    # user has not watched
-    # at least one friend has watched
-    # "host" of the movie is in user's subscriptions
+    '''
+    Input: user_data is a dictionary with a fields "watched" (list of user's watched movie dictionaries), "friends" (dictionary with 
+    "watched"), and "subscriptions" (list of streaming services as strings)
+    Output: returns a list of recommended movies that the user hasn't watched, is one of the user's streaming services, and at least
+    one friend has watched.
+    '''
     recommended_movies = []
     friends_watched = get_friends_unique_watched(user_data)
 
