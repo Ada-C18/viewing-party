@@ -213,3 +213,52 @@ def get_available_recs(user_data):
 # -----------------------------------------
 # ------------- WAVE 5 --------------------
 # ----------------------------------------
+
+def get_new_rec_by_genre(user_data):
+    #get most_popular genre from user_data['watched']['genre']
+    fav_genre=get_most_watched_genre(user_data)
+
+    #call get_friends_unique_watched(user_data) to check conditions for recommendation_list
+    friends_unique_watched=get_friends_unique_watched(user_data)
+
+    #filter list of friends_unique_watched by genre to generate recommended movie list by genre
+    rec_movie_list_by_genre=[]
+    for movie in friends_unique_watched:
+        if movie['genre']==fav_genre:
+            rec_movie_list_by_genre.append(movie)
+    return rec_movie_list_by_genre
+
+# #----------------------------------------------
+# #is get_friends_unique_watched function with user_data['favorites'], instead of user_data['watched']
+def get_rec_from_favorites(user_data):
+
+    #get total list of all friends' watched_movies
+    movies_friends_have_watched=[]
+    for friend in user_data['friends']:
+        for movie in friend['watched']:
+            movies_friends_have_watched.append(movie)
+
+    
+    #create list of user's favorite movies that is not in friends' watched movie_list
+    favorite_movies_list=[]
+    for favorite_movie in user_data['favorites']:
+        if favorite_movie not in movies_friends_have_watched:
+            favorite_movies_list.append(favorite_movie)
+
+    #if movie is in favorite_movies
+
+    # #list_of_watched_movies subtract list_of_unique_movies 
+    # fav_movies_to_recommend=[]
+    # for unique_movie in list_of_watched_movies:
+    #     if unique_movie not in user_data['favorites']:
+    #         fav_movies_to_recommend.append(unique_movie)
+
+    # #ensure no duplicates in friends_unique_movie_list
+    # result=[]
+    # for i in fav_movies_to_recommend:
+    #     if i not in result:
+    #         result.append(i)
+    #     print(len(result))
+    #     fav_movies_to_recommend=result
+    
+    return favorite_movies_list
