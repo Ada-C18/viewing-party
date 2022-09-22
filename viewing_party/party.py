@@ -200,7 +200,31 @@ def get_available_recs(user_data):
 # The "genre" of the movie is the same as the user's most frequent genre
 # Return the list of recommended movies
 
-#def get_new_rec_by_genre(user_data):
+def get_new_rec_by_genre(user_data):
+    # find user's most frequently watched genre
+    most_watched_genre = get_most_watched_genre(user_data) #string
+    result = []
+    user_dict = []
+    friends_dict = []
+    for movie in user_data["watched"]:
+        user_dict.append(movie)
+    for movie in user_data["friends"]:
+        for item in movie["watched"]:
+            friends_dict.append(item)
+
+    for item in friends_dict:
+        if item not in user_dict:
+            if item["genre"] is most_watched_genre:
+                result.append(item)
+    return result
+
+
+    
+
+
+
+
+
 
 
 
