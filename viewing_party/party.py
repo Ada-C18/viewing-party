@@ -59,14 +59,14 @@ def get_watched_avg_rating(user_data):
 # Create get_most_watched_genre function to find the genre watched the most
 def get_most_watched_genre(user_data):
     watched_genres = {}
-    if user_data["watched"] == []:
+    if not user_data["watched"]:
         return None
     else:
-        for i in range(len(user_data["watched"])):
-            if user_data["watched"][i]["genre"] not in watched_genres:
-                watched_genres[user_data["watched"][i]["genre"]] = 1
+        for movie in user_data["watched"]:
+            if movie["genre"] not in watched_genres:
+                watched_genres[movie["genre"]] = 1
             else:
-                watched_genres[user_data["watched"][i]["genre"]] += 1
+                watched_genres[movie["genre"]] += 1
 
     most_watched = max(watched_genres, key=watched_genres.get)
     return most_watched
