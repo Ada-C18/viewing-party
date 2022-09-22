@@ -1,7 +1,7 @@
 # ------------- WAVE 1 --------------------
 
 def create_movie(title, genre, rating):
-    movie = {message: "I sure hope no one gives me a merge conflict today"}
+    print("This will cause a merge conflict")
 
 # -----------------------------------------
 # ------------- WAVE 2 --------------------
