@@ -2,14 +2,19 @@
 import json
 
 def create_movie(title, genre, rating):
+    '''
+    Input: movie title, genre, and rating
+    Ouput: If values truthy, produces a dictionary of movies with title, genre, and rating key-value pairs.
+    If inputs are falsy, function returns None.
+    '''
     movie_dict = {}
     # if title == True and genre == True and rating == True:
     if True: 
         movie_dict["title"] = title
         movie_dict["genre"] = genre
         movie_dict["rating"] = rating
-    else:
-        return None 
+    # else:
+    #     return None 
     if title == None or genre == None or rating == None:
         return None
     return movie_dict
