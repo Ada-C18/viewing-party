@@ -61,9 +61,9 @@ def get_watched_avg_rating(user_data):
     sum = 0
     for movie in user_data["watched"]:
         sum += movie["rating"]
-    if sum > 0:
+    try:
         average = sum / len(user_data["watched"])
-    else:
+    except ZeroDivisionError:
         average = 0.0
     return average
 
