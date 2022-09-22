@@ -222,8 +222,5 @@ def get_rec_from_favorites(user_data):
     for movie in user_data["favorites"]:
         if movie in user_unique_movies:
             recommended_movies.append(movie)
-    # for every movie in favorites
-    # if movie in user_unique_movies
-    # append to recommended movies
     
     return recommended_movies
