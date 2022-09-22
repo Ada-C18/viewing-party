@@ -1,17 +1,12 @@
 # ------------- WAVE 1 --------------------
-
-# from collections import Counter
-from tests.test_constants import GENRE_1, MOVIE_TITLE_1, RATING_1
-
-
 def create_movie(title, genre, rating):
+    new_movie = {}
     if not title or not genre or not rating:
         return None
-    new_movie = {
-        "title": MOVIE_TITLE_1,
-        "genre": GENRE_1,
-        "rating": RATING_1
-    }
+    else:
+        new_movie["title"] = title
+        new_movie["genre"] = genre
+        new_movie["rating"] = rating
     return new_movie
 
 def add_to_watched(user_data, movie):
@@ -25,12 +20,10 @@ def add_to_watchlist(user_data, movie):
     return updated_data
 
 def watch_movie(user_data, title):
-    watched = {}
-    for i in range(len(user_data['watchlist'])):
+    for i in range(len(user_data["watchlist"])):
         if (user_data["watchlist"][i]["title"]) == title:
-            watched = user_data["watchlist"].pop(i)
-    if watched: 
-        user_data["watched"].append(watched)
+            watched_movie = (user_data["watchlist"].pop(i))
+            user_data["watched"].append(watched_movie)
     updated_data = user_data
     return updated_data
 
@@ -85,20 +78,12 @@ def get_unique_watched(user_data):
 
 def get_friends_unique_watched(user_data):
     user_watched_list = user_data["watched"]
-    # friend_watched_list = []
     friend_unique_movies = []
 
     for friend in user_data['friends']:
         for movie in friend['watched']:
             if movie not in user_watched_list and movie not in friend_unique_movies:
                 friend_unique_movies.append(movie)
-
-
-            # friend_watched_list.append(movie)
-
-    # for movie in friend_watched_list:
-    #     if movie not in user_watched_list and movie not in friend_unique_movies:
-    #         friend_unique_movies.append(movie)
 
     return friend_unique_movies
         

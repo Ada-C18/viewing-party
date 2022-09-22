@@ -15,8 +15,28 @@ pp = pprint.PrettyPrinter(indent=4)
 # pp.pprint(FANTASY_1)
 # pp.pprint(FANTASY_2)
 
+janes_data = {
+        "watchlist": [{
+            "title": MOVIE_TITLE_1,
+            "genre": GENRE_1,
+            "rating": RATING_1
+        }],
+        "watched": []
+    }
+def watch_movie(user_data, title):
+    # print(title)
+    for movie in user_data["watchlist"]:
+        # print(movie)
+        if movie["title"] == title:
+            print(movie)
+            # print(user_data["watched"])
+            # .append(user_data["watchlist"].remove(movie))
+            # user_data["watched"].remove(movie["title"])
+    # print(user_data)
+    # updated_data = user_data
+    # return updated_data
 
-
+watch_movie(janes_data, MOVIE_TITLE_1)
 
 
 # print("\n-----Wave 02 user_data-----")
@@ -24,8 +44,8 @@ pp = pprint.PrettyPrinter(indent=4)
 
 
 
-print("\n-----Wave 03 user_data-----")
-pp.pprint(clean_wave_3_data())
+# print("\n-----Wave 03 user_data-----")
+# pp.pprint(clean_wave_3_data())
 
 # Wave 04 user data
 # print("\n-----Wave 04 user_data-----")
