@@ -62,12 +62,11 @@ def get_most_watched_genre(user_data):
     counter = 0
     popular_genre = None
     if len(user_data["watched"]) == 0:
-        # print("None")
         return None
     else:
         for index in range(len(user_data["watched"])):
             genre_list.append(user_data["watched"][index]["genre"])
-        # print(genre_list)
+
         
         for item in genre_list:
             frequency = genre_list.count(item)
@@ -80,7 +79,10 @@ def get_most_watched_genre(user_data):
 
   
 def sum_rating(rating_list):
-    """Helper function to calculate total rating"""
+    """Helper function to calculate total rating
+    Input: rating list
+    Output total rating
+    """
     sum = 0
     for rating in rating_list:
         sum += rating
@@ -92,7 +94,10 @@ def sum_rating(rating_list):
 
 
 def get_unique_watched(user_data):
-    """Function to get a list of user unique movie dictionaries that friends have not watched"""
+    """Function to get a list of user unique movie dictionaries that friends have not watched
+    Input: user data
+    Output: returning list of unique movie dictionaries
+    """
     friends_watched_list = get_friends_watched_list(user_data)
     user_watched_list = get_user_watched_list(user_data)
     user_unique_list =[]
@@ -110,7 +115,11 @@ def get_unique_watched(user_data):
     return user_unique_list
 
 def get_friends_unique_watched(user_data):
-    """Function to get a list of friends' unique movie dictionaries that user has not watched"""
+    """Function to get a list of friends' unique movie dictionaries that user has not watched
+    Input: user data
+    Output: list of friends movie dicts that user has not watched
+    
+    """
     friends_watched_list = get_friends_watched_list(user_data)
     user_watched_list = get_user_watched_list(user_data)
     friends_unique_list = []
@@ -129,7 +138,10 @@ def get_friends_unique_watched(user_data):
 
 
 def get_friends_watched_list(user_data):
-    """Helper function to create friends' watched list"""
+    """Helper function to create friends' watched list
+    Input: user_data
+    Output: list of friends watched movie dictionaries
+    """
     friends_watched_list = []
 
     if len(user_data["friends"]) == 0:
@@ -155,7 +167,11 @@ def get_friends_watched_list(user_data):
 
 
 def get_user_watched_list(user_data):
-    """Helper function to create user's watch list"""
+    """Helper function to create user's watch list
+    Input: user data
+    Output: list of user's movie dictionaries
+    
+    """
     user_watched_list = []
 
     if len(user_data["friends"]) ==0:
@@ -180,9 +196,13 @@ def get_available_recs(user_data):
             user_recs.remove(element)
     return user_recs
 
-#HELPER FUNCTION TO GET LIST OF SUBSCRIPTION USER DO NOT HAVE    
+
 def get_to_remove_list(user_data):
-    """Helper function to get list of 'subscription' service user do not have"""    
+    """Helper function to get list of 'subscription' service user do not have
+    Input: user_data
+    Output: list of movie to remove
+    
+    """    
     friends_unique_list = get_friends_unique_watched(user_data)
     user_recs = friends_unique_list.copy()
     to_remove_list = []
@@ -211,17 +231,6 @@ def get_new_rec_by_genre(user_data):
     print(recommendations)
     return recommendations
 
-
-def get_user_fav(user_data):
-    user_favorite = []
-    
-    if len(user_data["favorites"]) == 0:
-        user_favorite == []
-        return user_favorite
-    user_favorite = user_data["favorites"]
-    print("User favorite movies are (to check) ",user_favorite)
-    return user_favorite
-
 def get_rec_from_favorites(user_data):
     
     user_favorite_list = get_user_fav(user_data)
@@ -237,6 +246,20 @@ def get_rec_from_favorites(user_data):
                 to_rec_to_friend.remove(movie)
         print("MOVIE RECS",to_rec_to_friend)
         return to_rec_to_friend
+    
+    
+def get_user_fav(user_data):
+    """Helper function to get user's favorite movie dictionaries"""
+    user_favorite = []
+    
+    if len(user_data["favorites"]) == 0:
+        user_favorite == []
+        return user_favorite
+    user_favorite = user_data["favorites"]
+    print("User favorite movies are (to check) ",user_favorite)
+    return user_favorite
+
+
     
 #SOLUTION 2 for get_new_rec_by_genre_solution(user_data). This solution will need helper function
 # def get_new_rec_by_genre_solution2(user_data):    
