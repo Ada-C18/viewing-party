@@ -1,5 +1,6 @@
 # ------------- WAVE 1 --------------------
 from collections import Counter
+from enum import unique
 
 def create_movie(title, genre, rating):
     if title and genre and rating:
@@ -43,6 +44,7 @@ def watch_movie(user_data, title):
 # ------------- WAVE 2 --------------------
 # -----------------------------------------
 
+# calculates the average rating of every movie the user has watched
 def get_watched_avg_rating(user_data):
     rating = 0
     for movie in user_data["watched"]:
@@ -53,6 +55,7 @@ def get_watched_avg_rating(user_data):
         avg_rating = rating / len(user_data["watched"])
         return avg_rating
 
+# finds the user's most frequently watched genre
 def get_most_watched_genre(user_data):
     if len(user_data["watched"]) == 0:
         return None
@@ -82,6 +85,7 @@ def get_most_watched_genre(user_data):
 # ------------- WAVE 3 --------------------
 # -----------------------------------------
 
+# finds the movies the user has watched AND their friends have not
 def get_unique_watched(user_data):
     friend_movies = set()
     user_movies = set()
@@ -97,6 +101,7 @@ def get_unique_watched(user_data):
             unique_watched.append(movie)
     return unique_watched
 
+# finds the movies the user's friends have watched that they have not
 def get_friends_unique_watched(user_data):
     friend_movies = set()
     user_movies = set()
@@ -119,6 +124,7 @@ def get_friends_unique_watched(user_data):
 # ------------- WAVE 4 --------------------
 # -----------------------------------------
 
+# finds the movies the user hasn't watched, their friends have, AND they have access to (through their streaming service(s))
 def get_available_recs(user_data):
     recs = []
     friends_movies = get_friends_unique_watched(user_data)
@@ -131,6 +137,7 @@ def get_available_recs(user_data):
 # ------------- WAVE 5 --------------------
 # -----------------------------------------
 
+# CONTEXT: my first attempt at finding the mode of the genre
 # def get_new_rec_by_genre(user_data):
 #     all_recs = get_available_recs(user_data)
 #     genre_dict = {}
@@ -145,6 +152,8 @@ def get_available_recs(user_data):
 #         # for genre in genre_dict:
 #         #     if genre_dict[genre] > 
 
+# gets recommendations for the user where:
+# they haven't watched it, their friends have, they have access to it, AND it's their most watched genre
 def get_new_rec_by_genre(user_data):
     rec_by_genre = []
     all_recs = get_available_recs(user_data)
@@ -160,91 +169,107 @@ def get_new_rec_by_genre(user_data):
     except ValueError:
         return []
 
-user_data = {   'favorites': [   {   'genre': 'Fantasy',
-                        'host': 'netflix',
-                        'rating': 4.8,
-                        'title': 'The Lord of the Functions: The Fellowship '
-                                'of the Function'},
-                    {   'genre': 'Fantasy',
-                        'host': 'netflix',
-                        'rating': 4.0,
-                        'title': 'The Lord of the Functions: The Two '
-                                'Parameters'},
-                    {   'genre': 'Intrigue',
-                        'host': 'hulu',
-                        'rating': 2.0,
-                        'title': 'Recursion'},
-                    {   'genre': 'Intrigue',
-                        'host': 'disney+',
-                        'rating': 4.5,
-                        'title': 'Instructor Student TA Manager'}],
-    'friends': [   {   'watched': [   {   'genre': 'Fantasy',
-                                        'host': 'netflix',
-                                        'rating': 4.8,
-                                        'title': 'The Lord of the Functions: '
-                                                'The Fellowship of the '
-                                                'Function'},
-                                    {   'genre': 'Fantasy',
-                                        'host': 'amazon',
-                                        'rating': 4.0,
-                                        'title': 'The Lord of the Functions: '
-                                                'The Return of the Value'},
-                                    {   'genre': 'Fantasy',
-                                        'host': 'hulu',
-                                        'rating': 4.0,
-                                        'title': 'The Programmer: An '
-                                                'Unexpected Stack Trace'},
-                                    {   'genre': 'Horror',
-                                        'host': 'netflix',
-                                        'rating': 3.5,
-                                        'title': 'It Came from the Stack '
-                                                'Trace'}]},
-                {   'watched': [   {   'genre': 'Fantasy',
-                                        'host': 'netflix',
-                                        'rating': 4.8,
-                                        'title': 'The Lord of the Functions: '
-                                                'The Fellowship of the '
-                                                'Function'},
-                                    {   'genre': 'Action',
-                                        'host': 'amazon',
-                                        'rating': 2.2,
-                                        'title': 'The JavaScript and the '
-                                                'React'},
-                                    {   'genre': 'Intrigue',
-                                        'host': 'hulu',
-                                        'rating': 2.0,
-                                        'title': 'Recursion'},
-                                    {   'genre': 'Intrigue',
-                                        'host': 'disney+',
-                                        'rating': 3.0,
-                                        'title': 'Zero Dark Python'}]}],
-    'subscriptions': ['netflix', 'hulu'],
-    'watched': [   {   'genre': 'Fantasy',
-                    'host': 'netflix',
-                    'rating': 4.8,
-                    'title': 'The Lord of the Functions: The Fellowship of '
-                                'the Function'},
-                {   'genre': 'Fantasy',
-                    'host': 'netflix',
-                    'rating': 4.0,
-                    'title': 'The Lord of the Functions: The Two '
-                                'Parameters'},
-                {   'genre': 'Fantasy',
-                    'host': 'amazon',
-                    'rating': 4.0,
-                    'title': 'The Lord of the Functions: The Return of the '
-                                'Value'},
-                {   'genre': 'Action',
-                    'host': 'amazon',
-                    'rating': 2.2,
-                    'title': 'The JavaScript and the React'},
-                {   'genre': 'Intrigue',
-                    'host': 'hulu',
-                    'rating': 2.0,
-                    'title': 'Recursion'},
-                {   'genre': 'Intrigue',
-                    'host': 'disney+',
-                    'rating': 4.5,
-                    'title': 'Instructor Student TA Manager'}]}
+# finds a recommendation from the user to their friends where:
+# the movie is in their favorites list and none of the other friends have watched it
+def get_rec_from_favorites(user_data):
+    unique = get_unique_watched(user_data)
+    recs = []
+    for movie in user_data["favorites"]:
+        if movie in unique:
+            recs.append(movie)
+    return recs
 
-get_new_rec_by_genre(user_data)
+# the data below allowed me to run the debugger. 
+# if there is an easier way to do this, please let me know!!
+# *******************************************************************************
+# *******************************************************************************
+# user_data = {   'favorites': [   {   'genre': 'Fantasy',
+#                         'host': 'netflix',
+#                         'rating': 4.8,
+#                         'title': 'The Lord of the Functions: The Fellowship '
+#                                 'of the Function'},
+#                     {   'genre': 'Fantasy',
+#                         'host': 'netflix',
+#                         'rating': 4.0,
+#                         'title': 'The Lord of the Functions: The Two '
+#                                 'Parameters'},
+#                     {   'genre': 'Intrigue',
+#                         'host': 'hulu',
+#                         'rating': 2.0,
+#                         'title': 'Recursion'},
+#                     {   'genre': 'Intrigue',
+#                         'host': 'disney+',
+#                         'rating': 4.5,
+#                         'title': 'Instructor Student TA Manager'}],
+#     'friends': [   {   'watched': [   {   'genre': 'Fantasy',
+#                                         'host': 'netflix',
+#                                         'rating': 4.8,
+#                                         'title': 'The Lord of the Functions: '
+#                                                 'The Fellowship of the '
+#                                                 'Function'},
+#                                     {   'genre': 'Fantasy',
+#                                         'host': 'amazon',
+#                                         'rating': 4.0,
+#                                         'title': 'The Lord of the Functions: '
+#                                                 'The Return of the Value'},
+#                                     {   'genre': 'Fantasy',
+#                                         'host': 'hulu',
+#                                         'rating': 4.0,
+#                                         'title': 'The Programmer: An '
+#                                                 'Unexpected Stack Trace'},
+#                                     {   'genre': 'Horror',
+#                                         'host': 'netflix',
+#                                         'rating': 3.5,
+#                                         'title': 'It Came from the Stack '
+#                                                 'Trace'}]},
+#                 {   'watched': [   {   'genre': 'Fantasy',
+#                                         'host': 'netflix',
+#                                         'rating': 4.8,
+#                                         'title': 'The Lord of the Functions: '
+#                                                 'The Fellowship of the '
+#                                                 'Function'},
+#                                     {   'genre': 'Action',
+#                                         'host': 'amazon',
+#                                         'rating': 2.2,
+#                                         'title': 'The JavaScript and the '
+#                                                 'React'},
+#                                     {   'genre': 'Intrigue',
+#                                         'host': 'hulu',
+#                                         'rating': 2.0,
+#                                         'title': 'Recursion'},
+#                                     {   'genre': 'Intrigue',
+#                                         'host': 'disney+',
+#                                         'rating': 3.0,
+#                                         'title': 'Zero Dark Python'}]}],
+#     'subscriptions': ['netflix', 'hulu'],
+#     'watched': [   {   'genre': 'Fantasy',
+#                     'host': 'netflix',
+#                     'rating': 4.8,
+#                     'title': 'The Lord of the Functions: The Fellowship of '
+#                                 'the Function'},
+#                 {   'genre': 'Fantasy',
+#                     'host': 'netflix',
+#                     'rating': 4.0,
+#                     'title': 'The Lord of the Functions: The Two '
+#                                 'Parameters'},
+#                 {   'genre': 'Fantasy',
+#                     'host': 'amazon',
+#                     'rating': 4.0,
+#                     'title': 'The Lord of the Functions: The Return of the '
+#                                 'Value'},
+#                 {   'genre': 'Action',
+#                     'host': 'amazon',
+#                     'rating': 2.2,
+#                     'title': 'The JavaScript and the React'},
+#                 {   'genre': 'Intrigue',
+#                     'host': 'hulu',
+#                     'rating': 2.0,
+#                     'title': 'Recursion'},
+#                 {   'genre': 'Intrigue',
+#                     'host': 'disney+',
+#                     'rating': 4.5,
+#                     'title': 'Instructor Student TA Manager'}]}
+# 
+# get_new_rec_by_genre(user_data)
+# *******************************************************************************
+# *******************************************************************************
