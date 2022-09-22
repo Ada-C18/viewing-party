@@ -62,9 +62,11 @@ def watch_movie(user_data: dict, title: str):
 # -----------------------------------------
 # ------------- WAVE 2 --------------------
 # -----------------------------------------
-def get_watched_avg_rating(user_data):
-    """
-    user_data: a dict with a "watched" list of movie dicts
+def get_watched_avg_rating(user_data: dict):
+    """ Return the average rating for "watched" movies in user_data.
+    
+    Keyword arguments:
+    user_data -- a dictionary with a "watched" key with a list value
     """
     num_movies_watched = len(user_data["watched"])
     all_ratings = 0.0
@@ -77,9 +79,11 @@ def get_watched_avg_rating(user_data):
         average_rating = all_ratings / num_movies_watched
         return average_rating
 
-def get_most_watched_genre(user_data):
-    """
-    user_data: a dict with a "watched" list of movie dicts
+def get_most_watched_genre(user_data: dict):
+    """ Return the most-watched genre in user_data.
+    
+    Keyword arguments:
+    user_data -- a dictionary with a "watched" key with a list value
     """
     all_genres = {}
     most_watched_genre = None
