@@ -37,7 +37,7 @@ def watch_movie(user_data, title):
             return user_data
     return user_data
 
-    
+
         
     # need to remove key:values from watchlist{dict} and append to watched{dict}
     # need to figure out if we need to use a for loop maybe and if else statements and then how to "move" elements from one dict to another. Do we use 
@@ -66,6 +66,23 @@ If title is falsy, genre is falsy, or rating is falsy, this function should retu
 # -----------------------------------------
 # ------------- WAVE 2 --------------------
 # -----------------------------------------
+
+def get_watched_avg_rating(user_data):
+    sum = 0
+    average = 0
+    
+    for i in range(len(user_data["watched"])):
+        sum += user_data["watched"][i]["rating"]
+        average = sum / len(user_data["watched"])
+    
+    return average
+    
+    
+    # will use sum(len) to get the sum and divide it by the length for avg
+    
+
+# def get_most_watched_genre(user_data):
+
 
 
 # -----------------------------------------
