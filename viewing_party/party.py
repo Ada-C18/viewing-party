@@ -67,8 +67,13 @@ def get_most_watched_genre(user_data):
     for genre in genre_list:
         count = genre_list.count(genre)
         genre_dictionary[genre] = count
-        
-    popular_genre = max(genre_dictionary, key=genre_dictionary.get)
+
+    try:    
+        popular_genre = max(genre_dictionary, key=genre_dictionary.get)
+    except ValueError as err:
+        popular_genre = None
+
+
     return(popular_genre)
 
 
@@ -147,10 +152,20 @@ def get_available_recs(user_data):
     
     return(movie_recs)
 
-
-
-
 # -----------------------------------------
 # ------------- WAVE 5 --------------------
 # -----------------------------------------
+
+def get_new_rec_by_genre(user_data):
+    movie_recs_by_genre = []
+    users_most_frequently_watched_genre = get_most_watched_genre(user_data)
+    if users_most_frequently_watched_genre == None:
+        movie_recs_by_genre = []
+    else:
+        list_of_movie_dictionaries_user_has_not_watched_but_friend_has = get_friends_unique_watched(user_data)
+        for dictionary in list_of_movie_dictionaries_user_has_not_watched_but_friend_has:
+            if users_most_frequently_watched_genre == dictionary["genre"]:
+                movie_recs_by_genre.append(dictionary)
+    
+    return(movie_recs_by_genre)
 
