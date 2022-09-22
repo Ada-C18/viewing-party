@@ -37,7 +37,10 @@ def watch_movie(user_data, title):
 # -----------------------------------------
 
 def get_watched_avg_rating(user_data):
-    # store the list of ratings in watched and their total added together
+    '''
+    Returns an int that represents the average rating of the user's
+    watched movies
+    '''
     watched_rating_list = []
     total_rating = 0
 
@@ -59,6 +62,10 @@ def get_watched_avg_rating(user_data):
     return avg_rating
 
 def get_most_watched_genre(user_data):
+    '''
+    Finds the most watched genre from the user's watched list 
+    and returns a string that represents that genre
+    '''
     watched_genre_count = {}
     most_watched_genre_total = 0
     most_watched_genre = ""
@@ -88,7 +95,7 @@ def get_most_watched_genre(user_data):
 
 def get_unique_watched(user_data):
     '''
-    collects uniqe movies watched by user comopared to friends and
+    collects uniqe movies watched by user compared to friends and
     stores it in a list, then returns that list
     '''
     unique_watched_list = []
@@ -192,5 +199,33 @@ def get_available_recs(user_data):
 # -----------------------------------------
 # made it to wave 5!! *party emoji*
 
-def get_new_rec_by_genre():
+def get_new_rec_by_genre(user_data):
+    '''
+    Returns a list of recommended movies that the user has not seen
+    based on the user's most watched genres
+    '''
+    recommended_movies_list = []
+
+    # User Data Watched Sets
+    friend_watched_set = set(get_friends_watched(user_data))
+    user_watched_set = set(get_users_watched(user_data))
+    
+    # User data Variables
+    friends_list_dict = user_data["friends"]
+    most_watched_genre = get_most_watched_genre(user_data)
+
+    unique_set = friend_watched_set - user_watched_set
+
+
+    # Pull data for recommended movies from user data
+    for i in range(len(friends_list_dict)):
+        if len(user_data['watched']) == 0 or len(friends_list_dict[i]['watched']) == 0:
+            break
+        for friend_movie in friends_list_dict[i]["watched"]:
+            if friend_movie["title"] in unique_set and friend_movie['genre'] in most_watched_genre and friend_movie not in recommended_movies_list:
+                recommended_movies_list.append(friend_movie) 
+
+    return recommended_movies_list
+
+def get_rec_from_favorites():
     pass
