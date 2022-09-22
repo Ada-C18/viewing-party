@@ -111,12 +111,11 @@ def get_friends_unique_watched(user_data):
 def get_available_recs(user_data):
     # Call get_friends_unique_watched function to get list of unique movies friends have watched
     list_of_friends_unique_watched = get_friends_unique_watched(user_data)
-    # Empty recommended movies list
     recommended_movies = []
     for subscription in user_data["subscriptions"]:
-        for i in range(len(list_of_friends_unique_watched)):
-            if subscription == list_of_friends_unique_watched[i]["host"]:
-                recommended_movies.append(list_of_friends_unique_watched[i])
+        for movie in list_of_friends_unique_watched:
+            if subscription == movie["host"]:
+                recommended_movies.append(movie)
     
     return recommended_movies
 
