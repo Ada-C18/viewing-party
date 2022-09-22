@@ -203,19 +203,26 @@ def get_rec_from_favorites(user_data: dict):
     Keyword arguments:
     user_data -- a dictionary with "favorites" and "friends" keys
     """
-    rec_list = []
-    friend_watched_list = []
-    user_fave_list = [movie["title"] for movie in user_data["favorites"]]
-
-    for friends_list in user_data["friends"]:
-        for movie in friends_list["watched"]:
-            friend_watched_list.append(movie["title"])
-    
-    user_fave_set = set(user_fave_list)
-    friend_watched_set = set(friend_watched_list)
-    user_fave_recs = user_fave_set - friend_watched_set
+    recs = []
+    friend_watched = get_friend_watched(user_data)
 
     for movie in user_data["favorites"]:
-        if movie["title"] in user_fave_recs:
-            rec_list.append(movie)
-    return rec_list
+        if movie not in recs and movie not in friend_watched:
+            recs.append(movie)
+    return recs
+
+# -----------------------------------------
+# ----------- HELPER FUNCTIONS ------------
+# -----------------------------------------
+def get_friend_watched(user_data: dict):
+    """ Return a list of all friends' watched movies from user_data.
+
+    Keyword arguments:
+    user_data -- A dictionary with a "friends" key with a list value. 
+        Each item in the list is a dictionary with a "watched" key.
+    """
+    friend_watched = []
+    for friend in user_data["friends"]:
+        for movie in friend["watched"]:
+            friend_watched.append(movie)
+    return friend_watched
