@@ -129,6 +129,40 @@ def get_unique_watched(user_data):
     
     return user_unique_movies 
 
+def get_friends_unique_watched(user_data):
+
+    friends_watched_list = []
+    user_watched_list = []
+    friends_unique_movies = []
+
+    for num in range(0, len(user_data["friends"])):
+            for movie in user_data["friends"][num]["watched"]:
+                friends_watched_list.append(movie["title"])
+
+    friends_movies_no_doubles = list(set(friends_watched_list)) 
+
+    for movie in user_data["watched"]:
+        user_watched_list.append(movie["title"])
+
+    for movie in user_watched_list: 
+        if movie in friends_movies_no_doubles:
+            friends_movies_no_doubles.remove(movie)
+
+    for num in range (0, len(user_data["friends"])):
+        for dictionary in user_data["friends"][num]["watched"]: 
+            if dictionary["title"] in friends_movies_no_doubles and dictionary["title"] not in friends_unique_movies: 
+                friends_unique_movies.append(dictionary)
+        
+    friends_truly_unique_movies = set() 
+    friends_truly_truly_unique_movies = [] 
+
+    for dictionaries in friends_unique_movies:
+        tupled_dicts = tuple(dictionaries.items())
+        if tupled_dicts not in friends_truly_unique_movies:
+            friends_truly_unique_movies.add(tupled_dicts) 
+            friends_truly_truly_unique_movies.append(dictionaries)
+    
+    return friends_truly_truly_unique_movies
 
         
 # -----------------------------------------
