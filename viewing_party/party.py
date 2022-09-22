@@ -93,12 +93,11 @@ def get_most_watched_genre(user_data):
             genre_name = movie["genre"]
             
             # add each new genre name as key and assign value 1
-            # if key with genre name is already exists, increment by 1
+            # if key with genre name is already exist, increment by 1
             if genre_name not in watched_genre_dict:
                 watched_genre_dict[genre_name] = 1
             else:
                 watched_genre_dict[genre_name] += 1
-    
     # use get method and max function to return dictionary key with max value
     most_watched_genre = max(watched_genre_dict, key = watched_genre_dict.get)
     
@@ -109,18 +108,10 @@ def get_most_watched_genre(user_data):
 # -----------------------------------------
 
 
-# create helper function to get unique movies for user
-def get_user_watched_list(user_data):
-    """
-    
-    """
-    user_watched_movies_list = user_data["watched"]
-    return user_watched_movies_list
-
 # create helper function to get unique movies for all friends
 def get_all_friends_unique_watched_list(user_data):
     """
-    Returns list of unique movies for all friends.
+    Returns list of unique watched movies for all friends.
     """
     friends_unique_watched_list = []
     friends_list = user_data["friends"]
@@ -131,46 +122,52 @@ def get_all_friends_unique_watched_list(user_data):
                 friends_unique_watched_list.append(movie) 
     return friends_unique_watched_list  
 
-# create function to get list of movies that user has watched, 
-# but none of their friends have watched.
+
 def get_unique_watched(user_data): 
+    """
+    Returns list of the movies (dict) the user has watched, but none of their friends have watched.
+    """
     user_unique_list = []
-    user_only_unique_list = get_user_watched_list(user_data)
     all_friends_unique_list = get_all_friends_unique_watched_list(user_data)
 
-    for movie in user_only_unique_list:
+    for movie in user_data["watched"]:
         if movie not in all_friends_unique_list:
-            user_unique_list.append(movie)  
+            user_unique_list.append(movie) 
     return user_unique_list  
 
 # create function to get list of movies at least one of the user's friends
 # have watched, but the user has not watched.
 def get_friends_unique_watched(user_data):
+    """
+    Returns list of the movies (dict) that added to it only if at least one of the user's friends
+    have watched, but the user has not watched.
+    """
     friends_unique_list = []
-    user_unique_list = get_user_watched_list(user_data)
     all_friends_unique_list = get_all_friends_unique_watched_list(user_data)
 
     for movie in all_friends_unique_list:
-        if movie not in user_unique_list:
+        if movie not in user_data["watched"]:
             friends_unique_list.append(movie)  
-    print(friends_unique_list)
     return friends_unique_list
+
 # -----------------------------------------
 # ------------- WAVE 4 --------------------
 # -----------------------------------------
 
-# create function to return list of recommended movies
+
 def get_available_recs(user_data):
+    """
+    Returns list of the movies (dict) that added to it only if: user has not watched it, 
+    at least one of the user's friends has watched, and the "host"
+    of the movie is a service that is in the user's "subscriptions".
+    """
     recommended_movies = []
-    user_subcribtion_list = user_data["subscriptions"]
-    # initialize a variable with return value of function 
-    # get_friends_unique_watched
     user_has_not_watched_movies = get_friends_unique_watched(user_data)
        
     # loop though list of the movies which user has not watched;
-    # add a movie to the recommended if the user that subcription to the host of the movie
+    # add a movie to the recommended if the user has the subcription to the host of the movie
     for movie in user_has_not_watched_movies:
-        for subcribton in user_subcribtion_list:
+        for subcribton in user_data["subscriptions"]:
             if movie["host"] == subcribton:
                 recommended_movies.append(movie)
     return recommended_movies
@@ -180,15 +177,18 @@ def get_available_recs(user_data):
 # -----------------------------------------
 
 def get_new_rec_by_genre(user_data):
+    """
+    Returns list of the movies (dict) that added to it only if: user has not watched it, 
+    at least one of the user's friends has watched, 
+    and the "genre" of the movie is the same as the user's most watched genre.
+    """
     recommended_movies_by_genre = []
     most_popular_wached_genre = get_most_watched_genre(user_data)
-    # initialize a variable with return value of function 
-    # get_friends_unique_watched
     user_has_not_watched_movies = get_friends_unique_watched(user_data)
     
     # loop though list of movies which the user has not watched;
     # add a movie to the recommended if the "genre" of the movie is the same 
-    # as the user's most frequent genre
+    # as the user's most watched genre
     for movie in user_has_not_watched_movies:
         if most_popular_wached_genre == movie["genre"]:
                 recommended_movies_by_genre.append(movie)
@@ -197,18 +197,18 @@ def get_new_rec_by_genre(user_data):
     
 
 def get_rec_from_favorites(user_data):
-    
+    """
+    Returns list of the movies (dict) that added to it only if: 
+    the movie is in the user's "favorites" and None of the user's friends have watched it.
+    """
     recommended_from_favorites_movies = []
-    user_favorite_movies = user_data["favorites"]
-    
     all_friends_unique_list = get_all_friends_unique_watched_list(user_data)
+    
     # loop though list of the user's favorite movies;
-    # add a movie to the recommended from favorites if 
-    # none of the user's friends have watched it
-    for user_favorite_movie in user_favorite_movies:
+    # add a movie to the recommended from favorites if none of the user's friends have watched it
+    for user_favorite_movie in user_data["favorites"]:
         if user_favorite_movie not in all_friends_unique_list:
             recommended_from_favorites_movies.append(user_favorite_movie)
-
     return recommended_from_favorites_movies
 
 
