@@ -1,5 +1,3 @@
-# import json
-# print(json.dumps(user_data,indent=2)
 # ------------- WAVE 1 --------------------
 
 def create_movie(title, genre, rating):
@@ -43,9 +41,9 @@ def watch_movie(user_data, title):
 
 def get_watched_avg_rating(user_data):
     '''Calculate avg rating of watched movies in user data'''
-    # print(user_data)
     average = 0.0
     rating_total = 0.0
+    
     for i in range(len(user_data["watched"])):
         # print(user_data["watched"][i]["rating"])
         rating_total += user_data["watched"][i]["rating"]
@@ -62,15 +60,14 @@ def get_most_watched_genre(user_data):
     '''Returning the genre watched the most times in user_data'''
     genres = []
     genre_count = {}
+    
     for i in range(len(user_data["watched"])):
         genres.append(user_data['watched'][i]['genre'])
-    # print(f"genres: {genres}")
 
     # create dict of genres and how many times they appear in genres list
     for item in genres:
         genre_count[item] = 0   # add item to genre_count dict with value of 0 to start
         genre_count[item] += 1  # add 1 to genre count item for each time it appears in genre list
-    # print(f"{genre_count=}") 
 
     # get max of genre count in dict
     if len(genre_count) > 0:
@@ -79,8 +76,6 @@ def get_most_watched_genre(user_data):
     else:
         return None
 
-# max(stats, key=stats.get)
-        
 # -----------------------------------------
 # ------------- WAVE 3 --------------------
 # -----------------------------------------
@@ -100,7 +95,7 @@ def get_unique_watched(user_data):
     
  
 def get_friends_unique_watched(user_data):
-    '''Returning list of unique movies watched by friends'''
+    '''Returning list of unique movies watched by friends and not user'''
     friend_movies = []
 
     #create combined friend movie list
@@ -120,7 +115,6 @@ def get_friends_unique_watched(user_data):
 # -----------------------------------------
 # ------------- WAVE 4 --------------------
 # -----------------------------------------
-
 
 def get_available_recs(user_data):
     '''Creating friend movie recommendation list for user. User must have subscription
@@ -145,15 +139,13 @@ def get_available_recs(user_data):
 def get_new_rec_by_genre(user_data):
     '''Creating friend recommended movie list if user has not seen it and
     genre matches user most frequently watched genre'''
-
     recommended_movies = []
     user_most_watched_genre = get_most_watched_genre(user_data)
     friend_unique_movies = get_friends_unique_watched(user_data)
 
-    for friend in user_data["friends"]:
-        for movie in friend["watched"]:
-            if movie in friend_unique_movies and movie["genre"] == user_most_watched_genre:
-                recommended_movies.append(movie)
+    for movie in friend_unique_movies:
+        if movie["genre"] == user_most_watched_genre:
+            recommended_movies.append(movie)
         
     return recommended_movies
 
@@ -162,8 +154,9 @@ def get_rec_from_favorites(user_data):
     '''Creating user recommended movie list for friends. User movies are favorites and have
     not been watched by friends'''
     recommended_movies =[]
-    
     friend_watched_movies = []
+    
+    # Get list of movies watched by all friends
     for friend in user_data["friends"]:
         for movie in friend["watched"]:
             friend_watched_movies.append(movie)
@@ -174,3 +167,8 @@ def get_rec_from_favorites(user_data):
     
     return recommended_movies
 
+
+
+# import json
+# print(json.dumps(user_data,indent=2)
+# max(stats, key=stats.get)
