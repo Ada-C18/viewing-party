@@ -58,7 +58,7 @@ def get_most_watched_genre(user_data):
     watched_genre = []
     for key in user_data["watched"]:
         watched_genre.append(key["genre"])
-    return max(set(watched_genre), key = watched_genre.count)
+        return max(set(watched_genre), key = watched_genre.count)
 
 
 # -----------------------------------------
@@ -109,3 +109,22 @@ def get_available_recs(user_data):
 # -----------------------------------------
 # ------------- WAVE 5 --------------------
 # -----------------------------------------
+def get_new_rec_by_genre(user_data):
+    recommended_movies= []
+    my_genre = get_most_watched_genre(user_data)
+    friends_watched = get_friends_unique_watched(user_data)
+    
+    for movie in friends_watched:
+        if my_genre == movie["genre"]:
+            recommended_movies.append(movie)  
+    return recommended_movies
+
+
+def get_rec_from_favorites(user_data):
+    recommended_movies = []
+    friends_watched = get_friends_unique_watched(user_data)
+
+    for movie in user_data["favorites"]:
+        if movie not in friends_watched:
+            recommended_movies.append(movie)
+    return recommended_movies
