@@ -26,8 +26,11 @@ def add_to_watched(user_data, movie):
     return user_data
 
 def add_to_watchlist(user_data, movie):
-    # user_data is a dictionary with key "watchlist" with value of list of dictionaries
-    # movie is a dicitonary
+    '''
+    Input: user_data is list of movie dictionaries with key "watchlist" and value of list of movie dictionaries
+    that the user wants to watch
+    Output: Function adds movie dictionary to "watchlist" and returns user_data
+    '''
     user_data["watchlist"] = [movie]
     return user_data
 
