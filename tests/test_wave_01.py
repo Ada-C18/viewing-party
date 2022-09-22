@@ -16,9 +16,9 @@ def test_create_successful_movie():
     new_movie = create_movie(movie_title, genre, rating)
 
     # Assert
-    assert new_movie["title"] == movie_title
-    assert new_movie["genre"] == genre
-    assert new_movie["rating"] == rating
+    assert new_movie["title"] == MOVIE_TITLE_1
+    assert new_movie["genre"] == GENRE_1
+    assert new_movie["rating"] == RATING_1
 
 # @pytest.mark.skip()
 def test_create_no_title_movie():
@@ -104,19 +104,17 @@ def test_adds_movie_to_user_watchlist():
 # @pytest.mark.skip()
 def test_moves_movie_from_watchlist_to_empty_watched():
     # Arrange
-    movie = {
+    janes_data = {
+        "watchlist": [{
             "title": MOVIE_TITLE_1,
             "genre": GENRE_1,
             "rating": RATING_1
-        }
-
-    janes_data = {
-        "watchlist": [movie],
+        }],
         "watched": []
     }
 
     # Act
-    updated_data = watch_movie(janes_data, movie)
+    updated_data = watch_movie(janes_data, MOVIE_TITLE_1)
 
     # Assert
     assert len(updated_data["watchlist"]) == 0
