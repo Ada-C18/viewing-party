@@ -53,6 +53,7 @@ def test_friends_unique_movies_not_duplicated():
 
     # Act
     friends_unique_movies = get_friends_unique_watched(amandas_data)
+    
 
     # Assert
     assert len(friends_unique_movies) == 3
