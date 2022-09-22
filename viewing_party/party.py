@@ -95,7 +95,7 @@ def get_most_watched_genre(user_data):
     return ans
     
 
-# wave 3 func 1
+# wave 3 func 1-ran tests 1 and 2 in wave 3
 # make a function to compare if ele in list A is in list B
 
 
@@ -125,6 +125,36 @@ def get_unique_watched(user_data):
                 result.append(temp_list_of_moviedict_user[i])
     
     return result
+
+#friends have watched but user hasnt watched 
+#wave 3 part 2
+def get_friends_unique_watched(user_data):
+    result = [] #this will be a list of dicts
+    
+    temp_list_of_moviedict_user = user_data["watched"] #[dict1, dict2, dict3....] #dict1,2 etc has "title" as key
+
+    temp_list_of_friends = user_data["friends"] #this will give a list [{"watched": [dict1, dict2....]}]
+
+    set_of_movies_user = set()
+    for i in range(0, len(temp_list_of_moviedict_user)):
+        temp_dict_user = temp_list_of_moviedict_user[i]
+        if "title" in temp_dict_user:
+            temp_movie_user = temp_dict_user["title"]
+            if temp_movie_user not in set_of_movies_user:
+                set_of_movies_user.add(temp_movie_user)
+
+
+    for i in range(0, len(temp_list_of_friends)):
+        movie_list_friend = temp_list_of_friends[i]["watched"] # [dict1, dict2, ......]
+        for j in range(0, len(movie_list_friend)):
+            if "title" in movie_list_friend[j]:
+                movie_title = movie_list_friend[j]["title"]
+                if movie_title not in set_of_movies_user:
+                    result.append(movie_list_friend[j])
+       
+    
+    return result
+
 
     
 
