@@ -114,37 +114,21 @@ def get_unique_watched(user_data: dict):
                      if movie not in friend_movies]
     return unique_movies
 
-def get_friends_unique_watched(user_data):
+def get_friends_unique_watched(user_data: dict):
+    """Return a list of movies uniquely watched by the user's friends.
+
+    Keyword arguments:
+    user_data -- A dictionary with "watched" and "friends" keys.      
     """
-    user_data = dict w/ two keys:
-        "watched": list of movie dicts
-        "friends": list of dicts, within which:
-            "watched": list of movie dicts
-                ^ these all contain a "title"
-    """
-    unique_watched_movies = []
-    friend_watched_titles_only = []
-    all_friend_watched = []
-    unique_movie_titles = set()
-    user_watched_list = [movie["title"] for movie in user_data["watched"]]
+    unique_movies = []
+    friend_movies = get_friend_watched(user_data)
+    
+    # chose over list comprehension for clarity
+    for movie in friend_movies:
+        if movie not in unique_movies and movie not in user_data["watched"]:
+            unique_movies.append(movie)
 
-    for friends_list in user_data["friends"]:
-        for movie in friends_list["watched"]:
-            friend_watched_titles_only.append(movie["title"])
-            all_friend_watched.append(movie)
-
-    user_watched_set = set(user_watched_list)
-    friend_watched_set = set(friend_watched_titles_only)
-    unique_watched_set = friend_watched_set - user_watched_set
-
-    for movie in all_friend_watched:
-        if movie["title"] in unique_watched_set:
-            if movie["title"] not in unique_movie_titles:
-                unique_watched_movies.append(movie)
-                unique_movie_titles.add(movie["title"])
-
-    return unique_watched_movies
-
+    return unique_movies
 # -----------------------------------------
 # ------------- WAVE 4 --------------------
 # -----------------------------------------
