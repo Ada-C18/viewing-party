@@ -166,29 +166,52 @@ def get_friends_unique_watched(user_data):
 # At least one of the user's friends has watched
 # The "host" of the movie is a service that is in the user's "subscriptions"
 # Return the list of recommended movies
-def check_if(s, list_a):
-    for i in range(0, len(list_a)):
-        if s is list_a[i]:
-            return True
-    return False
+
 
 def get_available_recs(user_data):
-    result_list = []
-    #friends
-    list_userdata = user_data["friends"] #[{"watched": [dict1, dict2,....]}]
+    result = []
+    user_dict = []
+    friends_dict = []
+    for movie in user_data["watched"]:
+        user_dict.append(movie)
+    for movie in user_data["friends"]:
+        for item in movie["watched"]:
+            friends_dict.append(item)
 
-    for i in range(0, len(list_userdata)):
-        inside_list = list_userdata[i]["watched"] #[dict1, dict2, .....]
-
-        for j in range(0, len(inside_list)):
-            value_of_host= inside_list[j]["host"] #amazon
-
-            if check_if(value_of_host, user_data["subscriptions"]) == True :
-                result_list.append(get_friends_unique_watched(user_data))
-
-
+    for item in friends_dict:
+        if item not in user_dict:
+            if item not in result:
+                if item["host"] in user_data["subscriptions"]:
+                    result.append(item)
+    return result
     
-    return result_list
+    
+            
+
+
+# wave 5 part 1
+#Create a function named get_new_rec_by_genre. This function should...
+# take one parameter: user_data
+# Consider the user's most frequently watched genre. Then, determine a list of recommended movies. A movie should be added to this list if and only if:
+# The user has not watched it
+# At least one of the user's friends has watched
+# The "genre" of the movie is the same as the user's most frequent genre
+# Return the list of recommended movies
+
+#def get_new_rec_by_genre(user_data):
+
+
+
+
+#wave 5 part 2
+#Create a function named get_rec_from_favorites. This function should...
+# take one parameter: user_data
+# user_data will have a field "favorites". The value of "favorites" is a list of movie dictionaries
+# This represents the user's favorite movies
+# Determine a list of recommended movies. A movie should be added to this list if and only if:
+# The movie is in the user's "favorites"
+# None of the user's friends have watched it
+# Return the list of recommended movies
             
 
 
