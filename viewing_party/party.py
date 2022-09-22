@@ -1,7 +1,6 @@
 # ------------- WAVE 1 --------------------
 
 def create_movie(title, genre, rating):
-    # make a dictionary with these keys: "title":title, "genre": genre, "rating": rating
     movie_dict = {}
 
     if title and genre and rating:
@@ -13,14 +12,11 @@ def create_movie(title, genre, rating):
     
     return None
 def add_to_watched(user_data, movie):
-    # user data is a dictionary with a key watched that has the value of an empty list which will be later a list of dictionaries with the movies the user has watched
-    # the value of movie is a dictionary like the one from the first function
-    # add the value of movie to the list in watched
-    # return user_data
+
     user_data['watched'].append(movie)
     return user_data
 def add_to_watchlist(user_data, movie):
-    # add movie to list in 'watchlist' key in user_data dictionary
+
     user_data['watchlist'].append(movie)
     return user_data
 def watch_movie(user_data, title):
@@ -32,16 +28,6 @@ def watch_movie(user_data, title):
 
     return user_data
 
-
-    # for movie in user_data.values():
-    #     if title in user_data['watchlist']:
-    #         user_data['watchlist'].remove(movie)
-    #         user_data['watched'].append(movie)
-    #         return user_data
-    #     return user_data
-
-
-    
 
 # -----------------------------------------
 # ------------- WAVE 2 --------------------
@@ -76,13 +62,12 @@ def get_most_watched_genre(user_data):
 # ------------- WAVE 3 --------------------
 # -----------------------------------------
 def get_unique_watched(user_data):
-    # i need to compare my watched to a combined list of my friends watched movies
+
     unique_movies = []
     friends_movies = []
     for friend in user_data['friends']:
         for movie in friend['watched']:
             friends_movies.append(movie)
-        # print(friends_movies)
 
     for movie_dict in user_data['watched']:
         if movie_dict not in friends_movies:
