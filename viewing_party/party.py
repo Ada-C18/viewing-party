@@ -117,6 +117,11 @@ def get_unique_watched(user_data):
     return result_unique_movies
     
 def user_watched_list(user_data):
+    '''
+    Helper function
+    Input: user_data a dictionary with "watched" and "friends keys contianing lists of movies
+    Output: returns set of movies the user has watched, but friends have not
+    '''
     user_watch_list = []
     
     for movie in user_data["watched"]:
