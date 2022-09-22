@@ -42,21 +42,49 @@ def watch_movie(user_data, title):
 
 # 2.1
 def get_watched_avg_rating(user_data):
-    user_data["watched"]  
-    # find average of ratings in watched list - The average rating of an empty watched list is 0.0
-    # return average_rating 
+    watched_list = user_data["watched"]
+    if len(watched_list) == 0:
+        return 0.0
 
-
-
-
+    average_rating = 0.0
+    for movie in watched_list:
+        movie_rating = movie["rating"]
+        average_rating += movie_rating
+    average_rating /= len(watched_list)
+    return average_rating 
 
 
 # 2.2
-# def get_most_watched_genre(user_data):
-#     user_data["watched"]
+def get_most_watched_genre(user_data):
+    watched_list = user_data["watched"]
+    if len(watched_list) == 0:
+        return None
+    
+    most_watched_genre = None
+    most_watched_count = 0
+    genre_count = {}
+    for watched_movie in watched_list:
+        genre = watched_movie["genre"]
+        if genre in genre_count:
+            genre_count[genre] += 1
+        else:
+            genre_count[genre] = 1
+
+        if most_watched_count < genre_count[genre]:
+            most_watched_count = genre_count[genre]
+            most_watched_genre = genre
+            
+    return most_watched_genre
+
+    
+
+
+
 #     # Determine which genre(is a string) is most frequently occurring in the watched list
 #     # return the genre that is the most frequently watched
 #     # If the value of "watched" is an empty list, get_most_watched_genre should return None.
+
+
 
 
 
