@@ -96,13 +96,17 @@ def get_unique_watched(user_data):
     unique_watched_lst = []
 
     for movie in watched_lst:
-        seen_movie = False
-        for friend in friends_lst:
-            if movie in friend["watched"]:
-                seen_movie = True
-        
-        if seen_movie == False:
+        if not one_friend_has_seen(movie, friends_lst):
             unique_watched_lst.append(movie)
+
+    # for movie in watched_lst:
+    #     seen_movie = False
+    #     for friend in friends_lst:
+    #         if movie in friend["watched"]:
+    #             seen_movie = True
+        
+    #     if seen_movie == False:
+    #         unique_watched_lst.append(movie)
 
     return unique_watched_lst
 
@@ -120,6 +124,13 @@ def get_friends_unique_watched(user_data):
 
     return user_not_watched
 
+
+#  Helper Movie watched by friend 
+def one_friend_has_seen(movie, friendList): 
+    for friend in friendList:
+        if movie in friend["watched"]:
+            return True
+    return False
         
 # -----------------------------------------
 # ------------- WAVE 4 --------------------
