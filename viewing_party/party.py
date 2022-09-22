@@ -11,21 +11,18 @@ def create_movie(title, genre, rating):
 
 def add_to_watched(user_data, movie):
     user_data["watched"].append(movie)
-    updated_data = user_data
-    return updated_data
+    return user_data
 
 def add_to_watchlist(user_data, movie):
     user_data["watchlist"].append(movie)
-    updated_data = user_data
-    return updated_data
+    return user_data
 
 def watch_movie(user_data, title):
     for i in range(len(user_data["watchlist"])):
         if (user_data["watchlist"][i]["title"]) == title:
             watched_movie = (user_data["watchlist"].pop(i))
             user_data["watched"].append(watched_movie)
-    updated_data = user_data
-    return updated_data
+    return user_data
 
 # -----------------------------------------
 # ------------- WAVE 2 --------------------

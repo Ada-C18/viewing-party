@@ -24,18 +24,13 @@ janes_data = {
         "watched": []
     }
 def watch_movie(user_data, title):
-    # print(title)
-    for movie in user_data["watchlist"]:
-        # print(movie)
-        if movie["title"] == title:
-            print(movie)
-            # print(user_data["watched"])
-            # .append(user_data["watchlist"].remove(movie))
-            # user_data["watched"].remove(movie["title"])
-    # print(user_data)
+    for i in range(len(user_data["watchlist"])):
+        if title in (user_data["watchlist"][i]["title"]):
+        # if (user_data["watchlist"][i]["title"]) == title:
+            watched_movie = (user_data["watchlist"].pop(i))
+            user_data["watched"].append(watched_movie)
     # updated_data = user_data
-    # return updated_data
-
+    print(user_data)
 watch_movie(janes_data, MOVIE_TITLE_1)
 
 
