@@ -202,6 +202,9 @@ When our test failures leave us confused and stuck, let's use the detailed proje
 
 ### Wave 1
 
+
+
+
 1. Create a function named  `create_movie`. This function and all subsequent functions should be in `party.py`. `create_movie` should...
 
 - take three parameters: `title`, `genre`, `rating`
