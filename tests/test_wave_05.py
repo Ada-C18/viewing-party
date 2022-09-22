@@ -18,94 +18,101 @@ def test_new_genre_rec():
     assert sonyas_data == clean_wave_5_data()
 
 # @pytest.mark.skip()-2
-# def test_new_genre_rec_from_empty_watched():
-#     # Arrange
-#     sonyas_data = {
-#         "watched": [],
-#         "friends": [
-#             {
-#                 "watched": [INTRIGUE_1b]
-#             },
-#             {
-#                 "watched": [INTRIGUE_2b,HORROR_1b]
-#             }
-#         ]
-#     }
+def test_new_genre_rec_from_empty_watched():
+    # Arrange
+    sonyas_data = {
+        "watched": [],
+        "friends": [
+            {
+                "watched": [INTRIGUE_1b]
+            },
+            {
+                "watched": [INTRIGUE_2b,HORROR_1b]
+            }
+        ]
+    }
 
-#     # Act
-#     recommendations = get_new_rec_by_genre(sonyas_data)
+    # Act
+    recommendations = get_new_rec_by_genre(sonyas_data)
 
-#     # Assert
-#     assert len(recommendations) == 0
+    # Assert
+    assert len(recommendations) == 0
 
 # @pytest.mark.skip()-3
-# def test_new_genre_rec_from_empty_friends():
-#     # Arrange
-#     sonyas_data = {
-#         "watched": [INTRIGUE_1b],
-#         "friends": [
-#             {
-#                 "watched": []
-#             },
-#             {
-#                 "watched": []
-#             }
-#         ]
-#     }
+def test_new_genre_rec_from_empty_friends():
+    # Arrange
+    sonyas_data = {
+        "watched": [INTRIGUE_1b],
+        "friends": [
+            {
+                "watched": []
+            },
+            {
+                "watched": []
+            }
+        ]
+    }
 
-#     raise Exception("Test needs to be completed.")
-#     # *********************************************************************
-#     # ****** Complete the Act and Assert Portions of theis tests **********
-#     # *********************************************************************
+    # Act
+    recommendations = get_new_rec_by_genre(sonyas_data)
+
+    # Assert
+    assert len(recommendations) == 0
+
+
+    #raise Exception("Test needs to be completed.")
+    # *********************************************************************
+    # ****** Complete the Act and Assert Portions of theis tests **********
+    # *********************************************************************
 
 # @pytest.mark.skip()-4
-# def test_unique_rec_from_favorites():
-#     # Arrange
-#     sonyas_data = clean_wave_5_data()
+def test_unique_rec_from_favorites():
+    # Arrange
+    sonyas_data = clean_wave_5_data()
 
-#     # Act
-#     recommendations = get_rec_from_favorites(sonyas_data)
+    # Act
+    recommendations = get_rec_from_favorites(sonyas_data)
 
-#     # Assert
-#     assert len(recommendations) == 2
-#     assert FANTASY_2b in recommendations
-#     assert INTRIGUE_2b in recommendations
-#     assert sonyas_data == clean_wave_5_data()
+    # Assert
+    assert len(recommendations) == 2
+    assert FANTASY_2b in recommendations
+    assert INTRIGUE_2b in recommendations
+    assert sonyas_data == clean_wave_5_data()
 
 # @pytest.mark.skip()-5
-# def test_unique_from_empty_favorites():
-#     # Arrange
-#     sonyas_data = {
-#         "watched": [],
-#         "favorites": [],
-#         "friends": [
-#             {
-#                 "watched": [INTRIGUE_1b]
-#             },
-#             {
-#                 "watched": [INTRIGUE_2b,HORROR_1b]
-#             }
-#         ]
-#     }
+def test_unique_from_empty_favorites():
+    # Arrange
+    sonyas_data = {
+        "watched": [],
+        "favorites": [],
+        "friends": [
+            {
+                "watched": [INTRIGUE_1b]
+            },
+            {
+                "watched": [INTRIGUE_2b,HORROR_1b]
+            }
+        ]
+    }
 
-#     # Act
-#     recommendations = get_rec_from_favorites(sonyas_data)
+    # Act
+    recommendations = get_rec_from_favorites(sonyas_data)
 
-#     # Assert
-#     assert len(recommendations) == 0
+    # Assert
+    assert len(recommendations) == 0
 
 # @pytest.mark.skip()-6
-# def test_new_rec_from_empty_friends():
-#     # Arrange
-#     sonyas_data = {
-#         "watched": [INTRIGUE_1b],
-#         "favorites": [INTRIGUE_1b],
-#         "friends": []
-#     }
+def test_new_rec_from_empty_friends():
+    # Arrange
+    sonyas_data = {
+        "watched": [INTRIGUE_1b],
+        "favorites": [INTRIGUE_1b],
+        "friends": []
+    }
 
-#     # Act
-#     recommendations = get_rec_from_favorites(sonyas_data)
+    # Act
+    recommendations = get_rec_from_favorites(sonyas_data)
 
-#     # Assert
-#     assert len(recommendations) == 1
-#     assert INTRIGUE_1b in recommendations
+    # Assert
+    assert len(recommendations) == 1
+    assert INTRIGUE_1b in recommendations
