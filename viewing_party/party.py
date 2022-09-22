@@ -147,6 +147,12 @@ def friend_watched_list(user_data):
     return set_friends_watched
 
 def get_friends_unique_watched(user_data):
+    '''
+    Input: user_data a dictionary with "watched" key of list of movie dictionaries and "friends"
+    key with nested dictionary of "watched" key with value of list of movie dictionaries. 
+    Output: Returns a list of dictionaries that represents a unique list of movies the friends have watched,
+    but the user has not.
+    '''
     user_set = user_watched_list(user_data)
     friends_set = friend_watched_list(user_data)
     unique_movies_set = friends_set - user_set
