@@ -1,9 +1,6 @@
 # ------------- WAVE 1 --------------------
 
 def create_movie(title, genre, rating):
-    #create dictionary to pair "title", "genre", and "rating" to inputted values
-    #if any input element is None, return None
-    
     new_movie = {}
     
     if title and genre and rating:
