@@ -132,40 +132,39 @@ def get_friends_unique_watched(user_data):
 def get_available_recs(user_data):
     """ use helper function from get_friends_unique_watched """
     recommended_movie = []
-    host_list = []
-    result_list = []
+    # host_list = []
+    # result_list = []
     subscriptions_list = user_data["subscriptions"]
-    friends_watched_list = user_data["friends"]
+    # print(subscriptions_list)
+    # friends_watched_list = user_data["friends"]
     
     # access the value in "host"
-    for watched in friends_watched_list:
-        for title in watched["watched"]:
-            result_list.append(title)
-    for i in range(len(result_list)):
-        host_list.append(result_list[i]["host"])
-    # print(host_list)
-    
-    if host_list in subscriptions_list:
-        for movie in get_friends_unique_watched(user_data):
-            recommended_movie.append(movie)
-    print(recommended_movie)       
-    return recommended_movie   
-    
-
-
-    
-
-
-    
-        
-    
-    
-
-    
-        
-     
+    # for watched in friends_watched_list:
+    #     for title in watched["watched"]:
+    #         # access the list [{'title': ,'genre': ,'rating': ,'host' ,}]
+    #         result_list.append(title) 
+    # for i in range(len(result_list)):  
+    #     # read every element in list, and only get the values from "host"
+    #     host_list.append(result_list[i]["host"])
     # print(host_list)
 
+    friens_unique_watched = get_friends_unique_watched(user_data)
+    # print(friends_watched_list)
+    for i in range(len(friens_unique_watched)):
+        # host_list.append(friens_unique_watched[i]["host"])
+        if friens_unique_watched[i]["host"] in subscriptions_list:
+        # if host_list in subscriptions_list:
+            recommended_movie.append(friens_unique_watched[i])
+        
+    # for movie in get_friends_unique_watched(user_data):
+    #     # print(movie)
+    #     # read every movie from the helper function
+    #     if host_list in subscriptions_list:
+    #         # use if statament to access the host only in user's subscriptions
+    #         recommended_movie.append(movie)
+    return recommended_movie       
+      
+    
 
 
 
@@ -175,3 +174,23 @@ def get_available_recs(user_data):
 # ------------- WAVE 5 --------------------
 # -----------------------------------------
 
+def get_new_rec_by_genre(user_data):
+    ''' 
+    use helper function from get_most_watched_genre(user_data) 
+    and get_friends_unique_watched()
+    '''
+    recommended_movie = []
+    popular_genre = get_most_watched_genre(user_data)
+    # .split()
+    print(popular_genre)
+    # print(type(popular_genre))
+    friens_unique_watched = get_friends_unique_watched(user_data)
+    for i in range(len(friens_unique_watched)):
+        print(friens_unique_watched[i]["genre"])
+        if friens_unique_watched[i]["genre"] == popular_genre:
+            recommended_movie.append(friens_unique_watched[i])
+    return recommended_movie
+
+
+def get_rec_from_favorites(user_data):
+    pass
