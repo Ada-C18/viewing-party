@@ -2,6 +2,7 @@
 from collections import Counter
 from enum import unique
 
+# inputs a movie into the program
 def create_movie(title, genre, rating):
     if title and genre and rating:
         movie = {
@@ -13,12 +14,12 @@ def create_movie(title, genre, rating):
     else:
         return None
 
-# takes a movie dict and adds it to watched
+# takes a movie dict and adds it to user's watched
 def add_to_watched(user_data, movie):
     user_data["watched"] = [movie]
     return user_data
 
-# takes a movie dict and adds it to watchlist
+# takes a movie dict and adds it to user's watchlist
 def add_to_watchlist(user_data, movie):
     user_data["watchlist"] = [movie]
     return user_data
