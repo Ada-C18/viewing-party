@@ -107,21 +107,27 @@ def get_unique_watched(user_data):
         if seen_movie == False:
             unique_watched_lst.append(movie)
 
-    # another possible solution
-    # unique_watched_lst = watched_lst.copy()
-        # for movie in watched_lst:
-        #     for friend in friends_lst:
-            # if movie in friend["watched"]:
-                # unique_watched_lst.remove(movie)
-
     return unique_watched_lst
 
 # 2. Create a function named get_friends_unique_watched.
 # Consider the movies that the user has watched, and consider the movies that their friends have watched. Determine which movies at least one of the user's friends have watched, but the user has not watched.
 # Return a list of dictionaries, that represents a list of movies
-def get_friends_unique_watched(user_data):
-    pass
 
+# -- user not watched
+# -- 1+ friend watched
+
+def get_friends_unique_watched(user_data):
+    user_watched_lst = user_data["watched"]
+    friends_lst = user_data["friends"]
+
+    user_not_watched = []
+
+    for friend in friends_lst:
+        for movie in friend["watched"]:
+            if movie not in user_watched_lst:
+                user_not_watched.append(movie)
+
+    return user_not_watched
 
         
 # -----------------------------------------
@@ -129,12 +135,11 @@ def get_friends_unique_watched(user_data):
 # 1. Create a function named get_available_recs. 
 # Determine a list of recommended movies. A movie should be added to this list if and only if:
 # The user has not watched it
-# REQ 1: if movie not in user's watched list
-
 # At least one of the user's friends has watched
-# REQ 2: if movie in 1 friend's watched list
-
 # The "host" of the movie is a service that is in the user's "subscriptions"
+
+# REQ 1: if movie not in user's watched list
+# REQ 2: if movie in 1 friend's watched list
 # REQ 3: if "host" str in user's subscriptions lst
 
 # Return the list of recommended movies
