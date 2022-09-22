@@ -13,7 +13,6 @@ def test_create_successful_movie():
 
     # Act
     new_movie = create_movie(movie_title, genre, rating)
-    # make a dictionary w keys title, genre, rating w input values
 
     # Assert
     assert new_movie["title"] == MOVIE_TITLE_1
@@ -73,7 +72,6 @@ def test_adds_movie_to_user_watched():
 
     # Act
     updated_data = add_to_watched(user_data, movie)
-    # appends movie to user's watched list
 
     # Assert
     assert len(updated_data["watched"]) == 1
