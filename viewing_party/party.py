@@ -169,3 +169,11 @@ def get_new_rec_by_genre(user_data):
     
     return(movie_recs_by_genre)
 
+def get_rec_from_favorites(user_data):
+    movie_recs_from_favorites  = []
+    list_of_movie_dictionaries_user_has_watched_but_friends_have_not = get_unique_watched(user_data)
+    for favorite in user_data["favorites"]:
+        for dictionary in list_of_movie_dictionaries_user_has_watched_but_friends_have_not:
+            if favorite["title"] == dictionary["title"]:
+                movie_recs_from_favorites.append(dictionary)
+    return(movie_recs_from_favorites)
