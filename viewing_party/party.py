@@ -2,15 +2,6 @@
 
 from genericpath import exists
 
-
-# def create_movie(title, genre, rating):
-#     if title and genre and rating is True:
-#         return {'title':title,
-#         'genre': genre,
-#         'rating':rating
-#         }
-#     else:
-#         return None 
 def create_movie(title, genre, rating):
     if title is not None and genre is not None and rating is not None\
             and title is not False and genre is not False and rating is not False:
@@ -90,8 +81,20 @@ def get_unique_watched(user_data):
                 result.append(movie)
     return result 
 
-#def get_friends_unique_watched(user_data):
-    result = []
+def get_friends_unique_watched(user_data):
+    results = []
+    exists = set()
+    for friend in user_data['friends']:
+        for friend_movie in friend['watched']:
+            watched = False 
+            for movie in user_data['watched']:
+                if movie['title']== friend_movie['title']:
+                    watched = True 
+                    break
+                if not watched and friend_movie['title'] not in exists:
+                    results.append(friend_movie)
+                    exists.add(friend_movie['title'])
+    return results
 
 
 

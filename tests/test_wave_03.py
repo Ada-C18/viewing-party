@@ -16,7 +16,7 @@ def test_my_unique_movies():
     assert INTRIGUE_2 in amandas_unique_movies
     assert amandas_data == clean_wave_3_data()
 
-@pytest.mark.skip()
+#@pytest.mark.skip()
 def test_my_not_unique_movies():
     # Arrange
     amandas_data = clean_wave_3_data()
@@ -43,7 +43,7 @@ def test_friends_unique_movies():
     assert FANTASY_4 in friends_unique_movies
     assert amandas_data == clean_wave_3_data()
 
-@pytest.mark.skip()
+#@pytest.mark.skip()
 def test_friends_unique_movies_not_duplicated():
     # Arrange
     amandas_data = clean_wave_3_data()
@@ -87,6 +87,5 @@ def test_friends_not_unique_movies():
 
     # Act
     friends_unique_movies = get_friends_unique_watched(amandas_data)
-
     # Assert
     assert len(friends_unique_movies) == 0
