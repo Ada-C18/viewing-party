@@ -83,11 +83,46 @@ def get_most_watched_genre(user_data):
 # -----------------------------------------
 # ------------- WAVE 3 --------------------
 # -----------------------------------------
+def get_unique_watched(user_data):
+  list_of_user_movies = []
+  list_of_friend_movies = []
+  user_has_watched_freinds_have_not_list = []
+  for movie_list in user_data["watched"]:
+    list_of_user_movies.append(movie_list)
+  
+  for friend_movie_list in user_data["friends"]:
+    for watched_friend_list in friend_movie_list["watched"]:
+      list_of_friend_movies.append(watched_friend_list)
+  for title in list_of_user_movies:
+    if title not in list_of_friend_movies:
+      user_has_watched_freinds_have_not_list.append(title)
+  return user_has_watched_freinds_have_not_list
 
+
+def get_friends_unique_watched(user_data):
+  list_of_user_movies = []
+  list_of_friend_movies = []
+  movies_one_of_users_freinds_have_watched_but_user_has_not = []
+  for movie_list in user_data["watched"]:
+    list_of_user_movies.append(movie_list)
+  
+  for friend_movie_list in user_data["friends"]:
+    for watched_friend_list in friend_movie_list["watched"]:
+      list_of_friend_movies.append(watched_friend_list)
+  movies_one_of_users_freinds_have_watched_but_user_has_not = []
+  
+  for movie in (list_of_friend_movies):
+    if movie not in list_of_user_movies and len(movie) > 0:
+      if movie not in movies_one_of_users_freinds_have_watched_but_user_has_not:
+        movies_one_of_users_freinds_have_watched_but_user_has_not.append(movie)
+      
+  return movies_one_of_users_freinds_have_watched_but_user_has_not
         
 # -----------------------------------------
 # ------------- WAVE 4 --------------------
 # -----------------------------------------
+# def get_available_recs(user_data):
+
 
 # -----------------------------------------
 # ------------- WAVE 5 --------------------
