@@ -33,26 +33,18 @@ def get_watched_avg_rating(user_data):
     except ZeroDivisionError:
         return 0
 
-#note: there's got to be a better way to do this
 def get_most_watched_genre(user_data):
     # get and store list of all genre values
     genre_total_list = []
     for movie in user_data["watched"]:
         genre_total_list.append(movie["genre"])
-    # create set of genres (1 instance of each)
-   # print(genre_total_list)
-    genres = set(genre_total_list)
-    #print(genres)
     # create dictionary of most frequent genres
     genre_frequencies = {}
-    for genre in genres:
-        for item in genre_total_list:
-            if genre == item:
-                try:
-                    genre_frequencies[genre] += 1
-                except KeyError: 
-                    genre_frequencies[genre] = 1
-    #print(genre_frequencies)
+    for genre in genre_total_list:
+        try:
+            genre_frequencies[genre] += 1
+        except KeyError: 
+            genre_frequencies[genre] = 1
     # identify genre with highest frequency count
     most_popular_genre = None
     max_frequency = 0
@@ -60,7 +52,6 @@ def get_most_watched_genre(user_data):
         if frequency > max_frequency:
             most_popular_genre = genre
             max_frequency = frequency
-    #print(most_popular_genre)
     return most_popular_genre
 
 # -----------------------------------------
@@ -71,36 +62,32 @@ def get_unique_watched(user_data):
     # start with list of all movies user has watched
     movie_list = list(user_data["watched"])
     unique_movies = list(movie_list)
+    # compare against list of friend's watched movies
     friends = list(user_data["friends"])
-    # compare against list of friend's watched moviews
-    for my_movie in movie_list:
-        #for friend in friends:
-        for friend in friends:
-            for friend_movie in friend["watched"]:
-                if my_movie == friend_movie:
-                    try:
-                        unique_movies.remove(my_movie)
-                    except ValueError: # handle a movie that's already been removed (necessary?)
-                        continue
+    for friend in friends:
+        for friend_movie in friend["watched"]:
+            if friend_movie in movie_list:
+                try:
+                    unique_movies.remove(friend_movie)
+                #handle a movie that's already been removed
+                except ValueError: 
+                    continue
     return unique_movies
 
 def get_friends_unique_watched(user_data):
+    #create list of movies friends have watched
     friend_movies = []
-
     for friend in user_data["friends"]:
         for movie in friend["watched"]:
             friend_movies.append(movie)
     unique_friend_movies = list(friend_movies)
-
-    # remove movies shared between "me" and friends
-    for my_movie in user_data["watched"]:
-        for movie in friend_movies:
-            if my_movie == movie:
-                try:
-                    unique_friend_movies.remove(movie)
-                except ValueError:
-                    continue
-
+    # remove movies shared between user and friends
+    for movie in friend_movies:
+        if movie in user_data["watched"]:
+            try:
+                unique_friend_movies.remove(movie)
+            except ValueError:
+                continue
     # remove duplicates from unique_movie_list
     truely_unique_friend_movies = []
     for movie in unique_friend_movies:
@@ -109,17 +96,17 @@ def get_friends_unique_watched(user_data):
     return truely_unique_friend_movies
 
 def friends_not_unique_movies(user_data):
-    friend_movies = []
-    
+    # find movies all friends have seen
+    friend_movies = []   
     for friend in user_data["friends"]:
         friend_movies += friend["watched"]
-
     non_unique_movies = list(friend_movies)
+    # find all unique friend movies
     unique_movies = get_friends_unique_watched(user_data)
-    for movie in unique_movies:
-        for friend_movie in friend_movies:
-            if movie == friend_movies:
-                non_unique_movies.remove(movie)
+   # remove unique movies from friend watch list
+    for movie in friend_movies:
+        if movie in unique_movies:
+            non_unique_movies.remove(movie)
     return non_unique_movies  
 
 # -----------------------------------------
@@ -147,13 +134,10 @@ def get_new_rec_by_genre(user_data):
             recs_by_genre.append(movie)
     return recs_by_genre
 
-
 def get_rec_from_favorites(user_data):
     rec_favorites = []
     friends_watched = friends_not_unique_movies(user_data)
     for movie in user_data["favorites"]:
-        if movie in friends_watched:
-            continue
-        else:
-            rec_favorites.append(movie)
+        if not movie in friends_watched:
+            rec_favorites.append(movie)      
     return rec_favorites
