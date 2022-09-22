@@ -10,7 +10,6 @@ def create_movie(title, genre, rating):
         if not movie_dict[category]:
             return None
     
-    # print(movie_dict)
     return movie_dict
 
 # Create add_to_watched function that adds movies that a user has watched to a dict
@@ -19,7 +18,6 @@ def add_to_watched(user_data, movie):
     watched_list.append(movie)
     user_data["watched"] = watched_list
 
-    # print(user_data)
     return user_data
 
 # Create add_to_watchlist function that adds movies to a user's watchlist in a dict
@@ -28,7 +26,6 @@ def add_to_watchlist(user_data, movie):
     watchlist.append(movie)
     user_data["watchlist"] = watchlist
 
-    # print(user_data)
     return user_data
 
 # Create watch_movie function that moves movies from watchlist to watched list
@@ -38,7 +35,6 @@ def watch_movie(user_data, movie_to_watch):
             user_data["watched"].append(movie)
             user_data["watchlist"].remove(movie)
     
-    # print(user_data)
     return user_data
 # -----------------------------------------
 # ------------- WAVE 2 --------------------
@@ -69,6 +65,7 @@ def get_most_watched_genre(user_data):
                 watched_genres[movie["genre"]] += 1
 
     most_watched = max(watched_genres, key=watched_genres.get)
+    
     return most_watched
 
 # -----------------------------------------
@@ -91,6 +88,7 @@ def get_unique_watched(user_data):
     for movie in user_data["watched"]:
         if movie not in friends_watched_list:
             unique_watched_list.append(movie)
+    
     return unique_watched_list
 
 # Create get_friends_unique_watched function to get list of movies friends watched, but not user
@@ -101,6 +99,7 @@ def get_friends_unique_watched(user_data):
     for movie in friends_watched_list:
         if movie not in user_data["watched"] and movie not in friends_unique_watched_list:
             friends_unique_watched_list.append(movie)
+    
     return friends_unique_watched_list
 
 # -----------------------------------------
@@ -133,6 +132,7 @@ def get_new_rec_by_genre(user_data):
     for movie in list_of_friends_unique_watched:
         if genre == movie["genre"]:
             rec_movies_by_genre.append(movie)
+    
     return rec_movies_by_genre
 
 # Create get_rec_from_favorites function to get a list of user's favorite movies that friends have not watched
