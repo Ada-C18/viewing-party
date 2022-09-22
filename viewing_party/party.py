@@ -104,7 +104,7 @@ def get_unique_watched(amandas_data):
         if movie not in friends_movie_list:
             unique_movie_list.append(movie)
     
-    return(unique_movie_list)
+    return unique_movie_list 
 
 def get_friends_unique_watched(amandas_data):
     # function takes in dict of dicts {"watched":[{}],"friends":[{"watched": [{}]}, {"watched": [{}]} }] }
@@ -127,9 +127,8 @@ def get_friends_unique_watched(amandas_data):
     for movie in friends_movie_list:
         if movie not in amandas_movie_list and movie not in unique_movie_list:
             unique_movie_list.append(movie)
-
         
-    return(unique_movie_list)
+    return unique_movie_list
 
 def confirm_no_duplicates(friends_unique_movies):
     # removes empty list elements
@@ -139,15 +138,54 @@ def confirm_no_duplicates(friends_unique_movies):
     
     #generates unique movie titles as list of strings with list comprehension
     unique_titles = [movie["title"] for movie in friends_unique_movies]
-
     return unique_titles
 
+def get_available_recs(amandas_data):
+    # function takes in dict of dicts {"watched":[{}],"friends":[{"watched": [{}]}, {"watched": [{}]} }] }
+    amandas_movie_list = [] 
+    friends_movie_list = []
+    recommendations_list = []
+    new_recommendations_list = []
+    j = 0 # iterator
+    
+    # create list of movies (list of dicts) for movies amanda has watched
+    for movie in amandas_data["watched"]:
+        amandas_movie_list.append(movie)
+    
+    # print(amandas_movie_list)
+    
+    #create list of movies (list of dicts) for movies friends have watched
+    for friend in amandas_data["friends"]:
+        for watched_movies in amandas_data["friends"][j]["watched"]:
+            friends_movie_list.append(watched_movies)
+        j += 1
+    # print(friends_movie_list)
 
-# -----------------------------------------
-# ------------- WAVE 4 --------------------
-# -----------------------------------------
+    #create unique list of movies (list of dicts) watched by friends
+    for movie in friends_movie_list:
+        if movie not in amandas_movie_list and movie not in recommendations_list:
+            # consider adding conditional instead of for loop below
+            recommendations_list.append(movie)
+    
+    for movie in recommendations_list:
+        if movie["host"] in amandas_data["subscriptions"]:
+            new_recommendations_list.append(movie) #updating list while iterating; consider append() to new list
+    # print(recommendations_list)
 
-# -----------------------------------------
-# ------------- WAVE 5 --------------------
-# -----------------------------------------
+
+    # for movie in recommendations_list:
+    #     if movie["host"] != key in amandas_data["subscription"]:
+    #         recommendations_list.remove(movie) #updating list while iterating; consider append() to new list
+    # print(recommendations_list)
+
+    # redundant
+    # for movie in recommendations_list:
+    #     if movie in amandas_data["watched"]:
+    #         recommendations_list.remove(movie)
+
+        
+    return new_recommendations_list
+
+def get_new_rec_by_genre(sonyas_data):
+    
 
