@@ -98,9 +98,9 @@ def get_most_watched_genre(user_data):
 # -----------------------------------------
 def get_unique_watched(user_data):
     ''' 
-        user_data is a dictionary with "watched" (list of movie dictionaries) 
-        "friends" (with a list of movie dictionaries of what friends have watched)
-        returns list of dictionaries of unique movies the user has watched
+        Input: user_data is a dictionary with "watched" (list of movie dictionaries) and "friends"
+        (with a list of movie dictionaries of what friends have watched)
+        Output: returns list of dictionaries of unique movies the user has watched
     '''
     user_set = user_watched_list(user_data)
     friends_set = friend_watched_list(user_data)
