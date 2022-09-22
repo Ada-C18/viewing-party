@@ -122,6 +122,16 @@ def get_friends_unique_watched(user_data):
 # ------------- WAVE 4 --------------------
 # -----------------------------------------
 
+# 4.1 
+
+def get_available_recs(user_data):
+    friend_recs = get_friends_unique_watched(user_data)
+    available_recs = []
+    for rec in friend_recs:
+        if rec["host"] in user_data["subscriptions"]:
+            available_recs.append(rec)
+    return available_recs
+
 # -----------------------------------------
 # ------------- WAVE 5 --------------------
 # -----------------------------------------
