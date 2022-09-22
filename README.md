@@ -49,7 +49,7 @@ $ cd viewing-party
 5. Create a virtual environment named `venv` for this project:
 
 ```bash
-$ python3 -m venv venv
+$ python3 -m venv venv #creating new envrionment
 ```
 
 6. Activate this environment:
