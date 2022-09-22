@@ -84,7 +84,7 @@ def get_most_watched_genre(user_data):
         
     for i in genre_list:
         if i not in genre_count:
-            count = 0
+            count = 1
             genre_count[i] = count
         else:
             genre_count[i] = count + 1
