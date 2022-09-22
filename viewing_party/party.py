@@ -142,8 +142,8 @@ def get_rec_from_favorites(user_data):
     rec_movies_from_favorites = []
 
     for movie in user_data["favorites"]:        
-       for watched_movie in unique_watched_list:
-           if movie["title"] == watched_movie["title"]:
-               rec_movies_from_favorites.append(watched_movie)
+        for watched_movie in unique_watched_list:
+            if movie["title"] == watched_movie["title"]:
+                rec_movies_from_favorites.append(watched_movie)
 
     return rec_movies_from_favorites
