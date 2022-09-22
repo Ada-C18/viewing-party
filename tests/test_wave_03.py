@@ -17,16 +17,16 @@ def test_my_unique_movies():
     assert amandas_data == clean_wave_3_data()
 
 # @pytest.mark.skip()-2
-# def test_my_not_unique_movies():
-#     # Arrange
-#     amandas_data = clean_wave_3_data()
-#     amandas_data["watched"] = []
+def test_my_not_unique_movies():
+    # Arrange
+    amandas_data = clean_wave_3_data()
+    amandas_data["watched"] = []
 
-#     # Act
-#     amandas_unique_movies = get_unique_watched(amandas_data)
+    # Act
+    amandas_unique_movies = get_unique_watched(amandas_data)
 
-#     # Assert
-#     assert len(amandas_unique_movies) == 0
+    # Assert
+    assert len(amandas_unique_movies) == 0
 
 # @pytest.mark.skip()-3
 # def test_friends_unique_movies():
