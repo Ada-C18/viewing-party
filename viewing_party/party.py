@@ -51,10 +51,10 @@ def get_most_watched_genre(user_data):
             else:
                 genre_dict[value] = 1
         i += 1
+    max_value = max(genre_dict.values())
     for key, value in genre_dict.items():
-        if value > 0:
-            fav_genre = key
-    return fav_genre
+        if value == max_value:
+            return key
 
 # -----------------------------------------
 # ------------- WAVE 3 --------------------
@@ -135,4 +135,17 @@ def get_available_recs(user_data):
 # -----------------------------------------
 # ------------- WAVE 5 --------------------
 # -----------------------------------------
+
+def get_new_rec_by_genre(user_data):
+    rec_by_genre_list = []
+    user_watched_genres = {}
+    user_fav_genre = ""
+
+    movies_friends_watched = get_friends_unique_watched(user_data)
+    user_watched = get_users_watched(user_data)
+    for movie in user_watched:
+        if movie["genre"] == rec_by_genre_list["genre"]:
+            rec_by_genre_list["genre"]
+
+
 
