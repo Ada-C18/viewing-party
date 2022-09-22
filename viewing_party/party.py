@@ -26,7 +26,6 @@ def add_to_watchlist(user_data, movie):
     where movie is a dictionary and user_data is a dictionary with a list of dictionaries 
     '''
     user_data["watchlist"].append(movie)
-    print(user_data)
     return user_data
 
 def watch_movie(user_data, title):
@@ -38,9 +37,7 @@ def watch_movie(user_data, title):
     for index in range(len(user_data["watchlist"])):
         if user_data["watchlist"][index]["title"] == title:
             user_data["watched"].append(user_data["watchlist"].pop(index))
-            
     return user_data
-
 
 # -----------------------------------------
 # ------------- WAVE 2 --------------------
@@ -61,20 +58,21 @@ def get_watched_avg_rating(user_data):
 
 def get_most_watched_genre(user_data):
     genre_dict = {}
+    current_highest_genre = None
+    current_highest_genre_score = 0
+    
     for movie in user_data["watched"]:
         current_genre = movie["genre"]
         if current_genre in genre_dict.keys():
             genre_dict[current_genre] += 1
         else:
             genre_dict[current_genre] = 1
-    current_highest_genre = None
-    current_highest_genre_score = 0
+
     for genre, frequency in genre_dict.items():
         if frequency > current_highest_genre_score:
             current_highest_genre_score = frequency
             current_highest_genre = genre 
     return current_highest_genre
-
 
 # -----------------------------------------
 # ------------- WAVE 3 --------------------
