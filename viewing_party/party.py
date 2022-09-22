@@ -131,6 +131,7 @@ def get_friends_unique_watched(user_data):
 # -----------------------------------------
 def get_available_recs(user_data):
     """ use helper function from get_friends_unique_watched """
+
     recommended_movie = []
     # host_list = []
     # result_list = []
@@ -169,7 +170,6 @@ def get_available_recs(user_data):
 
 
 
-
 # -----------------------------------------
 # ------------- WAVE 5 --------------------
 # -----------------------------------------
@@ -182,15 +182,27 @@ def get_new_rec_by_genre(user_data):
     recommended_movie = []
     popular_genre = get_most_watched_genre(user_data)
     # .split()
-    print(popular_genre)
     # print(type(popular_genre))
-    friens_unique_watched = get_friends_unique_watched(user_data)
-    for i in range(len(friens_unique_watched)):
-        print(friens_unique_watched[i]["genre"])
-        if friens_unique_watched[i]["genre"] == popular_genre:
-            recommended_movie.append(friens_unique_watched[i])
+    friends_unique_watched = get_friends_unique_watched(user_data)
+    for i in range(len(friends_unique_watched)):
+        # print(friens_unique_watched[i]["genre"])
+        if friends_unique_watched[i]["genre"] == popular_genre:
+            recommended_movie.append(friends_unique_watched[i])
     return recommended_movie
 
 
 def get_rec_from_favorites(user_data):
-    pass
+    ''' 
+    use the helper function get_unique_watched(user_data)
+    to get the the movie list that none of the user's friends 
+    have watched it 
+    '''
+    recommended_movie_by_favorite = []
+    user_favorite_movies = user_data["favorites"]
+    friends_not_watched = get_unique_watched(user_data)
+    
+    for movie in friends_not_watched:
+        for title in user_favorite_movies:
+            if movie == title:
+               recommended_movie_by_favorite.append(movie) 
+    return recommended_movie_by_favorite
