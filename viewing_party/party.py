@@ -47,17 +47,12 @@ def get_watched_avg_rating( user_data):
 
     
         
-def get_most_watched_genre(user_data):
-        
-   
-    while len(user_data["watched"])>0:
-        
+def get_most_watched_genre(user_data):     
+    while len(user_data["watched"])>0:  
         new_list=[]
         for movie in user_data["watched"]:
             new_list.append(movie["genre"])
         return max(set(new_list), key=new_list.count)
-    
-
     return None
 
 # -----------------------------------------
@@ -71,7 +66,6 @@ def get_unique_watched(user_data):
         for movie in list_1["watched"]:
             if movie in unique_watched :
                 unique_watched.remove(movie)
-    
     return unique_watched
 
 
@@ -117,20 +111,13 @@ def get_available_recs(user_data):
     # take one parameter: user_data
 def  get_new_rec_by_genre(user_data):
     recommended_movie=[]
-    
     watched_genre = get_most_watched_genre(user_data)
-
-   
     recs = get_available_recs(user_data)
-
-
     for movie in recs:
         if watched_genre == movie['genre']:
             recommended_movie.append(movie)
-
-    # return the list of recommended movies
-
     return recommended_movie
+
 
 def get_rec_from_favorites(user_data):
     recommended_movie=[]
