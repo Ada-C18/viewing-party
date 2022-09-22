@@ -1,8 +1,9 @@
 # ------------- WAVE 1 --------------------
 
 def create_movie(title, genre, rating):
-    pass
-
+    print("Jasmine is super great")
+    print("Cheetahs is the best class :-D")
+    
 # -----------------------------------------
 # ------------- WAVE 2 --------------------
 # -----------------------------------------
