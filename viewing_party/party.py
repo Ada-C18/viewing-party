@@ -52,7 +52,7 @@ def get_most_watched_genre(user_data):
         return None
 
     for movie in user_data["watched"]:
-        if not movie.get("genre") in genre_count:
+        if not movie["genre"] in genre_count:
             genre_count[movie["genre"]] = 1
         else:
             genre_count[movie["genre"]] += 1
