@@ -1,5 +1,8 @@
 # ------------- WAVE 1 --------------------
 
+
+
+
 def create_movie(title, genre, rating):
     movie = None
     if title == None or genre == None or rating == None:
@@ -59,8 +62,47 @@ def get_most_watched_genre(user_data):
 # -----------------------------------------
 # ------------- WAVE 3 --------------------
 # -----------------------------------------
+def get_unique_watched(user_data):
+    friend_list = []
+    user_list = []
+    for friend in user_data["friends"]:
+        for movie in friend["watched"]:
+            friend_list.append(movie["title"])       
+    
+    for movie in user_data["watched"]:
+        user_list.append(movie["title"])
+    
+    unique_movie_list = set(user_list) - set(friend_list)
+    movie_list = []
+    for title in unique_movie_list:
+        for movie in user_data["watched"]:
+            if title in movie["title"]:
+                movie_list.append(movie)
+    
+    return movie_list
 
-        
+def get_friends_unique_watched(user_data):
+    friend_list = []
+    user_list = []
+    for friend in user_data["friends"]:
+        for movie in friend["watched"]:
+            friend_list.append(movie["title"])       
+    
+    for movie in user_data["watched"]:
+        user_list.append(movie["title"])
+    
+    unique_movie_list = set(friend_list) - set(user_list)
+    movie_list = []
+    for title in unique_movie_list:
+        for friend in user_data["friends"]:
+            for movie in friend["watched"]:
+                if movie not in movie_list:               
+                    if title in movie["title"]:
+                        movie_list.append(movie)
+    
+    return movie_list
+
+#   
 # -----------------------------------------
 # ------------- WAVE 4 --------------------
 # -----------------------------------------
