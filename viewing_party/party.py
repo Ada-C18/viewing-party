@@ -49,13 +49,15 @@ def watch_movie(user_data, title):
                 user_data["watchlist"].pop(movie)
     return user_data
 
-
-
 # -----------------------------------------
 # ------------- WAVE 2 --------------------
 # -----------------------------------------
 def get_watched_avg_rating(user_data):
-    # user_data is a dictionary with a "watched" list of movie dictionaries
+    '''
+    Input: user_data is a dictionary with key "watched" and values of a list of movie dictionaries
+    (containing title, gener, and rating), representing movies the user has watched. 
+    Output: function finds the average rating of all movies in watched list and returns that average rating. 
+    '''
     sum = 0
     for movie in range(len(user_data["watched"])):
         for key,value in user_data["watched"][movie].items():
