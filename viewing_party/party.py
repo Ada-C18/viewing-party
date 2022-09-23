@@ -103,9 +103,27 @@ def get_available_recs(user_data):
             if movie not in user_data["watched"] and movie["host"] in user_data["subscriptions"]:
                 recs.append(movie)
     return recs
+
 # -----------------------------------------
 # ------------- WAVE 5 --------------------
 # -----------------------------------------
+def get_new_rec_by_genre(user_data):
+    genre_recs = []
+    for friend in user_data["friends"]:
+        for movie in friend["watched"]:
+            if movie not in user_data["watched"] and movie["genre"] == get_most_watched_genre(user_data):
+                genre_recs.append(movie)
+    return genre_recs
+
+def get_rec_from_favorites(user_data):
+    fav_recs = []
+    for movie in user_data["favorites"]:
+        fav_recs.append(movie)
+    for friend in user_data["friends"]:
+        for movie in fav_recs:
+            if movie in friend["watched"]:
+                fav_recs.remove(movie)
+    return fav_recs
 
 # test_data = {
 #     "watchlist": [{"title": "foo",
