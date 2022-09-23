@@ -110,4 +110,10 @@ def get_available_recs(user_data):
 # -----------------------------------------
 
 def get_new_rec_by_genre(user_data):
-
+    recs = []
+    fav_genre = get_most_watched_genre(user_data)
+    movies = get_friends_unique_watched(user_data)
+    for movie in movies:
+        if movie["genre"] == fav_genre:
+            recs.append(movie)
+    return recs
