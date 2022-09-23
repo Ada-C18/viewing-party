@@ -62,20 +62,56 @@ def get_most_watched_genre(user_data):
     # genre with the highest count
     max_genre = max(most_watched_genre, key=most_watched_genre.get)
     return max_genre
-        # max_genre = max(most_watched_genre.values())
-        # return max_genre
-# -----------------------------------------
 
+# -----------------------------------------
 
 # ------------- WAVE 3 --------------------
-
-
-
-# -----------------------------------------
-
+def get_unique_watched(user_data):
+    user_unique_movies = []
+    
+    for movie in user_data["watched"]:    
+        friends_list = user_data["friends"]
+        found_movie = False
+        for friend in friends_list:
+            watched_list = friend["watched"]
+            for friends_movie in watched_list:                
+                if friends_movie["title"] == movie["title"]:
+                    found_movie = True
         
+        if found_movie == False:
+            user_unique_movies.append(movie)
+    return user_unique_movies
+        
+def get_friends_unique_watched(user_data):
+    friends_movies_list = []
+    user_movies_list = []
+    friends_list = user_data["friends"]
+    user_watched = user_data["watched"]
+    
+    for movie in user_watched:
+        user_movies_list.append(movie["title"])
+    set_user_movies = set(user_movies_list)
+
+    
+    for friend in friends_list:
+        for movie in friend["watched"]:
+            friends_movies_list.append(movie["title"])
+    set_friends_movies = set(friends_movies_list)
+
+
+    unique_friends_dict = set_friends_movies.difference(set_user_movies)
+
+    final_list =[]
+    for friend in friends_list:
+        for movie in friend["watched"]:
+            if movie["title"] in unique_friends_dict:
+                final_list.append(movie )
+    return final_list
 # -----------------------------------------
+
 # ------------- WAVE 4 --------------------
+
+
 # -----------------------------------------
 
 # -----------------------------------------
