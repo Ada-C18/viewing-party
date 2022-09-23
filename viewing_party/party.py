@@ -60,8 +60,8 @@ def get_unique_watched(user_data):
     friend_watched_list = []
     user_unique_movies = []
 
-    for friend in user_data['friends']:
-        for movie in friend['watched']:
+    for friend in user_data["friends"]:
+        for movie in friend["watched"]:
             friend_watched_list.append(movie)
 
     for watched_movie in user_data["watched"]:
@@ -73,8 +73,8 @@ def get_unique_watched(user_data):
 def get_friends_unique_watched(user_data):
     friend_unique_movies = []
 
-    for friend in user_data['friends']:
-        for movie in friend['watched']:
+    for friend in user_data["friends"]:
+        for movie in friend["watched"]:
             if movie not in user_data["watched"] and movie not in friend_unique_movies:
                 friend_unique_movies.append(movie)
 
@@ -111,8 +111,8 @@ def get_rec_from_favorites(user_data):
     recs = []
     friend_watched_list = []
 
-    for friend in user_data['friends']:
-        for movie in friend['watched']:
+    for friend in user_data["friends"]:
+        for movie in friend["watched"]:
             friend_watched_list.append(movie)
 
     for fav_movie in user_data["favorites"]:
