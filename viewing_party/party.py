@@ -36,15 +36,15 @@ def watch_movie(user_data, title):
 # -----------------------------------------
 
 def get_watched_avg_rating(user_data):
+    rating_average = 0.0
     if len(user_data["watched"]) == 0:
         
-        return 0.0
+        return rating_average
 
-    rating_average = 0
     for movie in user_data["watched"]:
         rating_average += movie["rating"]
     
-    return rating_average / len(user_data.get("watched"))
+    return rating_average / len(user_data["watched"])
 
 def get_most_watched_genre(user_data):
     if len(user_data["watched"]) == 0:
@@ -79,10 +79,8 @@ def get_unique_watched(user_data):
         for movie in friend["watched"]:
             friends_watched_list.append(movie)
 
-    user_watched = user_data['watched']
     unique_watched_list = []
-
-    for movie in user_watched:
+    for movie in user_data["watched"]:
         if movie not in friends_watched_list:
             unique_watched_list.append(movie)
 
