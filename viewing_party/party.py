@@ -76,7 +76,7 @@ def get_watched_avg_rating(user_data):
 
     
 def get_most_watched_genre(user_data):
-    #access the genre by user_data["watched"]
+    #determine the most frequently occuring genre in user's watched list
    
 
     genre_list = []
@@ -101,13 +101,8 @@ def get_unique_watched(user_data):
 #we have an outer dictionary, one with "watched" key and one with "friends " key
 # {'watched': [{'title': 'The Lord of the Functions: The Fellowship of the Function', 'genre': 'Fantasy', 'rating': 4.8}, {'title': 'The Lord of the Functions: The Two Parameters', 'genre': 'Fantasy', 'rating': 4.0}, {'title': 'The Lord of the Functions: The Return of the Value', 'genre': 'Fantasy', 'rating': 4.0}, {'title': 'The JavaScript and the React', 'genre': 'Action', 'rating': 2.2}, {'title': 'Recursion', 'genre': 'Intrigue', 'rating': 2.0}, {'title': 'Instructor Student TA Manager', 'genre': 'Intrigue', 'rating': 4.5}],
 # 'friends': [{'watched': [{'title': 'The Lord of the Functions: The Fellowship of the Function', 'genre': 'Fantasy', 'rating': 4.8}, {'title': 'The Lord of the Functions: The Return of the Value', 'genre': 'Fantasy', 'rating': 4.0}, {'title': 'The Programmer: An Unexpected Stack Trace', 'genre': 'Fantasy', 'rating': 4.0}, {'title': 'It Came from the Stack Trace', 'genre': 'Horror', 'rating': 3.5}]}, {'watched': [{'title': 'The Lord of the Functions: The Fellowship of the Function', 'genre': 'Fantasy', 'rating': 4.8}, {'title': 'The JavaScript and the React', 'genre': 'Action', 'rating': 2.2}, {'title': 'Recursion', 'genre': 'Intrigue', 'rating': 2.0}, {'title': 'Zero Dark Python', 'genre': 'Intrigue', 'rating': 3.0}]}]
-#They want to see the what the user saw that none of their friends saw, and return list of movies [{title:,genre:},]
-# loop through user_data and use if statement to see if user_data["watched"] is in user_data["friends"] 
-
-#The Lord of the Functions: The Fellowship of the Function'The Lord of the Functions: The Two Parameters',The Lord of the Functions: The Return of the Value,'The JavaScript and the React''Recursion'Instructor Student TA Manager'
-# 'The Lord of the Functions: The Fellowship of the Function''The Lord of the Functions: The Return of the Value''The Programmer: An Unexpected Stack Trace','It Came from the Stack Trace', 'The Lord of the Functions: The Fellowship of the Function',The JavaScript and the React','Recursion','Zero Dark Python'
-   
-    
+#They want to see the what the user saw that none of their friends saw, and return list of movies 
+ 
     friends_watched_titles = []
     for friend in user_data["friends"]:
         for movie in friend["watched"]:
@@ -131,8 +126,8 @@ def get_friends_unique_watched(user_data):
     friend_unique_movies = []
     friend_unique_no_duplicate = []
 
-    for i in user_data["watched"]:
-        user_list.append(i)
+    for movie in user_data["watched"]:
+        user_list.append(movie)
     for friend in user_data["friends"]:
         for movie in friend["watched"]:
             if movie not in user_list:
@@ -156,11 +151,11 @@ def get_available_recs(user_data):
 
 
     recommended_movies = []
+    
     for friend in user_data["friends"]:
         for movie in friend["watched"]:
-            if movie["host"] in user_data["subscriptions"]:
-                if movie not in user_data["watched"]:
-                    recommended_movies.append(movie)
+            if movie["host"] in user_data["subscriptions"] and movie not in user_data["watched"]:
+                recommended_movies.append(movie)
     return recommended_movies
 
 
@@ -182,9 +177,8 @@ def get_new_rec_by_genre(user_data):
     
     for friend in user_data["friends"]:
         for movie in friend["watched"]:
-            if movie["genre"] == most_watched_genre:
-                if movie not in user_data["watched"]:
-                    recommended_movies.append(movie)
+            if movie["genre"] == most_watched_genre and movie not in user_data["watched"]:
+                recommended_movies.append(movie)
     return recommended_movies
 
 
@@ -197,6 +191,7 @@ def get_rec_from_favorites(user_data):
 
     recommendations =[]
     user_watched_movies = get_unique_watched(user_data)
+    
     for movie in user_data["favorites"]:
         if movie in user_watched_movies:
             recommendations.append(movie)

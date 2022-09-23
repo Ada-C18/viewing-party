@@ -150,14 +150,11 @@ def test_moves_movie_from_watchlist_to_watched():
     assert len(updated_data["watchlist"]) == 1
     assert len(updated_data["watched"]) == 2
     
-    #  raise Exception("Test needs to be completed.")
+    # raise Exception("Test needs to be completed.")
     # *******************************************************************************************
     # ****** Add assertions here to test that the correct movie was added to "watched" **********
     # *******************************************************************************************
-    # print(updated_data)
-
-    # print(updated_data["watched"][0]["title"])
-    # print(janes_data)
+   
     
     assert updated_data["watched"][0]["title"] == "The Lord of the Functions: The Two Parameters"
     assert updated_data["watched"][1]["title"] == "It Came from the Stack Trace"
