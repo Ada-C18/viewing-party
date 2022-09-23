@@ -18,7 +18,7 @@ You've been using a spreadsheet to compare everyone's watched list, favorites li
 
 For this project, you will be given some data structure that represents the things you've watched, favorited, and want to watch. The directions below will lead you to create a series of functions. These functions will modify the data, and implement features like adding and removing things between different lists. Other features include creating recommendations!
 
-## One-Time Project Setup
+## One-Time Project Setup @Terminal
 
 Follow these directions once, a the beginning of your project:
 
@@ -214,9 +214,9 @@ When our test failures leave us confused and stuck, let's use the detailed proje
 2. Create a function named `add_to_watched`. This function should...
 
 - take two parameters: `user_data`, `movie`
-  - the value of `user_data` will be a dictionary with a key `"watched"`, and a value which is a list of dictionaries representing the movies the user has watched
+    - the value of `user_data` will be a dictionary with a key `"watched"`, and a value which is a list of dictionaries representing the movies the user has watched
     - An empty list represents that the user has no movies in their watched list
-  - the value of `movie` will be a dictionary in this format:
+    - the value of `movie` will be a dictionary in this format:
     - ```python
       {
         "title": "Title A",
@@ -308,8 +308,8 @@ Note: For Waves 2, 3, 4, and 5, your implementation of each of the functions sho
 
 1. Create a function named `get_available_recs`. This function should...
 
-- take one parameter: `user_data`
-  - `user_data` will have a field `"subscriptions"`. The value of `"subscriptions"` is a list of strings
+- take one parameter: `user_data` (dictionary)
+  - `user_data` will have a field `"subscriptions"`(key). The value of `"subscriptions"` is a list of strings (value)
     - This represents the names of streaming services that the user has access to
     - Each friend in `"friends"` has a watched list. Each movie in the watched list has a `"host"`, which is a string that says what streaming service it's hosted on
 - Determine a list of recommended movies. A movie should be added to this list if and only if:
