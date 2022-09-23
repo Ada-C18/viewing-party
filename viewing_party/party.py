@@ -29,7 +29,6 @@ def add_to_watched(user_data: dict, movie: dict):
     user_data["watched"].append(movie)
     return user_data
 
-
 def add_to_watchlist(user_data: dict, movie: dict):
     """ Add a movie dictionary to the "watchlist" key in user_data.
     Return user_data.
@@ -123,12 +122,12 @@ def get_friends_unique_watched(user_data: dict):
     unique_movies = []
     friend_movies = get_friend_watched(user_data)
     
-    # chose over list comprehension for clarity
+    # I chose this structure in cases where there were multiple if statements
     for movie in friend_movies:
         if movie not in unique_movies and movie not in user_data["watched"]:
             unique_movies.append(movie)
-
     return unique_movies
+
 # -----------------------------------------
 # ------------- WAVE 4 --------------------
 # -----------------------------------------
@@ -139,13 +138,11 @@ def get_available_recs(user_data: dict):
     Keyword arguments:
     user_data -- a dictionary with "subscriptions" and "friends" keys
     """
-    recommended_movies = []
     friend_recommendations = get_friends_unique_watched(user_data)
     
-    for movie in friend_recommendations:
-        if movie["host"] in user_data["subscriptions"]:
-            recommended_movies.append(movie)
-    return recommended_movies
+    recs = [movie for movie in friend_recommendations
+            if movie["host"] in user_data["subscriptions"]]
+    return recs
 
 # -----------------------------------------
 # ------------- WAVE 5 --------------------
@@ -159,12 +156,9 @@ def get_new_rec_by_genre(user_data: dict):
     """
     fave_genre = get_most_watched_genre(user_data)
     friend_recs = get_friends_unique_watched(user_data)
-    genre_recs = []
-
-    for movie in friend_recs:
-        if movie["genre"] == fave_genre:
-            genre_recs.append(movie)
-    return genre_recs
+    
+    recs = [movie for movie in friend_recs if movie["genre"] == fave_genre]
+    return recs
 
 def get_rec_from_favorites(user_data: dict):
     """ Return a list of user's movie recommendations.
