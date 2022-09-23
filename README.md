@@ -1,4 +1,4 @@
-# Viewing Party
+# Aly's Viewing Party
 
 ## Skills Assessed
 
