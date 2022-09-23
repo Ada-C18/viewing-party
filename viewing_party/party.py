@@ -153,5 +153,18 @@ def get_new_rec_by_genre(user_data):
                 exists.add(friend_movie['title'])
     return result 
 
+def get_rec_from_favorites(user_data):
+    result = []
+    for movie in user_data['favorites']:
+        watched = False 
+        for friend in user_data['friends']:
+            for friend_movie in friend['watched']:
+                watched = True 
+                break 
+        if not watched:
+            result.append(movie)
+
+    return result 
+
     
 
