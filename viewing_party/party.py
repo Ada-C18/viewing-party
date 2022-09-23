@@ -3,6 +3,8 @@
 
 from operator import ge
 
+from tests.test_constants import USER_DATA_4
+
 
 def create_movie(title, genre, rating):
     
@@ -76,17 +78,16 @@ def get_most_watched_genre(user_data):
 
 def get_unique_watched(user_data):
     unique_movies = []
-    # add all movies the user has watched to the list
+
     for movie in user_data["watched"]:
         unique_movies.append(movie)
-    # loop through friends
+
     for friend in user_data["friends"]:
-        # loop through each movie in friends watched listt
         for movie in friend["watched"]:
-            # if movie is also in unique_movies, then remove from unique_movies list
+            
             if movie in unique_movies:
                 unique_movies.remove(movie)
-            # (else do nothing)
+            
     return unique_movies
 
 def get_friends_unique_watched(user_data):
@@ -102,30 +103,21 @@ def get_friends_unique_watched(user_data):
             friends_unique_movies.remove(movie)
     
     return friends_unique_movies
-
-''' unique_movies = []
-    user_movies = []
     
-
-    for movie in user_data["watched"]:
-        unique_movies.append(movie)
-    for friend in user_data["friends"]:
-        for movie in friend["watched"]:
-            if movie in unique_movies:
-                unique_movies.removie(movie)
-                
-    return unique_movies
-'''
-    # input is the dict of movies
-    # output is the unique_movies = [] (empty list) or unique_movies = list of the objects 
-    # need to know titles from user_data then titles from friends
-    # loop through titles and see if any titles existed in the friends list
-    # is title in friends user_data
-
-
 # -----------------------------------------
 # ------------- WAVE 4 --------------------
 # -----------------------------------------
+
+def get_available_recs(user_data):
+    recs = get_friends_unique_watched(user_data)
+    if len(recs) == 0:
+        return recs
+    else:
+        for movie in recs:
+            if movie["host"] not in user_data["subscriptions"]:
+                recs.remove(movie)
+
+    return recs
 
 # -----------------------------------------
 # ------------- WAVE 5 --------------------
