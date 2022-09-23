@@ -1,4 +1,4 @@
-# Viewing Party
+# Viewing Party - Arika (Snow Leopards)
 
 ## Skills Assessed
 
