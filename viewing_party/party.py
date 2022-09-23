@@ -1,7 +1,8 @@
 # ------------- WAVE 1 --------------------
 
 def create_movie(title, genre, rating):
-    pass
+    print("Claire made a change!")
+    print("Git visualization tool test")
 
 # -----------------------------------------
 # ------------- WAVE 2 --------------------
