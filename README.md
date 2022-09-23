@@ -1,4 +1,4 @@
-# Viewing Party
+# Viewing Party - Kat Hawkins
 
 ## Skills Assessed
 
