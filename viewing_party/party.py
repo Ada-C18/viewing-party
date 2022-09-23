@@ -124,3 +124,34 @@ def get_available_recs(user_data):
 # ------------- WAVE 5 --------------------
 # -----------------------------------------
 
+def get_new_rec_by_genre(user_data):
+    genres = {}
+    result = []
+    exists = set()
+
+    for movie in user_data['watched']:
+        if movie['genre'] in genres:
+            genres[movie['genre']]+=1 
+        else:
+            genres[movie['genre']]=1
+
+    frequent_genre = None 
+    if len(genres)>0:
+        frequent_genre = max(genres, key=genres.get)
+    else:
+        return result 
+
+    for friend in user_data['friends']:
+        for friend_movie in friend['watched']:
+            watched = False 
+            for movie in user_data['watched']:
+                if movie['title']==friend_movie['title']:
+                    watched = True 
+                    break 
+            if not watched and friend_movie['title'] not in exists and friend_movie['genre']== frequent_genre:
+                result.append(friend_movie)
+                exists.add(friend_movie['title'])
+    return result 
+
+    
+
