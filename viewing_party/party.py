@@ -1,17 +1,3 @@
-def division_lybl(first_num, second_num):
-    if second_num == 0:
-        print("A ZeroDivisionError has occurred.")
-        return None
-    value = first_num/second_num
-    return (first_num/second_num)
-
-def division_eafp(first_num, second_num):
-    try:
-        value = first_num/second_num
-    except ZeroDivisionError:
-        print("A ZeroDivisionError has occurred.")
-        return None
-
 def create_movie(title, genre, rating):
     if title and genre and rating:
         movie = {"title": title, "genre": genre, "rating": rating}
