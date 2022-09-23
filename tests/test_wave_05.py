@@ -57,7 +57,7 @@ def test_new_genre_rec_from_empty_friends():
     
 # #     # raise Exception("Test needs to be completed.")
     assert len(recommendations) == 0
-    
+
 #     # *********************************************************************
     # ****** Complete the Act and Assert Portions of theis tests **********
     # *********************************************************************
