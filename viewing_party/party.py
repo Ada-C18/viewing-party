@@ -96,7 +96,7 @@ def get_available_recs(user_data):
     """Return a list of movies that the user has not watched, that one of 
     their friends has watched, and that is available on a service they are 
     subscribed to."""
-    # Build list of movies that friends have watched but user has not.
+    # Build list of movies that friends have watched.
     friend_movies = []
     for friend in user_data["friends"]:
         for movie in friend["watched"]:
