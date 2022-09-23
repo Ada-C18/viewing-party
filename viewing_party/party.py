@@ -106,8 +106,6 @@ def get_most_watched_genre(user_data):
 # ------------- WAVE 3 --------------------
 # -----------------------------------------
 
-
-
 def get_unique_watched(user_data):
 
     #create total list of movies
