@@ -77,29 +77,49 @@ def create_film_diff_sets(user_data, is_user):
         for film in friend["watched"]:
             friend_set.add(film["title"])
 
-    if is_user:
+    if is_user == True:
         user_set.difference_update(friend_set)
         return user_set
-    else:
+    elif is_user == False:
         friend_set.difference_update(user_set)
         return friend_set
-    
 
 
 
 def get_unique_watched(user_data):
     user_set = create_film_diff_sets(user_data, True)
-    user_unique_films = []
-   
+    unique_films = []
+
     for title in user_set:
         for film in user_data[ "watched"]:
             if title == film["title"]:
-                user_unique_films.append(film)
-    return user_unique_films
+                unique_films.append(film)
+    return unique_films
 
 
 def get_friends_unique_watched(user_data):
-    create_film_diff_sets(user_data, False)
+    friend_set = create_film_diff_sets(user_data, False)
+    unique_films = []
+    duplicate = False
+
+    for title in friend_set:
+        for friend in user_data["friends"]:
+            for film in friend[ "watched"]:
+                 
+                 if title == film["title"]:
+                    unique_films.append(film)
+                    duplicate = True 
+                    break
+            
+            if duplicate == True:
+                duplicate = False
+                break        
+                    
+                
+            
+    return unique_films
+   
+
 # -----------------------------------------
 # ------------- WAVE 4 --------------------
 # -----------------------------------------

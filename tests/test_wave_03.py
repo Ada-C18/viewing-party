@@ -55,12 +55,15 @@ def test_friends_unique_movies_not_duplicated():
     # Assert
     assert len(friends_unique_movies) == 3
 
-    raise Exception("Test needs to be completed.")
+    
     # *************************************************************************************************
     # ****** Add assertions here to test that the correct movies are in friends_unique_movies **********
     # **************************************************************************************************
+    for films in amandas_data["watched"]:
+        for movies in friends_unique_movies:
+            assert movies["title"] != films["title"]
 
-@pytest.mark.skip()
+# @pytest.mark.skip()
 def test_friends_not_unique_movies():
     # Arrange
     amandas_data = {
