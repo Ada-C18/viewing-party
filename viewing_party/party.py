@@ -116,8 +116,8 @@ def get_unique_watched(user_data):
     
 def get_friends_watched(user_data):
     '''
-    Stores the titles of the friends 'watched' list from user_data in a list,
-    and returns that list
+    Helper Function - Stores the titles of the friends 'watched' list from 
+    user_data in a list, and returns that list
     '''   
     friends_list_of_dict = user_data["friends"]
     friends_watched_list = []
@@ -130,6 +130,11 @@ def get_friends_watched(user_data):
     return friends_watched_list
 
 def get_users_watched(user_data):
+    '''
+    Helper Function - Stores the titles of the users 'watched' list from 
+    user_data in a list, and returns that list
+    '''      
+    
     user_watched_list = user_data["watched"]
     users_watched_movies = []
 
@@ -138,7 +143,6 @@ def get_users_watched(user_data):
 
     return users_watched_movies
 
-# collect friends unique watched
 
 def get_friends_unique_watched(user_data):
     '''
@@ -210,11 +214,11 @@ def get_new_rec_by_genre(user_data):
     friend_watched_set = set(get_friends_watched(user_data))
     user_watched_set = set(get_users_watched(user_data))
     
+    unique_set = friend_watched_set - user_watched_set
+
     # User data Variables
     friends_list_dict = user_data["friends"]
     most_watched_genre = get_most_watched_genre(user_data)
-
-    unique_set = friend_watched_set - user_watched_set
 
 
     # Pull data for recommended movies from user data
@@ -227,5 +231,41 @@ def get_new_rec_by_genre(user_data):
 
     return recommended_movies_list
 
-def get_rec_from_favorites():
-    pass
+def get_rec_from_favorites(user_data):
+    '''
+    Returns a list of recommended movies that are in the user's
+    favorite, and that their friends haven't watched
+    '''
+    recommended_movies_list = []
+
+    # User Data Watched Sets
+    friend_watched_set = set(get_friends_watched(user_data))
+    user_watched_set = set(get_users_watched(user_data))
+
+    unique_set = user_watched_set - friend_watched_set
+
+    # User data Variables
+    user_favorites_list = get_user_favorites_list(user_data)
+    friends_list_dict = user_data["friends"]
+
+
+    for i in range(len(user_data["watched"])):
+        if len(user_data['watched']) == 0 or len(user_data['favorites']) == 0:
+            break
+        if user_data["watched"][i]['title'] in unique_set and user_data["watched"][i]['title'] in user_favorites_list:
+            recommended_movies_list.append(user_data["watched"][i])   
+    
+
+    return recommended_movies_list
+
+def get_user_favorites_list(user_data):
+    '''
+    Returns a list of the user's favorite movie titles
+    from user_data
+    '''
+    user_favorites_list = []
+
+    for i in range(len(user_data["favorites"])):
+        user_favorites_list.append(user_data["favorites"][i]["title"])
+
+    return user_favorites_list
