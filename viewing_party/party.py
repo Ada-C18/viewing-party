@@ -71,17 +71,50 @@ def get_most_watched_genre(user_data):
 def get_unique_watched(user_data):
     user_watched_list = []
     friends_movie_list = []
+    unique_user_watched = []
     for i in range(len(user_data["friends"])):
         for movie in user_data["friends"][i]["watched"]:
-            title = movie.get("title")
-            friends_movie_list.append(title)
+            friends_movie_list.append(movie)
 
     for i in range(len(user_data["watched"])):
-        for movie in user_data["watched"][i]:
-            title = movie.get("title")
-            
-# print("///////////////////////////////////////")
+        movie = user_data["watched"][i]
+        user_watched_list.append(movie)
         
+    for movie in user_watched_list:
+        if movie not in friends_movie_list:
+            unique_user_watched.append(movie)
+
+    return unique_user_watched    
+    
+def get_friends_unique_watched(user_data):
+    user_watched_list = []
+    friends_movie_list = []
+    friends_unique_watched = []
+    result = {}
+    new_list = []
+    for i in range(len(user_data["friends"])):
+        for movie in user_data["friends"][i]["watched"]:
+            friends_movie_list.append(movie)
+
+    for i in range(len(user_data["watched"])):
+        movie = user_data["watched"][i]
+        user_watched_list.append(movie)
+
+    for movie in friends_movie_list:
+        if movie not in user_watched_list and movie not in friends_unique_watched:
+            friends_unique_watched.append(movie)
+    
+    # for movie in friends_unique_watched:
+    #     for key, value in movie.items():
+    #         if value not in result.values():
+    #             result[key] = value
+    #             new_list.append(result)
+
+    
+    return friends_unique_watched
+
+
+
 # -----------------------------------------
 # ------------- WAVE 4 --------------------
 # -----------------------------------------
