@@ -338,3 +338,7 @@ Note: For Waves 2, 3, 4, and 5, your implementation of each of the functions sho
   - The movie is in the user's `"favorites"`
   - None of the user's friends have watched it
 - Return the list of recommended movies
+
+def create_movie()
+#assert 
+new_movie == creat_movie(movie_title, genre, rating)
