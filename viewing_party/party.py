@@ -3,6 +3,9 @@
 #from turtle import title
 
 
+from tests.test_constants import USER_DATA_5
+
+
 def create_movie(title, genre, rating):
     dict_movies={"title":title,
     "genre":genre,
@@ -74,6 +77,52 @@ def get_friends_unique_watched(user_data):
    #can i make this code smaller?? i think so...
    #and vs OR
     
+def get_available_recs(user_data):
+    friends_watched=get_friends_unique_watched(user_data)
+    friends_sub=[]
+    for movie in friends_watched:
+        if movie["host"] in user_data.get("subscriptions"):
+            friends_sub.append(movie)
+    return friends_sub
+        
+def get_new_rec_by_genre(user_data):
+    user_genre=get_most_watched_genre(user_data)
+    friends_movies=get_friends_unique_watched(user_data)
+    user_movie_rec=[]
+    if not user_data["watched"]:
+        return user_movie_rec
+    for movie in friends_movies:
+        if movie ["genre"]in user_genre:
+            user_movie_rec.append(movie)
+    return user_movie_rec
+def get_rec_from_favorites(user_data):
+    #kik=get_unique_watched
+    user_movies=get_unique_watched(user_data)
+    favorite_movie=[]
+    friends_movie_list=[]
+    for movie in user_data["favorites"]:
+        if movie in user_data["favorites"]:
+            favorite_movie.append(movie)
+    for movie in user_movies:
+        if movie in user_movies:
+            friends_movie_list.append(movie)
+    #for movie in user_data["favorites"]:
+        #if movie in user_data["favorites"]:
+            #favorite_movie.append(movie)
+    return friends_movie_list
+    
+
+
+        
+
+
+
+    
+
+
+
+
+        
 
 
 
