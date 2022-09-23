@@ -6,8 +6,10 @@ from typing import Counter
 # from turtle import title
 
 def create_movie(title, genre, rating):
+    # define variables:
     new_movie = { }
     
+    # if an argument is None, return None
     if title == None or genre == None or rating == None:
         return None
 
@@ -17,21 +19,18 @@ def create_movie(title, genre, rating):
         new_movie['rating'] = rating
     
         return new_movie
-    
 
 def add_to_watched(user_data,movie):
-    
+    """Function to update the value for user_data['watched']"""
     user_data['watched'].append(movie)
-    
     return user_data
     
 def add_to_watchlist(user_data, movie):
+    """Function to update the value for user_data['watchlist']"""
     user_data['watchlist'].append(movie)
-    
     return user_data
 
 def watch_movie(user_data, title):
-
     """
     title = 'string'
     input : user_data = dictionary
@@ -54,9 +53,11 @@ def watch_movie(user_data, title):
 # -----------------------------------------
 
 def get_watched_avg_rating(user_data):
+    """ Function to get the average of ratings"""
     #define variables 
     sum = 0
     count = 0
+    #sum the values of rating, if it does't have any value, add 0.0
     for count in range(len(user_data['watched'])):
         if (user_data["watched"][count]['rating']) != 0:
             sum += (user_data["watched"][count]['rating'])
@@ -69,16 +70,17 @@ def get_watched_avg_rating(user_data):
     return average
 
 def get_most_watched_genre(user_data):
+    """Get the genre most seen"""
     total_genre = {}
-
+    # If statement, it the value of user_data['watched'] is empty list, the max. value is None. 
     if user_data["watched"] == []:
         max_genre = None
     else:
         for count in range(len(user_data['watched'])):
             if user_data["watched"][count]['genre'] not in total_genre:
-                total_genre[user_data["watched"][count]['genre']] = 1
+                total_genre[user_data["watched"][count]['genre']] = 1 #add first value, start counting.
             else:
-                total_genre[user_data["watched"][count]['genre']] +=1
+                total_genre[user_data["watched"][count]['genre']] +=1   #increase the counter 1 by 1.
         max_genre = max(total_genre, key=total_genre.get)
     
     return max_genre
@@ -89,13 +91,15 @@ def get_most_watched_genre(user_data):
 # -----------------------------------------
 
 def get_unique_watched(user_data):
-    #define variables for lists
+    #define lists:
     movies_user = []
     friends_user = []
-
+    
+    #for loop to get the title from user.
     for count in range(len(user_data['watched'])):
         movies_user.append(user_data['watched'][count]['title'])
 
+    #for loop to get the title from friends.
     for friend in user_data['friends']:
         for movie in friend['watched']:
             for title,value in movie.items():
@@ -123,13 +127,16 @@ def get_unique_watched(user_data):
 
 #***************************************************************************************************
 def get_friends_unique_watched(user_data):
-    #define variables for lists
+    #create empty lists
     movie_user = []
     friends_users = []
     
+    #add values to the empty list, from user:
     for count in range(len(user_data['watched'])):
         movie_user.append(user_data['watched'][count]['title'])
-        
+    
+
+    #add values to the empty list, from friends    
     for friend in user_data['friends']:
         for movie in friend['watched']:
             for title,value in movie.items():
@@ -147,6 +154,7 @@ def get_friends_unique_watched(user_data):
     movies_only_final_list = list(movies_only_friends)
     movies_friends_final_list_dict = []
     
+    #update list of dicitonaries 
     for title in movies_only_final_list:
         for friend in user_data['friends']:
             for movie in friend['watched']:
@@ -213,7 +221,7 @@ def get_available_recs(user_data):
 # -----------------------------------------
 
 def get_new_rec_by_genre(user_data):
-    #define variables:
+    #define variables and create empty list:
     user_watched = user_data['watched'] #list,dict
     friends = user_data['friends']
     user_genre = []
@@ -226,7 +234,7 @@ def get_new_rec_by_genre(user_data):
     if len(user_data['watched']) == 0:
         return []
     
-    # loop through user_data["watched"] to create lis
+    # loop through user_data["watched"] to create list
     for movie in user_watched:
         if genre_max in movie['genre']:
             user_genre.append(movie)
@@ -237,6 +245,7 @@ def get_new_rec_by_genre(user_data):
             friends_genre.append(movie)
     count += 1
 
+    #for loop to get the reccomended list
     for film in friends_genre:
         if film not in user_genre:
             recommended_movies.append(film)
@@ -255,10 +264,12 @@ def get_rec_from_favorites(user_data):
     if len(user_data['favorites']) == 0:
         return []
 
+    #foor loop to append values, to the friends list.
     for friend in user_data['friends']:
         for movie in friend['watched']:
             friends_users.append(movie)
-            
+    
+    #for loop to compare movies between favorites and friend.        
     for film in movie_user_favorites:
         if film not in friends_users:
             recommended_movies.append(film)
