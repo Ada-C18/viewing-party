@@ -275,7 +275,7 @@ def get_user_fav(user_data):
         #     print(len(user_recs))
         #     return(user_recs)
 
-#HELPER FUNCTION
+#HELPER FUNCTIONS
 
 # def get_pop_genre(user_data):
 #     """Helper function to get popular genre"""
