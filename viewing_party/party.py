@@ -7,6 +7,7 @@ def create_movie(title, genre, rating):
     return new_movie
 
 def add_to_watched(user_data, movie):
+    # Intention here to make a new list, in case we needed the old list
     updated_data = user_data
     updated_data["watched"].append(movie)
     return updated_data 
@@ -44,26 +45,19 @@ def get_watched_avg_rating(user_data):
     return average_ratings
         
 def get_most_watched_genre(user_data):
-    # loop through the user_data["watched"]
-    # for every genre add to a new dictionary as a key
-    # if key already exists, increase value by 1
-    # if key doesn't already exist add to dictionary
-    # go through this new dictionary, and find highest value and return that genre
+# to include multiple genres that have high count
     genre_dict = {}
-    highest_count = 0
     most_frequent_genre = ""
     if len(user_data["watched"]) == 0:
         return None
     for movie in user_data["watched"]:
         if movie["genre"] not in genre_dict:
-            genre_dict[movie["genre"]] = 0
+            genre_dict[movie["genre"]] = 1
         elif movie["genre"] in genre_dict:
             genre_dict[movie["genre"]] += 1
-    for genre, count in genre_dict.items():
-        if count > highest_count:
-            most_frequent_genre = genre
-            highest_count = count
-    return most_frequent_genre
+    most_frequent_genre = [key for key, value in genre_dict.items()\
+         if value == max(genre_dict.values())]
+    return ' '.join(most_frequent_genre)
 
 
 # -----------------------------------------
