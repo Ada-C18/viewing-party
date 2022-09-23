@@ -60,23 +60,21 @@ def get_watched_avg_rating(user_data):
 
 
 def get_most_watched_genre(user_data):
-    genre_list = user_data["watched"]
-    all_genres = []
-    for genres in genre_list:
-        all_genres.append(genres["genre"])
     
-    if len(all_genres) == 0:
+    user_genres = []
+    for movie in user_data["watched"]:
+        user_genres.append(movie["genre"])
+    
+    if len(user_genres) == 0:
         return None
     else:
         counter = 0
-        num = all_genres[0]
-        
-        for i in all_genres:
-            frequency = all_genres.count(i)
+        for genre in user_genres:
+            frequency = user_genres.count(genre)
             if frequency > counter:
                 counter = frequency
-                num = i
-        return num
+                most_freq_genre = genre
+        return most_freq_genre
     
 
 # -----------------------------------------
@@ -102,8 +100,8 @@ def get_unique_watched(user_data):
             friends_not_watched.append(user_movie)
     return friends_not_watched
 
-def get_friends_unique_watched(user_data):
 
+def get_friends_unique_watched(user_data):
 
     all_friends_movies = []
     i = 0
@@ -132,6 +130,7 @@ def get_friends_unique_watched(user_data):
 # -----------------------------------------
 
 def get_available_recs(user_data):
+
     all_friends_movies = []
     i = 0
     for friend in user_data["friends"]:
@@ -139,16 +138,16 @@ def get_available_recs(user_data):
             all_friends_movies.append(friends_movie)
         i += 1
 
-    friends_user = []
+    friends_and_user = []
     for friend_movies in all_friends_movies:
         if friend_movies not in user_data["watched"]:
-            friends_user.append(friend_movies)
+            friends_and_user.append(friend_movies)
 
     recomended_movies = []
     j = 0
-    for movie in friends_user:
+    for movie in friends_and_user:
         for subscription in user_data["subscriptions"]:
-            if subscription in friends_user[j]["host"]:
+            if subscription in friends_and_user[j]["host"]:
                 recomended_movies.append(movie)
         j += 1
 
