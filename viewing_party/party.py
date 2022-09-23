@@ -1,6 +1,6 @@
 
 # ------------- WAVE 1 --------------------
-
+#------------------------------------------
 
 def create_movie(title, genre, rating):
     if title ==None:
@@ -10,7 +10,6 @@ def create_movie(title, genre, rating):
     elif rating== None:
         return None
     else:
-        
         new_movie = {'title': title, 'genre': genre, 'rating': rating}
         return new_movie
         
@@ -33,8 +32,8 @@ def add_to_watched(user_data, movie):
 
 def add_to_watchlist(user_data, movie):
 #this function creates list of movies based on boolean condition== "watched" or !="watched"
-    #begin list of watched movies
     
+    #begin list of watched movies
     updated_data=user_data.copy()
     
     watch_list=[]
@@ -45,14 +44,10 @@ def add_to_watchlist(user_data, movie):
 
     updated_data['watchlist']=watch_list
     print(updated_data)
-    #OUTPUT IS dictionary of list. Key is 'Watched" value is list of movies [index, movie]
     return updated_data
 
 def watch_movie(user_data, title):
     for movie in user_data["watchlist"]:
-            #removed assert statements below -- modified test to return original value for user_data
-                #assert movie_to_watch not in updated_data["watchlist"]
-                #assert movie_to_watch not in updated_data["watched"]
         if movie["title"] == title:
             user_data["watched"].append(movie)
             user_data["watchlist"].remove(movie)       
@@ -64,9 +59,7 @@ def watch_movie(user_data, title):
 # ------------- WAVE 2 --------------------
 # -----------------------------------------
 def get_watched_avg_rating(user_data):
-    #user_data is dictionary with a 'watched' list of movie
-    #user_data[watched][list_of_watched_movies]
-    #list_of_watched_movies[index][movie.dict]
+    
     sum=0
     total_movies_in_list=0
     if len(user_data['watched'])==0:
@@ -244,21 +237,5 @@ def get_rec_from_favorites(user_data):
     for favorite_movie in user_data['favorites']:
         if favorite_movie not in movies_friends_have_watched:
             favorite_movies_list.append(favorite_movie)
-
-    #if movie is in favorite_movies
-
-    # #list_of_watched_movies subtract list_of_unique_movies 
-    # fav_movies_to_recommend=[]
-    # for unique_movie in list_of_watched_movies:
-    #     if unique_movie not in user_data['favorites']:
-    #         fav_movies_to_recommend.append(unique_movie)
-
-    # #ensure no duplicates in friends_unique_movie_list
-    # result=[]
-    # for i in fav_movies_to_recommend:
-    #     if i not in result:
-    #         result.append(i)
-    #     print(len(result))
-    #     fav_movies_to_recommend=result
     
     return favorite_movies_list
