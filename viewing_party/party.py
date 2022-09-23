@@ -38,6 +38,20 @@ def get_watched_avg_rating(user_data):
     avg_rating /= len(user_data["watched"])
     return avg_rating
 
+#second swing at get_watched_avg_rating. Which one is better?
+# def get_watched_avg_rating(user_data):
+#     user_watched = user_data["watched"]
+#     avg_rating = 0
+    
+#     for movie in user_watched:
+#         avg_rating += movie["rating"]
+#         print(avg_rating)
+#     if len(user_watched) == 0:
+#         return 0.0
+#     else:
+#         avg_rating /= len(user_watched)
+#         return avg_rating
+
 def get_most_watched_genre(user_data):
     genre_dict = {}
     i = 0
@@ -150,9 +164,6 @@ def get_rec_from_favorites(user_data):
     recommendations = []
     movies_friends_watched = get_friends_watched(user_data)
     user_favorites = user_data["favorites"]
-    # print(movies_friends_watched)
-    # print("=================")
-    # print(user_favorites)
 
     for movie in user_favorites:
         if movie["title"] not in movies_friends_watched:
