@@ -97,19 +97,7 @@ def get_unique_watched(user_data):
 
     return movie_list
 
-"""
-Create a function named get_friends_unique_watched. This function should...
-take one parameter: user_data
-the value of user_data will be a dictionary with a "watched" list of movie dictionaries, and a "friends"
-This represents that the user has a list of watched movies and a list of friends
-The value of "friends" is a list
-Each item in "friends" is a dictionary. This dictionary has a key "watched", which has a list of movie dictionaries.
-Each movie dictionary has a "title".
-Consider the movies that the user has watched, and consider the movies that their friends have watched. Determine which movies at least one of the user's friends have watched, but the user has not watched.
-Return a list of dictionaries, that represents a list of movies
-"""
-def get_friends_unique_watched(user_data):
-    # user 
+def get_friends_unique_watched(user_data): 
     movie_list = []
     for movie in user_data["watched"]:
         movie_list.append(movie["title"])
@@ -121,10 +109,30 @@ def get_friends_unique_watched(user_data):
                 if movie not in friends_movies:
                     friends_movies.append(movie)
     return friends_movies
-            
 # -----------------------------------------
 # ------------- WAVE 4 --------------------
 # -----------------------------------------
+
+def get_available_recs(user_data):
+    # user has access to 
+    # iterate over subscriptions access a string 
+    movie_list = []
+    for movie in user_data["watched"]:
+        movie_list.append(movie["title"])
+
+    for subscription in user_data["subscriptions"]:
+        pass
+    # each friend has watched list 
+
+    friends_movies = []
+    for friend in user_data["friends"]:
+        for movie in friend["watched"]:
+            for host in movie["host"]:
+                if movie["title"] not in movie_list:
+                    if movie not in friends_movies:
+                        if host in movie_list:
+                            friends_movies.append(movie)
+
 
 # -----------------------------------------
 # ------------- WAVE 5 --------------------
