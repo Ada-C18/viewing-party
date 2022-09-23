@@ -10,10 +10,12 @@ def create_movie(title, genre, rating):
     movie_dict["genre"] = genre
     movie_dict["rating"] = rating
 
-    if movie_dict["title"] == None or movie_dict["genre"] == None or movie_dict["rating"] == None:
+    if movie_dict["title"] == None\
+    or movie_dict["genre"] == None\
+    or movie_dict["rating"] == None:
         return None
-       
     return movie_dict
+
 
 def add_to_watched(user_data, movie_dict):
     # "watched" is the key, the whole movie_dict as a value thta 
@@ -27,19 +29,19 @@ def add_to_watchlist(user_data, movie_dict):
     return user_data
 
 
-def watch_movie(user_data, title):  # this one can still improve
-    # get the values from the user_data's "watchlist" key, and put them into a list
+
+def watch_movie(user_data, title):  
     watch_list = user_data["watchlist"]
-    watch_list_size = len(watch_list)
-    for i in range(watch_list_size):
-        # try to use for movie in watch_list
-        if watch_list[i]["title"] == title:
-            movie = watch_list[i]
-            add_to_watched(user_data, movie)
-            watch_list.remove(movie) 
+    for movie in watch_list:
+        if (movie["title"]) == title:
+            watch_list.remove(movie)
+            user_data["watched"].append(movie)
             return user_data
     return user_data
 
+
+
+    
 
 
 
@@ -199,10 +201,14 @@ def get_rec_from_favorites(user_data):
     '''
     recommended_movie_by_favorite = []
     user_favorite_movies = user_data["favorites"]
+    # access the list of the user's favorite movies
     friends_not_watched = get_unique_watched(user_data)
+    # assign the helper function to a new variable
     
-    for movie in friends_not_watched:
-        for title in user_favorite_movies:
-            if movie == title:
-               recommended_movie_by_favorite.append(movie) 
+    for movie in friends_not_watched:  # loop the list of friends not watched
+        if movie in user_favorite_movies:
+            recommended_movie_by_favorite.append(movie) 
+        # for title in user_favorite_movies: # loop the list of user's favorite
+        #     if movie == title:              
+        #        recommended_movie_by_favorite.append(movie) 
     return recommended_movie_by_favorite
