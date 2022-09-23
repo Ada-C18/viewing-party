@@ -1,5 +1,8 @@
 # ------------- WAVE 1 --------------------
 from lib2to3.pytree import generate_matches
+from operator import ge
+from stat import filemode
+from typing import Counter
 # from turtle import title
 
 def create_movie(title, genre, rating):
@@ -77,6 +80,7 @@ def get_most_watched_genre(user_data):
             else:
                 total_genre[user_data["watched"][count]['genre']] +=1
         max_genre = max(total_genre, key=total_genre.get)
+    
     return max_genre
 
 #***************************************************************************************************
@@ -196,7 +200,7 @@ def get_available_recs(user_data):
     #create variable for recommended_movies
     recommended_movies =[] 
     
-    #for loop to confirm the recommended movies have the host/subscription the user has.
+    #for loop to confirm the recommended movies is on the host/subscription the user has.
     for movie in movies_friends_final_list_dict:
         for host in subscriptions_user:
             if host in movie['host']:
@@ -207,3 +211,58 @@ def get_available_recs(user_data):
 # -----------------------------------------
 # ------------- WAVE 5 --------------------
 # -----------------------------------------
+
+def get_new_rec_by_genre(user_data):
+    #define variables:
+    user_watched = user_data['watched'] #list,dict
+    friends = user_data['friends']
+    user_genre = []
+    friends_genre = []
+    recommended_movies = []
+
+    genre_max = get_most_watched_genre(user_data)
+
+    # if the user didn't watch movies, return an empty list
+    if len(user_data['watched']) == 0:
+        return []
+    
+    # loop through user_data["watched"] to create lis
+    for movie in user_watched:
+        if genre_max in movie['genre']:
+            user_genre.append(movie)
+
+    count =0
+    for movie in friends[count]['watched']:
+        if genre_max in movie['genre']:
+            friends_genre.append(movie)
+    count += 1
+
+    for film in friends_genre:
+        if film not in user_genre:
+            recommended_movies.append(film)
+
+    return recommended_movies
+            
+#**************************************************************************************************
+
+def get_rec_from_favorites(user_data):
+    
+    movie_user_favorites = user_data['favorites']
+    friends_users = []
+    recommended_movies = []
+    
+    # if the user didn't have favorites, it's equal lenth cero, then return an empty list.
+    if len(user_data['favorites']) == 0:
+        return []
+
+    for friend in user_data['friends']:
+        for movie in friend['watched']:
+            friends_users.append(movie)
+            
+    for film in movie_user_favorites:
+        if film not in friends_users:
+            recommended_movies.append(film)
+    
+    return recommended_movies
+
+    
