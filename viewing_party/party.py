@@ -18,10 +18,9 @@ def create_movie(title, genre, rating):
         return None
 
 def add_to_watched(user_data, movie):
-    prev = user_data["watched"] # creating a variable prev = the value of watched - we know key = watched
-    curr = prev.append(movie) # tried .append and got type error none doesn't have len # do we need to bring the index in at all?
-    # user_data["watched"] = curr # replacing the old empty value with the new value # this was causing the issue - why?
-
+    prev = user_data["watched"] 
+    curr = prev.append(movie) 
+    
     return user_data
 
 def add_to_watchlist(user_data, movie):
@@ -37,35 +36,7 @@ def watch_movie(user_data, title):
             return user_data
     return user_data
 
-
-        
-    # need to remove key:values from watchlist{dict} and append to watched{dict}
-    # need to figure out if we need to use a for loop maybe and if else statements and then how to "move" elements from one dict to another. Do we use 
-    # if title in watchlist{dict} remove movie from watchlist and move to watched{dict} then return user_data - use .remove and.append
-    # watchlist len will go from 1 to 0 and watched len will go from 0 to 1
-
-
-# curr = prev.update({"watched":movie}) # this gives AttributeError: 'list' object has no attribute 'update' error # tried .append and got type error none doesn't have len # do we need to bring the index in at all?
-''' user_data["watched"].append(movie)
-    return user_data '''
-
-
-'''
-
-Create a function named create_movie. This function and all subsequent functions should be in party.py. create_movie should...
-take three parameters: title, genre, rating
-If those three attributes are truthy, then return a dictionary. This dictionary should...
-Have three key-value pairs, with specific keys
-The three keys should be "title", "genre", and "rating"
-The values of these key-value pairs should be appropriate values
-If title is falsy, genre is falsy, or rating is falsy, this function should return None
-
-
-'''
-
-# -----------------------------------------
 # ------------- WAVE 2 --------------------
-# -----------------------------------------
 
 def get_watched_avg_rating(user_data):
     sum = 0
@@ -73,23 +44,46 @@ def get_watched_avg_rating(user_data):
     
     for i in range(len(user_data["watched"])):
         sum += user_data["watched"][i]["rating"]
+    if sum > 0:
         average = sum / len(user_data["watched"])
-    
+
     return average
+#
+def get_most_watched_genre(user_data): 
+    genre_count = {}
+    current_top = 0
+    current_genre = " "
+
+    for i in range(len(user_data["watched"])): 
+        genre = user_data["watched"][i]["genre"]
+        if genre in genre_count:
+            genre_count[genre] += 1
+        else:
+            genre_count[genre] = 1
     
+    genres = genre_count.keys()
+    for genre in genres:
+        if genre_count[genre] > current_top:
+            current_top = genre_count[genre]
+            current_genre = genre
     
-    # will use sum(len) to get the sum and divide it by the length for avg
+    if user_data["watched"] == []:
+        return None
     
+    return current_genre
 
-# def get_most_watched_genre(user_data):
-
-
-
-# -----------------------------------------
 # ------------- WAVE 3 --------------------
-# -----------------------------------------
 
-        
+def get_unique_watched(user_data):
+
+
+    # input is the dict of movies
+    # output is the unique_movies = [] (empty list) or unique_movies = list of the objects 
+    # need to know titles from user_data then titles from friends
+    # loop through titles and see if any titles existed in the friends list
+    # is title in friends user_data
+
+
 # -----------------------------------------
 # ------------- WAVE 4 --------------------
 # -----------------------------------------
