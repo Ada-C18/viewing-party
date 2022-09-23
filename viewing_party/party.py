@@ -65,31 +65,6 @@ def get_most_watched_genre(user_data):
         return (most_popular[0])
 
 # ------------- WAVE 3 --------------------
-# def  get_unique_watched(user_data):
-#     movies = user_data["watched"]
-#     friends = user_data["friends"]
-#     unique_friend_watched = []
-#     friend_watched_list =[]
-#     for friend in friends:
-#         friend_watched = friend["watched"]
-#         friend_watched_list += friend_watched
-#     for movie in movies:
-#         if movie not in friend_watched_list:
-#             unique_friend_watched.append(movie)
-#     return unique_friend_watched
-# def get_friends_unique_watched(user_data):
-#     movies = user_data["watched"]
-#     friends = user_data["friends"]
-#     unique_friend_watched = []
-#     friend_watched_list =[]
-#     for friend in friends:
-#         friend_watched = friend["watched"]
-#         friend_watched_list += friend_watched
-#     for friend_watched in friend_watched_list:
-#         if friend_watched not in movies:
-#             if friend_watched not in unique_friend_watched:
-#                 unique_friend_watched.append(friend_watched)
-#     return unique_friend_watched
 
 def get_unique_watched(user_data):
     unique = []
@@ -103,6 +78,7 @@ def get_unique_watched(user_data):
         for item in movie["watched"]:
             friends_movies.append(item)
     total_movies_list = users_movies + friends_movies
+    
     for item in total_movies_list:
         if item not in friends_movies:
             unique.append(item)
@@ -128,7 +104,7 @@ def get_friends_unique_watched(user_data):
     
     return unique
 # 
-# ------------- WAVE 4 
+# ------------- WAVE 4 -------------
 
 def get_available_recs(user_data):
     unique = []
@@ -185,11 +161,11 @@ def get_rec_from_favorites(user_data):
     
     for movie in user_data["watched"]:
         users_movies.append(movie)
-       
+
 
     if len(users_movies) == 0:
         return friends_movies
-   
+
     for movie in user_data["friends"]:
         for item in movie["watched"]:
             friends_movies.append(item)
@@ -197,4 +173,5 @@ def get_rec_from_favorites(user_data):
     for item in user_data["favorites"]:
         if item not in friends_movies:
             unique.append(item)
+    
     return unique
