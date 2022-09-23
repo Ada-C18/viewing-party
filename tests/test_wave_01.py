@@ -1,6 +1,8 @@
 import pytest
-# NOTE: In production code, we developers should change import * to something more specific. Due to some constraints of this project, we will import * in our test files.
-# from viewing_party.main import *
+# NOTE: In production code, we developers should change import * to something 
+# more specific. Due to some constraints of this project, we will import * in 
+# our test files.
+
 from viewing_party.party import *
 from tests.test_constants import *
 
@@ -120,9 +122,11 @@ def test_moves_movie_from_watchlist_to_empty_watched():
     assert len(updated_data["watched"]) == 1
     
     # raise Exception("Test needs to be completed.")
-    assert any(dict["title"] == MOVIE_TITLE_1 for dict in updated_data["watched"])
+    assert not any(movie['title'] == MOVIE_TITLE_1 for movie in\
+        updated_data["watchlist"])
+    assert any(movie['title'] == MOVIE_TITLE_1 for movie in\
+        updated_data["watched"])
 
-    
 # @pytest.mark.skip()
 def test_moves_movie_from_watchlist_to_watched():
     # Arrange
@@ -142,8 +146,11 @@ def test_moves_movie_from_watchlist_to_watched():
     assert len(updated_data["watchlist"]) == 1
     assert len(updated_data["watched"]) == 2
     
-    # raise Exception("Test needs to be completed.")
-    assert any(dict["title"] == MOVIE_TITLE_1 for dict in updated_data["watched"])
+    # raise Exception("Test needs to be completed.") 
+    assert not any(movie['title'] == movie_to_watch["title"] for movie in\
+        updated_data["watchlist"])
+    assert any(movie['title'] == movie_to_watch["title"] for movie in\
+        updated_data["watched"])
 
 # @pytest.mark.skip()
 def test_does_nothing_if_movie_not_in_watchlist():

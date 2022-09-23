@@ -3,20 +3,16 @@
 from hashlib import new
 from re import M
 from collections import Counter
+from viewing_party.helper_functions import *
 
 from tests.test_constants import GENRE_1, MOVIE_TITLE_1, RATING_1, USER_DATA_3
 
-# *****helper function to validate length of data; 
-# list of watched movies and a list of friends*****
-
-
 def create_movie(title, genre, rating):
-    new_movie = {}
     if title and genre and rating:
         new_movie = {
-            "title": MOVIE_TITLE_1,
-            "genre": GENRE_1,
-            "rating": RATING_1
+            "title": title,
+            "genre": genre,
+            "rating": rating
         }
         return new_movie
     else:
@@ -24,34 +20,20 @@ def create_movie(title, genre, rating):
 
 def add_to_watched(user_data, movie):
     user_data = {
-        "watched": 
-        [
-            create_movie
-            (
-                movie["title"],
-                movie["genre"],
-                movie["rating"]
-            )
-        ]
+        "watched": [movie]
     }             
     return user_data
 
 def add_to_watchlist(user_data, movie):
     user_data = {
-        "watchlist": 
-        [
-            create_movie
-            (
-                movie["title"],
-                movie["genre"],
-                movie["rating"]
-            )
-        ]
+        "watchlist": [movie]
     }             
     return user_data
 
 def watch_movie(user_data, title):    
     new_watchlist = []
+    # iterates over watchlist. moves value in arg title from watchlist to 
+    # watched if found. generates a new watchlist comprised of unwatched movies 
     for movie in user_data["watchlist"]:
         if movie["title"] == title:
             user_data["watched"].append(movie)
@@ -59,6 +41,8 @@ def watch_movie(user_data, title):
             new_watchlist.append(movie)
     user_data["watchlist"] = new_watchlist
     return user_data
+
+# ------------- WAVE 2 --------------------
 
 def get_watched_avg_rating(user_data):
     total_of_all_ratings = 0
@@ -70,11 +54,12 @@ def get_watched_avg_rating(user_data):
         average = total_of_all_ratings / movies_watched
     return average
 
-# added import from collections to use Counter() in this function
+# imported Counter() from collections to use in this function
 def get_most_watched_genre(user_data):
     dict_of_genres = Counter()
     popular_genre = ""
     if len(user_data["watched"]) > 0:
+        #iterates over "watched" list and counts all instances of each genre
         for movie in user_data["watched"]:
             if movie["genre"] not in dict_of_genres:
                 dict_of_genres[movie["genre"]] = 0
@@ -85,20 +70,7 @@ def get_most_watched_genre(user_data):
     else:
         return None
 
-#helper function
-def build_user_movie_list(user_data):
-    user_watched_movie_list = []
-    for movie in user_data["watched"]:
-        user_watched_movie_list.append(movie)
-    return user_watched_movie_list
-
-#helper function
-def build_friend_movie_list(user_data):
-    friends_watched_movie_list = []
-    for friend in user_data["friends"]:
-        for movie in friend["watched"]:
-            friends_watched_movie_list.append(movie)
-    return friends_watched_movie_list
+# ------------- WAVE 3 --------------------
 
 def get_unique_watched(user_data):
     user_movie_list = build_user_movie_list(user_data)
@@ -109,7 +81,7 @@ def get_unique_watched(user_data):
             unique_movie_list.append(movie)
     return unique_movie_list 
 
-def get_friends_unique_watched(user_data):
+def get_friends_unique_watched(user_data): 
     user_movie_list = build_user_movie_list(user_data)
     friends_movie_list = build_friend_movie_list(user_data)    
     unique_movie_list = []
@@ -117,6 +89,8 @@ def get_friends_unique_watched(user_data):
         if movie not in user_movie_list and movie not in unique_movie_list:
             unique_movie_list.append(movie)
     return unique_movie_list
+
+# ------------- WAVE 4 --------------------
 
 def get_available_recs(user_data):
     user_movie_list = build_user_movie_list(user_data)
@@ -128,6 +102,8 @@ def get_available_recs(user_data):
                 recommendations_list.append(movie)
     return recommendations_list
 
+# ------------- WAVE 5 --------------------
+
 def get_new_rec_by_genre(user_data):
     user_movie_list = build_user_movie_list(user_data)
     friends_movie_list = build_friend_movie_list(user_data)    
@@ -137,11 +113,6 @@ def get_new_rec_by_genre(user_data):
         if movie not in user_movie_list and movie["genre"] == popular_genre:
             recs_by_genre.append(movie)
     return recs_by_genre
-
-def confirm_no_duplicates(recs_by_genre):
-    #generates unique movie titles as list of strings with list comprehension
-    unique_titles = [movie["title"] for movie in recs_by_genre]
-    return unique_titles
 
 def get_rec_from_favorites(user_data):
     friends_movie_list = build_friend_movie_list(user_data)    

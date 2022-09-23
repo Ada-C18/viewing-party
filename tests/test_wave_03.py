@@ -56,7 +56,10 @@ def test_friends_unique_movies_not_duplicated():
     assert len(friends_unique_movies) == 3
 
     # raise Exception("Test needs to be completed.")
-    assert len(confirm_no_duplicates(friends_unique_movies)) == len(friends_unique_movies)
+    # generates dictionary of movie titles via list comprehension
+    # title is key and frequency in dictionary is value
+    unique_titles = Counter(movie["title"] for movie in friends_unique_movies)
+    assert all(value == 1 for value in unique_titles.values())
 
 # @pytest.mark.skip()
 def test_friends_not_unique_movies():
