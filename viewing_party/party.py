@@ -42,6 +42,7 @@ def watch_movie(user_data, title):
 # ------------- WAVE 2 --------------------
 # -----------------------------------------
 def get_watched_avg_rating(user_data):
+    # It Calculates and returns the average rating of all movies in the watched list
     avg_rating = 0.0
     if not user_data["watched"]:
         return avg_rating
@@ -51,6 +52,7 @@ def get_watched_avg_rating(user_data):
 
 
 def get_most_watched_genre(user_data):
+    # It returns the genre that is the most frequently watched
     genre_list = []
     counter = 0
     popular_genre = None
@@ -72,6 +74,7 @@ def get_most_watched_genre(user_data):
 # ------------- WAVE 3 --------------------
 # -----------------------------------------
 def get_unique_watched(user_data):
+# returns a list of dict movies the user has watched, but none of their friends have watched
     unique_movies = []
     all_friends_movies = [] 
 
@@ -87,6 +90,7 @@ def get_unique_watched(user_data):
 
 
 def get_friends_unique_watched(user_data):
+    # Returns list of dicts movies at least one of the user's friends have watched, but the user has not watched
     user_movies = []
     unique_friend_movies = []
     for movie in user_data["watched"]:
@@ -105,9 +109,12 @@ def get_friends_unique_watched(user_data):
 # ------------- WAVE 4 --------------------
 # -----------------------------------------
 def get_available_recs(user_data):
+    # Returns a list of recommended movies that the user has not watched, at least one of the user's friends has watched
+    # and the host of the movies has to be in the users subscription 
     list_rec_movies = []
     sub_list = []
     unique_watched = get_friends_unique_watched(user_data)
+    
     for sub in user_data["subscriptions"]:
         sub_list.append(sub)
             
@@ -121,6 +128,8 @@ def get_available_recs(user_data):
 # ------------- WAVE 5 --------------------
 # -----------------------------------------
 def get_new_rec_by_genre(user_data):
+    # Returns a list of recommended movies that the user has not watched, at least one of the user's friends has watched
+    # and the genre of the movie is the same as the most frequent genre
     rec_movies_list = []
     popular_genre = get_most_watched_genre(user_data)
     unique_watched = get_friends_unique_watched(user_data)
@@ -133,6 +142,8 @@ def get_new_rec_by_genre(user_data):
     return rec_movies_list
     
 def get_rec_from_favorites(user_data):
+    # Returns a list of recommended movies if it's in the user's favorite 
+    # and non of the user's friends have watched it
     fav_rec_movies = []
     friends_watched = []
     
