@@ -19,10 +19,10 @@ def add_to_watchlist(user_data, movie):
     return user_data
 
 def watch_movie(user_data, title):
-    for i in range(len(user_data["watchlist"])):
-        if title in user_data["watchlist"][i]["title"]:
-            user_data["watched"].append(user_data["watchlist"][i])
-            user_data["watchlist"].remove(user_data["watchlist"][i])
+    for movie in user_data["watchlist"]:
+        if title == movie["title"]:
+            user_data["watched"].append(movie)
+            user_data["watchlist"].remove(movie)
     return user_data
 
 
@@ -41,24 +41,13 @@ def get_watched_avg_rating(user_data):
 
 
 def get_most_watched_genre(user_data):
-    if len(user_data["watched"]) == 0:
-        return None
-    else:
-        genre_list = []
-        for i in range(len(user_data["watched"])):
-            genre_list.append(user_data["watched"][i]["genre"])
-        
-        genre_dict = {}
-        max_freq = 0
+    genre_dict = {}    
+    for movie in user_data["watched"]:
+        genre_dict[movie["genre"]] = genre_dict.get(movie["genre"],0) + 1
+    
+    most_common_genre = max(genre_dict, default=None, key = genre_dict.get)
+    return most_common_genre
 
-        for genre in genre_list:
-            genre_dict[genre] = genre_dict.get(genre,0) + 1
-            
-            # Note: this will break if there are ties for genres. If there are ties, need to make a list to hold ties and have an elif statement
-            if genre_dict[genre] > max_freq:
-                max_freq = genre_dict[genre]
-                most_common_genre = genre
-        return most_common_genre
 
 
 # -----------------------------------------
