@@ -29,8 +29,6 @@ def watch_movie(user_data, movie_to_watch):
         "watched": list(user_data["watched"])
     }
     
-    #Finds movie_to_watch in user_data's watchlist
-    #Removes it and adds it to user_data's watched
     for movie in user_data["watchlist"]:
         if movie["title"] == movie_to_watch:
             updated_data["watched"].append(movie)
@@ -42,8 +40,6 @@ def watch_movie(user_data, movie_to_watch):
 # ------------- WAVE 2 --------------------
 # -----------------------------------------
 def get_watched_avg_rating(user_data):
-    #Extract ratings from all the listed movies
-    #Get average by summing up and dividing by #
     ratings = []
     
     if not user_data["watched"]:
@@ -77,13 +73,10 @@ def get_unique_watched(user_data):
     unique_movies = []
     friends_watched = []
     
-    #Extracts all movies that friends have watched 
-    #and adds to friends_watched set
     for watched_dict in user_data["friends"]:
         for movie in watched_dict["watched"]:
             friends_watched.append(movie)
     
-    #Checks if user's movies are found in friends_watched set
     for movie in user_data["watched"]:
         if not movie in friends_watched:
             unique_movies.append(movie)
@@ -91,7 +84,6 @@ def get_unique_watched(user_data):
     return unique_movies
 
 def get_friends_unique_watched(user_data):
-    #Return list of movies only friends have watched
     user_watched = []
     friends_unique_watched = []
     
@@ -110,8 +102,6 @@ def get_friends_unique_watched(user_data):
 # ------------- WAVE 4 --------------------
 # -----------------------------------------
 def get_available_recs(user_data):
-    #Return available movie recommendations from friend's lists
-    #Needs to check if their movies are hosted by user's subscriptions
     friends_unique_watched = get_friends_unique_watched(user_data)
     recommendations = []
     
@@ -126,8 +116,6 @@ def get_available_recs(user_data):
 # ------------- WAVE 5 --------------------
 # -----------------------------------------
 def get_new_rec_by_genre(user_data):
-    #Returns friend recommendations only if user hasn't watched them
-    #But has watched a movie of the same genre before
     friends_unique_watched = get_friends_unique_watched(user_data)
     user_watched_genres = []
     recommendations = []
