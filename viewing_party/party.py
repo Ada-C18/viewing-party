@@ -43,11 +43,11 @@ def watch_movie(user_data, title):
     Output: function moves movie represented by title to watched list if the user has that movie in the watchlist.
     Function returns user_data.
     '''
-    for movie in range(len(user_data["watchlist"])):
-        for key,value in user_data["watchlist"][movie].items():
-            if value == title:
-                user_data["watched"].append(movie)
-                user_data["watchlist"].pop(movie)
+    for movie_index in range(len(user_data["watchlist"])):
+        for title_key,current_title in user_data["watchlist"][movie_index].items():
+            if current_title == title:
+                user_data["watched"].append(user_data["watchlist"][movie_index])
+                user_data["watchlist"].pop(movie_index)
     return user_data
 
 # -----------------------------------------
