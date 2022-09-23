@@ -109,21 +109,20 @@ def get_most_watched_genre(user_data):
 
 
 def get_unique_watched(user_data):
-    #if len(user_data)>0
 
-        #create total list of movies
-        list_of_watched_movies=[]
-        for friend in user_data['friends']:
-            for movie in friend['watched']:
-                list_of_watched_movies.append(movie)
+    #create total list of movies
+    list_of_watched_movies=[]
+    for friend in user_data['friends']:
+        for movie in friend['watched']:
+            list_of_watched_movies.append(movie)
 
-        list_of_unique_movies=[]
-        #create list of unique movies   
-        for watched_movie in user_data['watched']:
-            if watched_movie not in list_of_watched_movies:
-                list_of_unique_movies.append(watched_movie)
+    list_of_unique_movies=[]
+    #create list of unique movies   
+    for watched_movie in user_data['watched']:
+        if watched_movie not in list_of_watched_movies:
+            list_of_unique_movies.append(watched_movie)
 
-        return list_of_unique_movies  
+    return list_of_unique_movies  
 #write helper function
 
 
