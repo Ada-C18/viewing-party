@@ -1,4 +1,4 @@
-# Viewing Party
+# Viewing Party Tigers - Sunny Muniz 
 
 ## Skills Assessed
 
