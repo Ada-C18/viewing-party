@@ -2,7 +2,6 @@
 
 from lzma import MODE_FAST
 
-
 def create_movie(title, genre, rating):
     # check to see if parameters are true
     # conditional for each paramter 
@@ -36,7 +35,8 @@ def add_to_watchlist(user_data, movie):
 
 def watch_movie(user_data, title):
     # need to see if the title is in the usersdata
-    # if movie in WATCHLIST then remove the movie from watchlist and add to watched, return
+    # if movie in WATCHLIST then remove the movie from watchlist 
+    # and add to watched, return
     # if movie not in watchlist, return
     for i in range(len(user_data['watchlist'])):
         if user_data['watchlist'][i]['title'] == title:
@@ -55,10 +55,9 @@ def average(lst):
 
 def get_watched_avg_rating(user_data):
     rating_list = []
-    for watched_list in user_data.values():
-        for movie in watched_list:
-            rating_list.append(movie['rating'])
-    
+    watched_list = user_data["watched"]
+    for movie in watched_list:
+        rating_list.append(movie['rating'])
 
     if rating_list:
         return average(rating_list)
