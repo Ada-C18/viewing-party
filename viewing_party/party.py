@@ -59,18 +59,6 @@ def get_watched_avg_rating(user_data):
     average_rating = all_ratings_added/len(user_data["watched"])
     return average_rating
 
-
-"""
-Create a function named get_most_watched_genre. This function should...
-take one parameter: user_data
-the value of user_data will be a dictionary with a "watched" list of movie dictionaries. 
-Each movie dictionary has a key "genre".
-This represents that the user has a list of watched movies. Each watched movie has a genre.
-The values of "genre" is a string.
-Determine which genre is most frequently occurring in the watched list
-return the genre that is the most frequently watched
-If the value of "watched" is an empty list, get_most_watched_genre should return None.
-"""
 def get_most_watched_genre(user_data):
     genres_map = {}
     for movie in user_data["watched"]:
@@ -79,7 +67,6 @@ def get_most_watched_genre(user_data):
         else:
             genres_map[movie["genre"]] += 1
     
-    # iterate over the genre_map 
     maximum_key = None
     maximum_value = 0 
     for genre, quanity in genres_map.items():
@@ -93,7 +80,48 @@ def get_most_watched_genre(user_data):
 # ------------- WAVE 3 --------------------
 # -----------------------------------------
 
-        
+def get_unique_watched(user_data):
+    # # compare movies of friends with user
+    # # create a list of dictionaries of the movies that have not been seen by the friends
+    # # return the list of dictionaries that friends have not watched 
+
+    friends_movies = []
+    for friend in user_data["friends"]:
+        for movie in friend["watched"]:
+            friends_movies.append(movie["title"])
+
+    movie_list = []
+    for movie in user_data["watched"]:
+        if movie["title"] not in friends_movies:
+            movie_list.append(movie)
+
+    return movie_list
+
+"""
+Create a function named get_friends_unique_watched. This function should...
+take one parameter: user_data
+the value of user_data will be a dictionary with a "watched" list of movie dictionaries, and a "friends"
+This represents that the user has a list of watched movies and a list of friends
+The value of "friends" is a list
+Each item in "friends" is a dictionary. This dictionary has a key "watched", which has a list of movie dictionaries.
+Each movie dictionary has a "title".
+Consider the movies that the user has watched, and consider the movies that their friends have watched. Determine which movies at least one of the user's friends have watched, but the user has not watched.
+Return a list of dictionaries, that represents a list of movies
+"""
+def get_friends_unique_watched(user_data):
+    # user 
+    movie_list = []
+    for movie in user_data["watched"]:
+        movie_list.append(movie["title"])
+
+    friends_movies = []
+    for friend in user_data["friends"]:
+        for movie in friend["watched"]:
+            if movie["title"] not in movie_list:
+                if movie not in friends_movies:
+                    friends_movies.append(movie)
+    return friends_movies
+            
 # -----------------------------------------
 # ------------- WAVE 4 --------------------
 # -----------------------------------------
