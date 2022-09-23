@@ -80,6 +80,7 @@ def test_unique_rec_from_favorites():
     assert sonyas_data == clean_wave_5_data()
 
 # @pytest.mark.skip()-5
+#test
 def test_unique_from_empty_favorites():
     # Arrange
     sonyas_data = {

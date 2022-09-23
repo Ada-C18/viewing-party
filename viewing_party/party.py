@@ -33,19 +33,11 @@ def watch_movie(user_data, title):
     #watchlist is a key with value list of dicts
     # watched is a key with value list
     
-    temp_list_of_dict = user_data["watchlist"] #[{
-            #     "title": MOVIE_TITLE_1,
-            #     "genre": GENRE_1,
-            #     "rating": RATING_1
-            # }]
+    temp_list_of_dict = user_data["watchlist"] 
     for i in range(0, len(temp_list_of_dict)):
-        temp_dict = temp_list_of_dict[i] #{
-            #     "title": MOVIE_TITLE_1,
-            #     "genre": GENRE_1,
-            #     "rating": RATING_1
-            # }
-        temp_string = temp_dict["title"] # MOVIE_TITLE_1
-        temp_list_watched=user_data["watched"] #[]
+        temp_dict = temp_list_of_dict[i] 
+        temp_string = temp_dict["title"] 
+        temp_list_watched=user_data["watched"] 
         if temp_string is title:
             user_data["watchlist"].remove(temp_dict)
             user_data["watched"].append(temp_dict)
@@ -74,29 +66,24 @@ def get_most_watched_genre(user_data):
     dict_genre = {}
     max = 0
     temp_list_of_moviedict = user_data["watched"] 
-        # [FANTASY_1, 
-        # FANTASY_2, 
-        # FANTASY_3, 
-        # ACTION_1, 
-        # INTRIGUE_1, 
-        # INTRIGUE_2]
+        
 
     if len(temp_list_of_moviedict) == 0:
         return None
 
          
     for i in range(0, len(temp_list_of_moviedict)):
-        genre_value = temp_list_of_moviedict[i]["genre"] #fantasy
+        genre_value = temp_list_of_moviedict[i]["genre"] 
         if genre_value in dict_genre:
-            val = dict_genre[genre_value] #val=
-            val = val+1 #val=2
+            val = dict_genre[genre_value] 
+            val = val+1 
             if val > max:
                 max = val
-                ans = genre_value #fantasy
+                ans = genre_value 
         else:
-            dict_genre[genre_value] = 1 #fantasy-1
+            dict_genre[genre_value] = 1 
             if dict_genre[genre_value] > max:
-                ans = genre_value #ans= 
+                ans = genre_value 
     return ans
     
 
@@ -110,15 +97,14 @@ def get_most_watched_genre(user_data):
 
 def get_unique_watched(user_data):
     #return a list of dicts representing movies user has watched, but none of their friends have watched
-    result = [] #this will be a list of dicts
+    result = [] 
     
-    temp_list_of_moviedict_user = user_data["watched"] #[dict1, dict2, dict3....] #dict1,2 etc has "title" as key
+    temp_list_of_moviedict_user = user_data["watched"] 
 
-    temp_list_of_friends = user_data["friends"] #this will give a list [{"watched": [dict1, dict2....]}]
-
+    temp_list_of_friends = user_data["friends"] 
     set_of_movies_friend = set()
     for i in range(0, len(temp_list_of_friends)):
-        temp_list_friends = temp_list_of_friends[i]["watched"] #[dict1, dict2, dict3.....]
+        temp_list_friends = temp_list_of_friends[i]["watched"] 
         for i in range(0, len(temp_list_friends)):
             temp_dict_friend = temp_list_friends[i]
             if "title" in temp_dict_friend:
@@ -138,12 +124,11 @@ def get_unique_watched(user_data):
 #friends have watched but user hasnt watched 
 #wave 3 part 2
 def get_friends_unique_watched(user_data):
-    result = [] #this will be a list of dicts
-    
-    temp_list_of_moviedict_user = user_data["watched"] #[dict1, dict2, dict3....] #dict1,2 etc has "title" as key
+    result = [] 
+    set_not_watched = set()
+    temp_list_of_moviedict_user = user_data["watched"] 
 
-    temp_list_of_friends = user_data["friends"] #this will give a list [{"watched": [dict1, dict2....]}]
-
+    temp_list_of_friends = user_data["friends"] 
     set_of_movies_user = set()
     for i in range(0, len(temp_list_of_moviedict_user)):
         temp_dict_user = temp_list_of_moviedict_user[i]
@@ -154,12 +139,13 @@ def get_friends_unique_watched(user_data):
 
 
     for i in range(0, len(temp_list_of_friends)):
-        movie_list_friend = temp_list_of_friends[i]["watched"] # [dict1, dict2, ......]
+        movie_list_friend = temp_list_of_friends[i]["watched"] 
         for j in range(0, len(movie_list_friend)):
             if "title" in movie_list_friend[j]:
                 movie_title = movie_list_friend[j]["title"]
-                if movie_title not in set_of_movies_user:
+                if movie_title not in set_of_movies_user and movie_title not in set_not_watched:
                     result.append(movie_list_friend[j])
+                    set_not_watched.add(movie_title)
        
     
     return result
@@ -192,17 +178,11 @@ def get_available_recs(user_data):
 # ------------- WAVE 5 --------------------
 # -----------------------------------------
 # wave 5 part 1
-#Create a function named get_new_rec_by_genre. This function should...
-# take one parameter: user_data
-# Consider the user's most frequently watched genre. Then, determine a list of recommended movies. A movie should be added to this list if and only if:
-# The user has not watched it
-# At least one of the user's friends has watched
-# The "genre" of the movie is the same as the user's most frequent genre
-# Return the list of recommended movies
+
 
 def get_new_rec_by_genre(user_data):
     # find user's most frequently watched genre
-    most_watched_genre = get_most_watched_genre(user_data) #string
+    most_watched_genre = get_most_watched_genre(user_data) 
     result = []
     user_dict = []
     friends_dict = []
@@ -217,11 +197,6 @@ def get_new_rec_by_genre(user_data):
             if item["genre"] is most_watched_genre:
                 result.append(item)
     return result
-
-
-    
-
-
 
 
 
