@@ -1,4 +1,4 @@
-# Viewing Party
+# Viewing Party -- Bukunmi Gesinde (Snow Leopard)
 
 ## Skills Assessed
 
@@ -6,7 +6,7 @@ Solving problems with...
 
 - Conditional logic
 - Lists
-- Dictionaries
+- Dictionariess
 - Nested loops
 - Nested data structures
 
