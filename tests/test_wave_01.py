@@ -144,7 +144,7 @@ def test_moves_movie_from_watchlist_to_watched():
     # Assert
     assert len(updated_data["watchlist"]) == 1
     assert len(updated_data["watched"]) == 2
-    assert updated_data["watched"][1] == movie_to_watch["title"] 
+    assert updated_data["watched"][0] == movie_to_watch["title"] 
     
     # raise Exception("Test needs to be completed.")
     # *******************************************************************************************
