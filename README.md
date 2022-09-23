@@ -20,7 +20,7 @@ For this project, you will be given some data structure that represents the thin
 
 ## One-Time Project Setup
 
-Follow these directions once, a the beginning of your project:
+Follow these directions once, at the beginning of your project:
 
 1. Navigate to your projects folder named `projects`
 
