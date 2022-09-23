@@ -25,7 +25,6 @@ def watch_movie(user_data, title):
 # ------------- WAVE 2 --------------------
 # -----------------------------------------
 
-# works when I change to float, ask instructor why
 def get_watched_avg_rating(user_data):
     number_of_movies = 0
     average_ratings = 0.0
@@ -57,45 +56,38 @@ def get_most_watched_genre(user_data):
 # -----------------------------------------
 # ------------- WAVE 3 --------------------
 # -----------------------------------------
-def get_unique_watched(user_data):
-    # GOAL: return movies user has watched, but not their friends
+
+def get_user_watched_movies(user_data):
     user_watched_movies = []
-    friends_watched_movies = []
-    unique_movies = []
-    if len(user_data["watched"]) == 0:
-        return unique_movies
     for movie in user_data["watched"]:
         user_watched_movies.append(movie)
+    return user_watched_movies
+
+def get_friends_watched_movies(user_data):
+    friends_watched_movies = []
     for friend in user_data["friends"]:
         for film in friend["watched"]:
-            friends_watched_movies.append(film)
+            if film not in friends_watched_movies:
+                friends_watched_movies.append(film)
+    return friends_watched_movies
+
+def get_unique_watched(user_data):
+    user_watched_movies = get_user_watched_movies(user_data)
+    friends_watched_movies = get_friends_watched_movies(user_data)
+    unique_movies = []
     for item in user_watched_movies:
         if item not in friends_watched_movies:
             unique_movies.append(item)
-
-    return(unique_movies)
+    return unique_movies
 
 def get_friends_unique_watched(user_data):
-    #Determine which movies at least one of the user's friends have watched, but the user has not watched.
-    #Return a list of dictionaries, that represents a list of movies
-    user_watched_movies = []
-    friends_watched_movies = []
+    user_watched_movies = get_user_watched_movies(user_data)
+    friends_watched_movies = get_friends_watched_movies(user_data)
     unique_movies = []
-    friends_unique = []
-    if len(user_data["watched"]) == 0:
-        unique_movies
-    for movie in user_data["watched"]:
-        user_watched_movies.append(movie)
-    for friend in user_data["friends"]:
-        for film in friend["watched"]:
-            if film in friends_watched_movies:
-                continue
-            else:
-                friends_watched_movies.append(film)
     for movie in friends_watched_movies:
         if movie not in user_watched_movies:
-            friends_unique.append(movie)
-    return friends_unique
+            unique_movies.append(movie)
+    return unique_movies
 
         
 # -----------------------------------------
