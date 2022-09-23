@@ -256,14 +256,16 @@ def get_new_rec_by_genre(user_data):
 
 def get_rec_from_favorites(user_data):
     
-    movie_user_favorites = user_data['favorites']
+    
     friends_users = []
     recommended_movies = []
     
-    # if the user didn't have favorites, it's equal lenth cero, then return an empty list.
+    # if the user doesn't have favorites, it's equal length cero, then return an empty list.
     if len(user_data['favorites']) == 0:
         return []
-
+    
+    movie_user_favorites = user_data['favorites']
+    
     #foor loop to append values, to the friends list.
     for friend in user_data['friends']:
         for movie in friend['watched']:
@@ -274,6 +276,8 @@ def get_rec_from_favorites(user_data):
         if film not in friends_users:
             recommended_movies.append(film)
     
+    
+    # print('number>>', len(user_data['favorites']))
     return recommended_movies
 
     
