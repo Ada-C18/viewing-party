@@ -105,10 +105,9 @@ def get_unique_watched(user_data):
 
     unique_set = user_watched_set - friend_watched_set
 
-    for movie in unique_set:
-        for i in range(len(user_data["watched"])):
-            if user_data["watched"][i]['title'] == movie:
-                unique_watched_list.append(user_data["watched"][i])   
+    for i in range(len(user_data["watched"])):
+        if user_data["watched"][i]['title'] in unique_set:
+            unique_watched_list.append(user_data["watched"][i])   
 
     return unique_watched_list
     
@@ -260,7 +259,7 @@ def get_rec_from_favorites(user_data):
 
 def get_user_favorites_list(user_data):
     '''
-    Returns a list of the user's favorite movie titles
+    Helper function - returns a list of the user's favorite movie titles
     from user_data
     '''
     user_favorites_list = []
