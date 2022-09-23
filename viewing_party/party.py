@@ -41,9 +41,6 @@ def watch_movie(user_data, title):
 
 
 
-    
-
-
 
 # -----------------------------------------
 # ------------- WAVE 2 --------------------
@@ -88,23 +85,22 @@ def get_most_watched_genre(user_data):
 # -----------------------------------------
 
 def get_unique_watched(user_data):
-    # firstly tried to use set and .difference() method
+    # tried to use set and .difference() method to solve,
+    # but finally found out need to return a list
     friends_list = []
     unique_list = []
-    # not_unique_list = []
     friend_watched = user_data["friends"]
     user_watched = user_data["watched"]
 
     for val in friend_watched:
+        # read all the "watched" in friends watched list
         for movie in val["watched"]:
+            # read every title/genre/rating in each watched
             friends_list.append(movie["title"])
+            # put the name of the movie into the empty list
     for title in user_watched:
-        # if title["title"] not in friends_list:
-        #     unique_list.append(title)
-        # if title["title"] not in user_watched:
-        #     not_unique_list.append(title)
-        if title["title"] not in friends_list and\
-        title["title"] not in user_watched:
+        # read every movie in user watched list
+        if title["title"] not in friends_list: 
             unique_list.append(title)
     return unique_list   
 
@@ -119,8 +115,10 @@ def get_friends_unique_watched(user_data):
         user_watched_list.append(title["title"])
     for watched in friend_watched: 
         for title in watched["watched"]:
-            if title["title"] not in user_watched_list and \
-            title not in friends_unique_movies:
+            if title["title"] not in user_watched_list and\
+               title not in friends_unique_movies:
+               # and statement make sure the friends_unique_movies list
+               # won't have duplicated elements 
                 friends_unique_movies.append(title)
     return friends_unique_movies   
 
@@ -133,7 +131,7 @@ def get_friends_unique_watched(user_data):
 # -----------------------------------------
 def get_available_recs(user_data):
     """ use helper function from get_friends_unique_watched """
-
+    
     recommended_movie = []
     # host_list = []
     # result_list = []
