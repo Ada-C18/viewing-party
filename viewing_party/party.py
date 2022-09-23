@@ -3,6 +3,7 @@
 def create_movie(title, genre, rating):
     print("This will cause a merge conflict")
     print("Testing git visualization")
+    print("Visualization Tool Test #2")
 
 # -----------------------------------------
 # ------------- WAVE 2 --------------------
