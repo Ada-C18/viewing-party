@@ -51,6 +51,7 @@ def watch_movie(user_data, title):
 # -----------------------------------------
 
 def get_watched_avg_rating(user_data):
+    #define variables 
     sum = 0
     count = 0
     for count in range(len(user_data['watched'])):
@@ -84,6 +85,7 @@ def get_most_watched_genre(user_data):
 # -----------------------------------------
 
 def get_unique_watched(user_data):
+    #define variables for lists
     movies_user = []
     friends_user = []
 
@@ -117,7 +119,7 @@ def get_unique_watched(user_data):
 
 #***************************************************************************************************
 def get_friends_unique_watched(user_data):
-    
+    #define variables for lists
     movie_user = []
     friends_users = []
     
@@ -139,7 +141,6 @@ def get_friends_unique_watched(user_data):
     
     #convert the list -> from set to list.
     movies_only_final_list = list(movies_only_friends)
-    print('list>', movies_only_final_list)
     movies_friends_final_list_dict = []
     
     for title in movies_only_final_list:
@@ -154,6 +155,54 @@ def get_friends_unique_watched(user_data):
 # -----------------------------------------
 # ------------- WAVE 4 --------------------
 # -----------------------------------------
+
+def get_available_recs(user_data):
+    #define variables for lists
+    movie_user = []
+    friends_users = []
+    subscriptions_user = user_data['subscriptions']
+    
+    # for loop to get elements for the list of movies_user
+    for count in range(len(user_data['watched'])):
+        movie_user.append(user_data['watched'][count]['title'])
+    
+    #for loop to get elements for the list of friends_user
+    for friend in user_data['friends']:
+        for movie in friend['watched']:
+            for title,value in movie.items():
+                if title == 'title':
+                    friends_users.append(value)
+    
+    #transforme the list of movies from user and friends to set, para avoid duplicate titles:
+    movies_user_set = set(movie_user)
+    friends_user_set = set(friends_users)
+    
+    # obtain the difference of friends_movies minus movies_user
+    movies_only_friends = friends_user_set - movies_user_set
+    
+    # convert the list back from set to list.
+    movies_only_final_list = list(movies_only_friends)
+
+    movies_friends_final_list_dict = []
+
+    #for loop to bring the dictionaries for movies(elements) on the movies_only_final_list
+    for title in movies_only_final_list:
+        for friend in user_data['friends']:
+            for movie in friend['watched']:
+                if (movie['title']) == title:         
+                    if movie not in movies_friends_final_list_dict:
+                        movies_friends_final_list_dict.append(movie)
+    
+    #create variable for recommended_movies
+    recommended_movies =[] 
+    
+    #for loop to confirm the recommended movies have the host/subscription the user has.
+    for movie in movies_friends_final_list_dict:
+        for host in subscriptions_user:
+            if host in movie['host']:
+                recommended_movies.append(movie)
+                
+    return recommended_movies
 
 # -----------------------------------------
 # ------------- WAVE 5 --------------------
