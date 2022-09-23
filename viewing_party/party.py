@@ -208,8 +208,34 @@ def get_available_recs(user_data):
 # ------------- WAVE 5 --------------------
 # -----------------------------------------
 
-def get_new_rec_by_genre(): 
-    pass 
+
+
+def get_rec_from_favorites(user_data): 
+    user_favs = []
+    friend_movies = []
+
+    for dictionary in user_data["favorites"]:
+        user_favs.append(dictionary["title"])
+
+    for num in range(0, len(user_data["friends"])):
+        for dictionary in user_data["friends"][num]["watched"]:
+            friend_movies.append(dictionary["title"])
+
+    user_set = set(user_favs)
+    friends_set = set(friend_movies)
+
+    movies_to_watch = user_set - friends_set 
+
+    user_fav_movies = list(movies_to_watch)
+
+    fav_recommendations = [] 
+
+    for dictionary in user_data["favorites"]:
+        for movie in user_fav_movies: 
+            if movie == dictionary["title"]:
+                fav_recommendations.append(dictionary)
+
+    return fav_recommendations
 
 
 
