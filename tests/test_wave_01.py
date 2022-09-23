@@ -4,7 +4,7 @@ import pytest
 from viewing_party.party import *
 from tests.test_constants import *
 
-@pytest.mark.skip()
+# @pytest.mark.skip()
 def test_create_successful_movie():
     # Arrange
     movie_title = MOVIE_TITLE_1
@@ -19,7 +19,7 @@ def test_create_successful_movie():
     assert new_movie["genre"] == GENRE_1
     assert new_movie["rating"] == pytest.approx(RATING_1)
 
-@pytest.mark.skip()
+# @pytest.mark.skip()
 def test_create_no_title_movie():
     # Arrange
     movie_title = None
@@ -32,7 +32,7 @@ def test_create_no_title_movie():
     # Assert
     assert new_movie is None
 
-@pytest.mark.skip()
+# @pytest.mark.skip()
 def test_create_no_genre_movie():
     # Arrange
     movie_title = "Title A"
@@ -45,7 +45,7 @@ def test_create_no_genre_movie():
     # Assert
     assert new_movie is None
 
-@pytest.mark.skip()
+# @pytest.mark.skip()
 def test_create_no_rating_movie():
     # Arrange
     movie_title = "Title A"
@@ -58,7 +58,7 @@ def test_create_no_rating_movie():
     # Assert
     assert new_movie is None
 
-@pytest.mark.skip()
+# @pytest.mark.skip()
 def test_adds_movie_to_user_watched():
     # Arrange
     movie = {
@@ -79,7 +79,7 @@ def test_adds_movie_to_user_watched():
     assert updated_data["watched"][0]["genre"] == GENRE_1
     assert updated_data["watched"][0]["rating"] == RATING_1
 
-@pytest.mark.skip()
+# @pytest.mark.skip()
 def test_adds_movie_to_user_watchlist():
     # Arrange
     movie = {
@@ -100,7 +100,7 @@ def test_adds_movie_to_user_watchlist():
     assert updated_data["watchlist"][0]["genre"] == GENRE_1
     assert updated_data["watchlist"][0]["rating"] == RATING_1
 
-@pytest.mark.skip()
+# @pytest.mark.skip()
 def test_moves_movie_from_watchlist_to_empty_watched():
     # Arrange
     janes_data = {
@@ -119,15 +119,22 @@ def test_moves_movie_from_watchlist_to_empty_watched():
     assert len(updated_data["watchlist"]) == 0
     assert len(updated_data["watched"]) == 1
     
-    raise Exception("Test needs to be completed.")
+    assert updated_data["watched"][0]["title"] == MOVIE_TITLE_1
+    assert updated_data["watched"][0]["genre"] == GENRE_1
+    assert updated_data["watched"][0]["rating"] == RATING_1
     # *******************************************************************************************
     # ****** Add assertions here to test that the correct movie was added to "watched" **********
     # *******************************************************************************************
 
-@pytest.mark.skip()
+# @pytest.mark.skip()
 def test_moves_movie_from_watchlist_to_watched():
     # Arrange
+    # assign a HORR0R_1 to movie_to_watch
     movie_to_watch = HORROR_1
+    # janes_data is a dictionary that has two key values
+        # watchlist 
+        # watched
+        # They each have a list as the value of the keys
     janes_data = {
         "watchlist": [
             FANTASY_1,
@@ -143,25 +150,33 @@ def test_moves_movie_from_watchlist_to_watched():
     assert len(updated_data["watchlist"]) == 1
     assert len(updated_data["watched"]) == 2
     
-    raise Exception("Test needs to be completed.")
+    assert updated_data["watched"][1] == movie_to_watch
     # *******************************************************************************************
     # ****** Add assertions here to test that the correct movie was added to "watched" **********
     # *******************************************************************************************
 
-@pytest.mark.skip()
+# @pytest.mark.skip()
 def test_does_nothing_if_movie_not_in_watchlist():
     # Arrange
+    # The variable movie_to_watch is assigned to HORROR_1
     movie_to_watch = HORROR_1
+    # the dictionary about janes_data that has two keys 
+    # "watchlist" and "watched"
     janes_data = {
         "watchlist": [FANTASY_1],
         "watched": [FANTASY_2]
     }
 
     # Act
+    # name of the person janes_data and the name of the movie "Non-Existent Movie Title")
     updated_data = watch_movie(janes_data, "Non-Existent Movie Title")
 
     # Assert
     assert len(updated_data["watchlist"]) == 1
     assert len(updated_data["watched"]) == 1
+
+    # Is this checking for none of the varaibles are iny the updated dictionary 
+    # checks if movie_to_watch variable is not in updated_data["watchlist"]
     assert movie_to_watch not in updated_data["watchlist"]
+    # checks if movie_to_watch variable is not in updated_data["watched"]
     assert movie_to_watch not in updated_data["watched"]
