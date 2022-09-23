@@ -73,10 +73,9 @@ def get_most_watched_genre(user_data):
 # -----------------------------------------
 
 def get_unique_watched(user_data):
-    complete_list_of_friends = user_data['friends']
     friends_watched_list = []
 
-    for friend in complete_list_of_friends:
+    for friend in user_data["friends"]:
         for movie in friend["watched"]:
             friends_watched_list.append(movie)
 
@@ -90,9 +89,8 @@ def get_unique_watched(user_data):
     return unique_watched_list
 
 def get_friends_unique_watched(user_data):
-    complete_list_of_friends = user_data['friends']
     friends_watched_list = []
-    for friend in complete_list_of_friends:
+    for friend in user_data["friends"]:
         for movie in friend["watched"]:
             if movie not in friends_watched_list:
                 friends_watched_list.append(movie)
@@ -107,6 +105,7 @@ def get_friends_unique_watched(user_data):
 # -----------------------------------------
 # ------------- WAVE 4 --------------------
 # -----------------------------------------
+
 def get_available_recs(user_data):
     recommendations = []
     friends_unique_watched_list = get_friends_unique_watched(user_data)
@@ -121,3 +120,25 @@ def get_available_recs(user_data):
 # ------------- WAVE 5 --------------------
 # -----------------------------------------
 
+def get_new_rec_by_genre(user_data):
+    friends_unique_watched = get_friends_unique_watched(user_data)
+    most_popular_genre = get_most_watched_genre(user_data)
+    recommendations = []
+    for movie in friends_unique_watched:
+        if most_popular_genre == movie["genre"]:
+            recommendations.append(movie)
+
+    return recommendations
+
+def get_rec_from_favorites(user_data):
+    friends_watched_list = []
+    recommendations = []
+    for friend in user_data["friends"]:
+        for movie in friend["watched"]:
+            friends_watched_list.append(movie)
+
+    recommendations = []
+    for movie in user_data["favorites"]:
+        if movie not in friends_watched_list:
+            recommendations.append(movie)
+    return recommendations
