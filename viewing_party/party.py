@@ -3,9 +3,12 @@ from pprint import pprint
 def _get_movies_watched_by_friends(user_data):
     movies_watched_by_friends = []
 
-    for friend in user_data["friends"]:
-        for friend_movie in friend["watched"]:
-            movies_watched_by_friends.append(friend_movie)
+    for friend in user_data["friends"]: #[{}]
+        for friend_movie in friend["watched"]: #{}
+            if friend_movie in movies_watched_by_friends:
+                continue
+            else:
+                movies_watched_by_friends.append(friend_movie)
 
     return movies_watched_by_friends
 
@@ -78,17 +81,11 @@ def get_most_watched_genre(user_data):
 # -----------------------------------------
 def get_unique_watched(user_data):
     user_not_watched_movies = []
-    movies_watched_by_friends = []
-
-    for friend in user_data["friends"]:
-        for friend_movie in friend["watched"]:
-            movies_watched_by_friends.append(friend_movie)
+    movies_watched_by_friends = _get_movies_watched_by_friends(user_data) 
 
     for movie in user_data["watched"]:
-        user_watched_movie = movie 
-                
-        if user_watched_movie not in movies_watched_by_friends:
-            user_not_watched_movies.append(user_watched_movie)
+        if movie not in movies_watched_by_friends:
+            user_not_watched_movies.append(movie)
     return user_not_watched_movies
 
 
@@ -98,18 +95,14 @@ def get_friends_unique_watched(user_data):
     movies_watched_by_friends = []
     movies_watched_by_friends = _get_movies_watched_by_friends(user_data) 
     user_watched_movies = user_data["watched"] 
-    pprint(movies_watched_by_friends)
 
-    for friend_movie in movies_watched_by_friends:
-        #now we have {movie}
-        for user_movie in user_watched_movies:
-            if user_movie not in movies_watched_by_friends:
-                recommended_movies.append(user_movie)
+    for friend_movie in movies_watched_by_friends: #user_data = "friends": [{}]
+        if friend_movie not in user_watched_movies:# if user_movie not in movies_watched_by_friends
+            recommended_movies.append(friend_movie)
     
     # pprint(recommended_movies)
     return recommended_movies
 
-                
 
 # -----------------------------------------
 # ------------- WAVE 4 --------------------
