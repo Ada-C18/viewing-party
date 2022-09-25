@@ -55,7 +55,9 @@ def test_friends_unique_movies_not_duplicated():
     # Assert
     assert len(friends_unique_movies) == 3
 
-    raise Exception("Test needs to be completed.")
+    for movie in friends_unique_movies: 
+        assert movie in [HORROR_1, FANTASY_4, INTRIGUE_3]
+    # raise Exception("Test needs to be completed.")
     # *************************************************************************************************
     # ****** Add assertions here to test that the correct movies are in friends_unique_movies **********
     # **************************************************************************************************
