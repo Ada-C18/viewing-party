@@ -144,6 +144,15 @@ def get_available_recs(user_data):
 # -----------------------------------------
 
 def get_new_rec_by_genre(user_data):
-    movies_not_watched = _get_movies_not_watched_user(user_data)
+    list_rec_movies_genre = []
+    movies_watched_by_friends = _get_movies_watched_by_friends(user_data)
 
-    # if _get_movies_watched_by_friends
+    if movies_watched_by_friends == []:
+        return None 
+
+    user_genre_favorites =  get_most_watched_genre(user_data)
+    
+    for movie in movies_watched_by_friends:
+        if movie["genre"] == user_genre_favorites:
+            list_rec_movies_genre.append(movie)
+    print(list_rec_movies_genre)
