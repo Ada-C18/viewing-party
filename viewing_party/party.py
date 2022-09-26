@@ -120,7 +120,9 @@ def get_friends_unique_watched(user_data):
 # ------------- WAVE 4 --------------------
 # -----------------------------------------
 def get_available_recs(user_data):
+    recommended_movies = []
     recommended_movies_subscription = []
+
     #USER INFO
     user_watched_movies = user_data["watched"] #[{}]
     # pprint(user_watched_movies)
@@ -133,7 +135,6 @@ def get_available_recs(user_data):
 
     if movies_watched_by_friends == []:
         return None 
-    print("*" * 20)
 
     #we want to retrieve the user_watched_movie:
         #and if the movie in movies_watched_by_friends
@@ -143,11 +144,24 @@ def get_available_recs(user_data):
     #         recommended_movies_subscription.append(movie)
     # print(recommended_movies_subscription)
 
-    for movies in movies_watched_by_friends:
-        movie_host_subscription = movies["host"]
-        if movie_host_subscription in user_subscriptions:
-            recommended_movies_subscription.append(movies)
-    pprint(recommended_movies_subscription)
+    for friend_movie in movies_watched_by_friends: #user_data = "friends": [{}]
+        if friend_movie not in user_watched_movies:# if user_movie not in movies_watched_by_friends
+            recommended_movies.append(friend_movie)
+    print(recommended_movies)
+    
+    print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+    for movie in recommended_movies:
+        if movie["host"] in user_subscriptions:
+            pprint(recommended_movies_subscription.append(movie))
+
+    return recommended_movies_subscription
+            # recommended_movies_subscription.remove(movie["host"])
+    # print(recommended_movies_subscription)
+    # for movies in movies_watched_by_friends:
+    #     movie_host_subscription = movies["host"]
+    #     if movie_host_subscription in user_subscriptions:
+    #         recommended_movies_subscription.append(movies)
+    # pprint(recommended_movies_subscription)
 
 
     # return recommended_movies_subscription
