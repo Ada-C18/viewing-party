@@ -156,3 +156,5 @@ def get_new_rec_by_genre(user_data):
         if movie["genre"] == user_genre_favorites:
             list_rec_movies_genre.append(movie)
     print(list_rec_movies_genre)
+
+    
