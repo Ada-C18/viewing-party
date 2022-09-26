@@ -1,4 +1,6 @@
-from pprint import pprint 
+from pprint import pprint
+import re
+from unittest.mock import NonCallableMagicMock 
 #HELPER FUNCTION
 def _get_movies_watched_by_friends(user_data):
     movies_watched_by_friends = []
@@ -11,6 +13,16 @@ def _get_movies_watched_by_friends(user_data):
                 movies_watched_by_friends.append(friend_movie)
 
     return movies_watched_by_friends
+
+def _get_movies_not_watched_user(user_data):
+    movies_not_watched_user = []
+    movies_watched_by_friends = _get_movies_watched_by_friends(user_data) 
+
+    for movie in user_data["watched"]:
+        if movie not in movies_watched_by_friends:
+            movies_not_watched_user.append(movie)
+    return  movies_not_watched_user
+
 
 # ------------- WAVE 1 --------------------
 def create_movie(title, genre, rating):
@@ -108,18 +120,37 @@ def get_friends_unique_watched(user_data):
 # ------------- WAVE 4 --------------------
 # -----------------------------------------
 def get_available_recs(user_data):
-    pass
-# user_data["subscriptions"]
-# user_data["friends"]["host"]
+    recommended_movies_subscription = []
+    #USER INFO
+    user_watched_movies = user_data["watched"] #[{}]
+    # pprint(user_watched_movies)
+    user_not_watched_movies = _get_movies_not_watched_user(user_data) #[{}]
+	#USER SUBSCRIPTIONS 
+    user_subscriptions = user_data["subscriptions"] #[]
+    # print(user_subscriptions)
+    movies_watched_by_friends = _get_movies_watched_by_friends(user_data)
+    # pprint(movies_watched_by_friends)
 
-# Determine a list of recommended movies. A movie should be added to this list if and only if:
-# The user has not watched it
-# At least one of the user's friends has watched
-# The "host" of the movie is a service that is in the user's "subscriptions"
-# Return the list of recommended movies
+    if movies_watched_by_friends == []:
+        return None 
+    print("*" * 20)
+
+    #we want to retrieve the user_watched_movie:
+        #and if the movie in movies_watched_by_friends
+        #remove the movie and put it in a new list.
+    # for movie in user_watched_movies:
+    #     if movie not in movies_watched_by_friends:
+    #         recommended_movies_subscription.append(movie)
+    # print(recommended_movies_subscription)
+
+    for movies in movies_watched_by_friends:
+        movie_host_subscription = movies["host"]
+        if movie_host_subscription in user_subscriptions:
+            recommended_movies_subscription.append(movies)
+    pprint(recommended_movies_subscription)
 
 
-
+    # return recommended_movies_subscription
 # -----------------------------------------
 # ------------- WAVE 5 --------------------
 # -----------------------------------------
