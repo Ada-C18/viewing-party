@@ -123,26 +123,13 @@ def get_available_recs(user_data):
     recommended_movies = []
     recommended_movies_subscription = []
 
-    #USER INFO
-    user_watched_movies = user_data["watched"] #[{}]
-    # pprint(user_watched_movies)
-    user_not_watched_movies = _get_movies_not_watched_user(user_data) #[{}]
-	#USER SUBSCRIPTIONS 
-    user_subscriptions = user_data["subscriptions"] #[]
-    # print(user_subscriptions)
+    user_watched_movies = user_data["watched"] 
+    user_not_watched_movies = _get_movies_not_watched_user(user_data)
+    user_subscriptions = user_data["subscriptions"]
     movies_watched_by_friends = _get_movies_watched_by_friends(user_data)
-    # pprint(movies_watched_by_friends)
 
     if movies_watched_by_friends == []:
         return None 
-
-    #we want to retrieve the user_watched_movie:
-        #and if the movie in movies_watched_by_friends
-        #remove the movie and put it in a new list.
-    # for movie in user_watched_movies:
-    #     if movie not in movies_watched_by_friends:
-    #         recommended_movies_subscription.append(movie)
-    # print(recommended_movies_subscription)
 
     for friend_movie in movies_watched_by_friends: #user_data = "friends": [{}]
         if friend_movie not in user_watched_movies:# if user_movie not in movies_watched_by_friends
@@ -155,16 +142,6 @@ def get_available_recs(user_data):
             pprint(recommended_movies_subscription.append(movie))
 
     return recommended_movies_subscription
-            # recommended_movies_subscription.remove(movie["host"])
-    # print(recommended_movies_subscription)
-    # for movies in movies_watched_by_friends:
-    #     movie_host_subscription = movies["host"]
-    #     if movie_host_subscription in user_subscriptions:
-    #         recommended_movies_subscription.append(movies)
-    # pprint(recommended_movies_subscription)
-
-
-    # return recommended_movies_subscription
 # -----------------------------------------
 # ------------- WAVE 5 --------------------
 # -----------------------------------------
