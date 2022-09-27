@@ -1,4 +1,7 @@
 # ------------- WAVE 1 --------------------
+from platform import libc_ver
+
+
 def create_movie(title, genre, rating):
     new_movie = {}
     if title != None:
@@ -67,12 +70,93 @@ def get_most_watched_genre(user_data):
 # -----------------------------------------
 # ------------- WAVE 3 --------------------
 # -----------------------------------------
+def get_unique_watched(user_data):
+    my_movies_watched = []
+    for movie in user_data["watched"]:
+        my_movies_watched.append(movie)
+    
+    friend_movies = []
+    for friend in user_data["friends"]:
+        for movie in friend["watched"]:
+            friend_movies.append(movie)
 
+    unique_movies = []
+
+    for movie in my_movies_watched:
+        if movie not in friend_movies and movie not in unique_movies:
+            unique_movies.append(movie)
         
+    return unique_movies
+
+def get_friends_unique_watched(user_data):
+    my_movies_watched = []
+    for movie in user_data["watched"]:
+        my_movies_watched.append(movie)
+    
+    friend_movies = []
+    for friend in user_data["friends"]:
+        for movie in friend["watched"]:
+            friend_movies.append(movie)
+
+    unique_movies = []
+
+    for movie in friend_movies:
+        if movie not in my_movies_watched and movie not in unique_movies:
+            unique_movies.append(movie)
+        
+    return unique_movies
 # -----------------------------------------
 # ------------- WAVE 4 --------------------
 # -----------------------------------------
+def get_available_recs(user_data):
+    recommended_movies = []
+    my_movies_watched = []
+    for movie in user_data["watched"]:
+        my_movies_watched.append(movie)
+    
+    friend_movies = []
+    for friend in user_data["friends"]:
+        for movie in friend["watched"]:
+            friend_movies.append(movie)
+    
+    for movie in friend_movies:
+        if movie not in my_movies_watched and movie not in recommended_movies:
+            if movie["host"] in user_data["subscriptions"]:
+                recommended_movies.append(movie)
+
+    return recommended_movies
 
 # -----------------------------------------
 # ------------- WAVE 5 --------------------
 # -----------------------------------------
+def get_new_rec_by_genre(user_data):
+    my_movies_watched = []
+    for movie in user_data["watched"]:
+        my_movies_watched.append(movie)
+    
+    friend_movies = []
+    for friend in user_data["friends"]:
+        for movie in friend["watched"]:
+            friend_movies.append(movie)
+
+    recommended_by_genre = []
+
+    user_popular_genre = get_most_watched_genre(user_data)
+    for movie in friend_movies:
+        if movie["genre"] == user_popular_genre:
+            if movie not in my_movies_watched and movie not in recommended_by_genre:
+                recommended_by_genre.append(movie)
+
+    return recommended_by_genre
+
+def get_rec_from_favorites(user_data):
+    friend_movies = []
+    for friend in user_data["friends"]:
+        for movie in friend["watched"]:
+            friend_movies.append(movie)
+    from_favorite_recommendation = []
+    for movie in user_data["favorites"]:
+        if movie not in friend_movies and movie not in from_favorite_recommendation:
+            from_favorite_recommendation.append(movie)
+            
+    return from_favorite_recommendation
