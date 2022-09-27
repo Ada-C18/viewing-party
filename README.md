@@ -1,5 +1,8 @@
 # Viewing Party
 
+
+## Command to start Virtual Enviornment
+source ven/bin/activate
 ## Skills Assessed
 
 Solving problems with...
