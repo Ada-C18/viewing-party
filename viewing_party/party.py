@@ -154,7 +154,7 @@ def get_new_rec_by_genre(user_data):
     print(list_rec_movies_genre)
     return list_rec_movies_genre
 
-
+#TODO test one attest method. review attest with Mark.
 
 def get_rec_from_favorites(user_data):
     list_rec_favorites= []
@@ -163,3 +163,4 @@ def get_rec_from_favorites(user_data):
         if favorite_movie not in friend_favorite_movies:
             list_rec_favorites.append(favorite_movie)
     return list_rec_favorites
+
