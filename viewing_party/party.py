@@ -84,10 +84,10 @@ def get_most_watched_genre(user_data):
 def  get_unique_watched(user_data):
     unique_list = []
     friends_watched = get_friends_watched(user_data)
-    for i in user_data["watched"]:
-        if i not in friends_watched or i not in unique_list:
-            unique_list.append(i)
-    print(unique_list)
+    for movie in user_data["watched"]:
+        if movie not in friends_watched and movie not in unique_list:
+            unique_list.append(movie)
+    # print(unique_list)
     return unique_list
 
 def get_friends_watched(user_data):
@@ -102,7 +102,7 @@ def get_friends_unique_watched(user_data):
     friends_watched = get_friends_watched(user_data)
     friends_unique = []
     for movie in friends_watched:
-        if movie not in user_data["watched"] or movie not in friends_unique:
+        if movie not in user_data["watched"] and movie not in friends_unique:
             friends_unique.append(movie) 
     return friends_unique       
 # -----------------------------------------
