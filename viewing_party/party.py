@@ -1,10 +1,8 @@
 from pprint import pprint
-import re
-from unittest.mock import NonCallableMagicMock 
 #HELPER FUNCTION
 def _get_movies_watched_by_friends(user_data):
     movies_watched_by_friends = []
-
+    
     for friend in user_data["friends"]: #[{}]
         for friend_movie in friend["watched"]: #{}
             if friend_movie in movies_watched_by_friends:
@@ -78,7 +76,7 @@ def get_most_watched_genre(user_data):
 
     # If the value of "watched" is an empty list, get_most_watched_genre should return None.
     if user_data["watched"] == []:
-        return None 
+        return None
 
     for movie in user_data["watched"]: #this giving each movie dictionary inside the watched list 
         genre = movie['genre'] #accessing the movie genre and assigning to the genre 
@@ -123,12 +121,11 @@ def get_available_recs(user_data):
     recommended_movies_subscription = []
 
     user_watched_movies = user_data["watched"] 
-    user_not_watched_movies = _get_movies_not_watched_user(user_data)
     user_subscriptions = user_data["subscriptions"]
     movies_watched_by_friends = _get_movies_watched_by_friends(user_data)
 
-    if movies_watched_by_friends == []:
-        return None 
+    if user_data["friends"] == []:
+        return len(recommended_movies)
 
     for friend_movie in movies_watched_by_friends: #user_data = "friends": [{}]
         if friend_movie not in user_watched_movies:# if user_movie not in movies_watched_by_friends
@@ -145,16 +142,24 @@ def get_available_recs(user_data):
 
 def get_new_rec_by_genre(user_data):
     list_rec_movies_genre = []
-    movies_watched_by_friends = _get_movies_watched_by_friends(user_data)
 
-    if movies_watched_by_friends == []:
-        return None 
+    popular_genre = get_most_watched_genre(user_data)
 
-    user_genre_favorites =  get_most_watched_genre(user_data)
-    
-    for movie in movies_watched_by_friends:
-        if movie["genre"] == user_genre_favorites:
-            list_rec_movies_genre.append(movie)
+    friend_movies = _get_movies_watched_by_friends(user_data)
+
+    for friend_movie in friend_movies:
+        if friend_movie["genre"] == popular_genre:
+            if friend_movie not in user_data["watched"]:
+                list_rec_movies_genre.append(friend_movie)
     print(list_rec_movies_genre)
+    return list_rec_movies_genre
 
-    
+
+
+def get_rec_from_favorites(user_data):
+    list_rec_favorites= []
+    friend_favorite_movies = _get_movies_watched_by_friends(user_data)
+    for favorite_movie in user_data["favorites"]:
+        if favorite_movie not in friend_favorite_movies:
+            list_rec_favorites.append(favorite_movie)
+    return list_rec_favorites
