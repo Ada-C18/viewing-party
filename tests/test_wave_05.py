@@ -2,7 +2,7 @@ import pytest
 from viewing_party.party import *
 from tests.test_constants import *
 
-@pytest.mark.skip()
+# @pytest.mark.skip()
 def test_new_genre_rec():
     # Arrange
     sonyas_data = clean_wave_5_data()
@@ -17,7 +17,7 @@ def test_new_genre_rec():
     assert FANTASY_4b in recommendations
     assert sonyas_data == clean_wave_5_data()
 
-@pytest.mark.skip()
+# @pytest.mark.skip()
 def test_new_genre_rec_from_empty_watched():
     # Arrange
     sonyas_data = {
@@ -52,9 +52,13 @@ def test_new_genre_rec_from_empty_friends():
             }
         ]
     }
-
-    raise Exception("Test needs to be completed.")
-    assert updated_data["watched"] == []
+    # raise Exception("Test needs to be completed.")
+    #Act 
+    friend_movie_list = get_rec_from_favorites(sonyas_data)
+    assert len(friend_movie_list) == 0
+    ## WHAT I WANT TO TEST FOR AND CONFIRM ANSWER 
+    #ASSERT 
+    ##CONFIRM THE RESULT THAT I EXPECT TO HAPPEN
     # *********************************************************************
     # ****** Complete the Act and Assert Portions of theis tests **********
     # *********************************************************************
@@ -95,7 +99,7 @@ def test_unique_from_empty_favorites():
     # Assert
     assert len(recommendations) == 0
 
-@pytest.mark.skip()
+# @pytest.mark.skip()
 def test_new_rec_from_empty_friends():
     # Arrange
     sonyas_data = {
