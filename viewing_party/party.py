@@ -83,7 +83,7 @@ def get_most_watched_genre(user_data):
         genre_list.append(genre) #each genre will be added to the genre_list # the congregate of all genres
 
 
-    favorite_genre = max(set(genre_list), key= genre_list.count) #inside this loop give me the max count of each genre 
+    favorite_genre = max(set(genre_list), key= genre_list.count) 
     return favorite_genre
         
 # -----------------------------------------
@@ -107,7 +107,7 @@ def get_friends_unique_watched(user_data):
     user_watched_movies = user_data["watched"] 
 
     for friend_movie in movies_watched_by_friends: #user_data = "friends": [{}]
-        if friend_movie not in user_watched_movies:# if user_movie not in movies_watched_by_friends
+        if friend_movie not in user_watched_movies:
             recommended_movies.append(friend_movie)
     
     return recommended_movies
@@ -127,8 +127,8 @@ def get_available_recs(user_data):
     if user_data["friends"] == []:
         return len(recommended_movies)
 
-    for friend_movie in movies_watched_by_friends: #user_data = "friends": [{}]
-        if friend_movie not in user_watched_movies:# if user_movie not in movies_watched_by_friends
+    for friend_movie in movies_watched_by_friends: 
+        if friend_movie not in user_watched_movies:
             recommended_movies.append(friend_movie)
 
     for movie in recommended_movies:
@@ -154,7 +154,6 @@ def get_new_rec_by_genre(user_data):
     print(list_rec_movies_genre)
     return list_rec_movies_genre
 
-#TODO test one attest method. review attest with Mark.
 
 def get_rec_from_favorites(user_data):
     list_rec_favorites= []
