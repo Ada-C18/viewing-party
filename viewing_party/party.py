@@ -2,6 +2,7 @@
 import statistics
 from statistics import mode
 
+
 def create_movie(title, genre, rating):
     movies = {
         'title':title,
@@ -63,7 +64,43 @@ def get_most_watched_genre(user_data):
     # -----------------------------------------
 # ------------- WAVE 3 --------------------
 # -----------------------------------------
-# def get_unique_watched(user_data):
+def get_unique_watched(user_data):
+    friends = user_data['friends']
+    friends_mediocre_movies = []
+    my_watched = user_data['watched']
+    cool_movies_watched = []
+    unique_movies = []
+    for my_movies in my_watched:
+        cool_movies_watched.append(my_movies)
+
+    for friends_watched in friends:
+        for friends_movies in friends_watched['watched']:
+            friends_mediocre_movies.append(friends_movies)
+        
+    for movie in cool_movies_watched:
+        if not movie in friends_mediocre_movies and movie not in unique_movies:
+            unique_movies.append(movie)
+    return unique_movies        
+    
+
+def get_friends_unique_watched(user_data):
+    friends = user_data['friends']
+    friends_mediocre_movies = []
+    my_watched = user_data['watched']
+    cool_movies_watched = []
+    unique_movies = []
+    for my_movies in my_watched:
+        cool_movies_watched.append(my_movies)
+
+    for friends_watched in friends:
+        for friends_movies in friends_watched['watched']:
+            friends_mediocre_movies.append(friends_movies)
+        
+    for movie in friends_mediocre_movies:
+        if not movie in cool_movies_watched and movie not in unique_movies: 
+            unique_movies.append(movie)
+    return unique_movies
+
     
 
         
