@@ -28,8 +28,7 @@ def watch_movie(user_data, title):
         if movie["title"] == title:
             watchlist_list.remove(movie)
             watched_list.append(movie)
-            return user_data
-    else:
+            break
         return user_data
 # -----------------------------------------
 
@@ -77,7 +76,7 @@ def get_unique_watched(user_data):
                 if friends_movie["title"] == movie["title"]:
                     found_movie = True
         
-        if found_movie == False:
+        if not found_movie:
             user_unique_movies.append(movie)
     return user_unique_movies        
 
@@ -101,6 +100,15 @@ def get_friends_unique_watched(user_data):
 
 # ------------- WAVE 4 --------------------
 
+def get_available_recs(user_data):
+    recommended_movies = []
+    user_not_watched = get_friends_unique_watched(user_data)
+    
+    for movie in user_not_watched:
+        for subscription in user_data["subscriptions"]:
+            if movie["host"] == subscription:
+                recommended_movies.append(movie)
+    return recommended_movies
 
 # -----------------------------------------
 
