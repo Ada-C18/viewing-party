@@ -87,6 +87,7 @@ USER_DATA_3["friends"] =  [
                 FANTASY_3,
                 FANTASY_4,
                 HORROR_1,
+               # INTRIGUE_3
             ]
         },
         {
