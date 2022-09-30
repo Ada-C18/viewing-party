@@ -68,10 +68,11 @@ def get_unique_watched(user_data):
     list_watched = (user_data["watched"])
     if list_watched == []:
         return []
-
-    list_friend_1 = user_data["friends"][0]["watched"]
-    list_friend_2 = user_data["friends"][1]["watched"]
-    list_friends = list_friend_1 + list_friend_2
+    
+    friends_number = len(user_data["friends"])
+    list_friends = []
+    for i in range(friends_number):
+        list_friends.extend(user_data["friends"][i]["watched"])
     unique = [i for i in list_watched if i not in list_friends]
 
     return unique
@@ -81,40 +82,31 @@ def get_friends_unique_watched(user_data):
     if list_watched == []:
         return []
 
-    list_friend_1 = user_data["friends"][0]["watched"]
-    list_friend_2 = user_data["friends"][1]["watched"]
-    list_friends = list_friend_1 + list_friend_2
+    friends_number = len(user_data["friends"])
+    list_friends = []
+    for i in range(friends_number):
+        list_friends.extend(user_data["friends"][i]["watched"])
     friends_unique = [i for i in list_friends if i not in list_watched]
     friends_unique = [dict(t) for t in {tuple(d.items()) for d in friends_unique}]
 
     return friends_unique
 
     
-
-    
+  
 # -----------------------------------------
 # ------------- WAVE 4 --------------------
 # -----------------------------------------
 
 def get_available_recs(user_data):
     rec_list = []
-    list_watched = (user_data["watched"])
-    if list_watched == []:
-        return []
 
-    list_friend_1 = user_data["friends"][0]["watched"]
-    list_friend_2 = user_data["friends"][1]["watched"]
-    list_friends = list_friend_1 + list_friend_2
-    friends_unique = [i for i in list_friends if i not in list_watched]
-    friends_unique = [dict(t) for t in {tuple(d.items()) for d in friends_unique}]
+    friends_unique = get_friends_unique_watched(user_data)
 
     for movie in friends_unique:
         if movie["host"] in user_data["subscriptions"]:
             rec_list.append(movie)
     
     return rec_list
-
-
 
 
 
@@ -137,11 +129,7 @@ def get_new_rec_by_genre(user_data):
             genre_count[genre] += 1  
     most_watched_genre = max(genre_count, key=genre_count.get)
 
-    list_friend_1 = user_data["friends"][0]["watched"]
-    list_friend_2 = user_data["friends"][1]["watched"]
-    list_friends = list_friend_1 + list_friend_2
-    friends_unique = [i for i in list_friends if i not in list_watched]
-    friends_unique = [dict(t) for t in {tuple(d.items()) for d in friends_unique}]
+    friends_unique = get_friends_unique_watched(user_data)
 
     for movie in friends_unique:
         if movie["genre"] == most_watched_genre:
@@ -151,13 +139,10 @@ def get_new_rec_by_genre(user_data):
 
 
 def get_rec_from_favorites(user_data):
-    if len(user_data["friends"]) == 0:
-        list_friend_1 = []
-        list_friend_2 = []
-    else:
-        list_friend_1 = user_data["friends"][0]["watched"]
-        list_friend_2 = user_data["friends"][1]["watched"]
-    list_friends = list_friend_1 + list_friend_2
+    friends_number = len(user_data["friends"])
+    list_friends = []
+    for i in range(friends_number):
+        list_friends.extend(user_data["friends"][i]["watched"])
     rec_list = [i for i in user_data["favorites"] if i not in list_friends]
     
     return rec_list
