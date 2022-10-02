@@ -148,7 +148,18 @@ def get_available_recs(user_data):
     return recomended_movies
 
 
-
 # -----------------------------------------
 # ------------- WAVE 5 --------------------
 # -----------------------------------------
+
+rec_genre_list =[]
+    
+def user_genre(user_data):
+    return max(set(user_data["watched"]), key = user_data["watched"].count)
+
+def get_new_rec_by_genre(user_data):
+    for movie in (user_data):
+        if movie in user_data["friends"]["watched"] and movie not in user_data['watched']:
+            rec_genre_list.append(movie)
+    return rec_genre_list
+
