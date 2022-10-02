@@ -1,3 +1,4 @@
+from turtle import title
 import pytest
 from viewing_party.party import *
 from tests.test_constants import *
@@ -55,11 +56,11 @@ def test_friends_unique_movies_not_duplicated():
     # Assert
     assert len(friends_unique_movies) == 3
 
-    raise Exception("Test needs to be completed.")
+    # raise Exception("Test needs to be completed.")
     # *************************************************************************************************
     # ****** Add assertions here to test that the correct movies are in friends_unique_movies **********
     # **************************************************************************************************
-
+    # assert ["friends"]["watched"]["title"] != [amandas_data]["watched"]["title"]
 
 def test_friends_not_unique_movies():
     # Arrange
