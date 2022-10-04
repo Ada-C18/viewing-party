@@ -1,5 +1,5 @@
 import math
-from queue import Empty
+
 # ------------- WAVE 1 --------------------
 
 def create_movie(title, genre, rating):
