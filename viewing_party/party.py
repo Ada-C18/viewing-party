@@ -1,62 +1,56 @@
-import math
+# -----------------------------------------
+# ---------- HELPER FUNCTIONS -------------
+# -----------------------------------------
+def get_watched_list(user_data):
+    return user_data['watched']
 
+def get_friends_watched_list(user_data):
+    friends_list = user_data['friends']
+
+    friends_watch_list = [dicts['watched'] for dicts in friends_list]
+    friends_watch_list = [val for sublist in friends_watch_list for val in sublist]
+
+    return list({movie['title']:movie for movie in friends_watch_list}.values())
+# -----------------------------------------
 # ------------- WAVE 1 --------------------
-
+# -----------------------------------------
 def create_movie(title, genre, rating):
     
- # creates new movie dictionary
-    new_movie = {
-        "title": title,
-        "genre": genre,
-        "rating": rating
-    }
-
- # if no title, genre, or rating given, returns none for new movie dictionary
     if not title or not genre or not rating:
-        new_movie = None
+        return None
 
+    new_movie = {
+        'title': title,
+        'genre': genre,
+        'rating': rating
+    }
+    
     return new_movie
 
 def add_to_watched(user_data, movie):
-
- # adds watchlist movies to watched movies
-    updated_user_data = user_data.copy()
-    updated_user_data["watched"].append(movie)
-
-    return updated_user_data
+    user_data_copy = user_data.copy()
+    user_data_copy['watched'].append(movie)
+    
+    return user_data_copy
 
 def add_to_watchlist(user_data, movie):
-
- # adds movie to users watchlist
-    updated_user_data = user_data.copy()
-    updated_user_data["watchlist"].append(movie)
-
-    return updated_user_data
+    user_data_copy = user_data.copy()
+    user_data_copy['watchlist'].append(movie)
+    
+    return user_data_copy
 
 def watch_movie(user_data, title):
- # creates empty movie title list 
-    title_list = []
-
- # adds movie dictionaries to movie title list if in user watchlist
-    for dicts in user_data["watchlist"]:
-        title_list.append(dicts["title"])
-
- # adds movie dictionaries to movie title list if in user watched
-    for dicts in user_data["watched"]:
-        title_list.append(dicts["title"])
-
- # updates users watched and watchlist        
-    if title in title_list:
-        updated_user_data = user_data.copy()
-        updated_user_data["watched"].append(updated_user_data["watchlist"].copy())
-        updated_user_data["watchlist"].pop()
-        
-        return updated_user_data
+    user_data_copy = user_data.copy()
     
-    else:
+    title_list = [dicts["title"] for dicts in user_data["watchlist"]]
+    title_list.extend(dicts["title"] for dicts in user_data["watched"])
+    
+    if title not in title_list:
         return user_data
+    user_data_copy["watched"].append(user_data_copy["watchlist"].copy())
+    user_data_copy["watchlist"].pop()
 
-
+    return user_data_copy
 # -----------------------------------------
 # ------------- WAVE 2 --------------------
 # -----------------------------------------
@@ -99,25 +93,22 @@ def get_unique_watched(user_data):
     
     # gets users watched list
     user_watch_list = user_data["watched"]
-    
+
     # gets friends list
     friends_list = user_data["friends"]
-    
+
     # gets friends watched list
-    friends_watch_list = []
-    for dicts in friends_list:
-        friends_watch_list.append(dicts["watched"])
-        
+    friends_watch_list = [dicts["watched"] for dicts in friends_list]
     friends_watch_list = [val for sublist in friends_watch_list for val in sublist]
 
     # removes repeat movie dictionaries from friends watched list
     unique_friend_watch = list({val["title"]:val for val in friends_watch_list}.values())
-    
+
     # removes movies that friends have watched from users watch list
     for val in unique_friend_watch:
         if val in user_watch_list:
             user_watch_list.remove(val)
-            
+
     return user_watch_list
 
 def get_friends_unique_watched(user_data):
