@@ -102,112 +102,29 @@ def get_available_recs(user_data):
         recommendations.extend(movie for movie in friends_list if movie['host'] == subs)
         
     return recommendations
-# def get_available_recs(user_data):
-#   # variables
-#     user_watched_list = user_data["watched"]
-#     user_subs_list = user_data["subscriptions"]
-#     user_friends_list = user_data["friends"]
-
-#   # gets multiple friends watch lists
-#     friends_list = []
-#     for dicts in user_friends_list:
-#         friends_list.append(dicts["watched"])
-
-#   # compiles friends watch list into one list
-#     friends_rec_list = []
-#     for sublist in friends_list:
-#         for val in sublist:
-#             friends_rec_list.append(val)
-
-#   # removes movies that user has already watched from friends recommendations list
-#     for dicts in user_watched_list:
-#         if dicts in friends_rec_list:
-#             friends_rec_list.remove(dicts)
-
-#   # retrieves recommendations if user has subscription to site
-#     recommendations = []
-#     for subs in user_subs_list:
-#         for dicts in friends_rec_list:
-#             if dicts['host'] == subs:
-#                 recommendations.append(dicts)
-#                 break
-
-#     return recommendations
-
-# # -----------------------------------------
+#  ----------------------------------------
 # ------------- WAVE 5 --------------------
 # -----------------------------------------
-
 def get_new_rec_by_genre(user_data):
-
-  #user data
-    user_watched_list = user_data['watched']
-
-    if not user_watched_list:
+    watched_list = get_watched_list(user_data)
+    friends_list = get_friends_watched_list(user_data)
+    
+    if not watched_list:
         genre_list = []
         most_watched_genre = None
     else:
-        genre_list = [d['genre'] for d in user_watched_list]
-        most_watched_genre = max(set(genre_list), key=genre_list.count)
- 
-  #friend data
-
-    user_friends_list = user_data["friends"]
-    friends_list = []
-    for dicts in user_friends_list:
-        friends_list.append(dicts["watched"])
-
-    friends_list = []
-    for dicts in user_friends_list:
-        friends_list.append(dicts["watched"])
-
-  # compiles friends watch list into one list
-    friends_rec_list = []
-    for sublist in friends_list:
-        for val in sublist:
-            friends_rec_list.append(val)
-
-  # creates recommendation list by most watched genre
-    rec_by_genre = []
-    for dict in friends_rec_list:
-        if dict['genre'] == most_watched_genre:
-            rec_by_genre.append(dict)
-
-  # removes repeated recommendations
-    recommendations = []
-    for dicts in rec_by_genre:
-        if dicts not in recommendations:
-            recommendations.append(dicts)
-   
-  # removes recommendations if user has already watched movie
-    for dicts in user_watched_list:
-        if dicts in recommendations:
-            recommendations.remove(dicts)
+        genre_list = [movie['genre'] for movie in watched_list]
+        most_watched_genre = max(genre_list, key=genre_list.count)
         
+    recommendations = []
+    for movie in friends_list:
+        if movie['genre'] == most_watched_genre and movie not in recommendations and movie not in watched_list:
+            recommendations.append(movie)
+            
     return recommendations
 
 def get_rec_from_favorites(user_data):
-    
-    # user favorites list
     user_favorites = user_data['favorites']
+    friends_list = get_friends_watched_list(user_data)
 
-    # user friends list
-    user_friends_list = user_data['friends']
-
-    # friends watchlist
-    friends_list = []
-    for dicts in user_friends_list:
-        friends_list.append(dicts['watched'])
-
-    friends_watch_list = []
-    for sublist in friends_list:
-        for val in sublist:
-            friends_watch_list.append(val)
-
-    # creates user recommendations for friends if friend has not seen movie
-    user_recommendations = []
-    for dicts in user_favorites:
-        if dicts not in friends_watch_list:
-            user_recommendations.append(dicts)
-            
-    return user_recommendations
+    return [movie for movie in user_favorites if movie not in friends_list]
