@@ -110,7 +110,7 @@ def get_friends_unique_watched(user_data):
         t = tuple(friends_movie.items())
         if t not in seen_movies:
             seen_movies.add(t)
-            clean_list(friends_movie)
+            clean_list.append(friends_movie)
     
     user_not_watched = []
     for friends_movies in clean_list:
