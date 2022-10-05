@@ -19,13 +19,7 @@ def create_movie(title, genre, rating):
     if not title or not genre or not rating:
         return None
 
-    new_movie = {
-        'title': title,
-        'genre': genre,
-        'rating': rating
-    }
-    
-    return new_movie
+    return {'title': title, 'genre': genre, 'rating': rating}
 
 def add_to_watched(user_data, movie):
     user_data_copy = user_data.copy()
@@ -55,36 +49,52 @@ def watch_movie(user_data, title):
 # ------------- WAVE 2 --------------------
 # -----------------------------------------
 def get_watched_avg_rating(user_data):
- # creates users watched list   
-    watched_list = list(user_data.values())
+    watched_list = get_watched_list(user_data)
 
- # returns users average rating  
     try:
-        ratings_list = [sub['rating'] for sub in watched_list[0]]
-        ratings_sum = math.fsum(ratings_list)
-        avg_rating = ratings_sum/len(ratings_list)
-        
-        return avg_rating
-  
-  # if no rating returns average rating as 0  
-    except ZeroDivisionError:
-        avg_rating = 0
-        
-        return avg_rating
-        
-def get_most_watched_genre(user_data):
- # creates user watch list
-    watched_list = list(user_data.values())
- # creates list of generes users has watched
-    genre_list = [sub['genre'] for sub in watched_list[0]]
+        ratings_list = [movie['rating'] for movie in watched_list]
+        return sum(ratings_list)/len(ratings_list)
 
- # returns users most frequent genre watched
-    if not genre_list:
-        return None
-    else:
-        most_frequent_genre = max(set(genre_list), key = genre_list.count)
+    except ZeroDivisionError:
+        return 0
+
+def get_most_watched_genre(user_data):
+    watched_list = get_watched_list(user_data)
+    genre_list = [movie['genre'] for movie in watched_list]
+
+    return max(genre_list, key = genre_list.count) if genre_list else None
+
+# def get_watched_avg_rating(user_data):
+#  # creates users watched list   
+#     watched_list = list(user_data.values())
+
+#  # returns users average rating  
+#     try:
+#         ratings_list = [sub['rating'] for sub in watched_list[0]]
+#         ratings_sum = math.fsum(ratings_list)
+#         avg_rating = ratings_sum/len(ratings_list)
         
-        return most_frequent_genre
+#         return avg_rating
+  
+#   # if no rating returns average rating as 0  
+#     except ZeroDivisionError:
+#         avg_rating = 0
+        
+#         return avg_rating
+        
+# def get_most_watched_genre(user_data):
+#  # creates user watch list
+#     watched_list = list(user_data.values())
+#  # creates list of generes users has watched
+#     genre_list = [sub['genre'] for sub in watched_list[0]]
+
+#  # returns users most frequent genre watched
+#     if not genre_list:
+#         return None
+#     else:
+#         most_frequent_genre = max(set(genre_list), key = genre_list.count)
+        
+#         return most_frequent_genre
 
 # -----------------------------------------
 # ------------- WAVE 3 --------------------
