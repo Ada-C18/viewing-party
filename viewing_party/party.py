@@ -63,124 +63,78 @@ def get_most_watched_genre(user_data):
     genre_list = [movie['genre'] for movie in watched_list]
 
     return max(genre_list, key = genre_list.count) if genre_list else None
-
-# def get_watched_avg_rating(user_data):
-#  # creates users watched list   
-#     watched_list = list(user_data.values())
-
-#  # returns users average rating  
-#     try:
-#         ratings_list = [sub['rating'] for sub in watched_list[0]]
-#         ratings_sum = math.fsum(ratings_list)
-#         avg_rating = ratings_sum/len(ratings_list)
-        
-#         return avg_rating
-  
-#   # if no rating returns average rating as 0  
-#     except ZeroDivisionError:
-#         avg_rating = 0
-        
-#         return avg_rating
-        
-# def get_most_watched_genre(user_data):
-#  # creates user watch list
-#     watched_list = list(user_data.values())
-#  # creates list of generes users has watched
-#     genre_list = [sub['genre'] for sub in watched_list[0]]
-
-#  # returns users most frequent genre watched
-#     if not genre_list:
-#         return None
-#     else:
-#         most_frequent_genre = max(set(genre_list), key = genre_list.count)
-        
-#         return most_frequent_genre
-
 # -----------------------------------------
 # ------------- WAVE 3 --------------------
 # -----------------------------------------
 def get_unique_watched(user_data):
+    watched_list = get_watched_list(user_data)
+    friends_list = get_friends_watched_list(user_data)
     
-    # gets users watched list
-    user_watch_list = user_data["watched"]
-
-    # gets friends list
-    friends_list = user_data["friends"]
-
-    # gets friends watched list
-    friends_watch_list = [dicts["watched"] for dicts in friends_list]
-    friends_watch_list = [val for sublist in friends_watch_list for val in sublist]
-
-    # removes repeat movie dictionaries from friends watched list
-    unique_friend_watch = list({val["title"]:val for val in friends_watch_list}.values())
-
-    # removes movies that friends have watched from users watch list
-    for val in unique_friend_watch:
-        if val in user_watch_list:
-            user_watch_list.remove(val)
-
-    return user_watch_list
+    for movie in friends_list:
+        if movie in watched_list:
+            watched_list.remove(movie)
+            
+    return watched_list
 
 def get_friends_unique_watched(user_data):
-
-# gets users watched list
-    user_watch_list = user_data["watched"]
+    watched_list = get_watched_list(user_data)
+    friends_list = get_friends_watched_list(user_data)
     
-# gets users friends list
-    friends_list = user_data["friends"]
-    
-# gets friends watch list
-    friends_watch_list = []
-    for dicts in friends_list:
-        friends_watch_list.append(dicts["watched"])
-        
-    friends_watch_list = [val for sublist in friends_watch_list for val in sublist]
-    
-# removes repeat movie dictionaries from friends watched list
-    unique_friend_watch = list({val["title"]: val for val in friends_watch_list}.values())
-    
-# removes movies from friends watched list if user has already watched
-    for val in user_watch_list:
-        if val in unique_friend_watch:
-            unique_friend_watch.remove(val)
+    for movie in watched_list:
+        if movie in friends_list:
+            friends_list.remove(movie)
             
-    return unique_friend_watch
+    return friends_list
 # -----------------------------------------
 # ------------- WAVE 4 --------------------
 # -----------------------------------------
 def get_available_recs(user_data):
-  # variables
-    user_watched_list = user_data["watched"]
-    user_subs_list = user_data["subscriptions"]
-    user_friends_list = user_data["friends"]
+    watched_list = get_watched_list(user_data)
+    subscriptions = user_data['subscriptions']
+    friends_list = get_friends_watched_list(user_data)
 
-  # gets multiple friends watch lists
-    friends_list = []
-    for dicts in user_friends_list:
-        friends_list.append(dicts["watched"])
+    for movie in watched_list:
+        if movie in friends_list:
+            friends_list.remove(movie)
 
-  # compiles friends watch list into one list
-    friends_rec_list = []
-    for sublist in friends_list:
-        for val in sublist:
-            friends_rec_list.append(val)
-
-  # removes movies that user has already watched from friends recommendations list
-    for dicts in user_watched_list:
-        if dicts in friends_rec_list:
-            friends_rec_list.remove(dicts)
-
-  # retrieves recommendations if user has subscription to site
     recommendations = []
-    for subs in user_subs_list:
-        for dicts in friends_rec_list:
-            if dicts['host'] == subs:
-                recommendations.append(dicts)
-                break
-
+    for subs in subscriptions:
+        recommendations.extend(movie for movie in friends_list if movie['host'] == subs)
+        
     return recommendations
+# def get_available_recs(user_data):
+#   # variables
+#     user_watched_list = user_data["watched"]
+#     user_subs_list = user_data["subscriptions"]
+#     user_friends_list = user_data["friends"]
 
-# -----------------------------------------
+#   # gets multiple friends watch lists
+#     friends_list = []
+#     for dicts in user_friends_list:
+#         friends_list.append(dicts["watched"])
+
+#   # compiles friends watch list into one list
+#     friends_rec_list = []
+#     for sublist in friends_list:
+#         for val in sublist:
+#             friends_rec_list.append(val)
+
+#   # removes movies that user has already watched from friends recommendations list
+#     for dicts in user_watched_list:
+#         if dicts in friends_rec_list:
+#             friends_rec_list.remove(dicts)
+
+#   # retrieves recommendations if user has subscription to site
+#     recommendations = []
+#     for subs in user_subs_list:
+#         for dicts in friends_rec_list:
+#             if dicts['host'] == subs:
+#                 recommendations.append(dicts)
+#                 break
+
+#     return recommendations
+
+# # -----------------------------------------
 # ------------- WAVE 5 --------------------
 # -----------------------------------------
 
