@@ -2,7 +2,6 @@ import pytest
 from viewing_party.party import *
 from tests.test_constants import *
 
-
 def test_calculates_watched_average_rating():
     # Arrange
     janes_data = clean_wave_2_data()
@@ -38,7 +37,6 @@ def test_most_watched_genre():
     assert popular_genre == "Fantasy"
     assert janes_data == clean_wave_2_data()
     
-@pytest.mark.skip()
 def test_genre_is_None_if_empty_watched():
     # Arrange
     janes_data = {
