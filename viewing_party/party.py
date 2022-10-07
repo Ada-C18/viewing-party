@@ -123,6 +123,7 @@ def get_unique_watched(user_data):
         if movie not in user_data["friends"]:
             unique_movies_list.append(movie)
     return unique_movies_list
+    # go deeper
     
 def get_friends_unique_watched(user_data):
     # movies_list = [movies for movies in user_data["watched"]]
