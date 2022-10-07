@@ -7,31 +7,31 @@ from tests.test_constants import MOVIE_TITLE_1
 def create_movie(title, genre, rating):
     """
     Returns dictionary with three key-value pairs: "title", "genre"
-    and "rating" as keys and parameters as values accordingly or None if parameters are falsy.
+    and "rating" as keys and parameters as values accordingly 
+    or None if parameters are falsy.
     """
-    new_movie = {}
+    
     if not title or not genre or not rating:
         return None
-    else:
-        new_movie["title"] = title
-        new_movie["genre"] = genre
-        new_movie["rating"] = rating
+    new_movie = {"title": title, "genre": genre, "rating": rating}  
     return new_movie
 
 def add_to_watched(user_data, movie):
     """
-    Takes dictionary user_data with key "watched" and adds dictionary movie inside of it.
+    Takes dictionary user_data with key "watched" 
+    and adds dictionary movie to the watched list.
     Returns the user_data.
     """
-    user_data  = {"watched": [movie]}
+    user_data["watched"].append(movie)
     return user_data
 
 def add_to_watchlist(user_data, movie):
     """
-    Takes dictionary user_data with key "watchlist" and adds dictionary movie inside of it.
+    Takes dictionary user_data with key "watchlist"
+    and adds dictionary movie to the watchlist.
     Returns the user_data.
     """
-    user_data  = {"watchlist": [movie]}
+    user_data["watchlist"].append(movie)
     return user_data
 
 def watch_movie(user_data, title):
@@ -56,52 +56,40 @@ def get_watched_avg_rating(user_data):
     """
     Takes dictionary user_data with key "watched" and calculates
     the average rating of all movies in the watched list.
-    Returns the average rating or 0.0 if empty watched list.
+    Returns the average rating ors 0.0 if empty watched list.
     """
     watched_list = user_data["watched"]
-    
-    # initialize variables average_rating, rating_sum and movies_count
     average_rating = 0.0
     rating_sum = 0
-    movies_count = 0
     
-    # if movie not in watched list, return average_rating = 0.0
-    # otherwise calculate sum, count of rating and average rating
     if not watched_list:
         return average_rating
-    else:
-        for movie in watched_list:
+    
+    for movie in user_data["watched"]:
             rating_sum += movie["rating"]
-            movies_count += 1
-    average_rating = rating_sum / movies_count
-        
-    return average_rating
+    average_rating = rating_sum / len(watched_list)
+    return average_rating    
+    
 
 def get_most_watched_genre(user_data):
     """
     Takes dictionary user_data with key "watched" and determines which genre
     is most frequently watched.
-    Returns the genre that is the most frequently watched or None if "watched" is an empty list.
+    Returns the genre that is the most frequently watched or None if "watched" 
+    is an empty list.
     """
     watched_list = user_data["watched"]
     if not watched_list:
         return None
-    else:
-        # initialize dictionary and loop though the movies in the watched list 
-        watched_genre_dict = {}
-        for movie in watched_list:
-            genre_name = movie["genre"]
-            
-            # add each new genre name as key and assign value 1
-            # if key with genre name is already exist, increment by 1
-            if genre_name not in watched_genre_dict:
-                watched_genre_dict[genre_name] = 1
-            else:
-                watched_genre_dict[genre_name] += 1
-    # use get method and max function to return dictionary key with max value
+
+    watched_genre_dict = {}
+    for movie in watched_list:
+        genre_name = movie["genre"]
+        watched_genre_dict[genre_name] = watched_genre_dict.setdefault(genre_name, 0) + 1
+   
     most_watched_genre = max(watched_genre_dict, key = watched_genre_dict.get)
-    
     return most_watched_genre
+
 
 # -----------------------------------------
 # ------------- WAVE 3 --------------------
@@ -163,13 +151,9 @@ def get_available_recs(user_data):
     """
     recommended_movies = []
     user_has_not_watched_movies = get_friends_unique_watched(user_data)
-       
-    # loop though list of the movies which user has not watched;
-    # add a movie to the recommended if the user has the subcription to the host of the movie
     for movie in user_has_not_watched_movies:
-        for subcribton in user_data["subscriptions"]:
-            if movie["host"] == subcribton:
-                recommended_movies.append(movie)
+        if movie["host"] in user_data["subscriptions"]:
+            recommended_movies.append(movie)
     return recommended_movies
 
 # -----------------------------------------
