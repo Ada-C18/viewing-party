@@ -102,14 +102,14 @@ def get_unique_watched(user_data):
     '''
     # friends data is a list of dictionaries with 
     # duplicate_watched = [title for movie in user_data["watched"] for title in movie]
-    unique_watched = []
+    user_unique_watched = []
     common_watched = get_common_watched(user_data)
 
     for movie in user_data["watched"]:
-        if movie not in common_watched and movie not in unique_watched:
-            unique_watched.append(movie)
+        if movie not in common_watched and movie not in user_unique_watched:
+            user_unique_watched.append(movie)
 
-    return unique_watched
+    return user_unique_watched
 
 def get_friends_unique_watched(user_data):
     '''
@@ -118,13 +118,13 @@ def get_friends_unique_watched(user_data):
     '''
     friends_data = user_data["friends"]
     common_watched = get_common_watched(user_data)
-    unique_watched = []
+    friends_unique_watched = []
     
     for friend in friends_data:
         for movie in friend["watched"]:
-            if movie not in common_watched and movie not in unique_watched:
-                unique_watched.append(movie)
-    return unique_watched
+            if movie not in common_watched and movie not in friends_unique_watched:
+                friends_unique_watched.append(movie)
+    return friends_unique_watched
 
 # -----------------------------------------
 # ------------- WAVE 4 --------------------
