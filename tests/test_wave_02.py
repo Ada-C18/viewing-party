@@ -56,3 +56,39 @@ def test_genre_is_None_if_empty_watched():
 
     # Assert
     assert popular_genre == None
+
+# @pytest.mark.skip()
+def test_Jaime_most_watched_genre():
+    # Arrange
+    janes_data = {   'watched': [   {   'genre': 'Horror',
+                       'rating': 4.8,
+                       'title': 'The Lord of the Functions: The Fellowship of '
+                                'the Function'},
+                   {   'genre': 'Drama',
+                       'rating': 4.0,
+                       'title': 'The Lord of the Functions: The Two '
+                                'Parameters'},
+                   {   'genre': 'Action',
+                       'rating': 4.0,
+                       'title': 'The Lord of the Functions: The Return of the '
+                                'Value'},
+                   {   'genre': 'Action',
+                       'rating': 4.0,
+                       'title': 'The Lord of the Functions: The Two Titles'
+                                'Value'},
+                   {   'genre': 'Action',
+                       'rating': 2.2,
+                       'title': 'The JavaScript and the React'},
+                   {'genre': 'Intrigue', 'rating': 2.0, 'title': 'Recursion'},
+                   {   'genre': 'Intrigue',
+                       'rating': 4.5,
+                       'title': 'Instructor Student TA Manager'},
+                   {   'genre': 'Action',
+                       'rating': 4.0,
+                       'title': "The Programmer's Daughter"}]}
+
+    # Act
+    popular_genre = get_most_watched_genre(janes_data)
+
+    # Assert
+    assert popular_genre == 'Action'

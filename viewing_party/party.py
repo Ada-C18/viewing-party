@@ -1,36 +1,29 @@
 # -----------------------------------------
 # ------------- WAVE 1 --------------------
 # -----------------------------------------
-from csv import list_dialects
-
-
 TITLE_KEY = "title"
 GENRE_KEY = "genre"
 RATING_KEY = "rating"
 
 
 def create_movie(title, genre, rating):
+    if not title or not genre or not rating:
+        return None
+
     new_movie = {
         TITLE_KEY: title,
         GENRE_KEY: genre,
         RATING_KEY: rating}
-
-    if not new_movie[TITLE_KEY]:
-        return None
-    if not new_movie[GENRE_KEY]:
-        return None
-    if not new_movie[RATING_KEY]:
-        return None
     return new_movie
 
 
 def add_to_watched(user_data, movie):
-    user_data = {"watched": [movie]}
+    user_data['watched'].append(movie)
     return user_data
 
 
 def add_to_watchlist(user_data, movie):
-    user_data = {"watchlist": [movie]}
+    user_data['watchlist'].append(movie)
     return user_data
 
 
@@ -67,18 +60,17 @@ def get_most_watched_genre(user_data):
     most_watched_str = None
     most_watched_int = 0
     if user_data:
-        for i in user_data["watched"]:
-            genre_list.append(i['genre'])
-        for i in genre_list:
-            if i not in genre_tally_dict:
-                genre_tally_dict[i] = 1
-                most_watched_int = 1
+        for movie in user_data["watched"]:
+            genre_list.append(movie['genre'])
+        for genre in genre_list:
+            if genre not in genre_tally_dict:
+                genre_tally_dict[genre] = 1
             else:
-                genre_tally_dict[i] += 1
-                most_watched_int += 1
-            for i in genre_tally_dict:
-                if genre_tally_dict[i] > most_watched_int:
-                    most_watched_str = i
+                genre_tally_dict[genre] += 1
+            for genre in genre_tally_dict:
+                if genre_tally_dict[genre] > most_watched_int:
+                    most_watched_int = genre_tally_dict[genre]
+                    most_watched_str = genre
         return most_watched_str
     return None
 
@@ -123,13 +115,11 @@ def get_friends_unique_watched(user_data):
 def get_available_recs(user_data):
 
     subscriptions_list = user_data['subscriptions']
-    user_unique_watched_list = get_unique_watched(user_data)
-    friends_unique_movie_list = get_friends_unique_watched(
-        user_data)  # helper func
+    friends_unique_movie_list = get_friends_unique_watched(user_data)
     list_of_recommended_movies = []
 
     for movie in friends_unique_movie_list:
-        if movie not in user_unique_watched_list and movie['host'] in subscriptions_list:
+        if movie['host'] in subscriptions_list:
             list_of_recommended_movies.append(movie)
 
     return list_of_recommended_movies
@@ -144,6 +134,7 @@ def get_new_rec_by_genre(user_data):
     friends_unique_watched_list = get_friends_unique_watched(user_data)
     users_favorite_genres = get_most_watched_genre(user_data)
     list_of_recommended_genre_movies = []
+
     if users_favorite_genres and friends_unique_watched_list:
         for movie in friends_unique_watched_list:
             if movie['genre'] in users_favorite_genres and movie in friends_unique_watched_list:
