@@ -9,10 +9,8 @@ def create_movie(title, genre, rating):
         new_movie["title"] = title
         new_movie["genre"] = genre
         new_movie["rating"] = rating
-    else:
-        return None
 
-    return new_movie
+        return new_movie
 
 
 def add_to_watched(user_data, movie):
@@ -29,10 +27,10 @@ def add_to_watchlist(user_data, movie):
 
 def watch_movie(user_data, title):
     '''Move movie from watchlist to watched in user_data'''
-    for i in range(len(user_data["watchlist"])):
-        if user_data["watchlist"][i]['title'] == title:
-            user_data['watched'].append(user_data['watchlist'][i])
-            user_data["watchlist"].remove(user_data["watchlist"][i])
+    for movie in user_data["watchlist"]:
+        if movie["title"] == title:
+            user_data['watched'].append(movie)
+            user_data["watchlist"].remove(movie)
 
     return user_data
 
@@ -60,19 +58,32 @@ def get_most_watched_genre(user_data):
     '''Returning the genre watched the most times in user_data'''
     genres = []
     genre_count = {}
-    
-    for i in range(len(user_data["watched"])):
-        genres.append(user_data['watched'][i]['genre'])
+
+    for movie in user_data["watched"]:
+        genres.append(movie["genre"])
 
     # create dict of genres and how many times they appear in genres list
-    for item in genres:
-        genre_count[item] = 0   # add item to genre_count dict with value of 0 to start
-        genre_count[item] += 1  # add 1 to genre count item for each time it appears in genre list
+    for genre in genres:
+        if genre not in genre_count:
+            genre_count[genre] = 1    
+        else:
+            genre_count[genre] += 1 
 
-    # get max of genre count in dict
+    # get max value of genre count
     if len(genre_count) > 0:
-        max_genre = max(genre_count, key=genre_count.get)       
-        return max_genre
+        max_genre = max(genre_count.values())     
+
+    # dealing with ties of genre counts
+    max_genres = []
+    for genre in genre_count:
+        if genre_count[genre] == max_genre:
+            max_genres.append(genre)
+    
+    # returning single genre or list of genres depending on tie
+    if len(max_genres) == 1:
+        return max_genres[0]
+    elif len(max_genres) > 1:
+        return max_genres
     else:
         return None
 
