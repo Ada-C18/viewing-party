@@ -1,4 +1,4 @@
-# Viewing Party
+# Viewing Party Jaime Mitchell
 
 ## Skills Assessed
 
@@ -28,11 +28,11 @@ Follow these directions once, a the beginning of your project:
 $ cd ~/Developer/projects
 ```
 
-2. In Github click on the "Fork" button in github and fork the repository to your Github account.  This will make a copy of the project in your github account. 
+2. In Github click on the "Fork" button in github and fork the repository to your Github account. This will make a copy of the project in your github account.
 
 ![Fork Button](images/fork.png)
 
-3. "Clone" (download a copy of this project) into your projects folder. This command makes a new folder called `viewing-party`, and then puts the project into this new folder.  Make sure you are cloning from your copy of the project and not the class version (ada-cX).
+3. "Clone" (download a copy of this project) into your projects folder. This command makes a new folder called `viewing-party`, and then puts the project into this new folder. Make sure you are cloning from your copy of the project and not the class version (ada-cX).
 
 ```bash
 $ git clone ...
@@ -92,22 +92,23 @@ $ source venv/bin/activate
 2. Check the `tests` folder, and find the test file you want to run
 
    - In that test file, read through each test case
-      - If it is incomplete, complete the test. 
-        - *Is this a nominal or edge case?*
-        - *What type of input do we need to test this case?*
-        - *What is the expected output for the given input?*
+     - If it is incomplete, complete the test.
+       - _Is this a nominal or edge case?_
+       - _What type of input do we need to test this case?_
+       - _What is the expected output for the given input?_
    - Remove the lines that contain `@pytest.mark.skip()` for the test(s) you want to run.
 
 3. Run the test(s)!
-    - *See the [Details About How to Run Tests](#details-about-how-to-run-tests) section below for more information on how to run test(s).*
+   - _See the [Details About How to Run Tests](#details-about-how-to-run-tests) section below for more information on how to run test(s)._
 
 ```bash
 # Must be in activated virtual environment in the project-root directory
 $ pytest
 ```
 
-4. Read through the test failure, and understand why the failure is happening. Confirm your findings with a classmate. 
-    - If it is a test you wrote, consider whether you are actually testing what you intend to test. Does the test need modification?
+4. Read through the test failure, and understand why the failure is happening. Confirm your findings with a classmate.
+
+   - If it is a test you wrote, consider whether you are actually testing what you intend to test. Does the test need modification?
 
 5. Make a plan to implement code to pass the test.
 
@@ -122,8 +123,9 @@ $ pytest
 10. Consider looking for opportunities to improve your code.
 
 11. Before moving to the next wave, make sure you haven't missed any skipped tests.
-      - *Search the file (**Cmd** **F**) for `@pytest.mark.skip`*
-      - *To search all files in the project, use **Cmd** **Shift** **F***
+
+    - _Search the file (**Cmd** **F**) for `@pytest.mark.skip`_
+    - \*To search all files in the project, use **Cmd** **Shift** **F\***
 
 12. Begin using the test file of the next wave!
 
@@ -134,8 +136,6 @@ $ deactivate
 ```
 
 Finally, at submission time, **no matter where you are**, submit the project via Learn.
-
-
 
 This will let us give feedback on what you've finished so that you can be better prepared for the next project.
 
@@ -186,13 +186,13 @@ To run this file, use:
 python3 play_tester.py
 ```
 
-There is some starter code provided in `play_tester.py`. This code prints the test data that is used for many of the tests. Looking closely at this data can help us think critically about the expected output for given input for each function. Then, calling each function with this data allows us to observe the **actual** output for given input. 
+There is some starter code provided in `play_tester.py`. This code prints the test data that is used for many of the tests. Looking closely at this data can help us think critically about the expected output for given input for each function. Then, calling each function with this data allows us to observe the **actual** output for given input.
 
 ## Test Data
 
-We will note that much of the test data for this project is provided by the file `test_constants.py`. As test data gets more and more complex, it is helpful to organize this data in its own file to enhance consistency and readability. Pytest, like many testing libraries, provide a special too for test data called **fixtures**. We will learn about fixtures later in the curriculum. 
+We will note that much of the test data for this project is provided by the file `test_constants.py`. As test data gets more and more complex, it is helpful to organize this data in its own file to enhance consistency and readability. Pytest, like many testing libraries, provide a special too for test data called **fixtures**. We will learn about fixtures later in the curriculum.
 
-For the time being, we need to make sure that the data provided to each test is clean and free of any changes that running another test may have introduced. Recall the *Modifying Mutable Objects* section of the *Variables Are References lesson.* To ensure that the data for each test is storied in a unique place in memory, there are functions implemented in `test_constants.py` that provide clean test data (i.e. `clean_wave_3_data`) by using `copy.deepcopy`. 
+For the time being, we need to make sure that the data provided to each test is clean and free of any changes that running another test may have introduced. Recall the _Modifying Mutable Objects_ section of the _Variables Are References lesson._ To ensure that the data for each test is storied in a unique place in memory, there are functions implemented in `test_constants.py` that provide clean test data (i.e. `clean_wave_3_data`) by using `copy.deepcopy`.
 
 ## Project Directions
 
@@ -202,7 +202,7 @@ When our test failures leave us confused and stuck, let's use the detailed proje
 
 ### Wave 1
 
-1. Create a function named  `create_movie`. This function and all subsequent functions should be in `party.py`. `create_movie` should...
+1. Create a function named `create_movie`. This function and all subsequent functions should be in `party.py`. `create_movie` should...
 
 - take three parameters: `title`, `genre`, `rating`
 - If those three attributes are truthy, then return a dictionary. This dictionary should...
@@ -320,7 +320,7 @@ Note: For Waves 2, 3, 4, and 5, your implementation of each of the functions sho
 
 ### Wave 5
 
-1. Create a function named  `get_new_rec_by_genre`. This function should...
+1. Create a function named `get_new_rec_by_genre`. This function should...
 
 - take one parameter: `user_data`
 - Consider the user's most frequently watched genre. Then, determine a list of recommended movies. A movie should be added to this list if and only if:
@@ -329,7 +329,7 @@ Note: For Waves 2, 3, 4, and 5, your implementation of each of the functions sho
   - The `"genre"` of the movie is the same as the user's most frequent genre
 - Return the list of recommended movies
 
-2. Create a function named  `get_rec_from_favorites`. This function should...
+2. Create a function named `get_rec_from_favorites`. This function should...
 
 - take one parameter: `user_data`
   - `user_data` will have a field `"favorites"`. The value of `"favorites"` is a list of movie dictionaries
