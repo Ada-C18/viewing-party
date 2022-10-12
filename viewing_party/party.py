@@ -67,10 +67,9 @@ def get_most_watched_genre(user_data):
                 genre_tally_dict[genre] = 1
             else:
                 genre_tally_dict[genre] += 1
-            for genre in genre_tally_dict:
-                if genre_tally_dict[genre] > most_watched_int:
-                    most_watched_int = genre_tally_dict[genre]
-                    most_watched_str = genre
+            if genre_tally_dict[genre] > most_watched_int:
+                most_watched_int = genre_tally_dict[genre]
+                most_watched_str = genre
         return most_watched_str
     return None
 
