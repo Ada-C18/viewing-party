@@ -90,37 +90,39 @@ def get_most_watched_genre(user_data):
 # -----------------------------------------
 # ------------- WAVE 3 --------------------
 # -----------------------------------------
+# helper function
+def get_combined_friend_movie_list(user_data):
+    friend_movies = []
+    for friend in user_data["friends"]:
+        for movie in friend["watched"]:
+            if movie not in friend_movies:
+                friend_movies.append(movie)
+    return friend_movies
 
-from copy import copy
+
+
 def get_unique_watched(user_data):
     '''Returning list of unique movies watched by user'''
     # make copy of user_data watched to use as list to remove movies also watched by friends
-    unique_movies = copy(user_data["watched"])
+    unique_movies = user_data["watched"].copy()
+    friend_movies = get_combined_friend_movie_list(user_data)
 
     for my_movie in user_data["watched"]: #access list in user watched
-        for friend in user_data["friends"]: #access friend lists in user friends
-            for friend_movie in friend["watched"]: #access movie list in each friend watched
-                if my_movie["title"] == friend_movie["title"] and my_movie in unique_movies:
-                    unique_movies.remove(my_movie)
+        if my_movie in friend_movies:
+            unique_movies.remove(my_movie)
 
     return unique_movies
     
  
 def get_friends_unique_watched(user_data):
     '''Returning list of unique movies watched by friends and not user'''
-    friend_movies = []
-
-    #create combined friend movie list
-    for friend in user_data["friends"]:
-        for movie in friend["watched"]:
-            if movie not in friend_movies:
-                friend_movies.append(movie)
+    
+    friend_movies = get_combined_friend_movie_list(user_data)
     
     #compare user movies to friend movies    
     for my_movie in user_data["watched"]:
-        for movie in friend_movies:
-            if movie["title"] == my_movie["title"]:
-                friend_movies.remove(movie)
+        if my_movie in friend_movies:
+            friend_movies.remove(my_movie)
 
     return friend_movies
         
@@ -165,19 +167,23 @@ def get_new_rec_by_genre(user_data):
 def get_rec_from_favorites(user_data):
     '''Creating user recommended movie list for friends. User movies are favorites and have
     not been watched by friends'''
-    recommended_movies =[]
+    recommend_to_friends =[]
     friend_watched_movies = []
     
-    # Get list of movies watched by all friends
+    # Get list of all movies watched by all friends
     for friend in user_data["friends"]:
         for movie in friend["watched"]:
             friend_watched_movies.append(movie)
 
+    # Get unique movies watched by user
+    user_unique_watched_movies = get_unique_watched(user_data)
+
+    # add favorites from unique watched movies to recommend to friends list
     for movie in user_data["favorites"]:
-        if movie not in friend_watched_movies:
-            recommended_movies.append(movie)
+        if movie in user_unique_watched_movies:
+            recommend_to_friends.append(movie)
     
-    return recommended_movies
+    return recommend_to_friends
 
 
 
