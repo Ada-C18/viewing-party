@@ -13,13 +13,6 @@ def create_movie(title, genre, rating):
     else:
         return None
 
-# def add_to_watched(user_data, movie):
-#     watched_movies = []
-
-#     user_data.append(movie)
-
-#     return user_data
-
 def add_to_watched(user_data, movie):
     user_data["watched"].append(movie)
 
