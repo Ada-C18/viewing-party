@@ -1,6 +1,5 @@
 # ------------- WAVE 1 --------------------
 
-import math
 
 
 def create_movie(title, genre, rating):
