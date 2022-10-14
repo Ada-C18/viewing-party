@@ -4,14 +4,10 @@ import math
 
 
 def create_movie(title, genre, rating):
-    movie = {}
-    if title and genre and rating:
-        movie["title"] = title
-        movie["genre"] = genre
-        movie["rating"] = rating
-        return movie    
-    else:
-        return None    
+    if not title or not genre or not rating:
+        return None
+    movie = {"title": title, "genre": genre, "rating": rating}
+    return movie
 
 def add_to_watched(user_data, movie):
     if not "watched" in user_data:
@@ -26,11 +22,10 @@ def add_to_watchlist(user_data, movie):
     return user_data
     
 def watch_movie(user_data, title):
-    for ele in user_data["watchlist"]:
-        if title == ele["title"]:
-            user_data["watched"].append(ele)
-            user_data["watchlist"].remove(ele)
-            return user_data
+    for movie in user_data["watchlist"]:
+        if title == movie["title"]:
+            user_data["watched"].append(movie)
+            user_data["watchlist"].remove(movie)
     return user_data
 
 
@@ -39,31 +34,32 @@ def watch_movie(user_data, title):
 # -----------------------------------------
 
 def get_watched_avg_rating(user_data):
-    sum_rating = 0.0
     length = len(user_data["watched"])
+    if length < 1:
+        return 0.0
+    sum_rating = 0.0
     if "watched" in user_data and length > 0:
-        for ele in user_data["watched"]:
-            sum_rating += ele["rating"]
+        for movie in user_data["watched"]:
+            sum_rating += movie["rating"]
         avg_rating = sum_rating/length
-    else:
-        avg_rating = 0.0
     return avg_rating
 
 
 def get_most_watched_genre(user_data):
+    if len(user_data["watched"]) < 1:
+        return None
     counter = {}
     res = None
-    if "watched" in user_data:
-        for ele in user_data["watched"]:
-            if not ele["genre"] in counter:
-                counter[ele["genre"]] = 1
-            else:
-                counter[ele["genre"]] += 1
-        max_count = 0
-        for k, v in counter.items():
-            if v > max_count:
-                res = k
-                max_count = v
+    for movie in user_data["watched"]:
+        if not movie["genre"] in counter:
+            counter[movie["genre"]] = 1
+        else:
+            counter[movie["genre"]] += 1
+    max_count = 0
+    for k, v in counter.items():
+        if v > max_count:
+            res = k
+            max_count = v
     return res
 
 
@@ -101,10 +97,10 @@ def get_friends_unique_watched(user_data):
 
 def get_available_recs(user_data):
     recommended_movie = []
-    movie = get_friends_unique_watched(user_data)
-    for ele in movie:
-        if ele["host"] in user_data["subscriptions"]:
-            recommended_movie.append(ele)
+    friends_movies = get_friends_unique_watched(user_data)
+    for movie in friends_movies:
+        if movie["host"] in user_data["subscriptions"]:
+            recommended_movie.append(movie)
     return recommended_movie
 
 
@@ -114,21 +110,21 @@ def get_available_recs(user_data):
 # -----------------------------------------
 def get_new_rec_by_genre(user_data):
     recommended_movie2 = []
-    movie = get_friends_unique_watched(user_data)
-    most_freq_movie = get_most_watched_genre(user_data)
-    for ele in movie:
-        if ele["genre"] == most_freq_movie:
-            recommended_movie2.append(ele)
+    friends_movies = get_friends_unique_watched(user_data)
+    most_freq_movie_genre = get_most_watched_genre(user_data)
+    for movie in friends_movies:
+        if movie["genre"] == most_freq_movie_genre:
+            recommended_movie2.append(movie)
     return recommended_movie2
 
 def get_rec_from_favorites(user_data):
-    recommended_movie3 = []
+    movies_from_favorites_rec = []
     fav_movie = user_data["favorites"]
     friends_movie_set = set()
     for friend in user_data["friends"]:
         for movie in friend["watched"]:
             friends_movie_set.add(movie["title"])
-    for ele in fav_movie:
-        if not ele["title"] in friends_movie_set:
-            recommended_movie3.append(ele)
-    return recommended_movie3
+    for movie in fav_movie:
+        if not movie["title"] in friends_movie_set:
+            movies_from_favorites_rec.append(movie)
+    return movies_from_favorites_rec
