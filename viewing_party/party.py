@@ -32,18 +32,20 @@ def watch_movie(user_data, title):
 # -----------------------------------------
 
 # my own work
-def get_watched_ave_rating(user_data):
+def get_watched_avg_rating(user_data):
     count = 0
     average_rating = 0
 
-    for i in user_data["watched"]:
-        count += (user_data[i]["rating"])
-        count = count/len(average_rating)
+    for i in range(len(user_data["watched"])):
+        count += (user_data["watched"][i]["rating"])
+        average_rating = count/len(user_data["watched"])
     return average_rating
 
-# def get_most_watched_genre(user_data):
-
-
+def get_most_watched_genre(user_data):
+    for i in range(len(user_data["watched"])):
+        popular_genre = []
+        if popular_genre == []:
+            return None
 
 """
 # THIS IS THE WORK OF A GROUP
