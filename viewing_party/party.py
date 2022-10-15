@@ -69,11 +69,10 @@ def get_unique_watched(user_data):
     unique_watched = []
     friends_movies = set()
     users_movies = set()
-    # user_data is a dictionary with a "watched"
-    # list of movie dictionaries and a "friends"
-    # dictionary. We want to access the "friends" dictionary.
+    # We want to access "friends"
     # and for every friend in there, we want to 
-    # access a movie in their "watched" dictionary.
+    # access a movie in their "watched" list of
+    # movie dictionaries.
     for friend in user_data["friends"]:
         for movie in friend["watched"]:
             friends_movies.add(movie["title"])
