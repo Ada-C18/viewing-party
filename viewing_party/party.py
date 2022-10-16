@@ -31,7 +31,7 @@ def watch_movie(user_data, title):
 # ------------- WAVE 2 --------------------
 # -----------------------------------------
 
-# my own work
+# my own work with the help of tutor
 def get_watched_avg_rating(user_data):
     count = 0
     average_rating = 0
@@ -42,13 +42,34 @@ def get_watched_avg_rating(user_data):
     return average_rating
 
 def get_most_watched_genre(user_data):
-    for i in range(len(user_data["watched"])):
-        popular_genre = []
-        if popular_genre == []:
-            return None
+    genre_fave = [] # ['Fantasy', 'Fantasy', 'Fantasy', 'Action', 'Intrigue', 'Intrigue']
+    count = 0
+    current_highest = ""
+    
+    for users_list in user_data["watched"]:
+        genre_fave.append(users_list["genre"])
+        
+    for element in genre_fave:
+        if count < genre_fave.count(element): # count = 0 vs action=1
+            current_highest = element
+            count = genre_fave.count(element) # =1
+
+    if len(user_data["watched"]) == 0:
+        return None
+
+    return current_highest
+    # print(count, current_highest)
+    # for i in range(len(user_data["watched"])):
+    #     popular_genre = []
+    #     if popular_genre == []:
+    #         return None
+    #     elif i not in popular_genre:
+    #         popular_genre.append(i)
+    
+    # return popular_genre
 
 """
-# THIS IS THE WORK OF A GROUP
+THIS IS THE WORK OF A GROUP
 def get_watched_avg_rating(user_data):
     sum = 0
     average = 0
@@ -61,7 +82,6 @@ def get_watched_avg_rating(user_data):
 def get_most_watched_genre(user_data):
     index = 0
     genres = []
-    least_popular = []
     most_popular = []
     if user_data == {"watched":[]}:
         return None
@@ -70,10 +90,7 @@ def get_most_watched_genre(user_data):
             index +=1
             genres.append(user_data["watched"][index-1]["genre"])
         for item in genres:
-            if item not in least_popular:
-                least_popular.append(item)
-            else:
-                most_popular.append(item)
+            most_popular.append(item)
         return (most_popular[0])
 """
 
