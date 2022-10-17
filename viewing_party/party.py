@@ -171,7 +171,6 @@ def get_available_recs(user_data):
     for movie in user_data["watched"]:
             user_watched_list.append(movie["title"])
 
-
     for num in range(0, len(user_data["friends"])):
             for movie in user_data["friends"][num]["watched"]:
                 friends_watched_list.append(movie["title"])
