@@ -52,31 +52,25 @@ def get_watched_avg_rating(user_data):
 
 def get_most_watched_genre(user_data): 
 
-    genres_list= []
-    genre_frequency = []
-
     if len(user_data["watched"]) == 0:
             return None
 
+    genre_count = {}
     for movie in user_data["watched"]:
-        genres_list.append(movie["genre"])
+        genre = movie["genre"]
+        if genre in genre_count.keys():
+            genre_count[genre] += 1
+        else:
+            genre_count[genre] = 1
     
-    for genre in genres_list:
-        num = genres_list.count(genre)
-        genre_frequency.append(num)
-    
-    first_number = genre_frequency[0]
-
-    for number in genre_frequency:
-        if number > first_number:
-            first_number = number
-
-    most_watched_index = genre_frequency.index(first_number)
-    most_watched_genre = genres_list[most_watched_index]
+    max_genre_count = 0
+    most_watched_genre = ""
+    for genre, count in genre_count.items():
+        if count > max_genre_count:
+            max_genre_count = count
+            most_watched_genre = genre
     
     return most_watched_genre  
-
-
 # -----------------------------------------
 # ------------- WAVE 3 --------------------
 # -----------------------------------------
