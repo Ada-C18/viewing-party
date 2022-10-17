@@ -5,19 +5,18 @@
 import collections
 
 def generate_user_dict(user_info,dict_key): #makes the dict of user watched movies
-    a_dict={}
-    for entry in user_info[dict_key]:
-        a_dict[entry["title"]]=entry
+    a_dict={entry["title"]:entry for entry in user_info[dict_key]}
+    #for entry in user_info[dict_key]:
+        #a_dict[entry["title"]]=entry
     return a_dict
 def generate_friends_dict(user_info): #makes the dict of friend watched movies
-    a_dict={}
-    for count in user_info["friends"]:
-        for entry in count["watched"]:
-            a_dict[entry["title"]]=entry
+    a_dict={entry["title"]:entry for count in user_info["friends"] for entry in count["watched"]}
+    #for count in user_info["friends"]:
+        #for entry in count["watched"]:
+            #a_dict[entry["title"]]=entry
     return a_dict
 def make_set_from_dict_keys(a_dict): #makes a set of movie titles from keys of movie list
-    return_set=set(key for key in a_dict.keys())
-    return return_set
+    return set(key for key in a_dict.keys())
 def list_dif_of_p1(set1, set2): #finds dif of s1 s2
     return list(set1.difference(set2))
 def generate_movie_list(title_list,title_dict):
