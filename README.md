@@ -2,7 +2,7 @@
 
 ## Skills Assessed
 
-Solving problems with...
+Solving problems with:
 
 - Conditional logic
 - Lists
