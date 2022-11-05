@@ -8,10 +8,9 @@ def create_movie(title, genre, rating):
     return movie_dict
 
 def add_to_watched(user_data, movie):
-    new_watched_list = user_data["watched"]
-    new_watched_list.append(movie)
-    user_data["watched"] = new_watched_list
+    user_data["watched"].append(movie)
     return user_data
+
 
 def add_to_watchlist(user_data, movie):
     new_watchlist_list = user_data["watchlist"]
