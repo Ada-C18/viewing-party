@@ -35,8 +35,8 @@ def get_watched_avg_rating(user_data):
         return 0.0
     sum_of_ratings = 0
     for movie in watched_movies_list:
-        movie_rating = movie["rating"]
-        sum_of_ratings+= movie_rating
+        sum_of_rating += movie["rating"]
+
     
     return sum_of_ratings/len(watched_movies_list)
 
