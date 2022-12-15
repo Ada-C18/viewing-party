@@ -145,7 +145,7 @@ def get_available_recs(user_data):
 # -----------------------------------------
 # ------------- WAVE 5 --------------------
 # -----------------------------------------
-
+"testymctesttest"
 def get_new_rec_by_genre(user_data):
 
     favorite_genre = get_most_watched_genre(user_data)
