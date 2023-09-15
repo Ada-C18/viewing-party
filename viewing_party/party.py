@@ -20,9 +20,6 @@ def add_to_watchlist(user_data, movie):
     
     return user_data 
 
-
-
-# create function that takes two parameters
 def watch_movie(user_data, title):
     user_watchlist = user_data["watchlist"]
     user_watched = user_data["watched"]
@@ -31,8 +28,6 @@ def watch_movie(user_data, title):
             user_watched.append(movie)
             user_watchlist.remove(movie)
     return user_data
-    
-    
 
 # -----------------------------------------
 # ------------- WAVE 2 --------------------
@@ -45,13 +40,11 @@ def get_watched_avg_rating(user_data):
     watched = user_data["watched"]
     avg_rating = []
 
-    
     for movie in watched:
         avg_rating.append(movie["rating"])
         
     average = sum(avg_rating) / len(avg_rating)
     return average
-    
 
 def get_most_watched_genre(user_data):
     if not user_data or not user_data["watched"]:
@@ -76,6 +69,7 @@ def get_most_watched_genre(user_data):
 # -----------------------------------------
 # ------------- WAVE 3 --------------------
 # -----------------------------------------
+
 def get_unique_watched(user_data):  
     friend_movie =[]
     user_watched = user_data["watched"]
@@ -107,7 +101,6 @@ def get_friends_unique_watched(user_data):
             
     return friend_movie
 
-        
 # -----------------------------------------
 # ------------- WAVE 4 --------------------
 # -----------------------------------------
@@ -129,11 +122,11 @@ def get_available_recs(user_data):
                 friend_rec.append(movie)
 
     return friend_rec
-    
 
 # -----------------------------------------
 # ------------- WAVE 5 --------------------
 # -----------------------------------------
+
 def get_new_rec_by_genre(user_data):
     """
     create friend_movie list with only movies with fav_genre
@@ -156,7 +149,6 @@ def get_new_rec_by_genre(user_data):
             if movie["genre"] == fav_genre and movie not in user_movie:
                 rec_genre_movies.append(movie)
     return rec_genre_movies
-
 
 def get_rec_from_favorites(user_data):
     user_favs = []
