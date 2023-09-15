@@ -55,7 +55,7 @@ $ python3 -m venv venv
 6. Activate this environment:
 
 ```bash
-$ source venv/bin/activate
+$ source venv/bin/activate (does not work for Windows??)
 ```
 
 Verify that you're in a python3 virtual environment by running:
@@ -76,7 +76,7 @@ Summary of one-time project setup:
 - [ ] Clone the project onto your machine
 - [ ] `cd` into the `viewing-party` folder
 - [ ] Create the virtual environment `venv`
-- [ ] Activate the virtual environment `venv`
+- [ ] Activate the virtual environment `venv` (skip if on Windows??)
 - [ ] Install the dependencies with `pip`
 
 ## Project Development Workflow
@@ -86,7 +86,7 @@ We will use a Test Driven Development programming workflow to work on this proje
 1. When you want to begin work on this project, ensure that your virtual environment is activated:
 
 ```bash
-$ source venv/bin/activate
+$ source venv/bin/activate (does not work for Windows??)
 ```
 
 2. Check the `tests` folder, and find the test file you want to run
