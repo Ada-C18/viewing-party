@@ -160,14 +160,12 @@ def get_rec_from_favorites(user_data):
     user_favs = []
     friends_movies = []
     
-    # while len(user_data["friends"][0]["watched"]) > 0:
     for friend in user_data["friends"]:
         for movie in friend["watched"]:
             friends_movies.append(movie)
 
-    # while len(user_data["favorites"]) > 0:
     for movie in user_data["favorites"]:
         if movie not in friends_movies:
             user_favs.append(movie)
     return user_favs
-    # return user_favs
+    
