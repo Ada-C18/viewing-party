@@ -118,11 +118,12 @@ def get_friends_unique_watched(user_data):
 # -----------------------------------------
 
 def get_available_recs(user_data):
-    #create user_only movie list
-    #create friends_only movie list
-    #compare user and friend movie lists: remove user movies from friend list = recom_movies
-    #comopare recom_movies to user host: remove any movies not in user host/subscription
-    
+    """
+    create user_only movie list
+    create friends_only movie list
+    compare user and friend movie lists: remove user movies from friend list = recom_movies
+    compare recom_movies to user host: remove any movies not in user host/subscription
+    """
     friend_rec = []
     user_watched = user_data["watched"]
     friends = user_data["friends"]
