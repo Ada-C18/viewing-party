@@ -150,14 +150,13 @@ def get_new_rec_by_genre(user_data):
     # find user most freq genre = fav_genre
     fav_genre = get_most_watched_genre(user_data)
     
-    
     user_movie = user_data["watched"]
     for friend in user_data["friends"]:
         for movie in friend["watched"]:
             if movie["genre"] == fav_genre and movie not in user_movie:
                 rec_genre_movies.append(movie)
     return rec_genre_movies
-    
+
 
 def get_rec_from_favorites(user_data):
     user_favs = []
