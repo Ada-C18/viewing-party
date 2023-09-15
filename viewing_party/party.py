@@ -91,11 +91,9 @@ def get_unique_watched(user_data):
     return user_movie
 
 def get_friends_unique_watched(user_data):
-    user_movie = []
     friend_movie = []
     user_watched = user_data["watched"]
-    for movie in user_watched:
-        user_movie.append(movie)
+    user_movie = [movie for movie in user_watched]
 
     friends_watched = user_data["friends"]
     for movie in friends_watched:
