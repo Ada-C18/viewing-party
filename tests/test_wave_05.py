@@ -57,11 +57,6 @@ def test_new_genre_rec_from_empty_friends():
     
     #Assert 
     assert len(recommendations) == 0
-    
-    # raise Exception("Test needs to be completed.")
-    # *********************************************************************
-    # ****** Complete the Act and Assert Portions of theis tests **********
-    # *********************************************************************
 
 # @pytest.mark.skip()
 def test_unique_rec_from_favorites():
